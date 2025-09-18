@@ -1,19 +1,33 @@
-.env
-/frontui
-/development
-
-/vibe-code/node_modules  # 의존성 폴더 제외: Git에 불필요하며, npm install로 재생성 가능. 왜? 리포지토리 크기 줄이고, 모듈화된 의존성 관리를 위해.
-/vibe-code/.next  # Next.js 빌드 캐시 제외: 개발 중 생성되는 임시 파일로, 배포 시 재빌드됨. 왜? GitHub 파일 크기 제한 피하고, 불필요한 추적 방지.
-/vibe-code/dist  # 만약 배포 빌드 폴더가 있다면 제외: 빌드 결과물은 Git에 포함하지 않음. 왜? 프로젝트 모듈화에서 빌드 아티팩트를 분리하여 효율성 높임.
-.env
-/frontui
-/development
-# ... existing code ... (기존 제외 항목 유지: .env, /frontui, /development)
-
-/vibe-code/node_modules  # 의존성 폴더 제외: Git에 불필요하며, npm install로 재생성 가능. 왜? 리포지토리 크기 줄이고, 모듈화된 의존성 관리를 위해.
-/vibe-code/.next  # Next.js 빌드 캐시 제외: 개발 중 생성되는 임시 파일로, 배포 시 재빌드됨. 왜? GitHub 파일 크기 제한 피하고, 불필요한 추적 방지.
-/vibe-code/dist  # 만약 배포 빌드 폴더가 있다면 제외: 빌드 결과물은 Git에 포함하지 않음. 왜? 프로젝트 모듈화에서 빌드 아티팩트를 분리하여 효율성 높임.
-
-# 추가 팁: 다른 임시 파일 제외 (선택사항)
-*.log
-.DS_Store
+- .env
+- /frontui
+- /development
+- 
+- /vibe-code/node_modules  # 의존성 폴더 제외: Git에 불필요하며, npm install로 재생성 가능. 왜? 리포지토리 크기 줄이고, 모듈화된 의존성 관리를 위해.
+- /vibe-code/.next  # Next.js 빌드 캐시 제외: 개발 중 생성되는 임시 파일로, 배포 시 재빌드됨. 왜? GitHub 파일 크기 제한 피하고, 불필요한 추적 방지.
+- /vibe-code/dist  # 만약 배포 빌드 폴더가 있다면 제외: 빌드 결과물은 Git에 포함하지 않음. 왜? 프로젝트 모듈화에서 빌드 아티팩트를 분리하여 효율성 높임.
+- .env
+- /frontui
+- /development
+- # ... existing code ... (기존 제외 항목 유지: .env, /frontui, /development)
+- 
+- /vibe-code/node_modules  # 의존성 폴더 제외: Git에 불필요하며, npm install로 재생성 가능. 왜? 리포지토리 크기 줄이고, 모듈화된 의존성 관리를 위해.
+- /vibe-code/.next  # Next.js 빌드 캐시 제외: 개발 중 생성되는 임시 파일로, 배포 시 재빌드됨. 왜? GitHub 파일 크기 제한 피하고, 불필요한 추적 방지.
+- /vibe-code/dist  # 만약 배포 빌드 폴더가 있다면 제외: 빌드 결과물은 Git에 포함하지 않음. 왜? 프로젝트 모듈화에서 빌드 아티팩트를 분리하여 효율성 높임.
+- 
+- # 추가 팁: 다른 임시 파일 제외 (선택사항)
+- *.log
+- .DS_Store
++ # 프로젝트 루트 레벨 설정
++ .env
++ /frontui
++ /development
++ *.log
++ .DS_Store
++ 
++ # vibe-code 프로젝트 관련 제외 설정
++ /vibe-code/node_modules
++ /vibe-code/.next
++ /vibe-code/dist
++ 
++ # Next.js SWC 바이너리 파일 제외 (대용량)
++ /vibe-code/node_modules/@next/swc*
