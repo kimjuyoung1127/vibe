@@ -32,9 +32,7 @@ const TopNav = () => {
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40">search</span>
             <input className="h-10 w-40 max-w-xs rounded-lg border-none bg-primary/10 pl-10 text-sm text-black ring-primary/20 transition-all focus:w-64 focus:ring-2 dark:bg-primary/20 dark:text-white dark:ring-primary/40" placeholder="Search" />
           </div>
-          <button className="flex h-10 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-primary/40">
-            <span className="truncate">New Project</span>
-          </button>
+        
           <div className="size-10 rounded-full bg-cover bg-center" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg")' }}></div>
           
           {/* Mobile menu button */}

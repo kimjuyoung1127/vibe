@@ -6,7 +6,7 @@ import React from 'react';
 
 const SearchAndFilter = () => {
   return (
-    <div className="mb-8 p-4 rounded-xl bg-background-light/50 dark:bg-background-dark/50 border border-primary/20 dark:border-primary/30 flex flex-wrap items-center justify-center gap-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+    <div className="p-4 rounded-xl bg-background-light/50 dark:bg-background-dark/50 border border-primary/20 dark:border-primary/30 flex flex-wrap items-center justify-center gap-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
       {/* Search input */}
       <div className="relative flex-grow max-w-xs">
         <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary">search</span>

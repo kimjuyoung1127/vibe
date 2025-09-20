@@ -6,6 +6,7 @@ import React from 'react';
 import ProjectCard from './ProjectCard';
 import SearchAndFilter from './SearchAndFilter';
 import Pagination from './Pagination';
+import NewProjectButton from '../components/NewProjectButton';
 
 // Define the type for a project item
 interface ProjectItem {
@@ -66,19 +67,23 @@ const ProjectsShowcase = () => {
         </p>
       </div>
       
-      {/* Search and filter section */}
-      <SearchAndFilter />
+      {/* Search, filter, and new project button */}
+      <div className="mb-8 flex items-center justify-between gap-4">
+        <SearchAndFilter />
+        <NewProjectButton isCollapsed={false} />
+      </div>
       
       {/* Projects grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Map through project items to create cards */}
         {projectItems.map((project) => (
-          <ProjectCard 
-            key={project.id}
-            title={project.title}
-            description={project.description}
-            imageUrl={project.imageUrl}
-          />
+          <a key={project.id} href={`/projects/${project.id}`}>
+            <ProjectCard 
+              title={project.title}
+              description={project.description}
+              imageUrl={project.imageUrl}
+            />
+          </a>
         ))}
       </div>
       

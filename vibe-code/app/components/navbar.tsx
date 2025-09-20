@@ -49,16 +49,7 @@ const Navbar = () => {
           ))}
         </nav>
       </div>
-      <button 
-        onClick={toggleSidebar}
-        className="flex h-10 w-full items-center justify-center whitespace-nowrap rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-primary/40"
-      >
-        {isCollapsed ? (
-          <span className="material-symbols-outlined">menu</span>
-        ) : (
-          <span className="truncate">New Project</span>
-        )}
-      </button>
+
     </aside>
   );
 };
