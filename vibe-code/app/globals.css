@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 13 166 242;
+    --background-light: 245 247 248;
+    --background-dark: 16 28 34;
+  }
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Custom styles for Vibe Code */
+.bg-primary {
+  background-color: rgb(var(--primary));
+}
+
+.text-primary {
+  color: rgb(var(--primary));
+}
+
+.border-primary {
+  border-color: rgb(var(--primary));
+}
+
+.bg-background-light {
+  background-color: rgb(var(--background-light));
+}
+
+.bg-background-dark {
+  background-color: rgb(var(--background-dark));
+}

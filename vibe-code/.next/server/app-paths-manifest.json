@@ -1,7 +1,5 @@
 {
-  "/showcase/page": "app/showcase/page.js",
-  "/showcase/[id]/page": "app/showcase/[id]/page.js",
-  "/gear/page": "app/gear/page.js",
-  "/news/page": "app/news/page.js",
-  "/community/page": "app/community/page.js"
+  "/not-found": "app/not-found.js",
+  "/projects/page": "app/projects/page.js",
+  "/page": "app/page.js"
 }

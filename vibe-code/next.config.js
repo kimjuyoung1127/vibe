@@ -1,8 +1,11 @@
+// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
-    unoptimized: true,
+    domains: ['placehold.co'],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
