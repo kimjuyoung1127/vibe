@@ -21,6 +21,7 @@
 + .env
 + /frontui
 + /development
++ /stich_homepage
 + *.log
 + .DS_Store
 + 

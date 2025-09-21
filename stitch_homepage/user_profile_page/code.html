@@ -1,0 +1,390 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex h-auto min-h-screen w-full flex-col bg-white group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f5f1f0] px-10 py-3">
+          <div class="flex items-center gap-8">
+            <div class="flex items-center gap-4 text-[#181311]">
+              <div class="size-4">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h2 class="text-[#181311] text-lg font-bold leading-tight tracking-[-0.015em]">Vibe Code</h2>
+            </div>
+            <div class="flex items-center gap-9">
+              <a class="text-[#181311] text-sm font-medium leading-normal" href="#">Home</a>
+              <a class="text-[#181311] text-sm font-medium leading-normal" href="#">Projects</a>
+              <a class="text-[#181311] text-sm font-medium leading-normal" href="#">Community</a>
+              <a class="text-[#181311] text-sm font-medium leading-normal" href="#">News</a>
+            </div>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <label class="flex flex-col min-w-40 !h-10 max-w-64">
+              <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                <div
+                  class="text-[#8a6e60] flex border-none bg-[#f5f1f0] items-center justify-center pl-4 rounded-l-lg border-r-0"
+                  data-icon="MagnifyingGlass"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
+                    ></path>
+                  </svg>
+                </div>
+                <input
+                  placeholder="Search"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#181311] focus:outline-0 focus:ring-0 border-none bg-[#f5f1f0] focus:border-none h-full placeholder:text-[#8a6e60] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                  value=""
+                />
+              </div>
+            </label>
+            <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f46a25] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">New Project</span>
+            </button>
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCosUHO8x7wKcpsNT7u7cb8UhnZcQt18X-cRfOIgUpB_U7HJkCs5oUm_0QNWfv-iq-gd-h-7idmFyfwe9tXIXI4vNLpm1gEGwXZkhY78Djj1u0CvzxLsTOuXEtO7ndphqrZBLknZGJKORKaY9vF-kDi1e9K9baFHAwUUT5RKK-mNdfjSg0wyGxANQl3Xs7Ulmkv7ASN9xKao-yi9lYA4HOjc_MUqrXAPg5OuD0rShD2ipMYsF0dEJPuS2yimAaxNpNQM6J_cOjlAaWE");'
+            ></div>
+          </div>
+        </header>
+        <div class="gap-1 px-6 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col w-80">
+            <div class="flex h-full min-h-[700px] flex-col justify-between bg-white p-4">
+              <div class="flex flex-col gap-4">
+                <div class="flex gap-3">
+                  <div
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAlwqKqIvDMU2MfataFcydUgEJCJYpQ_9qtN1iD8AcJpmJ0Fp_HanGMIqHMUNY9_1RGorJZMKMiQGSwRHmRrXn3rrrJI4Cg_NmONVKVpDYmoJcXLazjbb2aoS5IAAM_agO2R0Qo5uWeZiciymvKxfZEA6R1R_Se34lZes8wbtKtUgv6TBPC1xaxS8tz2ZCjdZrgd2Zn_mKRRqPAcSrURuU1hFeEc2KYXZYmgp4oMs_YPA7Pznw7MyGBCzdG5nVObr4fzHqKsF-B_kTH");'
+                  ></div>
+                  <div class="flex flex-col">
+                    <h1 class="text-[#181311] text-base font-medium leading-normal">Ava Harper</h1>
+                    <p class="text-[#8a6e60] text-sm font-normal leading-normal">Software Engineer</p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#f5f1f0]">
+                    <div class="text-[#181311]" data-icon="House" data-size="24px" data-weight="fill">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-[#181311] text-sm font-medium leading-normal">Home</p>
+                  </div>
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-[#181311]" data-icon="Code" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-[#181311] text-sm font-medium leading-normal">Projects</p>
+                  </div>
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-[#181311]" data-icon="Users" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-[#181311] text-sm font-medium leading-normal">Community</p>
+                  </div>
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-[#181311]" data-icon="Newspaper" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-[#181311] text-sm font-medium leading-normal">News</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex p-4 @container">
+              <div class="flex w-full flex-col gap-4 items-center">
+                <div class="flex gap-4 flex-col items-center">
+                  <div
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBBGF46xZ2pnnodDTj1SOBKH3ggOabvy7-_54vzghP4Bo_9qgMCBOH-3granDzYrqVw8Imjri8v4lj5LiPFYhGnyhvOThwdCUUA_wIPmLX8SZDDivoEmnBFxyWJhxLlfKW6Wf96tNhLrYV6u6L_dqca1GN5EaYvB7-X1kNfT_p17n6AkTIDq1BNnmu-eGKaCd1_rJI35EJLJA5ci7_rNKAVmGX5Maqqn04YJ18qYY6eBZdKPdxD7fMCqK_B2UeVtAN2ZbqcLONsIOKQ");'
+                  ></div>
+                  <div class="flex flex-col items-center justify-center justify-center">
+                    <p class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">Ava Harper</p>
+                    <p class="text-[#8a6e60] text-base font-normal leading-normal text-center">Software Engineer</p>
+                    <p class="text-[#8a6e60] text-base font-normal leading-normal text-center">
+                      Passionate about creating innovative solutions and contributing to the open-source community.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f5f1f0] text-[#181311] text-sm font-bold leading-normal tracking-[0.015em] w-full max-w-[480px] @[480px]:w-auto"
+                >
+                  <span class="truncate">Edit Profile</span>
+                </button>
+              </div>
+            </div>
+            <div class="pb-3">
+              <div class="flex border-b border-[#e6dfdb] px-4 gap-8">
+                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#181311] text-[#181311] pb-[13px] pt-4" href="#">
+                  <p class="text-[#181311] text-sm font-bold leading-normal tracking-[0.015em]">Posts</p>
+                </a>
+                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8a6e60] pb-[13px] pt-4" href="#">
+                  <p class="text-[#8a6e60] text-sm font-bold leading-normal tracking-[0.015em]">Comments</p>
+                </a>
+                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8a6e60] pb-[13px] pt-4" href="#">
+                  <p class="text-[#8a6e60] text-sm font-bold leading-normal tracking-[0.015em]">Vibe Checks Received</p>
+                </a>
+                <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#8a6e60] pb-[13px] pt-4" href="#">
+                  <p class="text-[#8a6e60] text-sm font-bold leading-normal tracking-[0.015em]">Vibe Checks Given</p>
+                </a>
+              </div>
+            </div>
+            <h2 class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">My Projects</h2>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+              <div class="flex flex-col gap-3 pb-3">
+                <div
+                  class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBTjMZt_7dRbiyp78RMDre0kgxmNgUKlAiJeWa6BoZXE01xhh4zAb3fUtgp7ANuMc2_FvloWPaU0dnFSIvWIyGItnVHRLwQCO8mLMe4ZBOHdCOBFh3JLiIWUm66IOpbU1KAe4_dmXcer3-5Uj0qKiPmzEuRxof7i54FdW_wI2DSSj9OlP7Pm9lhyBCQHvwVJxl_10PQ29P7j7CpGmOslXPis1xV0s5FQkxnOo0gGbd7hzo3itvkV0qEfLkovl2CbK7TSBqxV7Imlm84");'
+                ></div>
+                <div>
+                  <p class="text-[#181311] text-base font-medium leading-normal">Project: Code Weaver</p>
+                  <p class="text-[#8a6e60] text-sm font-normal leading-normal">A visual coding tool for beginners.</p>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3 pb-3">
+                <div
+                  class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDoCiFmYmIM8DszxQVSVvmDK4_0t-fyDFONlJjLzZGytUCi-J6JQhceevUAc0EsjiJuoTkc46ZEcDDn8noE3_G1PbL4q3AVDZuE2udjLU57RXnaFffgmowO_PiSX48fIfg9iDdjRRZkV8uDr3f88Jo7TnPVwkJ1prjlg4CvMZfRbdZAqeM8CWAlK6seoSTbXJnxzRbr656aIDwe1TgGdSCORWr8rueVJ1m9yexhOq9P39LgY2Ando52qOHfwBgZ7RwcJmKZU9Ne4Msr");'
+                ></div>
+                <div>
+                  <p class="text-[#181311] text-base font-medium leading-normal">Project: Pixel Pulse</p>
+                  <p class="text-[#8a6e60] text-sm font-normal leading-normal">A dynamic pixel art editor.</p>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3 pb-3">
+                <div
+                  class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCa5Dy_q6CfLwIUJgg6ZaQtZL2wVAq__vHl5h9-iMrPGD9uAP_Nqe-8a5Sg4MYUfgmDfur4fcAkT_o7fr3CThuayK4400vlJGlI1npk6PUkZHNoB84GjGhtDp4p7XbRJ9rCHFXodzNpawGynz6WVjLXnFKrcQl3iAVtpUuwGasdsVfnX-vhsOqerlFIveqcSVDAwr-n0yZntd6BfxOUHOlzI9Qk3-nnuVdYudzwJ9oNF_OpLNBEMxxXWUdBZdb3G6bCPwfELxqc9wO7");'
+                ></div>
+                <div>
+                  <p class="text-[#181311] text-base font-medium leading-normal">Project: Binary Bloom</p>
+                  <p class="text-[#8a6e60] text-sm font-normal leading-normal">A generative art project using code.</p>
+                </div>
+              </div>
+            </div>
+            <h2 class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">My Reviews</h2>
+            <div class="flex flex-col gap-8 overflow-x-hidden bg-white p-4">
+              <div class="flex flex-col gap-3 bg-white">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAVXeh_HvBVO8gclfbm33WCReYSmRZQm03guvnIfCRoI0LyIeqioaRmCyLlu2yO1NNQS0LrwbEoHs_8K_7rqWiXgZ91V0Ss2ziCCcxes5XZ0hH63vF3kLVNLFtvcM08F1fuBzaaxfOTwEZ5PSK0aWzKVspaq8nqZDpnke3t3UJkzjy8sZfO-GGYszTKrogjqdvySS4gVRbjtcl8goW9MlmbM0sSwv9rEkU1u297N31B-toPGs8CzzblT--3evGs_MNQbIa1iUFLO2_s");'
+                  ></div>
+                  <div class="flex-1">
+                    <p class="text-[#181311] text-base font-medium leading-normal">Sophia Bennett</p>
+                    <p class="text-[#8a6e60] text-sm font-normal leading-normal">2 weeks ago</p>
+                  </div>
+                </div>
+                <div class="flex gap-0.5">
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <p class="text-[#181311] text-base font-normal leading-normal">
+                  Ava's project, Code Weaver, is an excellent tool for beginners. The visual interface makes coding accessible and fun. Highly recommended!
+                </p>
+                <div class="flex gap-9 text-[#8a6e60]">
+                  <button class="flex items-center gap-2">
+                    <div class="text-inherit" data-icon="ThumbsUp" data-size="20px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-inherit">15</p>
+                  </button>
+                  <button class="flex items-center gap-2">
+                    <div class="text-inherit" data-icon="ThumbsDown" data-size="20px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-inherit">2</p>
+                  </button>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3 bg-white">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBFhcjBqAmC9FiSdXYHMSEXFQ_ok9xc9I6GuStdHnHw14f-u6taTZ265tC0y-5tdc6MffW952K6iDqGIvj_1ZZb1uUqLdxwKcUWbzll5EQKzjOk5veNoHfiI6HkQwc4qNQFZ-Yew-CTI3EkVAMEATiw8WhmRCiGC-wLZCQCXptjCa0KKXmUmgmS4Gx-rU92W8uk_7emofk9aR2KTr7hbKl4SOPyA-nvm9o6O8jbI17OMfj4yPjR0fR68qBoJ7GLqtU00ignazlE4fuM");'
+                  ></div>
+                  <div class="flex-1">
+                    <p class="text-[#181311] text-base font-medium leading-normal">Liam Carter</p>
+                    <p class="text-[#8a6e60] text-sm font-normal leading-normal">1 month ago</p>
+                  </div>
+                </div>
+                <div class="flex gap-0.5">
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#181311]" data-icon="Star" data-size="20px" data-weight="fill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-[#cfc1ba]" data-icon="Star" data-size="20px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <p class="text-[#181311] text-base font-normal leading-normal">
+                  Pixel Pulse is a solid pixel art editor. It has a good range of features, but could use some more advanced options.
+                </p>
+                <div class="flex gap-9 text-[#8a6e60]">
+                  <button class="flex items-center gap-2">
+                    <div class="text-inherit" data-icon="ThumbsUp" data-size="20px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-inherit">8</p>
+                  </button>
+                  <button class="flex items-center gap-2">
+                    <div class="text-inherit" data-icon="ThumbsDown" data-size="20px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <path
+                          d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <p class="text-inherit">1</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <h2 class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">My Comments</h2>
+            <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWQwpbTWyE5u7uoMpi0MIhKIqXL10IW_yhpSDg10wxj8XlNXSuAAxOpT72Uf0xu8KnB0t5fb_kZYf8F7Tpmaugm4VMAc3HbWxDAb9fhU-D9kF8vaJlVbMhkC_6UiQr2itmgL9YoU3gS8zKH0_ujZLIlYotcRv3loz2X7kwAXlAlb9PM-NWft0y7uXARJmaNrkwn6awrnKb36UG7COAe8TNx4vyDEdkv-Zw9RyoczvdprX1GsEZ3FMlAjzrQ3VqAcfmN43zlctMGi5Y");'
+              ></div>
+              <div class="flex h-full flex-1 flex-col items-start justify-start">
+                <div class="flex w-full flex-row items-start justify-start gap-x-3">
+                  <p class="text-[#181311] text-sm font-bold leading-normal tracking-[0.015em]">Ava Harper</p>
+                  <p class="text-[#8a6e60] text-sm font-normal leading-normal">2 weeks ago</p>
+                </div>
+                <p class="text-[#181311] text-sm font-normal leading-normal">
+                  Thanks for the feedback, Sophia! I'm glad you found Code Weaver helpful. We're always looking for ways to improve, so your input is valuable.
+                </p>
+              </div>
+            </div>
+            <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
+              <div
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCrvhRBEZ9QxNo0EaQ5Xy_RksU0YF_r_pwr5vNjB_6miEESYKS14U13PvTg9ZNOwaCVieuKiX10JFG3gWPrsdvJ1wDMV40-7if4TgALzpEdiG5n7nGTCgVt_CJb7fYb5Tr_iTiTc9NPw6h8lDDW1AFPf7NY2Wxe8uaDemHIfl5Bi-fyQM3tG861qwuqgEgCiPRmb5hkhc8ClY_dz6wB7ZVmM3mGf2-tZ-jnnc6pC673NW59tMHqCez7e3wvOevfCPR822WFBmW7B-fK");'
+              ></div>
+              <div class="flex h-full flex-1 flex-col items-start justify-start">
+                <div class="flex w-full flex-row items-start justify-start gap-x-3">
+                  <p class="text-[#181311] text-sm font-bold leading-normal tracking-[0.015em]">Ava Harper</p>
+                  <p class="text-[#8a6e60] text-sm font-normal leading-normal">1 month ago</p>
+                </div>
+                <p class="text-[#181311] text-sm font-normal leading-normal">
+                  Liam, thanks for your review of Pixel Pulse. We appreciate your feedback on the need for more advanced features. We're working on adding those in a future update.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

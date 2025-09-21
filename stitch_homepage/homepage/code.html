@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>Vibe Code</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0da6f2",
+              "background-light": "#f5f7f8",
+              "background-dark": "#101c22",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="group/design-root relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-light/80 px-10 py-3 backdrop-blur-sm dark:bg-background-dark/80">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 16.5c-3 0-5.5-1-5.5-6 0-5 2.5-6 5.5-6 3 0 5.5 1 5.5 6 0 4-2 6-5.5 6.5z"></path>
+<path d="M15 16.5c4 0 6.5-1.5 6.5-6"></path>
+<path d="M2.5 22c5 0 8.5-1.5 8.5-6 0-4.5-3.5-6-8.5-6-5 0-8.5 1.5-8.5 6 0 4.5 3.5 6 8.5 6z"></path>
+<path d="M2.5 11c-3.5 0-6.5-1.5-6.5-6"></path>
+</svg>
+<h2 class="text-lg font-bold tracking-tighter text-black dark:text-white">Vibe Code</h2>
+</div>
+<nav class="hidden items-center gap-6 text-sm font-medium lg:flex">
+<a class="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Home</a>
+<a class="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Projects</a>
+<a class="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">News</a>
+<a class="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Community</a>
+<a class="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Resources</a>
+</nav>
+</div>
+<div class="flex items-center justify-end gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40"> search </span>
+<input class="h-10 w-40 max-w-xs rounded-lg border-none bg-primary/10 pl-10 text-sm text-black ring-primary/20 transition-all focus:w-64 focus:ring-2 dark:bg-primary/20 dark:text-white dark:ring-primary/40" placeholder="Search"/>
+</div>
+<button class="flex h-10 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-primary/40">
+<span class="truncate">New Project</span>
+</button>
+<div class="size-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg");'></div>
+</div>
+</header>
+<div class="flex flex-1">
+<aside class="sticky top-[61px] hidden h-[calc(100vh-61px)] w-72 flex-col justify-between border-r border-primary/20 bg-background-light p-4 dark:bg-background-dark lg:flex">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9hObyn2gW7Bz7eMWI1H9ewEyue6S8iS83-Fzb5ePmp41f4i6tgyX-J1nO9Hl5zh3ta8XzBM4UbJ4523HCiuSyJ96y2PpwuXLnibaJmReZwqKenYrxdmMfnh5ZNsMU5ouTIJCsKOqfxWaMhsJHSb3MRGLuMjv_w11vz0poV4y6uKDZlfqSotWLrIr1z0Ru-Rty1XEIlPO180irzteXkV_cejqXBcxCYn77nMLMjN347eQ1REZ70u9-wJ7CfXKBCQYIcyT9bXuUTQ");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold text-black dark:text-white">Sophia Carter</h1>
+<p class="text-sm text-black/60 dark:text-white/60">@sophia_carter</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-primary dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined"> home </span>
+<p class="text-sm font-medium">Home</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined"> code </span>
+<p class="text-sm font-medium">Projects</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined"> newspaper </span>
+<p class="text-sm font-medium">News</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined"> groups </span>
+<p class="text-sm font-medium">Community</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined"> bookmark </span>
+<p class="text-sm font-medium">Resources</p>
+</a>
+</nav>
+</div>
+<button class="flex h-10 w-full items-center justify-center whitespace-nowrap rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-primary/40">
+<span class="truncate">New Project</span>
+</button>
+</aside>
+<main class="flex-1 overflow-y-auto">
+<div class="p-4 @container md:p-6 lg:p-8">
+<div class="relative flex min-h-[400px] flex-col items-start justify-end gap-6 overflow-hidden rounded-xl bg-cover bg-center p-8 shadow-2xl shadow-primary/20" style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsn1yYHxHFIcHHre3E1pN6kwAUxze5gEIIU1E7ffYilOLRgoMo7HEiytwIgCbSKDa--yW123iS39MSS3RlOVv4xFPb_qdOxRWcPafCD3TskQZY2jzd6ifBHQg5tzDDpbCK1zVJi9duAU3xu-HFnHjWPZMc_HHDQZ74uc6VIrh5JCAgs6L39E4_1Y3tvxv_2wB3HAI45x_nhOq2kZABMVQb8gbENU1_MT2XOO5Y1yBuwsBZSsHbBHlnoSQVIx1yvmg-5BhxSYzphQ");'>
+<div class="absolute inset-0 rounded-xl bg-primary/20 mix-blend-color"></div>
+<div class="relative z-10 flex flex-col gap-4 text-left">
+<h1 class="text-4xl font-black text-white drop-shadow-lg @[480px]:text-5xl">Welcome to Vibe Code</h1>
+<h2 class="max-w-xl text-base text-white/90 drop-shadow-md @[480px]:text-lg">Explore, create, and share your coding projects with a vibrant community of developers.</h2>
+</div>
+<button class="relative z-10 flex h-12 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-6 text-base font-bold text-white shadow-lg shadow-primary/30 ring-2 ring-white/30 transition-all hover:bg-primary/90 hover:shadow-primary/40">
+<span class="truncate">Get Started</span>
+</button>
+</div>
+</div>
+<div class="px-4 pb-6 pt-4 md:px-6 lg:px-8">
+<h2 class="mb-4 text-2xl font-bold text-black dark:text-white">Weekly Vibe Ranking</h2>
+<div class="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<div class="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 transition-all hover:border-primary/40 hover:shadow-primary/20 dark:border-primary/30 dark:bg-background-dark dark:hover:border-primary/50">
+<div class="aspect-video w-full rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBs18yizH0eESsbdhR-TRX5nKfpHROcAhJRI2PeKouRxFPeuBQu-sx9sINnWqpVrSOnD9ULkjSzj3NM2iblt3IFrVfwoW5KfTSaGw3Q6DwXL6Gc3VoJm8A5Xj4b5QCicrH6tUVLzkr5hSYe4s7LXm-_zW0TQb7hCsWAcXkQ8HIvJ46Po4hNDftLxVJ4EnEB35rBjMhCW0WOd_hpzlTlo2USb8bGv22cWua-VP1bCJPhqVMhygGwndSZ-vl8M2CdOLrQJXoX7dpekA");'></div>
+<div>
+<p class="font-bold text-black dark:text-white">Project: RetroWave Visualizer</p>
+<p class="text-sm text-black/60 dark:text-white/60">A dynamic visualizer with retro-inspired effects.</p>
+</div>
+</div>
+<div class="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 transition-all hover:border-primary/40 hover:shadow-primary/20 dark:border-primary/30 dark:bg-background-dark dark:hover:border-primary/50">
+<div class="aspect-video w-full rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD-tjs1JzcxR0lCeTqzFOpKj5OhumRFKZxthg6K5u5g-oV_FvBP_8hlNlxjyzhfXSA9m0gm_O2Z8wfcS7cqq2K2b8JhbygqUu76ACWOzI9AugaOVxM4M6q3mwz31du169N7lFClakMA6IYgnuEDdUIWmKWNo6nDTAf2-MTGUTr9ZjaecCpqsWbKO9I6xOTT85Vzp0pTPNad-HV08sXXOXtaFYVNyPJhoi4iK0BUxA2EF3mMnCWRhH6HcaRZ1Rrfwo_PeUO5xJ1KNA");'></div>
+<div>
+<p class="font-bold text-black dark:text-white">Project: Neon City Generator</p>
+<p class="text-sm text-black/60 dark:text-white/60">Generate stunning neon cityscapes with customizable parameters.</p>
+</div>
+</div>
+<div class="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 transition-all hover:border-primary/40 hover:shadow-primary/20 dark:border-primary/30 dark:bg-background-dark dark:hover:border-primary/50">
+<div class="aspect-video w-full rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2mJDjK6aDgMHJu9ql5pzC2ogsyOkRQigrkDjUu095YR0n0ZqBwcw4B2YiEZpB7jB9hVycj0kL8VPkvKNEfE6lBrISQ0_cVPS1rqunIlGzcj6WC8RFEOX5PqSHyTIXSjydidB40PaQE5Ikj7AvhqeJhdrNuOGysCP9UGsyqJeaba9CZ4SK92Mvm8yg9Ep0YNlCG2-Ka_Tc_d7YUCMrOsFRczIxpSkLk9sQXVIXxiRiIvejQmBuSKUiOQEcEIg2P98uXstluyP-Dg");'></div>
+<div>
+<p class="font-bold text-black dark:text-white">Project: Pixel Art Editor</p>
+<p class="text-sm text-black/60 dark:text-white/60">Create and edit pixel art with a user-friendly interface.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 pb-6 pt-4 md:px-6 lg:px-8">
+<h2 class="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<div class="flex flex-col gap-3">
+<div class="aspect-video w-full rounded-lg bg-cover bg-center shadow-lg shadow-primary/10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqASFON8u1wKr8OchIiADq9LJala4Q5D5WUvnoApQ8uSk5FPCUs4PivrKg-T6H1G2GojC1a4lKDhkvRnOEzE0asbHZoHVnz7_AI_JKsm3NTrnHmTsBB-bBXt8CG4WTbeGK6yBldxB69faW9PRdAURJGtE1lXu5e-IHdyEpAdXaqbTW62OU52kRhiEhzWffFR9VAd4G4Xb1xE5z1W8MlYZL66gsCw4GGlGTyBxsVFbCXysem9mNfBL9NmgL342KKJPoBOpF1sqW2g");'></div>
+<div>
+<p class="font-bold text-black dark:text-white">Project: Glitch Effect Toolkit</p>
+<p class="text-sm text-black/60 dark:text-white/60">A toolkit for creating glitch art and visual effects.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="aspect-video w-full rounded-lg bg-cover bg-center shadow-lg shadow-primary/10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBhzRa3c-J_Uj3SOGY0cbwENB4UUZWtCl3keokrQtGub5_lajw9R2Acr69nNygRGLANbvxzb2IVvuaiAwB4fnxa66qEWNxX-UkLBgWc2o0JfXoUzSHW8rSWtWtP7-JEf0KYj-UsA88uMThmamAmfB1t9vwTY_H4VTp3l2fYHzF_st74bDDCCIwI_covoSJqqPmu-O-bkZMR0b-z632S19gx_5x0Nz9UrvRmo3Qzyak8riRGDMKfsp6QfVRnAySgScAk3UatRPo7Aw");'></div>
+<div>
+<p class="font-bold text-black dark:text-white">Project: Synthwave Soundboard</p>
+<p class="text-sm text-black/60 dark:text-white/60">A soundboard with a collection of synthwave sounds and loops.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="aspect-video w-full rounded-lg bg-cover bg-center shadow-lg shadow-primary/10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLMSAVQ2AuAyhB0ub4Xw5tL31aN1NlC5itFusrZw7Vfv3oz6u2eZtEMFejfIeT2U3mcilz1kfwI0OHymlaMQNOaXlOzCrpCPVzQXP2Htk3bTplJYxPNkvpPCZyMnmFHglOKcUSxJWiUp5cprxTI3K_5tu7iuUtVmwg6el_HDrFLSSQtewyE6TMHDwkp6aBGrev2btS4Mpl7_EjvibHUGmLDPTQG2vrU-3pB760p2B_-gkcs2lP2mFeIU3UvuFnoyXjtCxikhW98A");'></div>
+<div>
+<p class="font-bold text-black dark:text-white">Project: 8-Bit Game Engine</p>
+<p class="text-sm text-black/60 dark:text-white/60">A simple game engine for creating 8-bit style games.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-6 px-4 pb-8 pt-4 md:px-6 lg:px-8">
+<h2 class="text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
+<div class="overflow-hidden rounded-xl border border-primary/20 bg-background-light shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
+<div class="flex flex-col items-stretch gap-4 md:flex-row">
+<div class="flex-1 p-6">
+<p class="text-sm font-bold text-primary">Tech News</p>
+<p class="my-1 text-lg font-bold text-black dark:text-white">Retro Revival: The Resurgence of 80s Aesthetics</p>
+<p class="text-sm text-black/60 dark:text-white/60">Explore how the vibrant colors and bold designs of the 80s are influencing today's technology and design trends.</p>
+</div>
+<div class="w-full bg-cover bg-center md:w-1/3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvgUcL_hA91VNACmXmpqviDNTm2ghWGbTH6S1WJyTOl2ax0BPFZ9wJ9wnpj6ZGdzvEIm8sf9ZLUUWhyu2rHucrm5h72rhBaK8YzI82suQ809KrzZiY6-maXtPDtFFDOmEXOkYIPDP3Y8pmD2CaB_bDr7nn3SsjbnyLuuqWPBKZc5IHvLQn87OEv0UgHn67IRBxejoIelQpqmLt6RgnNMXn821bIXeN2rjqywMLlGomNqMuHzLu4D3aoRvJ3mRRtBL1WFfkH6Nx0w");'></div>
+</div>
+</div>
+<div class="overflow-hidden rounded-xl border border-primary/20 bg-background-light shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
+<div class="flex flex-col items-stretch gap-4 md:flex-row-reverse">
+<div class="flex-1 p-6">
+<p class="text-sm font-bold text-primary">Community Spotlight</p>
+<p class="my-1 text-lg font-bold text-black dark:text-white">Meet the Creator: Alex Turner's Journey</p>
+<p class="text-sm text-black/60 dark:text-white/60">An interview with Alex Turner, a developer known for their innovative projects that blend modern tech with retro aesthetics.</p>
+</div>
+<div class="w-full bg-cover bg-center md:w-1/3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDkZIXu3S3nKThhWpnsAAVfZfFNZuBDwRoe_56k_woEKe2rJbsS6h1vR-OFmnYa2pKXqMT0qUKbQF4VR3iZ22uCCuazva_mr7LiGR7ZrUeAtz7ubAIWqlaXq3OskF4tBN8ZvLvl8Qg6WOL5zy7u3ylaWWDc4dKhJWV_q92NfrwpzSkWWnQu_9H7NIl9_5drFxsk_WWqALtQ2aM1wjup2dqtsFWqQ-h365laHzHpEXYo9J8AYfKPKnyCkkjH2OhP9E9C81x_gi9Utg");'></div>
+</div>
+</div>
+<div class="overflow-hidden rounded-xl border border-primary/20 bg-background-light shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
+<div class="flex flex-col items-stretch gap-4 md:flex-row">
+<div class="flex-1 p-6">
+<p class="text-sm font-bold text-primary">Tutorials</p>
+<p class="my-1 text-lg font-bold text-black dark:text-white">Creating Glassmorphism Effects</p>
+<p class="text-sm text-black/60 dark:text-white/60">A step-by-step guide on implementing glassmorphism, a popular design trend that adds a frosted glass effect to UI elements.</p>
+</div>
+<div class="w-full bg-cover bg-center md:w-1/3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAeznZ5iJOdkhX5fAa-qPRRlFxKVv7QqxjEYC6dVaniryFqb3uUlDCnAVyJZAoqx8hD5BNaboewbLQ2OIpmjgsxbEHWfXvBeNO8HcXB6R8uUrqoseRIKVx9vioGFOxeINaIQJE-lRKjitJCM5JG7DG0rZe_M9deHdy-IFsaCLD6tkMuaI_f3f8DNIHyo7PSA0-QLmsMogFi0hjdCZZXr-b1vKS3rIiyGVmY14oFcfYYjNKHXvQNQSkDkcTLa5qoHgXbJ8yla2izMw");'></div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+
+</body></html>

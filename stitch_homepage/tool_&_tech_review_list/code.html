@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>Vibe Code - Tools &amp; Tech Reviews</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0da6f2",
+              "background-light": "#f5f7f8",
+              "background-dark": "#101c22",
+            },
+            fontFamily: {
+              display: ["Space Grotesk"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+<style>
+      .glassmorphism {
+        background: rgba(255, 255, 255, 0.2);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .dark .glassmorphism {
+        background: rgba(16, 28, 34, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-black dark:text-white">
+<div class="flex min-h-screen">
+<aside class="fixed left-0 top-0 z-20 h-full w-64 -translate-x-full border-r border-primary/20 bg-background-light/80 p-4 backdrop-blur-md transition-transform dark:bg-background-dark/80 lg:translate-x-0">
+<div class="flex flex-col justify-between h-full">
+<div>
+<div class="mb-8 flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBq4gVn-dXYO5eApmWtShrV9q9_sA60jiVfD87TpppRx82EuLse7BC69S7LqVqwop81vZUJFmmRTj5fcIRqnEuaZvbCoqcP78mP6OjT9Npm7klGB5j5rjK7Y2gwCZ-evTkfUqGr5-6bNrP9vmgw1SGfWO-nxWs1ocePP4uABP_MRABIElC15F1efdH_CFD6bDiWLJIbSWvHsWKgmIi86Xo1Nck2XjgTikXQkalTlBIqbPzR5QzERuz0bn39OBLLVUgaeAQjeirzsA");'></div>
+<div>
+<h1 class="text-lg font-bold">Alex R.</h1>
+<p class="text-sm text-black/60 dark:text-white/60">@alexr</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 hover:bg-primary/10 dark:text-white/80 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path></svg>
+<span>Home</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 hover:bg-primary/10 dark:text-white/80 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path></svg>
+<span>Feed</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 bg-primary text-white" href="#">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z"></path></svg>
+<span class="font-bold">Explore</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 hover:bg-primary/10 dark:text-white/80 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path></svg>
+<span>Notifications</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 hover:bg-primary/10 dark:text-white/80 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"></path></svg>
+<span>Messages</span>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 hover:bg-primary/10 dark:text-white/80 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"></path></svg>
+<span>Profile</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 hover:bg-primary/10 dark:text-white/80 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M72,60A12,12,0,1,1,60,48,12,12,0,0,1,72,60Zm56-12a12,12,0,1,0,12,12A12,12,0,0,0,128,48Zm68,24a12,12,0,1,0-12-12A12,12,0,0,0,196,72ZM60,116a12,12,0,1,0,12,12A12,12,0,0,0,60,116Zm68,0a12,12,0,1,0,12,12A12,12,0,0,0,128,116Zm68,0a12,12,0,1,0,12,12A12,12,0,0,0,196,116ZM60,184a12,12,0,1,0,12,12A12,12,0,0,0,60,184Zm68,0a12,12,0,1,0,12,12A12,12,0,0,0,128,184Zm68,0a12,12,0,1,0,12,12A12,12,0,0,0,196,184Z"></path></svg>
+<span>More</span>
+</a>
+</div>
+</div>
+</aside>
+<div class="flex flex-1 flex-col lg:pl-64">
+<header class="sticky top-0 z-10 flex h-20 items-center justify-between gap-4 border-b border-primary/20 bg-background-light/80 px-6 backdrop-blur-md dark:bg-background-dark/80">
+<a class="flex items-center gap-2 text-xl font-bold" href="#">
+<svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+<span>Vibe Code</span>
+</a>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<svg class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-black/40 dark:text-white/40" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+<input class="w-64 rounded-lg bg-black/5 py-2 pl-10 pr-4 text-black focus:outline-none focus:ring-2 focus:ring-primary dark:bg-white/5 dark:text-white" placeholder="Search..." type="search"/>
+</div>
+<button class="rounded-full p-2 hover:bg-primary/10 dark:hover:bg-primary/20">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path></svg>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWjBpps8MkVM1B_T2B5av5UX4YBOb15ZQTIqbvK8UH--ABDLZg16B0w6dMjFu1jtX81alyI-UjBNjPFfNIYIYpAoiR-1HqIPIQFIKLpeMxsONbJU5paC-b0qjY_oY0hVWAve33MJ2Vx7FcNSlZoS557GsshKYlzJa_yy2b8CeLQjceHH8xnq6RoxDYJP65OfVkpxGWdYvtyIcfUqSgKXJ93IbklfvRCGxUTk5_0Hs1yJf80qre7iq3cBIFUonE4l-Qt-DOHqTgyw");'></div>
+</div>
+</header>
+<main class="flex-1 p-6 lg:p-10">
+<div class="max-w-7xl mx-auto">
+<div class="mb-8 text-center">
+<h1 class="text-4xl md:text-6xl font-bold tracking-tighter text-primary">Tools &amp; Tech Reviews</h1>
+<p class="mt-4 max-w-2xl mx-auto text-lg text-black/60 dark:text-white/60">Explore reviews of the latest tools and technologies for developers. Share your experiences and help others make informed decisions.</p>
+</div>
+<div class="mb-8 flex flex-wrap items-center justify-center gap-4">
+<button class="flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30">
+<span>Sort by: Newest</span>
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+</button>
+<button class="flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30">
+<span>Category: All</span>
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+</button>
+<button class="flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30">
+<span>Rating: All</span>
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+</button>
+<button class="flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30">
+<span>Price: All</span>
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+</button>
+</div>
+<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+<div class="group overflow-hidden rounded-xl border border-black/10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 dark:border-white/10 glassmorphism">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBo5qTdAhko35oZX_yU43bOtvcd5QrJ4NQCdcPf1f7GcqNgn6TVnFJZH-e8xwAvzzDnHd2nZA1NllsgHqyw6e0HHcO7smw4_GzgPF1rZwgzygBQbTCxawq7EcfN_EF9EDkkNgmgdZyUDusjElFkSlNtv3Y2WXXwh0lec_7dk6gUyNkck-8bNqnDGGObCGcUK-eYzKE7NQmdldskGXfYEtNCkzEyQ93rVj33ZLcBAZzzY2xafniyOaj-4sPpXvOe3Y45Ef4KNSNrFg");'></div>
+<div class="p-4">
+<h3 class="text-lg font-bold text-black dark:text-white">Review: CodeCraft IDE</h3>
+<p class="mt-1 text-sm text-black/60 dark:text-white/60">A powerful IDE for coding in multiple languages.</p>
+</div>
+</div>
+<div class="group overflow-hidden rounded-xl border border-black/10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 dark:border-white/10 glassmorphism">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWIf7PaaUqsGNnFtKtwbK0KfLsqQF_rGz8z4AeH9HP-fkKwpruKmwbejKFqfs3sTGScIsym7jCliZ7OsR9niyj1KkZ2LgxSj1gPbV-tdaxIQkz2vB1tw8ENaC2OwqTsFK_JtNJD0WNpkpl6_hbZMilgiHVlxsL1BwJv0PuXlZc4zxkswLzYYPLWJk6ZWogakHaJkx-YOC4kM_Zfbf7rJbuUICIY16DPg4ik-3Y454nHaa_tUOaMEOSQ0b6lN4SduwC8iMf26j10w");'></div>
+<div class="p-4">
+<h3 class="text-lg font-bold text-black dark:text-white">Review: DataWise Analytics</h3>
+<p class="mt-1 text-sm text-black/60 dark:text-white/60">A comprehensive analytics platform for data-driven decisions.</p>
+</div>
+</div>
+<div class="group overflow-hidden rounded-xl border border-black/10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 dark:border-white/10 glassmorphism">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBE-jmHd7ozty6PgQ1SHPIMxAvSU8jctKVlIGr4ZrsO9olIWVr3ga7FzPUjhzne38NfHflyRHBl1isLqL4a17igR3KHvEBd_ZDitX_y0sR9IL21Sa0WOVu2WyMv8fZ_1Y1QhC_lDAU2mPAVAVkFpDMiisk9CXgrDSefatdbva4ejaEOPSHMdARe2qqulbRCYQjACjRBD2Av5-FzfXkIjJ6-H0F9I5vY4dd3Em9FlnLldXoFvprPlsVu6lIYCs6cG3bVzDeW92c1Gg");'></div>
+<div class="p-4">
+<h3 class="text-lg font-bold text-black dark:text-white">Review: SecureVault Password Manager</h3>
+<p class="mt-1 text-sm text-black/60 dark:text-white/60">A secure and reliable password manager for all your accounts.</p>
+</div>
+</div>
+<div class="group overflow-hidden rounded-xl border border-black/10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 dark:border-white/10 glassmorphism">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyD9OC7i94RA-wiKPgWUhLlqfxQ1jvxZgwAXXIzgKgq3wqE0uRhc-X1s17Hps4KkweyKjBuZgrwW5bSETqKvw4CRCJGdme916P21XzyotN_XnYJPxVkFzF4C4j3GYO3excyRj7f4XQH31T2je4zEscQ-Rr6HT1xww2Uv9MfFio_YgGR3CPcPL_qKAW0LQYhs028epiSbur7NExVePFVl-4MVMMVj-bQ0SbtFt4ZZ-1OlFYPCVrGsWgdjx7uXjvusY7ecpzTLReeQ");'></div>
+<div class="p-4">
+<h3 class="text-lg font-bold text-black dark:text-white">Review: TaskMaster Pro</h3>
+<p class="mt-1 text-sm text-black/60 dark:text-white/60">An advanced task management tool for professionals.</p>
+</div>
+</div>
+<div class="group overflow-hidden rounded-xl border border-black/10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 dark:border-white/10 glassmorphism">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCDqrSBKsDWRz1f31Pw-MZOBWYee5nl32vmulx7y5nb-k0NUSDU5iXlVgEzEkdfvWndJa_pLUeYWR5zVFKqiGtDz3TfP07HN2Z2R98gVK-4VRaiZGHcj9Yt7F2tclERyqjDWgDY_nOl2VIYhfyfE8cdvWzBwpiF0MDJq9qSiBRSkGUw8gWg7fSTXfs2RSiWobtA26PzD32-R--QORvwQiY9tlMOBYbAr_ig-OqSLAYkMJYZcnnHla3fAAH9cpn05_oSbyBlnMr7AA");'></div>
+<div class="p-4">
+<h3 class="text-lg font-bold text-black dark:text-white">Review: CloudSync Storage</h3>
+<p class="mt-1 text-sm text-black/60 dark:text-white/60">A cloud storage solution with seamless synchronization.</p>
+</div>
+</div>
+<div class="group overflow-hidden rounded-xl border border-black/10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 dark:border-white/10 glassmorphism">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTE_8bsyJ7otCg9Pd8q-bZcH36tcaHaXozCuFqxjneHg6BNKEYl95KYhjKqUNFn-RZeZYGmJriDPgrtht_b9SiVN8zyiwRxSLiJifK9p0SgiUmJA5lJvjYSDljxh2cyVBik38lKSKG5_-RsBHD8JFjRQIzLV9uDHX5yosJqT-o8XIHwUpud43IoGFTE2ZFYCHbNZzWF3ERkY21bfRq3P_m1hmyr45TPhWxVdmeYUs8-YveTwrjjXK-xcngPDTROxRQ_fwQ-FAvvQ");'></div>
+<div class="p-4">
+<h3 class="text-lg font-bold text-black dark:text-white">Review: DesignGen AI</h3>
+<p class="mt-1 text-sm text-black/60 dark:text-white/60">An AI-powered design tool for creating stunning visuals.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mediapipe/camera_utils": "0.3.1675466862",
+    "@supabase/supabase-js": "^2.57.4",
     "@tailwindcss/postcss": "^4.1.13",
     "next": "14.0.0",
     "react": "18.2.0",

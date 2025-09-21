@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vibe Code - Explore Projects</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0da6f2",
+            "background-light": "#f5f7f8",
+            "background-dark": "#101c22",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#101c22] dark:text-[#f5f7f8]">
+<div class="flex min-h-screen">
+<aside class="w-64 flex-shrink-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm p-6 border-r border-primary/20 dark:border-primary/30 sticky top-0 h-screen">
+<div class="flex items-center gap-3 mb-12">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+<svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+</div>
+<h1 class="text-2xl font-bold text-primary">Vibe Code</h1>
+</div>
+<nav class="flex flex-col gap-4">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-lg font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" href="#">
+<span class="material-symbols-outlined">home</span> Home
+        </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-lg font-medium bg-primary text-white" href="#">
+<span class="material-symbols-outlined">explore</span> Explore
+        </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-lg font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" href="#">
+<span class="material-symbols-outlined">notifications</span> Notifications
+        </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-lg font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" href="#">
+<span class="material-symbols-outlined">mail</span> Messages
+        </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-lg font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span> Profile
+        </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-primary/20 dark:border-primary/30">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-lg font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+        </a>
+</div>
+</aside>
+<div class="flex-1">
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-primary/20 dark:border-primary/30">
+<div class="container mx-auto px-6 py-4 flex items-center justify-between">
+<div class="flex-1">
+<div class="relative max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#101c22]/50 dark:text-[#f5f7f8]/50">search</span>
+<input class="w-full bg-background-light dark:bg-background-dark border-2 border-primary/30 dark:border-primary/40 rounded-full py-2 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300 shadow-inner" placeholder="Search Vibe Code..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#101c22] dark:text-[#f5f7f8] hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-primary text-white font-bold py-2 px-6 rounded-full hover:opacity-90 transition-opacity">Create</button>
+<div class="w-10 h-10 rounded-full bg-cover bg-center border-2 border-primary" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCO-L8IYjC3X-Ng-op3SiUQxfOYfMgjn8TCDyila5jas9zdSW6INtTez13pdrnyDTWonITzuW7zuezeA0hRt19jC00ovXV9tlHNUCHjWagzOyMbJnTwQEKHsq4jcF7HWiEiVkAho7ir7PJpTTtcgOuQykK9NWSP0D4Eed7gvJColFWvPy3z-pC9qXxQJPk3Ma8-2ciXMp4BJve-sOgglADH-_eztGUeDiMBCyuAzH2yFiQDou0FltJYNO0mgvTu4SSvQgG1qEYRfw");'></div>
+</div>
+</div>
+</header>
+<main class="container mx-auto p-8">
+<div class="mb-12 text-center">
+<h2 class="text-5xl font-bold tracking-tighter text-primary mb-2">Explore Projects</h2>
+<p class="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto">Discover a universe of creativity. Filter, sort, and find projects that spark your next big idea.</p>
+</div>
+<div class="mb-8 p-4 rounded-xl bg-background-light/50 dark:bg-background-dark/50 border border-primary/20 dark:border-primary/30 flex flex-wrap items-center justify-center gap-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+<div class="relative flex-grow max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary">search</span>
+<input class="w-full bg-transparent border-b-2 border-primary/40 focus:border-primary py-2 pl-10 pr-3 focus:outline-none transition-colors" placeholder="Search projects..." type="text"/>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-2 border-primary/40 rounded-lg py-2 pl-4 pr-10 font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer">
+<option>Sort by: Newest</option>
+<option>Sort by: Popular</option>
+<option>Sort by: Trending</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-primary">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-2 border-primary/40 rounded-lg py-2 pl-4 pr-10 font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer">
+<option>Category: All</option>
+<option>Category: Web</option>
+<option>Category: Mobile</option>
+<option>Category: AI</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-primary">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-2 border-primary/40 rounded-lg py-2 pl-4 pr-10 font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer">
+<option>Tools: All</option>
+<option>Tools: React</option>
+<option>Tools: Vue</option>
+<option>Tools: Svelte</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-primary">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300">
+<div class="w-full h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAf9oCt1tNm7qKP3osrgFzAU4hwih7QWJvDMjLFb5l3mFKBXoZg8bIoCoIiSrfTAl-LyE9rnkm8ZCCefJki5QRF1hxygoLHc6z37Z5lu-hb3G_xSRGSKWdxSF3qZgRCditwx7UF3PSY7iY9QNhcVJoquS9yQqqRWLv5ScHGiKV2D3Stf8mAnp_gDKlugTDoZzRDrU2kDAo1CseE9KwxdjApILs3gQIYrJdwPj-K6Fi1qqn3JNz7KRTKOZiGMAO72puuUI97MxJtfA");'></div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1 text-primary">Project Alpha</h3>
+<p class="text-[#101c22]/70 dark:text-[#f5f7f8]/70">A cutting-edge web application for data visualization.</p>
+</div>
+</div>
+<div class="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300">
+<div class="w-full h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlrfAslpSVxDlZXaBMCwQTSwUnc2BQ9IaAiVec7gPDj1PZIc5UYUIvghMFklhbtpU5o0Enh3ShjI2C1biiFIazbAGbENISZyjLlSyGMaNufDb4rhWuuW1_Vb3idr-IAo2R4zZR7rC9LJoACSdSJdoTXj7FdYXh9SIxVkNGf5qaZDiI6bFeB0w21vBQPRIQBLeL0uIBaiiypVAT5VpTRjnktq0iivLK-DkGx0ZzNZBQm-cUVvFh2EvHI5GzWvUv7q_OngCqf-I6BA");'></div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1 text-primary">Project Beta</h3>
+<p class="text-[#101c22]/70 dark:text-[#f5f7f8]/70">An innovative mobile app for social networking.</p>
+</div>
+</div>
+<div class="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300">
+<div class="w-full h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-XZA2muSlisflh9odAnVwloiHerRrYx6TvRLPT6-YP79F4BPvXcxRXd5e510b_EsR3lcX8hj6I4x4iGG8a-6mb6JO1KCgi2SFiLqKh0fdMx9BFCwWkt3Z9FLdK4ryX9D1W7O2agc9wZlnrF70bmHXr-dH4UgjB8Rh3XyUoq-yWp7SZ3yW4jifYZ3uFJhCRKdv9Yr4GFBM_fJQLGalZlupCNFR8C5iMUsV8cNiMKsU9SDHjjZenO0S05A-Y13Z_VdsEDFwNm_2vg");'></div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1 text-primary">Project Gamma</h3>
+<p class="text-[#101c22]/70 dark:text-[#f5f7f8]/70">A robust backend system for e-commerce platforms.</p>
+</div>
+</div>
+<div class="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300">
+<div class="w-full h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDH1V5tXCF55MHTdxHWdmzpF0ekEnW8LPzYx_cJAZ3X0BKMEHYkWUJmo9uZmuLRjgh8xF7tq7VSrf5K5_3_Gx2-N4_iUQDMlojfKry4McWTqxBazzUfHA6VSxJEGqzvDXId5VQoTCRWGCavL11fl_qRJNRKD1F9Q7PHpnaKL14gp_GNpmMCYpB4veX_JqU_O7zeeSl61C_XC6IwyqSBJs5xEXj5y5lhaucoZSqF_k9lclrlgxkXesuH6ZXgX88bxT30g5HmZEtTQw");'></div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1 text-primary">Project Delta</h3>
+<p class="text-[#101c22]/70 dark:text-[#f5f7f8]/70">A creative design tool for graphic artists.</p>
+</div>
+</div>
+<div class="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300">
+<div class="w-full h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWCd2y_WTUsSTKPboXp8QT7aTIiCBsECOjyob_c8MA5Zj65GiR2ghomAhLC-2nuBkdoc9fv3MVsdZbdVaYTg4OyhKeKe6tArUCwS6eEGYeygwK6KPqhJW7XvQR0gf5ltmepqBzv-LRxTy45CIs9dHfEog_FbF6ep23zHDmPg4sNwmyOm3TpcdcF5_EGmjufDLRQOWvtSQvcS1o-yQOznqRZncnlDmGFnUPWexMNP_Pm3_ULqwXrH9_BW87I8pycJwNqzt4fFg26g");'></div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1 text-primary">Project Epsilon</h3>
+<p class="text-[#101c22]/70 dark:text-[#f5f7f8]/70">A comprehensive project management solution.</p>
+</div>
+</div>
+<div class="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300">
+<div class="w-full h-48 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBUz3XhizE9O8b7GJTcIhy8Gv-U5XjQIaGpJqmFKIHsAw1wENQSPMz1CsYpxwRtgDGNfi28GzJIBUXNSyr_a21FpLo70vmp3Csd3KUY4VnsWP9UeJ2MipfKRHgcGm-fMGW1jZXPfrQ21ithyE263Bma8LEmnqNZPvHEq7Ig9yiwbb_D4WkPr-TFDM0E3dQrdTkRtc-a6fgGBam21006J3MTGg00W0ibrtMwz26WlOVSetOqIg1GeAkrIKwKhqqihkHtqR-noTklwA");'></div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1 text-primary">Project Zeta</h3>
+<p class="text-[#101c22]/70 dark:text-[#f5f7f8]/70">An interactive learning platform for coding enthusiasts.</p>
+</div>
+</div>
+</div>
+<div class="mt-12 flex justify-center items-center gap-2">
+<a class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" href="#">
+<span class="material-symbols-outlined">chevron_left</span>
+</a>
+<a class="flex size-10 items-center justify-center rounded-full bg-primary text-white font-bold" href="#">1</a>
+<a class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors font-medium" href="#">2</a>
+<a class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors font-medium" href="#">3</a>
+<span class="text-xl">...</span>
+<a class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors font-medium" href="#">10</a>
+<a class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" href="#">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+</main>
+</div>
+</div>
+
+
+</body></html>

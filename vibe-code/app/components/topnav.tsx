@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import SearchBar from './SearchBar';
 
 const TopNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
-      <header className="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:bg-background-dark/80 md:px-10">
+      <header className="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:bg-background-dark/80 md:px-10 overflow-visible">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3 text-primary">
             <svg className="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -20,20 +21,29 @@ const TopNav = () => {
             <h2 className="text-lg font-bold tracking-tighter text-black dark:text-white">Vibe Hub</h2>
           </div>
           <nav className="hidden items-center gap-6 text-sm font-medium lg:flex">
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Home</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Projects</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Tool & Tech</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">Community</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="#">News</Link>
+            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/">Home</Link>
+            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white flex items-center gap-2" href="/projects">
+              <span className="material-symbols-outlined text-base">deployed_code</span>
+              <span>Projects</span>
+            </Link>
+            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/gear">Tool & Tech</Link>
+            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/community">Community</Link>
+            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/news">News</Link>
           </nav>
         </div>
         <div className="flex items-center justify-end gap-4">
-          <div className="relative hidden sm:block">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40">search</span>
-            <input className="h-10 w-40 max-w-xs rounded-lg border-none bg-primary/10 pl-10 text-sm text-black ring-primary/20 transition-all focus:w-64 focus:ring-2 dark:bg-primary/20 dark:text-white dark:ring-primary/40" placeholder="Search" />
+          <div className="hidden sm:block">
+            <SearchBar />
           </div>
         
-          <div className="size-10 rounded-full bg-cover bg-center" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg")' }}></div>
+          <Link 
+            href="/profile" 
+            className="flex h-10 w-10 rounded-full bg-cover bg-center z-10 border border-primary/20 bg-primary/10 items-center justify-center"
+            style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg")' }}
+          >
+            <span className="material-symbols-outlined text-primary">account_circle</span>
+            <span className="sr-only">Profile</span>
+          </Link>
           
           {/* Mobile menu button */}
           <button 
@@ -64,23 +74,33 @@ const TopNav = () => {
               </button>
             </div>
             <nav className="flex flex-col gap-2">
-              <Link href="#" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">Home</span>
+              <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
+                <span className="material-symbols-outlined">home</span>
                 <span>Home</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">project</span>
-                <span></span>
+              <Link href="/projects" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
+                <span className="material-symbols-outlined">deployed_code</span>
+                <span>Projects</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">Tool&tech</span>
-                <span></span>
+              <Link href="/gear" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
+                <span className="material-symbols-outlined">settings</span>
+                <span>Tool & Tech</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">Community</span>
-                <span></span>
+              <Link href="/community" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
+                <span className="material-symbols-outlined">group</span>
+                <span>Community</span>
               </Link>
-              
+              <Link href="/news" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
+                <span className="material-symbols-outlined">article</span>
+                <span>News</span>
+              </Link>
+              <Link href="/profile" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
+                <span className="material-symbols-outlined">account_circle</span>
+                <span>Profile</span>
+              </Link>
+              <div className="pt-2">
+                <SearchBar />
+              </div>
             </nav>
           </div>
         </div>

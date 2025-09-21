@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0da6f2",
+              "background-light": "#f5f7f8",
+              "background-dark": "#101c22",
+            },
+            fontFamily: {
+              display: ["Space Grotesk"],
+            },
+            borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          },
+        },
+      };
+    </script>
+<title>Vibe Code - Vibe News</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full flex-col">
+<header class="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-light/80 px-10 py-3 backdrop-blur-sm dark:bg-background-dark/80">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-background-dark dark:text-background-light">
+<div class="size-6 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tighter text-background-dark dark:text-background-light">Vibe Code</h2>
+</div>
+<nav class="hidden items-center gap-9 lg:flex">
+<a class="text-sm font-medium text-background-dark/60 hover:text-primary dark:text-background-light/60 dark:hover:text-primary" href="#">Home</a>
+<a class="text-sm font-bold text-primary" href="#">News</a>
+<a class="text-sm font-medium text-background-dark/60 hover:text-primary dark:text-background-light/60 dark:hover:text-primary" href="#">Events</a>
+<a class="text-sm font-medium text-background-dark/60 hover:text-primary dark:text-background-light/60 dark:hover:text-primary" href="#">Community</a>
+<a class="text-sm font-medium text-background-dark/60 hover:text-primary dark:text-background-light/60 dark:hover:text-primary" href="#">Jobs</a>
+</nav>
+</div>
+<div class="flex flex-1 items-center justify-end gap-4">
+<label class="hidden min-w-40 max-w-64 md:flex">
+<div class="flex h-10 w-full flex-1 items-stretch rounded-lg">
+<div class="flex items-center justify-center rounded-l-lg border-y border-l border-primary/20 bg-primary/10 pl-3 text-primary dark:border-primary/30 dark:bg-primary/20">
+<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+<path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+</svg>
+</div>
+<input class="form-input w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg border border-primary/20 bg-background-light text-sm text-background-dark placeholder-background-dark/50 focus:border-primary focus:ring-0 dark:border-primary/30 dark:bg-background-dark dark:text-background-light dark:placeholder-background-light/50" placeholder="Search" value=""/>
+</div>
+</label>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary/10 text-primary hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30">
+<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+<path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
+</svg>
+</button>
+<div class="size-10 rounded-full bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwzpfv26Je3ZIur8000OwLMvacpqmqkoZZM_NNuVVhaMZlz-_HNu7jHiW9x1tUOWcZS0_ZczuCdJ247JRA4Tx8qS8FKaMPN9bft5vqEJazzF7gMsi_1PLq_jcxdiW-6L5PQv7ABRwhqYTv3rfkkyXggvdiDBsJAelnNZjR0G7KT3BflbJQBfY80U93xG3gFuq2fNUlaF6ow3dt8FRVkDGZQq_b9Gl3C8eCvLX5N9RoWAbIOSsmx-5_-yrmQHo1ze26it8E9qtC9Q");'></div>
+</div>
+</header>
+<div class="flex flex-1">
+<aside class="sticky top-[73px] hidden h-[calc(100vh-73px)] w-72 flex-col gap-8 border-r border-primary/20 bg-background-light p-6 dark:bg-background-dark lg:flex">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD3ft-pJeKlmyUzWZ04DcaHnZKK8GxqTgKdB6P6zpUlaQlQ8XNWrWswMfJziLGA-yU2x1o8FusEVm0eUcajXc5mjWu217YC8Der48JvqYMiV_XhWAm1suvcyHGnrBM4zns2PaJq0gYFahdN9lKqTtv6K5OWh9BhIGHoE8GnMcUWkUHiYhuVwgX55xCadCEIIZ-gwYYMMAzyxlRrSiWlC1L5ZfIxBohZpacFUOamg7bB0f9QzzM_fNHZPRPsgHPCIYpfhscr__GTtw");'></div>
+<div class="flex flex-col">
+<h1 class="font-bold text-background-dark dark:text-background-light">Alex R.</h1>
+<p class="text-sm text-background-dark/60 dark:text-background-light/60">Software Engineer</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2.5 text-primary dark:bg-primary/20" href="#">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
+</svg>
+<p class="text-sm font-bold">For you</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-background-dark/70 hover:bg-primary/10 hover:text-primary dark:text-background-light/70 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path>
+</svg>
+<p class="text-sm font-medium">Following</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-background-dark/70 hover:bg-primary/10 hover:text-primary dark:text-background-light/70 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M224,88H175.4l8.47-46.57a8,8,0,0,0-15.74-2.86l-9,49.43H111.4l8.47-46.57a8,8,0,0,0-15.74-2.86L95.14,88H48a8,8,0,0,0,0,16H92.23L83.5,152H32a8,8,0,0,0,0,16H80.6l-8.47,46.57a8,8,0,0,0,6.44,9.3A7.79,7.79,0,0,0,80,224a8,8,0,0,0,7.86-6.57l9-49.43H144.6l-8.47,46.57a8,8,0,0,0,6.44,9.3A7.79,7.79,0,0,0,144,224a8,8,0,0,0,7.86-6.57l9-49.43H208a8,8,0,0,0,0-16H163.77l8.73-48H224a8,8,0,0,0,0-16Zm-76.5,64H99.77l8.73-48h47.73Z"></path>
+</svg>
+<p class="text-sm font-medium">Communities</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-background-dark/70 hover:bg-primary/10 hover:text-primary dark:text-background-light/70 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
+</svg>
+<p class="text-sm font-medium">Notifications</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-background-dark/70 hover:bg-primary/10 hover:text-primary dark:text-background-light/70 dark:hover:bg-primary/20" href="#">
+<svg fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"></path>
+</svg>
+<p class="text-sm font-medium">Messages</p>
+</a>
+</nav>
+</aside>
+<main class="flex-1">
+<div class="px-8 py-10 lg:px-12">
+<div class="max-w-4xl">
+<h1 class="text-5xl font-bold tracking-tighter text-background-dark dark:text-background-light">Vibe News</h1>
+<p class="mt-4 text-lg text-background-dark/60 dark:text-background-light/60">Stay updated with the latest news and trends in the tech industry.</p>
+</div>
+<div class="mt-12 grid max-w-4xl gap-8">
+<article class="group relative flex flex-col-reverse items-start gap-6 rounded-xl border-2 border-transparent bg-background-light p-6 shadow-[0px_10px_20px_rgba(13,162,242,0.3)] transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-[0px_20px_40px_rgba(13,162,242,0.4)] dark:bg-background-dark dark:shadow-[0px_10px_20px_rgba(13,162,242,0.2)] dark:hover:shadow-[0px_20px_40px_rgba(13,162,242,0.3)] md:flex-row">
+<div class="flex flex-1 flex-col gap-2">
+<h3 class="text-lg font-bold text-background-dark transition-colors group-hover:text-primary dark:text-background-light">The Future of AI in Software Development</h3>
+<p class="text-background-dark/70 dark:text-background-light/70">
+                    Explore how artificial intelligence is transforming the software development landscape, from code generation to automated testing.
+                  </p>
+</div>
+<div class="relative w-full overflow-hidden rounded-lg aspect-video md:w-56">
+<div class="h-full w-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmEC9Pk4uwVYWySeYR3COGhC6y87utTm8HGPTYuBRNxauc7RiJBTrxHHnLTsj-N-8mNIXjaNAAJz5jujolkeVpdXV4C64ZORfu_lAj15kBxSd3mUXuXRcNez_bDAMYsYgI61RqXeU-b53BLYuvRPax6R1D4asMxpSvnhG0Zdd2XhLUHANxNGew9WrbyZtqWSAmWUAub4NWfwfNxNWyGMxyCZvUDzYvGg6G-Er1A58L5tCN-QdloUml_8iJZD-_3YNsIuKXTVZznA");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+</article>
+<article class="group relative flex flex-col-reverse items-start gap-6 rounded-xl border-2 border-transparent bg-background-light p-6 shadow-[0px_10px_20px_rgba(13,162,242,0.3)] transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-[0px_20px_40px_rgba(13,162,242,0.4)] dark:bg-background-dark dark:shadow-[0px_10px_20px_rgba(13,162,242,0.2)] dark:hover:shadow-[0px_20px_40px_rgba(13,162,242,0.3)] md:flex-row">
+<div class="flex flex-1 flex-col gap-2">
+<h3 class="text-lg font-bold text-background-dark transition-colors group-hover:text-primary dark:text-background-light">Top Programming Languages to Learn in 2024</h3>
+<p class="text-background-dark/70 dark:text-background-light/70">
+                    Discover the most in-demand programming languages for the upcoming year, including their applications and career prospects.
+                  </p>
+</div>
+<div class="relative w-full overflow-hidden rounded-lg aspect-video md:w-56">
+<div class="h-full w-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCma_6cs6fejdwMNqXwqbHgdBprlVeZkI4TiEj9kDBJytVSHG3HRLbTspe8scmZDxnv1u_w6hiurvVYvTORllebZhmx5cCXfaam-V3v6uVLXuI6rFtNZisBquWIaD5xCGQ4IKFrvHEs0yaHBPs4vhfSL9G5N_Ke24JhE0B0FCu6mZhk02hPSMutDJK-9xzw-CW6nwZz6OcB-vgIV5eyk-TBNOHGFySe9f72tf_WCTsTke8ydtuTYc2Ldal6gKvIkTNU1U5Clf8oIA");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+</article>
+<article class="group relative flex flex-col-reverse items-start gap-6 rounded-xl border-2 border-transparent bg-background-light p-6 shadow-[0px_10px_20px_rgba(13,162,242,0.3)] transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-[0px_20px_40px_rgba(13,162,242,0.4)] dark:bg-background-dark dark:shadow-[0px_10px_20px_rgba(13,162,242,0.2)] dark:hover:shadow-[0px_20px_40px_rgba(13,162,242,0.3)] md:flex-row">
+<div class="flex flex-1 flex-col gap-2">
+<h3 class="text-lg font-bold text-background-dark transition-colors group-hover:text-primary dark:text-background-light">Building Scalable Web Applications with Modern Frameworks</h3>
+<p class="text-background-dark/70 dark:text-background-light/70">
+                    Learn about the best practices for building scalable web applications using popular frameworks like React, Angular, and Vue.js.
+                  </p>
+</div>
+<div class="relative w-full overflow-hidden rounded-lg aspect-video md:w-56">
+<div class="h-full w-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_Y5p6L-gkuhtEHdGbRjtRehmfkHsfjjPcyRNfbgy2PYCazuqqUdvPKCLqTm0zi_5D-8s3pGi0dXAHvowMR0A7pwFMkMhtDp_WXonrFEN7tftvO9GuKTfcqnGxBujIxOMxeJtutFyPwwSEpPMyfDT_2Md-gNQo6CCPZcwaEq9TRP5cZR1LhfGnw0LsIHb50noJsDp3Ln_MHqWnmmfVZio6KxDeYPRB7TUAX4t6ZPErblAubcr77Lkx42MDGo-yCioeIuBjA2LMdA");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+</article>
+<article class="group relative flex flex-col-reverse items-start gap-6 rounded-xl border-2 border-transparent bg-background-light p-6 shadow-[0px_10px_20px_rgba(13,162,242,0.3)] transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-[0px_20px_40px_rgba(13,162,242,0.4)] dark:bg-background-dark dark:shadow-[0px_10px_20px_rgba(13,162,242,0.2)] dark:hover:shadow-[0px_20px_40px_rgba(13,162,242,0.3)] md:flex-row">
+<div class="flex flex-1 flex-col gap-2">
+<h3 class="text-lg font-bold text-background-dark transition-colors group-hover:text-primary dark:text-background-light">Cybersecurity Trends and Best Practices for Developers</h3>
+<p class="text-background-dark/70 dark:text-background-light/70">
+                    Stay ahead of the curve with the latest cybersecurity trends and learn how to implement best practices to secure your applications.
+                  </p>
+</div>
+<div class="relative w-full overflow-hidden rounded-lg aspect-video md:w-56">
+<div class="h-full w-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6zBz3J8LgC_pxfmFlHt8DSR_6TubVLBDfKu4RC8znoqcW-WdhbPOwHnEU2OaBrpOhsHk4NC44L1hDPOKg5f756SHQVLKUnnAGkB8ErmDmTb4h1rrWCdCLgXeW_gpKavFPUyzIBQi978N9fwIazwjKgyDonqfRhq4fBvWVNQ0pouFj8iTORWhriKvmzPwKs1yKPaIo1UMI2bg9hV7ISSGBWU-c17D_Cdo7gU_WjsHDS36cywMjqBf8xJTzDPPmV2ztZcXXFOdAtg");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+</div>
+</article>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>
