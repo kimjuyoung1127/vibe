@@ -1,29 +1,59 @@
 // UserProfile.tsx
-// This component displays the user profile section in the sidebar
+// This component displays the user profile section in the navbar
 "use client";
 
 import React from 'react';
 import Link from 'next/link';
 
 interface UserProfileProps {
-  isCollapsed?: boolean;
+  isCollapsed: boolean;
+  userProfile: {
+    id: string;
+    username: string;
+    avatar_url: string;
+  } | null;
+  onLogout: () => void;
 }
 
-const UserProfile = ({ isCollapsed = false }: UserProfileProps) => {
+const UserProfile = ({ isCollapsed, userProfile, onLogout }: UserProfileProps) => {
+  // When user is not logged in, show login option
+  if (!userProfile) {
+    return (
+      <div className={`flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10 ${isCollapsed ? 'justify-center' : ''}`}>
+        <Link href="/login" className="flex items-center gap-3">
+          <span className="material-symbols-outlined">login</span>
+          {!isCollapsed && <p className="text-sm font-medium">Login</p>}
+        </Link>
+      </div>
+    );
+  }
+
+  // When user is logged in, show profile information
   return (
-    <div className="flex items-center gap-3">
-      <Link 
-        href="/profile" 
-        className="flex h-10 w-10 rounded-full bg-cover bg-center z-10 border border-primary/20 bg-primary/10 items-center justify-center"
-        style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg")' }}
-      >
-        <span className="material-symbols-outlined text-primary">account_circle</span>
-        <span className="sr-only">Profile</span>
+    <div className={`flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10 ${isCollapsed ? 'justify-center' : ''}`}>
+      <Link href="/profile" className="flex items-center gap-3">
+        <div className="relative">
+          {userProfile.avatar_url ? (
+            <img 
+              src={userProfile.avatar_url} 
+              alt={userProfile.username} 
+              className="h-8 w-8 rounded-full object-cover"
+            />
+          ) : (
+            <span className="material-symbols-outlined text-primary">account_circle</span>
+          )}
+        </div>
+        {!isCollapsed && (
+          <div className="flex flex-col">
+            <p className="text-sm font-medium">{userProfile.username || 'User'}</p>
+          </div>
+        )}
       </Link>
       {!isCollapsed && (
-        <div className="flex flex-col">
-          <h1 className="text-base font-bold text-black dark:text-white">Sophia Carter</h1>
-          <p className="text-sm text-black/60 dark:text-white/60">@sophia_carter</p>
+        <div className="ml-auto">
+          <button onClick={onLogout} className="material-symbols-outlined text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            logout
+          </button>
         </div>
       )}
     </div>

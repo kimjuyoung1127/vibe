@@ -22,10 +22,7 @@ const TopNav = () => {
           </div>
           <nav className="hidden items-center gap-6 text-sm font-medium lg:flex">
             <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/">Home</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white flex items-center gap-2" href="/projects">
-              <span className="material-symbols-outlined text-base">deployed_code</span>
-              <span>Projects</span>
-            </Link>
+            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/projects">Projects</Link>
             <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/gear">Tool & Tech</Link>
             <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/community">Community</Link>
             <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/news">News</Link>
