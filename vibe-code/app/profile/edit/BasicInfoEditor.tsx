@@ -2,24 +2,32 @@
 // This component handles editing basic user information
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ProfileImageUpload from '@/app/components/ProfileImageUpload';
 
-const BasicInfoEditor = () => {
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-  
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setAvatarPreview(event.target.result as string);
-        }
-      };
-      
-      reader.readAsDataURL(file);
-    }
+interface BasicInfoEditorProps {
+  formData: any;
+  setFormData: (data: any) => void;
+}
+
+const BasicInfoEditor = ({ formData, setFormData }: BasicInfoEditorProps) => {
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const handleUploadSuccess = (url: string) => {
+    setFormData({ ...formData, avatar_url: url });
+    setUploadError(null);
+  };
+
+  const handleUploadError = (error: string) => {
+    setUploadError(error);
+  };
+
+  const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, display_name: e.target.value });
+  };
+
+  const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData({ ...formData, bio: e.target.value });
   };
 
   return (
@@ -36,47 +44,16 @@ const BasicInfoEditor = () => {
           </label>
           
           <div className="flex items-center gap-6">
-            {/* Current avatar preview */}
-            <div className="flex flex-col items-center">
-              <div 
-                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-24 w-24 mb-2"
-                style={{ 
-                  backgroundImage: `url("${avatarPreview || 'https://lh3.googleusercontent.com/aida-public/AB6AXuB9hObyn2gW7Bz7eMWI1H9ewEyue6S8iS83-Fzb5ePmp41f4i6tgyX-J1nO9Hl5zh3ta8XzBM4UbJ4523HCiuSyJ96y2PpwuXLnibaJmReZwqKenYrxdmMfnh5ZNsMU5ouTIJCsKOqfxWaMhsJHSb3MRGLuMjv_w11vz0poV4y6uKDZlfqSotWLrIr1z0Ru-Rty1XEIlPO180irzteXkV_cejqXBcxCYn77nMLMjN347eQ1REZ70u9-wJ7CfXKBCQYIcyT9bXuUTQ'}")` 
-                }}
-              ></div>
-              <button 
-                type="button"
-                className="text-sm text-red-500 hover:text-red-700"
-              >
-                Delete
-              </button>
-            </div>
-            
-            {/* Upload area */}
             <div className="flex-1">
-              <div className="border-2 border-dashed border-primary/30 dark:border-primary/50 rounded-lg p-6 text-center">
-                <div className="flex flex-col items-center justify-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
-                  <p className="text-[#161118] dark:text-[#f5f7f8] font-medium">
-                    Drag & drop your image here
-                  </p>
-                  <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">
-                    or
-                  </p>
-                  <label className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors cursor-pointer">
-                    Browse Files
-                    <input 
-                      type="file" 
-                      className="hidden" 
-                      accept="image/*"
-                      onChange={handleAvatarChange}
-                    />
-                  </label>
-                  <p className="text-[#7c608a] dark:text-[#c5b3d1] text-xs">
-                    Recommended: Pixel art or pop color style (PNG, JPG up to 5MB)
-                  </p>
-                </div>
-              </div>
+              <ProfileImageUpload
+                onUploadSuccess={handleUploadSuccess}
+                onUploadError={handleUploadError}
+                currentImageUrl={formData.avatar_url}
+                maxFileSize={5}
+              />
+              {uploadError && (
+                <div className="mt-2 text-red-500 text-sm">{uploadError}</div>
+              )}
             </div>
           </div>
         </div>
@@ -89,7 +66,7 @@ const BasicInfoEditor = () => {
           <input
             type="text"
             id="username"
-            defaultValue="sophia_carter"
+            value={formData.username || ''}
             className="w-full px-3 py-2 bg-background-light dark:bg-background-dark border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary"
             readOnly
           />
@@ -106,7 +83,8 @@ const BasicInfoEditor = () => {
           <input
             type="text"
             id="displayName"
-            defaultValue="Sophia Carter"
+            value={formData.display_name || ''}
+            onChange={handleDisplayNameChange}
             className="w-full px-3 py-2 bg-background-light dark:bg-background-dark border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <p className="text-[#7c608a] dark:text-[#c5b3d1] text-xs mt-1">
@@ -121,7 +99,8 @@ const BasicInfoEditor = () => {
           </label>
           <textarea
             id="bio"
-            defaultValue="Full-stack developer passionate about creating vibrant, retro-inspired web experiences. Love exploring the intersection of design and technology."
+            value={formData.bio || ''}
+            onChange={handleBioChange}
             rows={4}
             className="w-full px-3 py-2 bg-background-light dark:bg-background-dark border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary"
           ></textarea>

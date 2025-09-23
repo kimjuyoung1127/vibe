@@ -2,12 +2,26 @@
 // This component contains the project links section of the project create form
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 
-const LinksSection = () => {
-  const [githubUrl, setGithubUrl] = useState('');
-  const [liveDemoUrl, setLiveDemoUrl] = useState('');
-  const [deploymentPlatform, setDeploymentPlatform] = useState('');
+// Define the props interface
+interface LinksSectionProps {
+  githubUrl: string;
+  setGithubUrl: (url: string) => void;
+  liveDemoUrl: string;
+  setLiveDemoUrl: (url: string) => void;
+  deploymentPlatform: string;
+  setDeploymentPlatform: (platform: string) => void;
+}
+
+const LinksSection = ({
+  githubUrl,
+  setGithubUrl,
+  liveDemoUrl,
+  setLiveDemoUrl,
+  deploymentPlatform,
+  setDeploymentPlatform
+}: LinksSectionProps) => {
 
   return (
     <div>

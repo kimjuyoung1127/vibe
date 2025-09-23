@@ -2,14 +2,36 @@
 // This component handles editing social media links
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SocialLinksEditor = () => {
-  const [links, setLinks] = useState([
-    { id: 1, name: 'GitHub', url: 'https://github.com/sophiacarter', icon: 'code' },
-    { id: 2, name: 'LinkedIn', url: 'https://linkedin.com/in/sophiacarter', icon: 'work' },
-    { id: 3, name: 'Personal Website', url: 'https://sophiacarter.dev', icon: 'link' }
+interface SocialLink {
+  id: number;
+  name: string;
+  url: string;
+  icon: string;
+}
+
+interface SocialLinksEditorProps {
+  formData: any;
+  setFormData: (data: any) => void;
+}
+
+const SocialLinksEditor = ({ formData, setFormData }: SocialLinksEditorProps) => {
+  const [links, setLinks] = useState<SocialLink[]>([
+    { id: 1, name: 'GitHub', url: '', icon: 'code' },
+    { id: 2, name: 'LinkedIn', url: '', icon: 'work' },
+    { id: 3, name: 'Personal Website', url: '', icon: 'link' }
   ]);
+
+  // Initialize links when form data changes
+  useEffect(() => {
+    const initialLinks = [
+      { id: 1, name: 'GitHub', url: formData.github_url || '', icon: 'code' },
+      { id: 2, name: 'LinkedIn', url: formData.linkedin_url || '', icon: 'work' },
+      { id: 3, name: 'Personal Website', url: formData.website_url || '', icon: 'link' }
+    ];
+    setLinks(initialLinks);
+  }, [formData.github_url, formData.linkedin_url, formData.website_url]);
 
   const addLink = () => {
     setLinks([
@@ -19,13 +41,41 @@ const SocialLinksEditor = () => {
   };
 
   const updateLink = (id: number, field: 'name' | 'url', value: string) => {
-    setLinks(links.map(link => 
+    const updatedLinks = links.map(link => 
       link.id === id ? { ...link, [field]: value } : link
-    ));
+    );
+    setLinks(updatedLinks);
+    
+    // Update form data with the new link values
+    const githubLink = updatedLinks.find(link => link.name.toLowerCase().includes('github'));
+    const linkedinLink = updatedLinks.find(link => link.name.toLowerCase().includes('linkedin'));
+    const websiteLink = updatedLinks.find(link => link.name.toLowerCase().includes('website') || link.name === 'Personal Website');
+    
+    setFormData({
+      ...formData,
+      github_url: githubLink ? githubLink.url : formData.github_url,
+      linkedin_url: linkedinLink ? linkedinLink.url : formData.linkedin_url,
+      website_url: websiteLink ? websiteLink.url : formData.website_url
+    });
   };
 
   const removeLink = (id: number) => {
-    setLinks(links.filter(link => link.id !== id));
+    const linkToRemove = links.find(link => link.id === id);
+    const updatedLinks = links.filter(link => link.id !== id);
+    setLinks(updatedLinks);
+    
+    // If this was a special link, clear it from form data
+    if (linkToRemove) {
+      const updatedFormData = { ...formData };
+      if (linkToRemove.name.toLowerCase().includes('github')) {
+        updatedFormData.github_url = '';
+      } else if (linkToRemove.name.toLowerCase().includes('linkedin')) {
+        updatedFormData.linkedin_url = '';
+      } else if (linkToRemove.name.toLowerCase().includes('website') || linkToRemove.name === 'Personal Website') {
+        updatedFormData.website_url = '';
+      }
+      setFormData(updatedFormData);
+    }
   };
 
   return (

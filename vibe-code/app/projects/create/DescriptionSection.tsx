@@ -2,11 +2,21 @@
 // This component contains the detailed description section of the project create form
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
-const DescriptionSection = () => {
-  const [description, setDescription] = useState('');
+// Define the props interface
+interface DescriptionSectionProps {
+  description: string;
+  setDescription: (description: string) => void;
+  errors: Record<string, string>; // Added errors prop for validation
+}
+
+const DescriptionSection = ({
+  description,
+  setDescription,
+  errors
+}: DescriptionSectionProps) => {
 
   return (
     <div>
@@ -19,10 +29,13 @@ const DescriptionSection = () => {
           <TextareaAutosize
             minRows={6}
             placeholder="Describe your project in detail. Use markdown for formatting. Add pop color highlights, alert/info boxes, pixel art banners, colorful code blocks, and select a font for your post. Upload images/GIFs and add additional screenshots/GIFs with drag-and-drop."
-            className="form-input flex w-full min-w-0 flex-3 size-none overflow-hidden rounded-lg text-[#161118] focus:outline-0 focus:ring-0 border-none bg-[#f3f0f5] focus:border-none placeholder:text-[#7c608a] p-4 text-base font-normal leading-normal"
+            className={`form-input flex w-full min-w-0 flex-3 size-none overflow-hidden rounded-lg text-[#161118] focus:outline-0 focus:ring-0 border-none bg-[#f3f0f5] focus:border-none placeholder:text-[#7c608a] p-4 text-base font-normal leading-normal ${
+              errors.description ? 'border-2 border-red-500' : ''
+            }`}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
         </label>
       </div>
     </div>

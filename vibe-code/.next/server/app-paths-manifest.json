@@ -1,5 +1,10 @@
 {
+  "/not-found": "app/not-found.js",
+  "/projects/page": "app/projects/page.js",
   "/page": "app/page.js",
-  "/login/page": "app/login/page.js",
-  "/profile/page": "app/profile/page.js"
+  "/profile/page": "app/profile/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/projects/create/page": "app/projects/create/page.js",
+  "/gear/page": "app/gear/page.js",
+  "/gear/[id]/page": "app/gear/[id]/page.js"
 }

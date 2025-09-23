@@ -3,16 +3,21 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import SearchBar from './SearchBar';
+import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
 
 const TopNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { userProfile, loading } = useUserProfile(); // Use the custom hook
+
+  // Use a default avatar if the user profile is not loaded or doesn't have an avatar
+  const avatarUrl = userProfile?.avatar_url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg';
 
   return (
     <>
       <header className="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:bg-background-dark/80 md:px-10 overflow-visible">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3 text-primary">
-            <svg className="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="h-6 w-6" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 16.5c-3 0-5.5-1-5.5-6 0-5 2.5-6 5.5-6 3 0 5.5 1 5.5 6 0 4-2 6-5.5 6.5z"></path>
               <path d="M15 16.5c4 0 6.5-1.5 6.5-6"></path>
               <path d="M2.5 22c5 0 8.5-1.5 8.5-6 0-4.5-3.5-6-8.5-6-5 0-8.5 1.5-8.5 6 0 4.5 3.5 6 8.5 6z"></path>
@@ -36,7 +41,7 @@ const TopNav = () => {
           <Link 
             href="/profile" 
             className="flex h-10 w-10 rounded-full bg-cover bg-center z-10 border border-primary/20 bg-primary/10 items-center justify-center"
-            style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg")' }}
+            style={{ backgroundImage: `url("${avatarUrl}")` }}
           >
             <span className="material-symbols-outlined text-primary">account_circle</span>
             <span className="sr-only">Profile</span>
@@ -58,7 +63,7 @@ const TopNav = () => {
           <div className="absolute left-0 top-0 h-full w-64 bg-background-light dark:bg-background-dark p-4" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center gap-3 text-primary">
-                <svg className="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="h-6 w-6" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15 16.5c-3 0-5.5-1-5.5-6 0-5 2.5-6 5.5-6 3 0 5.5 1 5.5 6 0 4-2 6-5.5 6.5z"></path>
                   <path d="M15 16.5c4 0 6.5-1.5 6.5-6"></path>
                   <path d="M2.5 22c5 0 8.5-1.5 8.5-6 0-4.5-3.5-6-8.5-6-5 0-8.5 1.5-8.5 6 0 4.5 3.5 6 8.5 6z"></path>

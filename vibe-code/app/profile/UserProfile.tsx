@@ -2,24 +2,168 @@
 // This component displays the user's profile information
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { supabase } from '@/app/lib/supabaseClient';
+
+interface UserProfileData {
+  id: string;
+  user_id: string;
+  username: string;
+  display_name: string;
+  avatar_url: string;
+  bio: string;
+  github_url: string;
+  linkedin_url: string;
+  website_url: string;
+  created_at: string;
+}
 
 const UserProfile = () => {
-  // Sample user data
-  const userData = {
-    username: "sophia_carter",
-    displayName: "Sophia Carter",
-    bio: "Full-stack developer passionate about creating vibrant, retro-inspired web experiences. Love exploring the intersection of design and technology.",
-    avatarUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuB9hObyn2gW7Bz7eMWI1H9ewEyue6S8iS83-Fzb5ePmp41f4i6tgyX-J1nO9Hl5zh3ta8XzBM4UbJ4523HCiuSyJ96y2PpwuXLnibaJmReZwqKenYrxdmMfnh5ZNsMU5ouTIJCsKOqfxWaMhsJHSb3MRGLuMjv_w11vz0poV4y6uKDZlfqSotWLrIr1z0Ru-Rty1XEIlPO180irzteXkV_cejqXBcxCYn77nMLMjN347eQ1REZ70u9-wJ7CfXKBCQYIcyT9bXuUTQ",
-    joinDate: "Joined March 2023",
-    githubUrl: "https://github.com/sophiacarter",
-    linkedinUrl: "https://linkedin.com/in/sophiacarter",
-    websiteUrl: "https://sophiacarter.dev",
-    projectsCount: 12,
-    commentsCount: 84,
-    vibeChecksCount: 156
-  };
+  const [userData, setUserData] = useState<UserProfileData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [stats, setStats] = useState({
+    projectsCount: 0,
+    commentsCount: 0,
+    vibeChecksCount: 0
+  });
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Get the current session
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session?.user) {
+          throw new Error('No user session found');
+        }
+
+        // Fetch user profile using the correct foreign key 'user_id'
+        const { data: profileData, error: profileError } = await supabase
+          .from('user_profiles')
+          .select('id, user_id, username, display_name, avatar_url, bio, github_url, linkedin_url, website_url, created_at')
+          .eq('user_id', session.user.id)
+          .single();
+
+        if (profileError) throw profileError;
+
+        setUserData(profileData);
+
+        // Fetch user stats
+        await fetchUserStats(session.user.id);
+      } catch (error: any) {
+        console.error('Error fetching user profile:', error);
+        setError(error.message || 'Failed to load profile data. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchUserStats = async (userId: string) => {
+      try {
+        // Fetch projects count
+        const { count: projectsCount, error: projectsError } = await supabase
+          .from('projects')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', userId);
+
+        if (projectsError) throw projectsError;
+
+        // Fetch comments count
+        const { count: commentsCount, error: commentsError } = await supabase
+          .from('comments')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', userId);
+
+        if (commentsError) throw commentsError;
+
+        // Fetch vibe checks count (count of vibe checks on user's projects)
+        // First, get the user's project IDs
+        const { data: userProjects, error: userProjectsError } = await supabase
+          .from('projects')
+          .select('id')
+          .eq('user_id', userId);
+
+        if (userProjectsError) throw userProjectsError;
+
+        const projectIds = userProjects.map(project => project.id);
+
+        // Then count vibe checks on those projects
+        let vibeChecksCount = 0;
+        if (projectIds.length > 0) {
+          const { count, error: vibeChecksError } = await supabase
+            .from('vibe_checks')
+            .select('*', { count: 'exact', head: true })
+            .eq('target_type', 'project')
+            .in('target_id', projectIds);
+
+          if (vibeChecksError) throw vibeChecksError;
+          vibeChecksCount = count || 0;
+        }
+
+        setStats({
+          projectsCount: projectsCount || 0,
+          commentsCount: commentsCount || 0,
+          vibeChecksCount: vibeChecksCount
+        });
+
+        setStats({
+          projectsCount: projectsCount || 0,
+          commentsCount: commentsCount || 0,
+          vibeChecksCount: vibeChecksCount || 0
+        });
+      } catch (error: any) {
+        console.error('Error fetching user stats:', error);
+        // We don't set error here as we still want to show the profile even if stats fail
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div className="px-4 py-6">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong className="font-bold">Error! </strong>
+            <span className="block sm:inline">{error}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!userData) {
+    return (
+      <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div className="px-4 py-6">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong className="font-bold">Error! </strong>
+            <span className="block sm:inline">User profile not found.</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Format join date
+  const joinDate = new Date(userData.created_at);
+  const formattedJoinDate = `Joined ${joinDate.toLocaleString('default', { month: 'long' })} ${joinDate.getFullYear()}`;
 
   return (
     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
@@ -44,12 +188,12 @@ const UserProfile = () => {
                 {/* Avatar */}
                 <div 
                   className="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32 mb-4"
-                  style={{ backgroundImage: `url("${userData.avatarUrl}")` }}
+                  style={{ backgroundImage: `url("${userData.avatar_url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuB9hObyn2gW7Bz7eMWI1H9ewEyue6S8iS83-Fzb5ePmp41f4i6tgyX-J1nO9Hl5zh3ta8XzBM4UbJ4523HCiuSyJ96y2PpwuXLnibaJmReZwqKenYrxdmMfnh5ZNsMU5ouTIJCsKOqfxWaMhsJHSb3MRGLuMjv_w11vz0poV4y6uKDZlfqSotWLrIr1z0Ru-Rty1XEIlPO180irzteXkV_cejqXBcxCYn77nMLMjN347eQ1REZ70u9-wJ7CfXKBCQYIcyT9bXuUTQ'}")` }}
                 ></div>
                 
                 {/* Display name */}
                 <h2 className="text-[#161118] dark:text-[#f5f7f8] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-1">
-                  {userData.displayName}
+                  {userData.display_name}
                 </h2>
                 
                 {/* Username */}
@@ -64,7 +208,7 @@ const UserProfile = () => {
                 
                 {/* Join date */}
                 <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm font-normal leading-normal mb-6">
-                  {userData.joinDate}
+                  {formattedJoinDate}
                 </p>
                 
                 {/* Edit profile button */}
@@ -87,18 +231,18 @@ const UserProfile = () => {
               </h3>
               
               <div className="grid grid-cols-3 gap-4">
-                <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
-                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{userData.projectsCount}</p>
+                <Link href="/projects/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.projectsCount}</p>
                   <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Projects</p>
-                </div>
+                </Link>
                 
                 <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
-                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{userData.commentsCount}</p>
+                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.commentsCount}</p>
                   <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Comments</p>
                 </div>
                 
                 <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
-                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{userData.vibeChecksCount}</p>
+                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.vibeChecksCount}</p>
                   <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Vibe Checks</p>
                 </div>
               </div>
@@ -111,35 +255,48 @@ const UserProfile = () => {
               </h3>
               
               <div className="space-y-3">
-                <a 
-                  href={userData.githubUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-primary">code</span>
-                  <span className="text-[#161118] dark:text-[#f5f7f8]">GitHub</span>
-                </a>
+                {userData.github_url && (
+                  <a 
+                    href={userData.github_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-primary">code</span>
+                    <span className="text-[#161118] dark:text-[#f5f7f8]">GitHub</span>
+                  </a>
+                )}
                 
-                <a 
-                  href={userData.linkedinUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-primary">work</span>
-                  <span className="text-[#161118] dark:text-[#f5f7f8]">LinkedIn</span>
-                </a>
+                {userData.linkedin_url && (
+                  <a 
+                    href={userData.linkedin_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-primary">work</span>
+                    <span className="text-[#161118] dark:text-[#f5f7f8]">LinkedIn</span>
+                  </a>
+                )}
                 
-                <a 
-                  href={userData.websiteUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-primary">link</span>
-                  <span className="text-[#161118] dark:text-[#f5f7f8]">Personal Website</span>
-                </a>
+                {userData.website_url && (
+                  <a 
+                    href={userData.website_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-primary">link</span>
+                    <span className="text-[#161118] dark:text-[#f5f7f8]">Personal Website</span>
+                  </a>
+                )}
+                
+                {/* Show message if no links are available */}
+                {!userData.github_url && !userData.linkedin_url && !userData.website_url && (
+                  <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm text-center py-4">
+                    No social links added yet. Add some in your profile settings!
+                  </p>
+                )}
               </div>
             </div>
           </div>

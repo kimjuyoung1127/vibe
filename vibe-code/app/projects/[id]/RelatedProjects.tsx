@@ -1,52 +1,96 @@
 // RelatedProjects.tsx
-// This component displays related projects in a horizontal scrollable list
+// This component displays other projects by the same author
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '@/app/lib/supabaseClient';
+import Link from 'next/link';
 
 interface RelatedProject {
-  id: number;
+  id: string;
   title: string;
-  description: string;
-  imageUrl: string;
+  tagline: string;
+  hero_image_url: string;
 }
 
-const RelatedProjects = () => {
-  const relatedProjects: RelatedProject[] = [
-    {
-      id: 1,
-      title: "Project Beta",
-      description: "A mobile app for fitness tracking",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBW_IKizybILfc89u1-mAvcQaAQiw5XJxYiG7uId4t2VziVUasBmE5_iHzQQy1Utv3xsOy115GyJ1tZOs_a8SQzo_s-ts6ZC_lPFUR-uIlmZnv-lC_gSz9aknAWClG1qfsjKSEdkujG5nNVzh1xMJSGHxAa2hM30ezRqMT-hTS3tDQgz7l1CkxGIGt3lZggQptXh17QnFZJyKybau66oJ_hPU6c316gt4mKsYKau5YzQx4bpJM_-XQoEaxQHWyLXJUZTMGUH4Kt31Yr"
-    },
-    {
-      id: 2,
-      title: "Project Gamma",
-      description: "A platform for online learning",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBrtV1woGoAbtlGxxVHRm-Jnjvgk4ALKoAMy79rcNlIHcAb5RXxsNVA25LVVKocGVcC8fu92WEo4aNhzJ73z4KVU2FphlMTPPjlIVXOs0urZzdZO1jBzi-Cp5FuRllNKc0k5Sbq_N1aFThEqn6zU4yrudFEWPla4Rv9tyy47fqUl4kzcBoNca9WKF34QYgUfiS2htLQTzv8GUKopdnwiP29mk1H23RqFGVs36MQUOWRq7TQi9mtjBCxUp1l1MNCuBYyVXOeUAMZiV3u"
-    },
-    {
-      id: 3,
-      title: "Project Delta",
-      description: "A tool for data visualization",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDaBVXqdVs4ygAdcNUqRUJEqJNi6veUxueRby6m8Kuua-b-eNCK5sZQHG8zq_MVBZRb0ijy4vg24agEVMljKPUUkaya5VwP1I2ePIEnabPDzSJ4YeNDRgUXaXgj5AM4PAmLAVugRi01z-_77jWYaRGbXaB5tThaCYQMv8yzgPA1y3PYODPFAzf7o1Zkj3ay95t3kkWrybI7uDbUQloG1tFT3TZd_pzBo47ZYGoLUu3sY0YtFrlA86Kp2DOJhs4SGmsQI8pA5qRLaSJE"
+const RelatedProjects = ({ authorId, currentProjectId }: { authorId: string; currentProjectId: string }) => {
+  const [relatedProjects, setRelatedProjects] = useState<RelatedProject[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchRelatedProjects = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch other projects by the same author, excluding the current project
+        const { data, error } = await supabase
+          .from('projects')
+          .select('id, title, tagline, hero_image_url')
+          .eq('user_id', authorId)
+          .eq('is_public', true)
+          .neq('id', currentProjectId)
+          .limit(10); // Limit to 10 related projects
+
+        if (error) throw error;
+
+        setRelatedProjects(data || []);
+      } catch (error: any) {
+        console.error('Error fetching related projects:', error);
+        setError(error.message || 'Failed to load related projects.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (authorId && currentProjectId) {
+      fetchRelatedProjects();
     }
-  ];
+  }, [authorId, currentProjectId]);
+
+  // If there are no related projects, don't render anything
+  if (!loading && !error && relatedProjects.length === 0) {
+    return null;
+  }
+
+  if (loading) {
+    return (
+      <div className="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex items-stretch p-4 gap-3">
+          {[1, 2, 3].map((index) => (
+            <div key={index} className="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-40">
+              <div className="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex flex-col bg-gray-200 animate-pulse"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+                <div className="h-3 bg-gray-200 rounded w-full animate-pulse"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    // Don't show error to users, just don't display related projects
+    return null;
+  }
 
   return (
     <div className="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <div className="flex items-stretch p-4 gap-3">
         {relatedProjects.map((project) => (
-          <div key={project.id} className="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-40">
+          <Link key={project.id} href={`/projects/${project.id}`} className="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-40 hover:opacity-90 transition-opacity">
             <div
               className="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex flex-col"
-              style={{ backgroundImage: `url("${project.imageUrl}")` }}
+              style={{ backgroundImage: `url("${project.hero_image_url}")` }}
             ></div>
             <div>
               <p className="text-[#161118] text-base font-medium leading-normal">{project.title}</p>
-              <p className="text-[#7c608a] text-sm font-normal leading-normal">{project.description}</p>
+              <p className="text-[#7c608a] text-sm font-normal leading-normal">{project.tagline}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
