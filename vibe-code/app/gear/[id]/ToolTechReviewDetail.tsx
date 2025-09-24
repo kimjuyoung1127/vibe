@@ -2,7 +2,8 @@
 // This component displays the detailed view of a tool/tech review
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import BackButton from './BackButton';
 import Header from './Header';
 import AuthorInfo from './AuthorInfo';
@@ -10,87 +11,183 @@ import ReviewImage from './ReviewImage';
 import ReviewContent from './ReviewContent';
 import Tags from './Tags';
 import CommentsSection from './CommentsSection';
+import { supabase } from '@/app/lib/supabaseClient';
+
+interface ReviewData {
+  id: string;
+  title: string;
+  tool_tech_name: string;
+  overall_rating: number;
+  one_liner_pros: string | null;
+  one_liner_cons: string | null;
+  content: string;
+  hero_image_url: string | null;
+  demo_video_url: string | null;
+  font_preference: string;
+  vibe_check_count: number;
+  comment_count: number;
+  created_at: string;
+  updated_at: string;
+  user_id: string;
+  author_name: string;
+  author_username: string;
+  author_avatar_url: string | null;
+  categories: string[];
+}
 
 const ToolTechReviewDetail = () => {
+  const [reviewData, setReviewData] = useState<ReviewData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
-  
+  const router = useRouter();
+  const pathname = usePathname();
+  const reviewId = pathname?.split('/')[2]; // Extract review ID from URL
+
+  useEffect(() => {
+    const fetchReviewData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch review data with author information
+        const { data, error } = await supabase
+          .from('tool_reviews')
+          .select(`
+            id,
+            title,
+            tool_tech_name,
+            overall_rating,
+            one_liner_pros,
+            one_liner_cons,
+            content,
+            hero_image_url,
+            demo_video_url,
+            font_preference,
+            vibe_check_count,
+            comment_count,
+            created_at,
+            updated_at,
+            user_id,
+            user_profiles (
+              display_name,
+              username,
+              avatar_url
+            )
+          `)
+          .eq('id', reviewId)
+          .single();
+
+        if (error) throw error;
+
+        // Fetch categories
+        const { data: categoriesData, error: categoriesError } = await supabase
+          .from('review_categories')
+          .select('category_name')
+          .eq('review_id', reviewId);
+
+        if (categoriesError) throw categoriesError;
+
+        const categories = categoriesData.map((cat: any) => cat.category_name);
+
+        // Format the data
+        const formattedData: ReviewData = {
+          ...data,
+          author_name: data.user_profiles?.[0]?.display_name || 'Unknown Author',
+          author_username: data.user_profiles?.[0]?.username || 'unknown',
+          author_avatar_url: data.user_profiles?.[0]?.avatar_url || null,
+          categories
+        };
+
+        setReviewData(formattedData);
+      } catch (err: any) {
+        console.error('Error fetching review data:', err);
+        setError(err.message || 'Failed to load review data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (reviewId) {
+      fetchReviewData();
+    }
+  }, [reviewId]);
+
   const handleLike = () => {
     setIsLiked(!isLiked);
   };
 
-  // Review data
-  const reviewData = {
-    id: 1,
-    title: "RetroWave Syntax Theme for VS Code",
-    category: "IDE Themes",
-    author: "Alex Ryder",
-    authorRole: "Full-stack Developer",
-    publishDate: "July 15, 2024",
-    lastUpdated: "July 20, 2024",
-    readTime: "5 min read",
-    tags: ["VS Code", "Themes", "Productivity", "Retro"],
-    content: `
-      <p>As developers, we spend countless hours staring at our code editors. Having a visually appealing and comfortable theme can significantly impact our productivity and overall well-being. Today, I want to share my experience with the RetroWave Syntax Theme for VS Code, a theme that brings the vibrant aesthetics of the 80s to your coding environment.</p>
-      
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-primary">First Impressions</h2>
-      
-      <p>From the moment I installed the RetroWave theme, I was transported back to the neon-soaked nights of the 80s. The theme features a dark background with vibrant pinks, purples, and blues reminiscent of classic synthwave aesthetics. The contrast is well-balanced, ensuring code remains readable while providing a visually stimulating environment.</p>
-      
-      <div class="my-6 p-4 bg-[#1a1a2e] rounded-lg border-l-4 border-primary/30">
-        <h3 className="text-lg font-semibold mb-2 text-primary">Editor's Note</h3>
-        <p>This theme pairs exceptionally well with the "Synthwave '84" icon theme, creating a cohesive retro-futuristic experience.</p>
-      </div>
-      
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-primary">Syntax Highlighting</h2>
-      
-      <p>The syntax highlighting is where this theme truly shines. Keywords pop with electric blue, strings glow with a warm pink hue, and comments are subtly displayed in a muted purple. Variables and functions have distinct colors that make them easily distinguishable at a glance. After using this theme for several weeks, I found my ability to parse code improved significantly.</p>
-      
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-primary">Customization Options</h2>
-      
-      <p>One of the standout features of the RetroWave theme is its extensive customization options. Users can adjust the intensity of the neon glow effects, toggle bold keywords, and even modify the background gradient. This flexibility ensures that the theme can be tailored to individual preferences while maintaining its core aesthetic.</p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-        <div class="bg-[#0f0f1a] p-4 rounded-lg border border-primary/30">
-          <h3 className="font-semibold mb-2 text-primary">Pros</h3>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Vibrant, nostalgic color scheme</li>
-            <li>Excellent contrast for readability</li>
-            <li>Highly customizable</li>
-            <li>Active community support</li>
-          </ul>
-        </div>
-        <div class="bg-[#0f0f1a] p-4 rounded-lg border border-primary/30">
-          <h3 className="font-semibold mb-2 text-primary">Cons</h3>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>May be too bright for some users</li>
-            <li>Not ideal for daytime coding</li>
-            <li>Can be resource-intensive with glow effects</li>
-          </ul>
+  if (loading) {
+    return (
+      <div className="layout-content-container flex flex-col max-w-[960px] flex-1 p-8">
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
         </div>
       </div>
-      
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-primary">Performance Impact</h2>
-      
-      <p>While the visual effects are stunning, I was initially concerned about potential performance impacts. After extensive use, I found that the theme has a negligible effect on VS Code's performance. The glow effects are implemented efficiently and don't cause noticeable lag, even in large projects.</p>
-      
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-primary">Final Verdict</h2>
-      
-      <p>The RetroWave Syntax Theme successfully combines nostalgic aesthetics with practical functionality. It's a fantastic choice for developers who want to inject some personality into their coding environment without sacrificing usability. Whether you're a fan of 80s aesthetics or simply looking for a refreshing change from standard dark themes, I highly recommend giving RetroWave a try.</p>
-      
-      <div class="my-6 p-4 bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-lg border border-primary/30">
-        <h3 className="text-lg font-semibold mb-2 text-primary">Try It Yourself</h3>
-        <p>To install the RetroWave theme:</p>
-        <ol className="list-decimal pl-5 mt-2 space-y-1">
-          <li>Open VS Code</li>
-          <li>Go to Extensions (Ctrl+Shift+X)</li>
-          <li>Search for "RetroWave Syntax Theme"</li>
-          <li>Click Install and apply the theme</li>
-        </ol>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="layout-content-container flex flex-col max-w-[960px] flex-1 p-8">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <strong className="font-bold">Error! </strong>
+          <span className="block sm:inline">{error}</span>
+        </div>
+        <button
+          onClick={() => router.back()}
+          className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary/80"
+        >
+          Go Back
+        </button>
       </div>
-    `,
-    imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMs4agmgsT_TySTlJ0Po4vO3Rw3U5qql7BaRSjQJR6J1zPy5M_KVRqY3CoXpPB5FNyt_vUl11Zp1xuIuKIO9IP2zs5nE6BOetqONJdPWeNNfo4mn7UosGiCioIyuA6COyv4-hvDPv_MCcsenfgqFlRvwMYPC3TGVMqY4rYKB-cZknd4YBFOhI4dd_K8d_DnGFfMW3D2Ui-fMLi-uOJ7IejzVK3JimGyaazHG1SI2h6r6cu-TpwwLIsKRLwS3UFQQOTx63xJhkYIPMm",
-    authorImageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCo5dNNwFjDMmEaYNb7-PDlp04IHGCJMRcz4Rwo9Pyic5p90ruulC9zF1g18xpoYIhOGYISILuXYAu1oAJZGVLKpxVjbJDHAvOmRfr-I73SXReDiLzutf-T0qacfoztxNpMVXvhws4tW-uAHpoGlerAZ8tpkYHNk7rWGl02fVSSld6yUHn1C7_7kXsTVu1Buhk5WPf37vHYuVYejj5BnhwBjps3nfW7pdddvO6G0GOkjajsZDBa5ANgmbp8k1v0EB2EyiBp1rSpVbPM",
-    initialLikes: 24
+    );
+  }
+
+  if (!reviewData) {
+    return (
+      <div className="layout-content-container flex flex-col max-w-[960px] flex-1 p-8">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <strong className="font-bold">Error! </strong>
+          <span className="block sm:inline">Review not found.</span>
+        </div>
+        <button
+          onClick={() => router.back()}
+          className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary/80"
+        >
+          Go Back
+        </button>
+      </div>
+    );
+  }
+
+  // Format dates for display
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+  
+  const publishDate = formatDate(reviewData.created_at);
+  const lastUpdated = formatDate(reviewData.updated_at);
+  const readTime = `${Math.max(1, Math.floor(reviewData.content.length / 1500))} min read`; // Rough estimate
+
+  // Render star ratings
+  const renderStars = (rating: number) => {
+    return (
+      <div className="flex items-center px-4 py-2">
+        {[...Array(5)].map((_, i) => (
+          <span 
+            key={i} 
+            className={`material-symbols-outlined text-base ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+          >
+            star
+          </span>
+        ))}
+        <span className="ml-2 text-[#161118] dark:text-[#f5f7f8] text-sm font-bold">
+          {rating.toFixed(1)}
+        </span>
+      </div>
+    );
   };
 
   return (
@@ -99,33 +196,66 @@ const ToolTechReviewDetail = () => {
       <BackButton />
       
       {/* Page header */}
-      <Header title={reviewData.title} category={reviewData.category} />
+      <Header title={reviewData.title} category={reviewData.tool_tech_name} />
+      
+      {/* Rating display */}
+      <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 mb-4 max-w-max inline-block ml-4">
+        {renderStars(reviewData.overall_rating)}
+      </div>
       
       {/* Author information and metadata */}
       <AuthorInfo 
-        author={reviewData.author}
-        authorRole={reviewData.authorRole}
-        publishDate={reviewData.publishDate}
-        lastUpdated={reviewData.lastUpdated}
-        readTime={reviewData.readTime}
-        authorImageUrl={reviewData.authorImageUrl}
-        initialLikes={reviewData.initialLikes}
+        author={reviewData.author_name}
+        authorRole="Tool & Tech Reviewer"
+        publishDate={publishDate}
+        lastUpdated={lastUpdated}
+        readTime={readTime}
+        authorImageUrl={reviewData.author_avatar_url || ''}
+        initialLikes={reviewData.vibe_check_count}
         onLike={handleLike}
         isLiked={isLiked}
       />
       
       {/* Review image */}
-      <ReviewImage imageUrl={reviewData.imageUrl} />
+      {reviewData.hero_image_url && <ReviewImage imageUrl={reviewData.hero_image_url} />}
       
       {/* Review content */}
       <ReviewContent content={reviewData.content} />
       
+      {/* One-liner Pros and Cons */}
+      {(reviewData.one_liner_pros || reviewData.one_liner_cons) && (
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3 ml-4">
+          {reviewData.one_liner_pros && (
+            <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-3 border border-primary/30 max-w-max inline-block">
+              <h3 className="font-semibold mb-1 text-primary text-sm flex items-center">
+                <span className="material-symbols-outlined text-base mr-2">thumb_up</span>
+                Pros
+              </h3>
+              <p className="text-[#161118] dark:text-[#f5f7f8] text-sm">{reviewData.one_liner_pros}</p>
+            </div>
+
+          )}
+          
+          {reviewData.one_liner_cons && (
+            <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-3 border border-primary/30 max-w-max inline-block">
+              <h3 className="font-semibold mb-1 text-primary text-sm flex items-center">
+                <span className="material-symbols-outlined text-base mr-2">thumb_down</span>
+                Cons
+              </h3>
+              <p className="text-[#161118] dark:text-[#f5f7f8] text-sm">{reviewData.one_liner_cons}</p>
+            </div>
+          )}
+        </div>
+      )}
+      
       {/* Tags */}
-      <Tags tags={reviewData.tags} />
+      <div className="pt-6">
+        <Tags tags={reviewData.categories} />
+      </div>
       
       {/* Comments section */}
       <div className="mt-12">
-        <CommentsSection />
+        <CommentsSection reviewId={reviewData.id} />
       </div>
     </div>
   );

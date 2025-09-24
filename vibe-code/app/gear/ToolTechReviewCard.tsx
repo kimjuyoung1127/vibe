@@ -6,7 +6,7 @@ import React from 'react';
 import Link from 'next/link';
 
 interface ReviewCardProps {
-  id: number;
+  id: string;
   title: string;
   category: string;
   description: string;

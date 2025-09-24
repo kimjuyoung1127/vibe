@@ -1,165 +1,184 @@
 // ProfileImageUpload.tsx
-// A specialized image upload component for profile avatars
+// This component handles image uploading for user profile pictures or other images
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
 
 interface ProfileImageUploadProps {
-  onUploadSuccess: (url: string) => void;
-  onUploadError: (error: string) => void;
+  onImageUpload: (url: string) => void;
   currentImageUrl?: string;
-  maxFileSize?: number; // in MB
+  folderPath?: string;
+  maxFileSize?: number; // in bytes, default to 5MB
+  acceptedFileTypes?: string[]; // e.g., ['image/jpeg', 'image/png', 'image/gif']
+  bucketName?: string; // Supabase storage bucket name
+  label?: string;
 }
 
 const ProfileImageUpload: React.FC<ProfileImageUploadProps> = ({
-  onUploadSuccess,
-  onUploadError,
+  onImageUpload,
   currentImageUrl,
-  maxFileSize = 5
+  folderPath = 'images',
+  maxFileSize = 5 * 1024 * 1024, // 5MB
+  acceptedFileTypes = ['image/jpeg', 'image/png', 'image/gif'],
+  bucketName = 'gear-media',
+  label = 'Upload Image'
 }) => {
-  const [uploading, setUploading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  useEffect(() => {
+    setPreviewUrl(currentImageUrl || null);
+  }, [currentImageUrl]);
 
-    // Validate file type
-    if (!file.type.match('image/*')) {
-      const errorMessage = `Invalid file type. Please upload a valid image file.`;
-      onUploadError(errorMessage);
-      return;
-    }
-
-    // Validate file size
-    const fileSizeInMB = file.size / (1024 * 1024);
-    if (fileSizeInMB > maxFileSize) {
-      const errorMessage = `File size exceeds ${maxFileSize}MB limit.`;
-      onUploadError(errorMessage);
-      return;
-    }
-
-    // Create preview
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (event.target?.result) {
-        setPreviewUrl(event.target.result as string);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
+    
+    if (e.target.files && e.target.files[0]) {
+      const selectedFile = e.target.files[0];
+      
+      // Validate file type
+      if (!acceptedFileTypes.includes(selectedFile.type)) {
+        setError(`Invalid file type. Acceptable types: ${acceptedFileTypes.join(', ')}`);
+        return;
       }
-    };
-    reader.readAsDataURL(file);
+      
+      // Validate file size
+      if (selectedFile.size > maxFileSize) {
+        setError(`File size too large. Maximum size: ${(maxFileSize / 1024 / 1024).toFixed(2)}MB`);
+        return;
+      }
+      
+      setFile(selectedFile);
+      
+      // Create preview URL
+      const preview = URL.createObjectURL(selectedFile);
+      setPreviewUrl(preview);
+      
+      // Clean up the previous preview URL to prevent memory leaks
+      return () => URL.revokeObjectURL(preview);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      setError('Please select a file first');
+      return;
+    }
 
     setUploading(true);
-    
+    setError(null);
+
     try {
-      // Upload file to Supabase Storage in the avatar bucket
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      // Generate a unique filename
+      const fileName = `${folderPath}/${Date.now()}_${file.name}`;
       
-      const { data, error } = await supabase
+      // Upload the file to Supabase storage
+      const { data, error: uploadError } = await supabase
         .storage
-        .from('avatar')
-        .upload(fileName, file);
+        .from(bucketName)
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
 
-      if (error) throw error;
+      if (uploadError) throw uploadError;
 
-      // Get public URL for the uploaded image
-      const { data: { publicUrl } } = supabase
+      // Get the public URL of the uploaded file
+      const { data: publicUrlData } = supabase
         .storage
-        .from('avatar')
+        .from(bucketName)
         .getPublicUrl(fileName);
 
-      onUploadSuccess(publicUrl);
-    } catch (error: any) {
-      console.error('Error uploading file:', error);
-      const errorMessage = error.message || 'Failed to upload image.';
-      onUploadError(errorMessage);
+      if (publicUrlData) {
+        onImageUpload(publicUrlData.publicUrl);
+      }
+    } catch (err: any) {
+      console.error('Error uploading image:', err);
+      setError(err.message || 'Failed to upload image. Please try again.');
     } finally {
       setUploading(false);
     }
   };
 
-  const triggerFileInput = () => {
-    fileInputRef.current?.click();
-  };
-
-  const removeImage = () => {
-    setPreviewUrl(null);
+  const handleButtonClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.click();
     }
-    // Notify parent component that image was removed
-    onUploadSuccess('');
   };
 
   return (
-    <div className="w-full">
-      {previewUrl || currentImageUrl ? (
-        // Preview section - shown when there's an image
+    <div className="space-y-4">
+      <div>
+        <label className="block text-[#161118] dark:text-[#f5f7f8] text-sm font-medium mb-1">
+          {label}
+        </label>
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept={acceptedFileTypes.join(',')}
+          className="hidden"
+        />
         <div className="flex flex-col items-center">
-          <div className="relative w-full">
-            <img
-              src={previewUrl || currentImageUrl}
-              alt="Preview"
-              className="max-h-48 max-w-full rounded-full object-cover"
-            />
-            <button
-              type="button"
-              className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
-              onClick={removeImage}
-            >
-              <span className="material-symbols-outlined text-xs">close</span>
-            </button>
+          {/* Preview area */}
+          <div 
+            className="w-32 h-32 rounded-full border-2 border-dashed border-primary/30 flex items-center justify-center mb-4 cursor-pointer"
+            onClick={handleButtonClick}
+          >
+            {previewUrl ? (
+              <img 
+                src={previewUrl} 
+                alt="Preview" 
+                className="w-full h-full object-cover rounded-full"
+              />
+            ) : (
+              <div className="text-center">
+                <span className="material-symbols-outlined text-primary text-3xl">add_a_photo</span>
+                <p className="text-xs mt-1 text-[#161118] dark:text-[#f5f7f8]">Click to upload</p>
+              </div>
+            )}
           </div>
+          
           <button
             type="button"
-            className="mt-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors cursor-pointer text-sm"
-            onClick={triggerFileInput}
-            disabled={uploading}
+            onClick={handleButtonClick}
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm"
           >
-            {uploading ? 'Uploading...' : 'Change Image'}
+            Select Image
           </button>
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
+          
+          {file && (
+            <div className="mt-2 flex gap-2">
+              <button
+                type="button"
+                onClick={handleUpload}
+                disabled={uploading}
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm disabled:opacity-50"
+              >
+                {uploading ? 'Uploading...' : 'Upload Image'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setFile(null);
+                  setPreviewUrl(currentImageUrl || null);
+                }}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors text-sm"
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+          
+          {error && (
+            <div className="mt-2 text-red-500 text-sm">{error}</div>
+          )}
         </div>
-      ) : (
-        // Drag & drop area - shown when there's no image
-        <div className="border-2 border-dashed border-primary/30 dark:border-primary/50 rounded-lg p-6 text-center">
-          <div className="flex flex-col items-center justify-center gap-3">
-            <span className="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
-            <p className="text-[#161118] dark:text-[#f5f7f8] font-medium">
-              Drag & drop your image here
-            </p>
-            <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">
-              or
-            </p>
-            <button
-              type="button"
-              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors cursor-pointer disabled:opacity-50"
-              onClick={triggerFileInput}
-              disabled={uploading}
-            >
-              {uploading ? 'Uploading...' : 'Browse Files'}
-            </button>
-            <p className="text-[#7c608a] dark:text-[#c5b3d1] text-xs">
-              {`Recommended: PNG, JPG up to ${maxFileSize}MB`}
-            </p>
-          </div>
-          <input
-            type="file"
-            ref={fileInputRef}
-            className="hidden"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
-      )}
+      </div>
     </div>
   );
 };

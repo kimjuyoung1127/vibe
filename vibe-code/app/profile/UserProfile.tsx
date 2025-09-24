@@ -25,6 +25,7 @@ const UserProfile = () => {
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState({
     projectsCount: 0,
+    toolTechCount: 0,
     commentsCount: 0,
     vibeChecksCount: 0
   });
@@ -73,6 +74,14 @@ const UserProfile = () => {
 
         if (projectsError) throw projectsError;
 
+        // Fetch tool & tech reviews count
+        const { count: toolTechCount, error: toolTechError } = await supabase
+          .from('tool_reviews')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', userId);
+
+        if (toolTechError) throw toolTechError;
+
         // Fetch comments count
         const { count: commentsCount, error: commentsError } = await supabase
           .from('comments')
@@ -107,12 +116,14 @@ const UserProfile = () => {
 
         setStats({
           projectsCount: projectsCount || 0,
+          toolTechCount: toolTechCount || 0,
           commentsCount: commentsCount || 0,
           vibeChecksCount: vibeChecksCount
         });
 
         setStats({
           projectsCount: projectsCount || 0,
+          toolTechCount: toolTechCount || 0,
           commentsCount: commentsCount || 0,
           vibeChecksCount: vibeChecksCount || 0
         });
@@ -230,22 +241,27 @@ const UserProfile = () => {
                 Stats
               </h3>
               
-              <div className="grid grid-cols-3 gap-4">
-                <Link href="/projects/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
-                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.projectsCount}</p>
-                  <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Projects</p>
-                </Link>
-                
-                <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
-                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.commentsCount}</p>
-                  <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Comments</p>
+              <div className="grid grid-cols-4 gap-4">
+                  <Link href="/projects/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.projectsCount}</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Projects</p>
+                  </Link>
+                  
+                  <Link href="/gear/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.toolTechCount}</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Tool & Tech</p>
+                  </Link>
+                  
+                  <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
+                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.commentsCount}</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Comments</p>
+                  </div>
+                  
+                  <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
+                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.vibeChecksCount}</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Vibe Checks</p>
+                  </div>
                 </div>
-                
-                <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
-                  <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.vibeChecksCount}</p>
-                  <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Vibe Checks</p>
-                </div>
-              </div>
             </div>
             
             {/* Social links */}

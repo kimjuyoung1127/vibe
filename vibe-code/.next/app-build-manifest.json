@@ -51,6 +51,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/gear/[id]/page.js"
     ],
+    "/gear/create/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/gear/create/page.js"
+    ],
+    "/gear/drafts/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/gear/drafts/page.js"
+    ],
     "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
