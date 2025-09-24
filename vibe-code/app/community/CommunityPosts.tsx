@@ -3,17 +3,22 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/app/lib/supabaseClient';
+import { useRouter } from 'next/navigation';
+import PostItem from './PostItem';
+import EditPostModal from './EditPostModal';
 
 interface Post {
-  id: number;
+  id: string;
+  user_id: string;
   title: string;
   content: string;
-  author: string;
-  date: string;
-  commentCount: number;
-  likes: number;
+  created_at: string;
+  comment_count: number;
+  vibe_check_count: number;
+  username: string;
+  avatar_url: string | null;
   tags: string[];
-  authorImageUrl: string;
 }
 
 const CommunityPosts = () => {
@@ -21,42 +26,109 @@ const CommunityPosts = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [postToEdit, setPostToEdit] = useState<Post | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editContent, setEditContent] = useState('');
+  const [editTags, setEditTags] = useState<string[]>([]);
+  const router = useRouter();
+  const POSTS_PER_PAGE = 10;
 
-  // Sample data for community posts
-  const generateSamplePosts = (pageNum: number): Post[] => {
-    const startIndex = (pageNum - 1) * 5;
-    return Array.from({ length: 5 }, (_, i) => ({
-      id: startIndex + i + 1,
-      title: `Community Discussion #${startIndex + i + 1}`,
-      content: `This is the content of community post #${startIndex + i + 1}. In the Coding Lounge, we discuss various topics related to development, design, and the vibe of coding. What are your thoughts on the latest trends in web development? How do you maintain a creative and inspiring coding environment? This post continues with more detailed thoughts and insights about the topic at hand. We encourage everyone to share their experiences and perspectives in the comments below.`,
-      author: `User${startIndex + i + 1}`,
-      date: new Date(Date.now() - (startIndex + i) * 24 * 60 * 60 * 1000).toISOString(),
-      commentCount: Math.floor(Math.random() * 50),
-      likes: Math.floor(Math.random() * 100),
-      tags: ['Discussion', 'Community', 'Vibe'],
-      authorImageUrl: `https://i.pravatar.cc/150?u=${startIndex + i + 1}`
-    }));
-  };
+  // Get current user
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setCurrentUser(user.id);
+      }
+    };
+    fetchUser();
+  }, [supabase]);
 
   const loadPosts = useCallback(async () => {
     if (loading || !hasMore) return;
     
     setLoading(true);
     
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const newPosts = generateSamplePosts(page);
-    
-    setPosts(prev => [...prev, ...newPosts]);
-    setPage(prev => prev + 1);
-    setLoading(false);
-    
-    // Simulate reaching the end after 5 pages
-    if (page >= 5) {
-      setHasMore(false);
+    try {
+      // Fetch posts with user profile information
+      const from = (page - 1) * POSTS_PER_PAGE;
+      const to = from + POSTS_PER_PAGE - 1;
+
+      const { data, error } = await supabase
+        .from('community_posts')
+        .select(`
+          id, 
+          user_id, 
+          title, 
+          content, 
+          created_at, 
+          comment_count, 
+          vibe_check_count,
+          user_profiles(username, avatar_url)
+        `)
+        .order('created_at', { ascending: false })
+        .range(from, to);
+
+      if (error) throw error;
+
+      if (!data || data.length === 0) {
+        setHasMore(false);
+        return;
+      }
+
+      // Fetch tags for each post
+      const postIds = data.map(post => post.id);
+      const { data: tagsData, error: tagsError } = await supabase
+        .from('community_post_tags')
+        .select('post_id, tag_name')
+        .in('post_id', postIds);
+
+      if (tagsError) throw tagsError;
+
+      // Group tags by post_id
+      const tagsMap = new Map<string, string[]>();
+      if (tagsData) {
+        tagsData.forEach(tag => {
+          const postTags = tagsMap.get(tag.post_id) || [];
+          postTags.push(tag.tag_name);
+          tagsMap.set(tag.post_id, postTags);
+        });
+      }
+
+      // Format the posts with tags
+      const formattedPosts = data.map(post => ({
+        id: post.id,
+        user_id: post.user_id,
+        title: post.title,
+        content: post.content,
+        created_at: post.created_at,
+        comment_count: post.comment_count || 0,
+        vibe_check_count: post.vibe_check_count || 0,
+        username: post.user_profiles?.[0]?.username || 'Anonymous',
+        avatar_url: post.user_profiles?.[0]?.avatar_url || null,
+        tags: tagsMap.get(post.id) || []
+      }));
+
+      setPosts(prev => {
+        const existingIds = new Set(prev.map(p => p.id));
+        const newPosts = formattedPosts.filter(p => !existingIds.has(p.id));
+        return [...prev, ...newPosts];
+      });
+      
+      // Check if we have less than requested posts to determine if there's more
+      if (data.length < POSTS_PER_PAGE) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error('Error loading community posts:', error);
+    } finally {
+      setLoading(false);
     }
-  }, [page, loading, hasMore]);
+    
+    setPage(prev => prev + 1);
+  }, [page, loading, hasMore, supabase]);
 
   useEffect(() => {
     loadPosts();
@@ -64,15 +136,21 @@ const CommunityPosts = () => {
 
   // Handle scroll for infinite loading
   useEffect(() => {
-    const handleScroll = () => {
+    let isFetching = false; // Prevent multiple simultaneous fetches
+
+    const handleScroll = async () => {
+      if (isFetching || loading || !hasMore) return;
+      
       if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 1000) {
-        loadPosts();
+        isFetching = true;
+        await loadPosts();
+        isFetching = false;
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [loadPosts]);
+  }, [loadPosts, loading, hasMore]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -88,72 +166,124 @@ const CommunityPosts = () => {
     }
   };
 
+  const handleDelete = async (postId: string) => {
+    if (!confirm('Are you sure you want to delete this post?')) {
+      return;
+    }
+
+    const { error } = await supabase
+      .from('community_posts')
+      .delete()
+      .eq('id', postId);
+
+    if (error) {
+      console.error('Error deleting post:', error);
+    } else {
+      // Remove the post from the UI
+      setPosts(prev => prev.filter(post => post.id !== postId));
+    }
+  };
+
+  const handleEditClick = (post: Post) => {
+    setPostToEdit(post);
+    setEditTitle(post.title);
+    setEditContent(post.content);
+    setEditTags([...post.tags]); // Create a copy of the tags
+    setEditModalOpen(true);
+  };
+
+  const handleUpdate = async () => {
+    if (!postToEdit) return;
+
+    // Update the post content
+    const { error: postError } = await supabase
+      .from('community_posts')
+      .update({
+        title: editTitle,
+        content: editContent,
+      })
+      .eq('id', postToEdit.id);
+
+    if (postError) {
+      console.error('Error updating post:', postError);
+      return;
+    }
+
+    // Delete existing tags for this post to replace with new ones
+    await supabase
+      .from('community_post_tags')
+      .delete()
+      .eq('post_id', postToEdit.id);
+
+    // Insert new tags if any
+    if (editTags.length > 0) {
+      const tagsToInsert = editTags.map(tag => ({
+        post_id: postToEdit.id,
+        tag_name: tag
+      }));
+
+      const { error: tagsError } = await supabase
+        .from('community_post_tags')
+        .insert(tagsToInsert);
+
+      if (tagsError) {
+        console.error('Error updating tags:', tagsError);
+      }
+    }
+
+    // Update the post in the UI
+    setPosts(prev => 
+      prev.map(post => 
+        post.id === postToEdit.id 
+          ? { ...post, title: editTitle, content: editContent, tags: editTags } 
+          : post
+      )
+    );
+
+    // Close modal
+    setEditModalOpen(false);
+    setPostToEdit(null);
+    
+    // Refresh the page to ensure all data is consistent
+    router.refresh();
+  };
+
   return (
     <div className="px-4 pb-8 md:px-6 lg:px-8">
       <div className="space-y-6 max-w-2xl mx-auto">
         {posts.map((post) => (
-          <div 
-            key={post.id} 
-            className="overflow-hidden rounded-xl border border-primary/20 bg-background-light shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark"
-          >
-            {/* Post header */}
-            <div className="flex items-center p-4">
-              <div 
-                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-10 w-10"
-                style={{ backgroundImage: `url("${post.authorImageUrl}")` }}
-              ></div>
-              <div className="ml-3">
-                <p className="text-sm font-bold text-black dark:text-white">
-                  {post.author}
-                </p>
-                <p className="text-xs text-black/60 dark:text-white/60">
-                  {formatDate(post.date)}
-                </p>
-              </div>
-            </div>
-            
-            {/* Post content */}
-            <div className="px-4 pb-3">
-              <h3 className="text-lg font-bold text-black dark:text-white mb-2">
-                {post.title}
-              </h3>
-              
-              <p className="text-sm text-black/80 dark:text-white/80 mb-4">
-                {post.content}
-              </p>
-            </div>
-            
-            {/* Tags */}
-            <div className="px-4 pb-3">
-              <div className="flex flex-wrap gap-2">
-                {post.tags.slice(0, 3).map((tag, index) => (
-                  <span 
-                    key={index} 
-                    className="inline-block px-2 py-1 text-xs font-semibold text-primary bg-primary/10 dark:bg-primary/20 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            {/* Post actions */}
-            <div className="flex border-t border-primary/10 dark:border-primary/20 px-4 py-3">
-              <button className="flex items-center text-black/60 dark:text-white/60 hover:text-red-500">
-                <span className="material-symbols-outlined mr-1">favorite_border</span>
-                <span className="text-sm">{post.likes}</span>
-              </button>
-              <button className="flex items-center ml-4 text-black/60 dark:text-white/60 hover:text-primary">
-                <span className="material-symbols-outlined mr-1">chat_bubble</span>
-                <span className="text-sm">{post.commentCount}</span>
-              </button>
-              <button className="flex items-center ml-auto text-black/60 dark:text-white/60 hover:text-primary">
-                <span className="material-symbols-outlined">share</span>
-              </button>
-            </div>
-          </div>
+          <PostItem 
+            key={post.id}
+            id={post.id}
+            user_id={post.user_id}
+            title={post.title}
+            content={post.content}
+            created_at={post.created_at}
+            comment_count={post.comment_count}
+            vibe_check_count={post.vibe_check_count}
+            username={post.username}
+            avatar_url={post.avatar_url}
+            tags={post.tags}
+            currentUser={currentUser}
+            onEdit={handleEditClick}
+            onDelete={handleDelete}
+            formatDate={formatDate}
+          />
         ))}
       </div>
+      
+      <EditPostModal 
+        isOpen={editModalOpen}
+        postToEdit={postToEdit}
+        editTitle={editTitle}
+        editContent={editContent}
+        editTags={editTags}
+        setEditTitle={setEditTitle}
+        setEditContent={setEditContent}
+        setEditTags={setEditTags}
+        onClose={() => setEditModalOpen(false)}
+        onSave={handleUpdate}
+      />
       
       {loading && (
         <div className="flex justify-center py-8">
