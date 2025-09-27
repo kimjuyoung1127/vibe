@@ -2,62 +2,120 @@
 // This component displays the latest projects in a grid layout
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { supabase } from '@/app/lib/supabaseClient';
 
 // Define the type for a project item
 interface ProjectItem {
-  id: number;
+  id: string; // Changed from number to string as Supabase IDs are UUIDs
   title: string;
-  description: string;
-  imageUrl: string;
+  tagline: string; // Changed from description to tagline as per table schema
+  hero_image_url: string; // Changed from imageUrl to hero_image_url as per table schema
 }
 
 const LatestProjects = () => {
-  // Sample data for the latest projects
-  const projectItems: ProjectItem[] = [
-    {
-      id: 1,
-      title: "Project: Glitch Effect Toolkit",
-      description: "A toolkit for creating glitch art and visual effects.",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAqASFON8u1wKr8OchIiADq9LJala4Q5D5WUvnoApQ8uSk5FPCUs4PivrKg-T6H1G2GojC1a4lKDhkvRnOEzE0asbHZoHVnz7_AI_JKsm3NTrnHmTsBB-bBXt8CG4WTbeGK6yBldxB69faW9PRdAURJGtE1lXu5e-IHdyEpAdXaqbTW62OU52kRhiEhzWffFR9VAd4G4Xb1xE5z1W8MlYZL66gsCw4GGlGTyBxsVFbCXysem9mNfBL9NmgL342KKJPoBOpF1sqW2g"
-    },
-    {
-      id: 2,
-      title: "Project: Synthwave Soundboard",
-      description: "A soundboard with a collection of synthwave sounds and loops.",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBhzRa3c-J_Uj3SOGY0cbwENB4UUZWtCl3keokrQtGub5_lajw9R2Acr69nNygRGLANbvxzb2IVvuaiAwB4fnxa66qEWNxX-UkLBgWc2o0JfXoUzSHW8rSWtWtP7-JEf0KYj-UsA88uMThmamAmfB1t9vwTY_H4VTp3l2fYHzF_st74bDDCCIwI_covoSJqqPmu-O-bkZMR0b-z632S19gx_5x0Nz9UrvRmo3Qzyak8riRGDMKfsp6QfVRnAySgScAk3UatRPo7Aw"
-    },
-    {
-      id: 3,
-      title: "Project: 8-Bit Game Engine",
-      description: "A simple game engine for creating 8-bit style games.",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCLMSAVQ2AuAyhB0ub4Xw5tL31aN1NlC5itFusrZw7Vfv3oz6u2eZtEMFejfIeT2U3mcilz1kfwI0OHymlaMQNOaXlOzCrpCPVzQXP2Htk3bTplJYxPNkvpPCZyMnmFHglOKcUSxJWiUp5cprxTI3K_5tu7iuUtVmwg6el_HDrFLSSQtewyE6TMHDwkp6aBGrev2btS4Mpl7_EjvibHUGmLDPTQG2vrU-3pB760p2B_-gkcs2lP2mFeIU3UvuFnoyXjtCxikhW98A"
-    }
-  ];
+  const [projectItems, setProjectItems] = useState<ProjectItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLatestProjects = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('projects')
+          .select('id, title, tagline, hero_image_url')
+          .eq('is_public', true) // Only public projects
+          .order('created_at', { ascending: false })
+          .limit(6); // Get the 6 most recent projects
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        if (data) {
+          // Map the data to the ProjectItem interface
+          const projectData: ProjectItem[] = data.map(item => ({
+            id: item.id,
+            title: item.title,
+            tagline: item.tagline,
+            hero_image_url: item.hero_image_url
+          }));
+          // Limit to first 6 projects
+          setProjectItems(projectData.slice(0, 6));
+        }
+      } catch (err: any) {
+        console.error('Error fetching latest projects:', err);
+        setError(err.message || 'An error occurred while fetching the latest projects');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
+        <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {[...Array(3)].map((_, index) => (
+            <div key={index} className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
+              <div className="aspect-video w-full rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-4/5"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
+        <div className="text-red-500 w-full text-center py-8">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
       <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
       
-      {/* Grid layout for project cards */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Horizontal scrollable container for project cards */}
+      <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {/* Map through project items to create cards */}
         {projectItems.map((item) => (
-          <div key={item.id} className="flex flex-col gap-3">
+          <Link 
+            key={item.id} 
+            href={`/projects/${item.id}`} 
+            className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 transition-all hover:border-primary/40 hover:shadow-primary/20 dark:border-primary/30 dark:bg-background-dark dark:hover:border-primary/50"
+          >
             {/* Project image */}
             <div 
-              className="aspect-video w-full rounded-lg bg-cover bg-center shadow-lg shadow-primary/10" 
-              style={{ backgroundImage: `url("${item.imageUrl}")` }}
+              className="aspect-video w-full rounded-lg bg-cover bg-center cursor-pointer" 
+              style={{ backgroundImage: `url("${item.hero_image_url}")` }}
             ></div>
             
             {/* Project information */}
             <div>
               <p className="font-bold text-black dark:text-white">{item.title}</p>
-              <p className="text-sm text-black/60 dark:text-white/60">{item.description}</p>
+              <p className="text-sm text-black/60 dark:text-white/60">{item.tagline}</p>
             </div>
-          </div>
+          </Link>
         ))}
+        
+        {projectItems.length === 0 && (
+          <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
+            No projects found.
+          </div>
+        )}
       </div>
     </div>
   );

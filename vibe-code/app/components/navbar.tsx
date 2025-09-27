@@ -5,6 +5,7 @@ import Link from 'next/link';
 import UserProfile from './UserProfile';
 import { supabase } from '@/app/lib/supabaseClient';
 import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
+import { usePathname } from 'next/navigation';
 
 interface NavItem {
   icon: string;
@@ -15,6 +16,7 @@ interface NavItem {
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { userProfile, loading } = useUserProfile(); // Use the custom hook
+  const pathname = usePathname(); // Get current pathname
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -26,11 +28,11 @@ const Navbar = () => {
   };
 
   const navItems: NavItem[] = [
-    { icon: '', label: 'Home', href: '/' },
-    { icon: '', label: 'Projects', href: '/projects' },
-    { icon: ' ', label: 'Tool & tech', href: '/gear' },
-    { icon: '', label: 'Community', href: '/community' },
-    { icon: '', label: 'News', href: '/news' },
+    { icon: 'home', label: 'Home', href: '/' },
+    { icon: 'deployed_code', label: 'Projects', href: '/projects' },
+    { icon: 'settings', label: 'Tool & tech', href: '/gear' },
+    { icon: 'group', label: 'Community', href: '/community' },
+    { icon: 'article', label: 'News', href: '/news' },
   ];
 
   return (
@@ -39,16 +41,23 @@ const Navbar = () => {
         {/* Pass the userProfile data to the UserProfile component */}
         <UserProfile isCollapsed={isCollapsed} userProfile={userProfile} onLogout={handleLogout} />
         <nav className="flex flex-col gap-1">
-          {navItems.map((item, index) => (
-            <Link 
-              key={index}
-              href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10 ${index === 0 ? 'bg-primary/10 text-primary dark:bg-primary/20' : ''}`}
-            >
-              <span className="material-symbols-outlined">{item.icon}</span>
-              {!isCollapsed && <p className="text-sm font-medium">{item.label}</p>}
-            </Link>
-          ))}
+          {navItems.map((item, index) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link 
+                key={index}
+                href={item.href}
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
+                  isActive 
+                    ? 'bg-primary/20 text-primary font-bold' 
+                    : 'text-black/80'
+                } transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10`}
+              >
+                <span className="material-symbols-outlined">{item.icon}</span>
+                {!isCollapsed && <p className="text-sm font-medium">{item.label}</p>}
+              </Link>
+            );
+          })}
         </nav>
       </div>
 

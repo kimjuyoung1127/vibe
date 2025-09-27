@@ -2,73 +2,102 @@
 // This component displays the grid of news articles
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { supabase } from '@/app/lib/supabaseClient';
 import NewsArticleCard from './NewsArticleCard';
+import { NewsArticle } from './admin/types';
 
 const NewsArticles = () => {
-  // Sample data for news articles
-  const articles = [
-    {
-      id: 1,
-      category: "AI & Machine Learning",
-      title: "Breakthrough in Natural Language Processing: New Model Understands Context Like Never Before",
-      excerpt: "Researchers have developed a revolutionary NLP model that demonstrates unprecedented understanding of context and nuance in human language, potentially transforming how we interact with AI systems.",
-      author: "Tech Insights",
-      date: "2024-07-15",
-      readTime: "5 min read",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDvgUcL_hA91VNACmXmpqviDNTm2ghWGbTH6S1WJyTOl2ax0BPFZ9wJ9wnpj6ZGdzvEIm8sf9ZLUUWhyu2rHucrm5h72rhBaK8YzI82suQ809KrzZiY6-maXtPDtFFDOmEXOkYIPDP3Y8pmD2CaB_bDr7nn3SsjbnyLuuqWPBKZc5IHvLQn87OEv0UgHn67IRBxejoIelQpqmLt6RgnNMXn821bIXeN2rjqywMLlGomNqMuHzLu4D3aoRvJ3mRRtBL1WFfkH6Nx0w"
-    },
-    {
-      id: 2,
-      category: "Web Development",
-      title: "The Rise of Edge Computing: How It's Changing Web Application Architecture",
-      excerpt: "Edge computing is revolutionizing how we build and deploy web applications, bringing processing power closer to users and dramatically reducing latency. We explore the implications for modern web developers.",
-      author: "Web Weekly",
-      date: "2024-07-12",
-      readTime: "7 min read",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDkZIXu3S3nKThhWpnsAAVfZfFNZuBDwRoe_56k_woEKe2rJbsS6h1vR-OFmnYa2pKXqMT0qUKbQF4VR3iZ22uCCuazva_mr7LiGR7ZrUeAtz7ubAIWqlaXq3OskF4tBN8ZvLvl8Qg6WOL5zy7u3ylaWWDc4dKhJWV_q92NfrwpzSkWWnQu_9H7NIl9_5drFxsk_WWqALtQ2aM1wjup2dqtsFWqQ-h365laHzHpEXYo9J8AYfKPKnyCkkjH2OhP9E9C81x_gi9Utg"
-    },
-    {
-      id: 3,
-      category: "UI/UX Design",
-      title: "Glassmorphism 2.0: The Evolution of a Design Trend",
-      excerpt: "Two years after glassmorphism took the design world by storm, we examine how the trend has evolved and where it's heading. Featuring interviews with leading designers and analysis of recent implementations.",
-      author: "Design Digest",
-      date: "2024-07-10",
-      readTime: "6 min read",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAeznZ5iJOdkhX5fAa-qPRRlFxKVv7QqxjEYC6dVaniryFqb3uUlDCnAVyJZAoqx8hD5BNaboewbLQ2OIpmjgsxbEHWfXvBeNO8HcXB6R8uUrqoseRIKVx9vioGFOxeINaIQJE-lRKjitJCM5JG7DG0rZe_M9deHdy-IFsaCLD6tkMuaI_f3f8DNIHyo7PSA0-QLmsMogFi0hjdCZZXr-b1vKS3rIiyGVmY14oFcfYYjNKHXvQNQSkDkcTLa5qoHgXbJ8yla2izMw"
-    },
-    {
-      id: 4,
-      category: "Cybersecurity",
-      title: "Quantum Computing Threatens Current Encryption Methods: What Developers Need to Know",
-      excerpt: "As quantum computers become more powerful, traditional encryption methods face unprecedented challenges. We break down the implications for software developers and explore quantum-resistant cryptography.",
-      author: "Security Today",
-      date: "2024-07-08",
-      readTime: "8 min read",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDMs4agmgsT_TySTlJ0Po4vO3Rw3U5qql7BaRSjQJR6J1zPy5M_KVRqY3CoXpPB5FNyt_vUl11Zp1xuIuKIO9IP2zs5nE6BOetqONJdPWeNNfo4mn7UosGiCioIyuA6COyv4-hvDPv_MCcsenfgqFlRvwMYPC3TGVMqY4rYKB-cZknd4YBFOhI4dd_K8d_DnGFfMW3D2Ui-fMLi-uOJ7IejzVK3JimGyaazHG1SI2h6r6cu-TpwwLIsKRLwS3UFQQOTx63xJhkYIPMm"
-    },
-    {
-      id: 5,
-      category: "Mobile Development",
-      title: "The Future of Cross-Platform Development: Comparing Flutter, React Native, and SwiftUI",
-      excerpt: "With multiple frameworks vying for dominance in cross-platform development, we compare the latest features, performance benchmarks, and developer experience of Flutter, React Native, and SwiftUI.",
-      author: "Mobile Mag",
-      date: "2024-07-05",
-      readTime: "9 min read",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDYhQ3HpLGyjGPkldMxBvSyTCn8CHLczONedvWGd6Rmcl29bqR6UcBPJKGbwxh08cS0fnmwFWoA7E9NMPqr8t3TdcR8yWASBssFjirD3H69GrciKA7VR2t31ssSCRiJtSOBpc3Eazc-_WOn12ePb5eO16Gr6Bh_MS_jp9fBkiDUHCzQlUX4JR_znmb7B3R4wHMwVVSx-6JXuK6GexEdS-qB6wgoL9majNQwakSEFf5kHJADLDh5z3xsQfKxrX1YJZZoAfLMXb7"
-    },
-    {
-      id: 6,
-      category: "Cloud Computing",
-      title: "Serverless Architecture: Beyond the Hype",
-      excerpt: "Serverless computing promises reduced operational overhead and automatic scaling, but is it always the right choice? We examine real-world use cases and potential pitfalls developers should be aware of.",
-      author: "Cloud Chronicles",
-      date: "2024-07-02",
-      readTime: "6 min read",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWCd2y_WTUsSTKPboXp8QT7aTIiCBsECOjyob_c8MA5Zj65GiR2ghomAhLC-2nuBkdoc9fv3MVsdZbdVaYTg4OyhKeKe6tArUCwS6eEGYeygwK6KPqhJW7XvQR0gf5ltmepqBzv-LRxTy45CIs9dHfEog_FbF6ep23zHDmPg4sNwmyOm3TpcdcF5_EGmjufDLRQOWvtSQvcS1o-yQOznqRZncnlDmGFnUPWexMNP_Pm3_ULqwXrH9_BW87I8pycJwNqzt4fFg26g"
+  const [articles, setArticles] = useState<NewsArticle[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const itemsPerPage = 9; // 3 cards per row on large screens, 9 total per page
+
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const page = searchParams.get('page');
+    if (page && !isNaN(Number(page))) {
+      setCurrentPage(Number(page));
     }
-  ];
+  }, [searchParams]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setLoading(true);
+        
+        // Get total count first
+        const { count, error: countError } = await supabase
+          .from('news_articles')
+          .select('*', { count: 'exact', head: true })
+          .eq('is_published', true);
+
+        if (countError) {
+          throw new Error(countError.message);
+        }
+
+        if (count !== null) {
+          setTotalPages(Math.ceil(count / itemsPerPage));
+        }
+
+        // Fetch paginated data
+        const { data, error } = await supabase
+          .from('news_articles')
+          .select('*')
+          .eq('is_published', true)
+          .order('published_at', { ascending: false })
+          .range((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage - 1);
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        if (data) {
+          setArticles(data);
+        }
+      } catch (err) {
+        console.error('Error fetching news articles:', err);
+        setError('Failed to load news articles');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, [currentPage]);
+
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      // Update URL with new page
+      const params = new URLSearchParams(window.location.search);
+      params.set('page', page.toString());
+      window.history.pushState({}, '', `${window.location.pathname}?${params}`);
+      
+      setCurrentPage(page);
+      
+      // Scroll to top of articles section
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="px-4 pb-8 md:px-6 lg:px-8 flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="px-4 pb-8 md:px-6 lg:px-8 text-center py-10">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 pb-8 md:px-6 lg:px-8">
@@ -77,34 +106,65 @@ const NewsArticles = () => {
           <NewsArticleCard
             key={article.id}
             id={article.id}
-            category={article.category}
+            category="Technology News" // Using a generic category since it's not in the DB schema
             title={article.title}
-            excerpt={article.excerpt}
-            author={article.author}
-            date={article.date}
-            readTime={article.readTime}
-            imageUrl={article.imageUrl}
+            excerpt={article.summary}
+            author={article.source_name || "Vibe News"}
+            date={article.published_at ? new Date(article.published_at).toLocaleDateString() : new Date(article.created_at).toLocaleDateString()}
+            readTime="5 min read" // Placeholder, could be calculated from content length
+            imageUrl={article.hero_image_url || ''}
           />
         ))}
       </div>
       
-      {/* Pagination */}
-      <div className="flex justify-center mt-8">
-        <div className="flex items-center gap-2">
-          <button className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">
-            1
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-background-light dark:bg-background-dark text-black dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
-            2
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-background-light dark:bg-background-dark text-black dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
-            3
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-background-light dark:bg-background-dark text-black dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
-            Next
-          </button>
+      {/* Dynamic Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8">
+          <div className="flex items-center gap-1">
+            <button 
+              className={`px-3 py-2 rounded-lg ${currentPage === 1 ? 'bg-background-light dark:bg-background-dark text-gray-400 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary/90'}`}
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              &lt;
+            </button>
+            
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let pageNum;
+              if (totalPages <= 5) {
+                // Show all pages if total is 5 or less
+                pageNum = i + 1;
+              } else if (currentPage <= 3) {
+                // If near start, show 1, 2, 3, 4, 5
+                pageNum = i + 1;
+              } else if (currentPage >= totalPages - 2) {
+                // If near end, show last 5 pages
+                pageNum = totalPages - 4 + i;
+              } else {
+                // Show current page in middle
+                pageNum = currentPage - 2 + i;
+              }
+              return (
+                <button
+                  key={pageNum}
+                  className={`px-3 py-2 rounded-lg ${currentPage === pageNum ? 'bg-primary text-white' : 'bg-background-light dark:bg-background-dark text-black dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20'}`}
+                  onClick={() => goToPage(pageNum)}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+            
+            <button 
+              className={`px-3 py-2 rounded-lg ${currentPage === totalPages ? 'bg-background-light dark:bg-background-dark text-gray-400 cursor-not-allowed' : 'bg-primary text-white hover:bg-primary/90'}`}
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

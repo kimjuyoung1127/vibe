@@ -8,7 +8,7 @@ import TechnologyStack from './TechnologyStack';
 import RelatedProjects from './RelatedProjects';
 import CommentsSection from './CommentsSection';
 import AuthorProfile from './AuthorProfile';
-import VibeCheckButton from '@/app/mainpage/VibeCheckButton';
+import VibeCheckButton from '@/app/components/VibeCheckButton';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 
@@ -165,8 +165,26 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
             {project.tagline}
           </p>
         </div>
+        {/* Vibe Check button */}
+        <div className="flex items-center md:hidden">
+          <VibeCheckButton 
+            targetId={project.id} 
+            targetType="project" 
+            initialCount={project.vibe_check_count} 
+          />
+        </div>
       </div>
-      
+
+      {/* 데스크탑 전용: 헤더 아래로 위치 */}
+      <div className="hidden md:block px-4">
+        <div className="flex items-center">
+          <VibeCheckButton 
+            targetId={project.id} 
+            targetType="project" 
+            initialCount={project.vibe_check_count} 
+          />
+        </div>
+      </div>
       
       {/* Project image */}
       <div className="@container">
@@ -189,30 +207,6 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
       
       {/* Project content section - This is the detailed description from 'content' field */}
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">프로젝트 내용</h2>
-      {/* The content is already displayed above. If you want to display it again or differently, you can do so here. */}
-      {/* For now, we'll just show a placeholder message or remove this section if it's redundant. */}
-      {/* 
-      <p className="text-[#161118] text-base font-normal leading-normal pb-3 pt-1 px-4">
-        This section can contain additional content or a different view of the main content.
-      </p>
-      */}
-      
-      {/* Project images grid - This would come from a separate table or field if available */}
-      {/* For now, we'll hide this section or show a placeholder */}
-      {/* 
-      <div className="flex w-full grow bg-white @container py-3">
-        <div className="w-full gap-1 overflow-hidden bg-white @[480px]:gap-2 aspect-[3/2] grid grid-cols-[2fr_1fr_1fr]">
-          <div
-            className="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none row-span-2"
-            style={{ backgroundImage: 'url("https://placehold.co/600x400?text=Image+1")' }}
-          ></div>
-          <div
-            className="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none col-span-2 row-span-2"
-            style={{ backgroundImage: 'url("https://placehold.co/600x400?text=Image+2")' }}
-          ></div>
-        </div>
-      </div>
-      */}
       
       {/* Technology stack section */}
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">기술 스택 &amp; 도구</h2>

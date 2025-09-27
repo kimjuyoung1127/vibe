@@ -4,9 +4,11 @@
 
 import React from 'react';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface ArticleCardProps {
-  id: number;
+  id: string;
   category: string;
   title: string;
   excerpt: string;
@@ -47,9 +49,22 @@ const NewsArticleCard: React.FC<ArticleCardProps> = ({
             {title}
           </h3>
           
-          <p className="text-sm text-black/60 dark:text-white/60 mb-4 line-clamp-3">
-            {excerpt}
-          </p>
+          <div className="text-sm text-black/60 dark:text-white/60 mb-4 line-clamp-3">
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+              components={{
+                p: ({node, ...props}) => <span className="inline" {...props} />,
+                strong: ({node, ...props}) => <strong className="font-bold text-black dark:text-white" {...props} />,
+                em: ({node, ...props}) => <em className="italic" {...props} />,
+                code: ({node, ...props}) => <code className="bg-[#1a1a2e] text-primary px-1 py-0.5 rounded text-xs font-mono" {...props} />,
+                ul: ({node, ...props}) => <ul className="list-disc list-inside inline" {...props} />,
+                ol: ({node, ...props}) => <ol className="list-decimal list-inside inline" {...props} />,
+                li: ({node, ...props}) => <li className="inline" {...props} />,  // Making list items display inline in the excerpt
+              }}
+            >
+              {excerpt}
+            </ReactMarkdown>
+          </div>
           
           <div className="flex justify-between items-center">
             <div className="text-xs text-black/50 dark:text-white/50">

@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import SearchBar from './SearchBar';
 import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
+import { usePathname } from 'next/navigation';
 
 const TopNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { userProfile, loading } = useUserProfile(); // Use the custom hook
+  const pathname = usePathname(); // Get current pathname
 
   // Use a default avatar if the user profile is not loaded or doesn't have an avatar
   const avatarUrl = userProfile?.avatar_url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg';
@@ -26,11 +28,24 @@ const TopNav = () => {
             <h2 className="text-lg font-bold tracking-tighter text-black dark:text-white">Vibe Hub</h2>
           </div>
           <nav className="hidden items-center gap-6 text-sm font-medium lg:flex">
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/">Home</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/projects">Projects</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/gear">Tool & Tech</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/community">Community</Link>
-            <Link className="text-black/60 transition-colors hover:text-black dark:text-white/60 dark:hover:text-white" href="/news">News</Link>
+            {['/', '/projects', '/gear', '/community', '/news'].map((path) => {
+              const label = path === '/' ? 'Home' : 
+                          path === '/projects' ? 'Projects' : 
+                          path === '/gear' ? 'Tool & Tech' : 
+                          path === '/community' ? 'Community' : 'News';
+              const isActive = pathname === path;
+              return (
+                <Link 
+                  key={path} 
+                  className={`${isActive 
+                    ? 'text-primary font-bold' 
+                    : 'text-black/60'} transition-colors hover:text-black dark:text-white/60 dark:hover:text-white`}
+                  href={path}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
         <div className="flex items-center justify-end gap-4">
@@ -76,30 +91,33 @@ const TopNav = () => {
               </button>
             </div>
             <nav className="flex flex-col gap-2">
-              <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">home</span>
-                <span>Home</span>
-              </Link>
-              <Link href="/projects" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">deployed_code</span>
-                <span>Projects</span>
-              </Link>
-              <Link href="/gear" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">settings</span>
-                <span>Tool & Tech</span>
-              </Link>
-              <Link href="/community" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">group</span>
-                <span>Community</span>
-              </Link>
-              <Link href="/news" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">article</span>
-                <span>News</span>
-              </Link>
-              <Link href="/profile" className="flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10">
-                <span className="material-symbols-outlined">account_circle</span>
-                <span>Profile</span>
-              </Link>
+              {['/', '/projects', '/gear', '/community', '/news', '/profile'].map((path) => {
+                const label = path === '/' ? 'Home' : 
+                            path === '/projects' ? 'Projects' : 
+                            path === '/gear' ? 'Tool & Tech' : 
+                            path === '/community' ? 'Community' : 
+                            path === '/news' ? 'News' : 'Profile';
+                const icon = path === '/' ? 'home' : 
+                           path === '/projects' ? 'deployed_code' : 
+                           path === '/gear' ? 'settings' : 
+                           path === '/community' ? 'group' : 
+                           path === '/news' ? 'article' : 'account_circle';
+                const isActive = pathname === path;
+                return (
+                  <Link 
+                    key={path} 
+                    href={path} 
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
+                      isActive 
+                        ? 'bg-primary/20 text-primary font-bold' 
+                        : 'text-black/80'
+                    } transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10`}
+                  >
+                    <span className="material-symbols-outlined">{icon}</span>
+                    <span>{label}</span>
+                  </Link>
+                );
+              })}
               <div className="pt-2">
                 <SearchBar />
               </div>

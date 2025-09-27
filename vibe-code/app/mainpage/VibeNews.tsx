@@ -2,75 +2,155 @@
 // This component displays the latest news articles in the Vibe News section
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { supabase } from '@/app/lib/supabaseClient';
 
 // Define the type for a news item
 interface NewsItem {
-  id: number;
-  category: string;
+  id: string; // Changed from number to string as Supabase IDs are UUIDs
+  category: string; // We'll need to get this from the news_categories table
   title: string;
-  description: string;
-  imageUrl: string;
+  summary: string; // Changed from description to summary as per table schema
+  hero_image_url: string; // Changed from imageUrl to hero_image_url as per table schema
   imagePosition: 'left' | 'right';
 }
 
 const VibeNews = () => {
-  // Sample data for the news items
-  const newsItems: NewsItem[] = [
-    {
-      id: 1,
-      category: "Tech News",
-      title: "Retro Revival: The Resurgence of 80s Aesthetics",
-      description: "Explore how the vibrant colors and bold designs of the 80s are influencing today's technology and design trends.",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDvgUcL_hA91VNACmXmpqviDNTm2ghWGbTH6S1WJyTOl2ax0BPFZ9wJ9wnpj6ZGdzvEIm8sf9ZLUUWhyu2rHucrm5h72rhBaK8YzI82suQ809KrzZiY6-maXtPDtFFDOmEXOkYIPDP3Y8pmD2CaB_bDr7nn3SsjbnyLuuqWPBKZc5IHvLQn87OEv0UgHn67IRBxejoIelQpqmLt6RgnNMXn821bIXeN2rjqywMLlGomNqMuHzLu4D3aoRvJ3mRRtBL1WFfkH6Nx0w",
-      imagePosition: "left"
-    },
-    {
-      id: 2,
-      category: "Community Spotlight",
-      title: "Meet the Creator: Alex Turner's Journey",
-      description: "An interview with Alex Turner, a developer known for their innovative projects that blend modern tech with retro aesthetics.",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDkZIXu3S3nKThhWpnsAAVfZfFNZuBDwRoe_56k_woEKe2rJbsS6h1vR-OFmnYa2pKXqMT0qUKbQF4VR3iZ22uCCuazva_mr7LiGR7ZrUeAtz7ubAIWqlaXq3OskF4tBN8ZvLvl8Qg6WOL5zy7u3ylaWWDc4dKhJWV_q92NfrwpzSkWWnQu_9H7NIl9_5drFxsk_WWqALtQ2aM1wjup2dqtsFWqQ-h365laHzHpEXYo9J8AYfKPKnyCkkjH2OhP9E9C81x_gi9Utg",
-      imagePosition: "right"
-    },
-    {
-      id: 3,
-      category: "Tutorials",
-      title: "Creating Glassmorphism Effects",
-      description: "A step-by-step guide on implementing glassmorphism, a popular design trend that adds a frosted glass effect to UI elements.",
-      imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAeznZ5iJOdkhX5fAa-qPRRlFxKVv7QqxjEYC6dVaniryFqb3uUlDCnAVyJZAoqx8hD5BNaboewbLQ2OIpmjgsxbEHWfXvBeNO8HcXB6R8uUrqoseRIKVx9vioGFOxeINaIQJE-lRKjitJCM5JG7DG0rZe_M9deHdy-IFsaCLD6tkMuaI_f3f8DNIHyo7PSA0-QLmsMogFi0hjdCZZXr-b1vKS3rIiyGVmY14oFcfYYjNKHXvQNQSkDkcTLa5qoHgXbJ8yla2izMw",
-      imagePosition: "left"
-    }
-  ];
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLatestNews = async () => {
+      try {
+        // First, get the latest published news articles
+        let { data: articles, error: articlesError } = await supabase
+          .from('news_articles')
+          .select(`
+            id, 
+            title, 
+            summary, 
+            hero_image_url,
+            created_at
+          `)
+          .eq('is_published', true) // Only published articles
+          .order('created_at', { ascending: false })
+          .limit(3); // Get the 3 most recent articles
+
+        if (articlesError) {
+          throw new Error(articlesError.message);
+        }
+
+        if (articles) {
+          // For each article, get its categories
+          const newsData: NewsItem[] = [];
+          
+          for (const article of articles) {
+            // Get the first category for this article
+            const { data: categories, error: categoriesError } = await supabase
+              .from('news_categories')
+              .select('category_name')
+              .eq('article_id', article.id)
+              .limit(1);
+
+            if (categoriesError) {
+              console.error(`Error fetching categories for article ${article.id}:`, categoriesError);
+            }
+
+            // Select a random image position for alternating layout
+            const imagePosition: 'left' | 'right' = Math.random() > 0.5 ? 'right' : 'left';
+
+            newsData.push({
+              id: article.id,
+              category: categories && categories.length > 0 ? categories[0].category_name : 'News',
+              title: article.title,
+              summary: article.summary,
+              hero_image_url: article.hero_image_url,
+              imagePosition
+            });
+          }
+
+          // Limit to first 3 news items for better display on main page
+          setNewsItems(newsData.slice(0, 3));
+        }
+      } catch (err: any) {
+        console.error('Error fetching latest news:', err);
+        setError(err.message || 'An error occurred while fetching the latest news');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestNews();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
+        <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {[...Array(3)].map((_, index) => (
+            <div 
+              key={index} 
+              className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark"
+            >
+              <div className="aspect-video w-full rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-4/5"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
+        <div className="text-red-500 w-full text-center py-8">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6 px-4 pb-8 pt-4 md:px-6 lg:px-8">
+    <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
       
-      {/* Map through news items to create article cards */}
-      {newsItems.map((item) => (
-        <div 
-          key={item.id} 
-          className="overflow-hidden rounded-xl border border-primary/20 bg-background-light shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark"
-        >
-          {/* Article content with image */}
-          <div className={`flex flex-col items-stretch gap-4 md:flex-row${item.imagePosition === 'right' ? '-reverse' : ''}`}>
-            {/* Article text content */}
-            <div className="flex-1 p-6">
+      {/* Horizontal scrollable container for news cards */}
+      <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {/* Map through news items to create cards */}
+        {newsItems.map((item, index) => (
+          <Link 
+            key={item.id} 
+            href={`/news/${item.id}`}
+            className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 transition-all hover:border-primary/40 hover:shadow-primary/20 dark:border-primary/30 dark:bg-background-dark dark:hover:border-primary/50"
+          >
+            {/* News image */}
+            <div 
+              className="aspect-video w-full rounded-lg bg-cover bg-center cursor-pointer" 
+              style={{ backgroundImage: `url("${item.hero_image_url}")` }}
+            ></div>
+            
+            {/* News information */}
+            <div>
               <p className="text-sm font-bold text-primary">{item.category}</p>
               <p className="my-1 text-lg font-bold text-black dark:text-white">{item.title}</p>
-              <p className="text-sm text-black/60 dark:text-white/60">{item.description}</p>
+              <p className="text-sm text-black/60 dark:text-white/60">{item.summary}</p>
             </div>
-            
-            {/* Article image */}
-            <div 
-              className={`w-full bg-cover bg-center md:w-1/3`} 
-              style={{ backgroundImage: `url("${item.imageUrl}")` }}
-            ></div>
+          </Link>
+        ))}
+        
+        {newsItems.length === 0 && (
+          <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
+            No news articles found.
           </div>
-        </div>
-      ))}
+        )}
+      </div>
     </div>
   );
 };

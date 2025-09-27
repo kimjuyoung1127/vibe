@@ -214,6 +214,7 @@ const ToolTechReviewDetail = () => {
         initialLikes={reviewData.vibe_check_count}
         onLike={handleLike}
         isLiked={isLiked}
+        reviewId={reviewData.id}
       />
       
       {/* Review image */}

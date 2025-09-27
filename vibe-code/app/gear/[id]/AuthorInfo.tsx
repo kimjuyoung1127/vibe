@@ -3,7 +3,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import VibeCheckButton from '@/app/mainpage/VibeCheckButton';
+import VibeCheckButton from '@/app/components/VibeCheckButton';
 
 interface AuthorInfoProps {
   author: string;
@@ -15,6 +15,7 @@ interface AuthorInfoProps {
   initialLikes: number;
   onLike: () => void;
   isLiked: boolean;
+  reviewId?: string;
 }
 
 const AuthorInfo: React.FC<AuthorInfoProps> = ({ 
@@ -26,7 +27,8 @@ const AuthorInfo: React.FC<AuthorInfoProps> = ({
   authorImageUrl,
   initialLikes,
   onLike,
-  isLiked
+  isLiked,
+  reviewId
 }) => {
   const [likes, setLikes] = useState(initialLikes);
 
@@ -56,7 +58,11 @@ const AuthorInfo: React.FC<AuthorInfoProps> = ({
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <VibeCheckButton initialVibes={initialLikes} />
+          <VibeCheckButton 
+            targetId={reviewId || ''}
+            targetType="review"
+            initialCount={initialLikes}
+          />
           <button className="flex items-center gap-1 px-3 py-1 text-[#7c608a] dark:text-[#c5b3d1] hover:text-[#161118] dark:hover:text-[#f5f7f8] rounded-full hover:bg-primary/10 dark:hover:bg-primary/20">
             <span className="material-symbols-outlined">share</span>
             <span>Share</span>
