@@ -131,7 +131,7 @@ export async function runFullProcessingPipeline(sourceUrl: string, sourceName: s
 
         // Create an initial article draft in the database
         // Since this is system-generated content, prepare the article data
-        const initialArticleData = {
+        let initialArticleData: any = {
           title: item.title || 'Untitled Article',
           summary: '',
           content: item['content:encoded'] || item.content || item.description || '',
