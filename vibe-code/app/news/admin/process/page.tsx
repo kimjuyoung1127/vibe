@@ -47,7 +47,7 @@ const ProcessNewsPage = () => {
       setProcessingMessage('Fetching RSS sources...');
       const sourcesResult = await processNewsSources();
       
-      if (!sourcesResult.success) {
+      if (!sourcesResult.success || !sourcesResult.sources) {
         throw new Error(`Failed to fetch RSS sources: ${sourcesResult.error || 'Unknown error'}`);
       }
       
