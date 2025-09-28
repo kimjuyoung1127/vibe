@@ -57,9 +57,9 @@ const ProjectsShowcase = () => {
     return (
       <main className="container mx-auto p-8">
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2">프로젝트 구경하기</h2>
+          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2">Project Showcase</h2>
           <p className="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto">
-            바이브코딩의 세계를 탐험하세요
+            Explore the projects created by the Vibe Coders
           </p>
         </div>
         
@@ -74,9 +74,9 @@ const ProjectsShowcase = () => {
     return (
       <main className="container mx-auto p-8">
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2">프로젝트 구경하기</h2>
+          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2">Project Showcase</h2>
           <p className="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto">
-            바이브코딩의 세계를 탐험하세요
+            Explore the projects created by the Vibe Coders
           </p>
         </div>
         
@@ -94,9 +94,9 @@ const ProjectsShowcase = () => {
     <main className="container mx-auto p-8">
       {/* Page header with title and description */}
       <div className="mb-12 text-center">
-        <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2">프로젝트 구경하기</h2>
+        <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2">Project Showcase</h2>
         <p className="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto">
-          바이브코딩의 세계를 탐험하세요
+          Explore the projects created by the Vibe Coders
         </p>
       </div>
       
@@ -109,8 +109,8 @@ const ProjectsShowcase = () => {
       {projectItems.length === 0 ? (
         <div className="text-center py-12">
           <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-4" />
-          <h3 className="text-2xl font-semibold text-gray-700 mb-2">프로젝트가 없습니다</h3>
-          <p className="text-gray-500 mb-4">커뮤니티에 당신의 첫 프로젝트를 공유해보세요!</p>
+          <h3 className="text-2xl font-semibold text-gray-700 mb-2">No Projects Found</h3>
+          <p className="text-gray-500 mb-4">Share your first project with the community!</p>
           <div className="flex justify-center">
             <NewProjectButton isCollapsed={false} />
           </div>
