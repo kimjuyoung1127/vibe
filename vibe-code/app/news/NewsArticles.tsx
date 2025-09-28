@@ -130,7 +130,7 @@ const NewsArticles = () => {
             </button>
             
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              let pageNum: number;
+              let pageNum: number = 1; // Initialize with default value
               if (totalPages <= 5) {
                 // Show all pages if total is 5 or less
                 pageNum = i + 1;
