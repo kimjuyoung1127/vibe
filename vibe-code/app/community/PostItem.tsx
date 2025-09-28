@@ -1,7 +1,10 @@
 // app/community/PostItem.tsx
 // This component represents a single community post item
 
+"use client";
+
 import React from 'react';
+import DropdownMenu from '@/app/components/DropdownMenu';
 
 interface PostItemProps {
   id: string;
@@ -18,6 +21,8 @@ interface PostItemProps {
   onEdit: (post: any) => void;
   onDelete: (id: string) => void;
   formatDate: (dateString: string) => string;
+  contentType?: 'project' | 'comment' | 'tool_review' | 'community_post';
+  onReportClick?: (targetId: string, targetType: string) => void;
 }
 
 const PostItem: React.FC<PostItemProps> = ({
@@ -34,7 +39,9 @@ const PostItem: React.FC<PostItemProps> = ({
   currentUser,
   onEdit,
   onDelete,
-  formatDate
+  formatDate,
+  contentType,
+  onReportClick
 }) => {
   return (
     <div 
@@ -114,9 +121,29 @@ const PostItem: React.FC<PostItemProps> = ({
           <span className="material-symbols-outlined mr-1">chat_bubble</span>
           <span className="text-sm">{comment_count}</span>
         </button>
-        <button className="flex items-center ml-auto text-black/60 dark:text-white/60 hover:text-primary">
-          <span className="material-symbols-outlined">share</span>
-        </button>
+        <div className="ml-auto flex items-center">
+          <div>
+            {/* Debug info: onReportClick available: {!!onReportClick}, contentType: {contentType} */}
+            {onReportClick && contentType && (
+              <div className="mr-3">
+                <DropdownMenu targetId={id} contentType={contentType}>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm text-[#161118] dark:text-[#f5f7f8] hover:bg-primary/10 dark:hover:bg-primary/20"
+                    onClick={() => {
+                      console.log('Report button clicked in PostItem:', { id, contentType });
+                      onReportClick && onReportClick(id, contentType);
+                    }}
+                  >
+                    Report
+                  </button>
+                </DropdownMenu>
+              </div>
+            )}
+          </div>
+          <button className="flex items-center text-black/60 dark:text-white/60 hover:text-primary">
+            <span className="material-symbols-outlined">share</span>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -6,8 +6,8 @@ import './custom.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Vibe Code',
-  description: 'A community website for developers who value the "vibe" and environment of coding',
+  title: 'Vibe Hub',
+  description: 'A community website for developers who value the "vibe coding" and environment of coding',
 };
 
 export default function RootLayout({

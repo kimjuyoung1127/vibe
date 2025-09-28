@@ -9,8 +9,12 @@ import RelatedProjects from './RelatedProjects';
 import CommentsSection from './CommentsSection';
 import AuthorProfile from './AuthorProfile';
 import VibeCheckButton from '@/app/components/VibeCheckButton';
+import DropdownMenu from '@/app/components/DropdownMenu';
+import ReportModal from '@/app/components/ReportModal';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // Define the type for a project item based on the database schema
 interface ProjectItem {
@@ -32,10 +36,20 @@ interface ProjectItem {
   // We will fetch related data (features, tech stack) separately
 }
 
+interface ProjectImage {
+  id: string;
+  project_id: string;
+  image_url: string;
+  alt_text: string | null;
+  created_at: string;
+}
+
 const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
   const [project, setProject] = useState<ProjectItem | null>(null);
+  const [projectImages, setProjectImages] = useState<ProjectImage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -87,6 +101,9 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
       }
 
       setProject(data);
+      
+      // Fetch project images from the project-images bucket
+      await fetchProjectImages(projectId);
     } catch (error: any) {
       console.error('Error fetching project details:', error);
       // Handle specific error types
@@ -98,6 +115,49 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchProjectImages = async (projectId: string) => {
+    try {
+      // First, let's try to list all files in the project-images bucket for this project
+      // We'll look for files with names containing the project ID
+      const { data, error } = await supabase
+        .storage
+        .from('project-images')
+        .list(projectId, { 
+          limit: 100,
+          offset: 0,
+          sortBy: { column: 'created_at', order: 'desc' }
+        });
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        // Generate public URLs for each image
+        const imageUrls = await Promise.all(
+          data.map(async (file) => {
+            const { data: urlData } = supabase
+              .storage
+              .from('project-images')
+              .getPublicUrl(`${projectId}/${file.name}`);
+            
+            return {
+              id: file.id || '',
+              project_id: projectId,
+              image_url: urlData?.publicUrl || '',
+              alt_text: file.name,
+              created_at: file.created_at || new Date().toISOString()
+            };
+          })
+        );
+        
+        setProjectImages(imageUrls);
+      }
+    } catch (error: any) {
+      console.error('Error fetching project images:', error);
+      // Don't throw an error here as project images are optional
+      // The project can still be displayed without images
     }
   };
 
@@ -165,48 +225,120 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
             {project.tagline}
           </p>
         </div>
-        {/* Vibe Check button */}
+        {/* Vibe Check button and Report menu - Mobile view */}
         <div className="flex items-center md:hidden">
           <VibeCheckButton 
             targetId={project.id} 
             targetType="project" 
             initialCount={project.vibe_check_count} 
           />
+          <div className="ml-2">
+            <DropdownMenu targetId={project.id} contentType="project">
+              <button
+                className="block w-full text-left px-4 py-2 text-sm text-[#161118] dark:text-[#f5f7f8] hover:bg-primary/10 dark:hover:bg-primary/20"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsReportModalOpen(true);
+                }}
+              >
+                Report
+              </button>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
 
       {/* 데스크탑 전용: 헤더 아래로 위치 */}
       <div className="hidden md:block px-4">
-        <div className="flex items-center">
+        <div className="flex items-center pb-4">
           <VibeCheckButton 
             targetId={project.id} 
             targetType="project" 
             initialCount={project.vibe_check_count} 
           />
+          <div className="ml-4">
+            
+            <DropdownMenu targetId={project.id} contentType="project">
+              <button
+                className="block w-full text-left px-4 py-2 text-sm text-[#161118] dark:text-[#f5f7f8] hover:bg-primary/10 dark:hover:bg-primary/20"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsReportModalOpen(true);
+                }}
+              >
+                Report
+              </button>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
       
-      {/* Project image */}
-      <div className="@container">
-        <div className="@[480px]:px-4 @[480px]:py-3">
-          <div
-            className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white @[480px]:rounded-lg min-h-80"
-            style={{ backgroundImage: `url("${project.hero_image_url}")` }}
-          ></div>
+      {/* Report Modal */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        targetId={project.id}
+        targetType="project"
+      />
+      
+      {/* Project image(s) */}
+      <div className="@container px-4">
+        <div className="@[480px]:py-3">
+          {projectImages.length > 0 ? (
+            // Display project images from the project-images bucket
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {projectImages.map((image, index) => (
+                <div 
+                  key={index}
+                  className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white rounded-lg min-h-60"
+                  style={{ backgroundImage: `url("${image.image_url}")` }}
+                ></div>
+              ))}
+            </div>
+          ) : (
+            // Fallback to the hero image if no project images are available
+            <div
+              className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white rounded-lg min-h-80"
+              style={{ backgroundImage: `url("${project.hero_image_url}")` }}
+            ></div>
+          )}
         </div>
       </div>
       
-      {/* Project description */}
-      <p className="text-[#161118] text-base font-normal leading-normal pb-3 pt-1 px-4">
-        {project.content}
-      </p>
+      {/* Project content */}
+      <div className="px-4 pb-6 text-[#161118] dark:text-[#f5f7f8] max-w-none pt-6">
+        <ReactMarkdown 
+          remarkPlugins={[remarkGfm]}
+          components={{
+            h1: ({node, ...props}) => <h1 className="text-3xl font-bold mt-10 mb-6 text-primary dark:text-primary/90 border-b border-primary/20 pb-2" {...props} />,
+            h2: ({node, ...props}) => <h2 className="text-2xl font-bold mt-8 mb-5 text-primary dark:text-primary/90 border-b border-primary/10 pb-1.5" {...props} />,
+            h3: ({node, ...props}) => <h3 className="text-xl font-bold mt-6 mb-4 text-[#161118] dark:text-[#f5f7f8]" {...props} />,
+            p: ({node, ...props}) => <p className="mb-5 leading-relaxed text-base text-[#161118] dark:text-[#f5f7f8] px-1" {...props} />,
+            ul: ({node, ...props}) => <ul className="list-disc list-inside mb-5 space-y-3 pl-6" {...props} />,
+            ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-5 space-y-3 pl-6" {...props} />,
+            li: ({node, ...props}) => <li className="pl-2 text-[#161118] dark:text-[#f5f7f8]" {...props} />,
+            blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-primary pl-6 py-2 my-6 italic bg-primary/5 dark:bg-primary/10 p-5 rounded-r-lg text-[#161118] dark:text-[#f5f7f8]" {...props} />,
+            code: ({node, ...props}) => <code className="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary/90 px-2.5 py-1 rounded text-sm font-mono" {...props} />,
+            pre: ({node, ...props}) => <pre className="bg-[#1a1a2e] p-5 rounded-lg overflow-x-auto my-6 text-sm" {...props} />,
+            a: ({node, ...props}) => <a className="text-primary hover:underline font-medium" {...props} />,
+            strong: ({node, ...props}) => <strong className="font-bold text-[#161118] dark:text-[#f5f7f8]" {...props} />,
+            em: ({node, ...props}) => <em className="italic" {...props} />,
+            hr: ({node, ...props}) => <hr className="my-8 border-t border-primary/20" {...props} />,
+            table: ({node, ...props}) => <table className="min-w-full border-collapse my-6" {...props} />,
+            thead: ({node, ...props}) => <thead className="bg-primary/10 dark:bg-primary/20" {...props} />,
+            tbody: ({node, ...props}) => <tbody {...props} />,
+            tr: ({node, ...props}) => <tr className="border-b border-primary/10" {...props} />,
+            th: ({node, ...props}) => <th className="px-4 py-2 text-left font-semibold text-[#161118] dark:text-[#f5f7f8] border border-primary/20" {...props} />,
+            td: ({node, ...props}) => <td className="px-4 py-3 text-[#161118] dark:text-[#f5f7f8] border border-primary/20" {...props} />,
+          }}
+        >
+          {project.content}
+        </ReactMarkdown>
+      </div>
       
       {/* Key features section */}
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">주요 기능</h2>
       <FeatureList projectId={project.id} />
-      
-      {/* Project content section - This is the detailed description from 'content' field */}
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">프로젝트 내용</h2>
       
       {/* Technology stack section */}
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">기술 스택 &amp; 도구</h2>

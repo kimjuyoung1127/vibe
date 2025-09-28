@@ -46,10 +46,11 @@ const BasicInfoEditor = ({ formData, setFormData }: BasicInfoEditorProps) => {
           <div className="flex items-center gap-6">
             <div className="flex-1">
               <ProfileImageUpload
-                onUploadSuccess={handleUploadSuccess}
+                onImageUpload={handleUploadSuccess}
                 onUploadError={handleUploadError}
                 currentImageUrl={formData.avatar_url}
-                maxFileSize={5}
+                maxFileSize={5 * 1024 * 1024} // 5MB
+                bucketName="avatar"
               />
               {uploadError && (
                 <div className="mt-2 text-red-500 text-sm">{uploadError}</div>

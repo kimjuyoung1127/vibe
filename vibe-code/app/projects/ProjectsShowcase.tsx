@@ -139,7 +139,14 @@ const ProjectsShowcase = () => {
           </div>
           
           {/* Pagination controls */}
-          <Pagination />
+          <Pagination 
+            currentPage={1} // Add state management for current page
+            totalPages={Math.ceil(projectItems.length / 9)} // Assuming 9 items per page
+            onPageChange={(page) => {
+              // Add page change handler
+              console.log('Page changed to:', page);
+            }}
+          />
         </>
       )}
     </main>

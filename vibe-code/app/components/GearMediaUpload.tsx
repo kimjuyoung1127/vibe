@@ -129,7 +129,13 @@ const GearMediaUpload: React.FC<GearMediaUploadProps> = ({
     try {
       // Upload hero image if selected
       if (heroImageFile) {
-        const heroFileName = `${folderPath}/hero-image-${Date.now()}_${heroImageFile.name}`;
+        // Sanitize the file name to remove special characters that are not allowed in Supabase storage keys
+        const sanitizedFileName = heroImageFile.name
+          .replace(/[^a-zA-Z0-9.-]/g, '_') // Replace special characters with underscores
+          .replace(/_{2,}/g, '_') // Replace multiple consecutive underscores with a single one
+          .replace(/^_+|_+$/g, ''); // Remove leading or trailing underscores
+        
+        const heroFileName = `${folderPath}/hero-image-${Date.now()}_${sanitizedFileName}`;
         
         const { data, error: uploadError } = await supabase
           .storage

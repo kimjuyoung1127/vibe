@@ -9,7 +9,7 @@ const NewProjectButton: React.FC<NewProjectButtonProps> = ({ isCollapsed }) => {
   return (
     <Link href="/projects/create">
       <button
-        className="flex h-16 items-center justify-center whitespace-nowrap rounded-lg bg-primary px-10 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-primary/40"
+        className="flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-medium text-white shadow-md transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       >
         {isCollapsed ? (
           <span className="material-symbols-outlined">add</span>

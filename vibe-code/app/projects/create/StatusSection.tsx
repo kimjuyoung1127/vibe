@@ -81,7 +81,7 @@ const StatusSection = ({
             </span>
           </button>
           <button
-            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#af25f4] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#af25f4] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#9c20e0] transition-colors"
             type="submit" // Keep as submit type for publish
             disabled={isSubmitting} // Disable during submission
           >

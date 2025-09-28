@@ -5,6 +5,7 @@ import Link from 'next/link';
 import SearchBar from './SearchBar';
 import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const TopNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,15 +19,16 @@ const TopNav = () => {
     <>
       <header className="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:bg-background-dark/80 md:px-10 overflow-visible">
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-3 text-primary">
-            <svg className="h-6 w-6" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 16.5c-3 0-5.5-1-5.5-6 0-5 2.5-6 5.5-6 3 0 5.5 1 5.5 6 0 4-2 6-5.5 6.5z"></path>
-              <path d="M15 16.5c4 0 6.5-1.5 6.5-6"></path>
-              <path d="M2.5 22c5 0 8.5-1.5 8.5-6 0-4.5-3.5-6-8.5-6-5 0-8.5 1.5-8.5 6 0 4.5 3.5 6 8.5 6z"></path>
-              <path d="M2.5 11c-3.5 0-6.5-1.5-6.5-6"></path>
-            </svg>
+          <Link href="/" className="flex items-center gap-3 text-primary">
+            <img 
+              src="/images/200.svg" 
+              alt="Vibe Hub Logo"
+              className="h-6 w-6 object-contain"
+              width={24}
+              height={24}
+            />
             <h2 className="text-lg font-bold tracking-tighter text-black dark:text-white">Vibe Hub</h2>
-          </div>
+          </Link>
           <nav className="hidden items-center gap-6 text-sm font-medium lg:flex">
             {['/', '/projects', '/gear', '/community', '/news'].map((path) => {
               const label = path === '/' ? 'Home' : 
@@ -55,10 +57,10 @@ const TopNav = () => {
         
           <Link 
             href="/profile" 
-            className="flex h-10 w-10 rounded-full bg-cover bg-center z-10 border border-primary/20 bg-primary/10 items-center justify-center"
+            className="flex h-10 w-10 rounded-full bg-cover bg-center z-10 border border-primary/20 bg-primary/10 items-center justify-center overflow-hidden"
             style={{ backgroundImage: `url("${avatarUrl}")` }}
           >
-            <span className="material-symbols-outlined text-primary">account_circle</span>
+            {userProfile?.avatar_url ? null : <span className="material-symbols-outlined text-primary">account_circle</span>}
             <span className="sr-only">Profile</span>
           </Link>
           
@@ -77,15 +79,16 @@ const TopNav = () => {
         <div className="lg:hidden fixed inset-0 z-30 bg-black/50" onClick={() => setIsMobileMenuOpen(false)}>
           <div className="absolute left-0 top-0 h-full w-64 bg-background-light dark:bg-background-dark p-4" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-3 text-primary">
-                <svg className="h-6 w-6" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15 16.5c-3 0-5.5-1-5.5-6 0-5 2.5-6 5.5-6 3 0 5.5 1 5.5 6 0 4-2 6-5.5 6.5z"></path>
-                  <path d="M15 16.5c4 0 6.5-1.5 6.5-6"></path>
-                  <path d="M2.5 22c5 0 8.5-1.5 8.5-6 0-4.5-3.5-6-8.5-6-5 0-8.5 1.5-8.5 6 0 4.5 3.5 6 8.5 6z"></path>
-                  <path d="M2.5 11c-3.5 0-6.5-1.5-6.5-6"></path>
-                </svg>
+              <Link href="/" className="flex items-center gap-3 text-primary">
+                <img 
+                  src="/images/200.svg" 
+                  alt="Vibe Hub Logo"
+                  className="h-6 w-6 object-contain"
+                  width={24}
+                  height={24}
+                />
                 <h2 className="text-lg font-bold tracking-tighter text-black dark:text-white">Vibe Hub</h2>
-              </div>
+              </Link>
               <button onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="material-symbols-outlined">close</span>
               </button>

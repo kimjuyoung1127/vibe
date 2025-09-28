@@ -6,7 +6,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
 import CoreInfoSection from './CoreInfoSection';
-import QuickProsConsSection from './QuickProsConsSection';
 import DetailedReviewSection from './DetailedReviewSection';
 import MediaSection from './MediaSection';
 import CategorizationSection from './CategorizationSection';
@@ -203,7 +202,7 @@ const ToolTechReviewForm = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <CoreInfoSection formData={formData} handleChange={handleChange} setFormData={setFormData} />
         <CategorizationSection formData={formData} handleChange={handleChange} />
-        <QuickProsConsSection formData={formData} handleChange={handleChange} />
+        
         <DetailedReviewSection formData={formData} handleChange={handleChange} />
         <MediaSection formData={formData} setFormData={setFormData} />
         <ActionButtons 

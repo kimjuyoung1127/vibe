@@ -7,6 +7,8 @@ import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import PostItem from './PostItem';
 import EditPostModal from './EditPostModal';
+import ReportModal from '@/app/components/ReportModal';
+
 
 interface Post {
   id: string;
@@ -32,6 +34,8 @@ const CommunityPosts = () => {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [editTags, setEditTags] = useState<string[]>([]);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [reportTarget, setReportTarget] = useState<{ id: string; type: string } | null>(null);
   const router = useRouter();
   const POSTS_PER_PAGE = 10;
 
@@ -248,6 +252,13 @@ const CommunityPosts = () => {
     router.refresh();
   };
 
+  const handleReportClick = useCallback((targetId: string, targetType: string) => {
+    console.log('handleReportClick called in CommunityPosts:', { targetId, targetType });
+    setReportTarget({ id: targetId, type: targetType });
+    setIsReportModalOpen(true);
+    console.log('Report modal state updated:', { isReportModalOpen: true, targetId, targetType });
+  }, [setReportTarget, setIsReportModalOpen]);
+  
   return (
     <div className="px-4 pb-8 md:px-6 lg:px-8">
       <div className="space-y-6 max-w-2xl mx-auto">
@@ -268,6 +279,8 @@ const CommunityPosts = () => {
             onEdit={handleEditClick}
             onDelete={handleDelete}
             formatDate={formatDate}
+            contentType="community_post"
+            onReportClick={handleReportClick}
           />
         ))}
       </div>
@@ -283,6 +296,13 @@ const CommunityPosts = () => {
         setEditTags={setEditTags}
         onClose={() => setEditModalOpen(false)}
         onSave={handleUpdate}
+      />
+      
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        targetId={reportTarget?.id || ''}
+        targetType={reportTarget?.type as 'community_post' || 'community_post'}
       />
       
       {loading && (

@@ -8,18 +8,19 @@ import BackButton from './BackButton';
 import Header from './Header';
 import AuthorInfo from './AuthorInfo';
 import ReviewImage from './ReviewImage';
-import ReviewContent from './ReviewContent';
+import ToolTechReviewContent from './ToolTechReviewContent';
 import Tags from './Tags';
 import CommentsSection from './CommentsSection';
+import DropdownMenu from '@/app/components/DropdownMenu';
+import ReportModal from '@/app/components/ReportModal';
 import { supabase } from '@/app/lib/supabaseClient';
 
+// interface ReviewData 정의 부분
 interface ReviewData {
   id: string;
   title: string;
   tool_tech_name: string;
   overall_rating: number;
-  one_liner_pros: string | null;
-  one_liner_cons: string | null;
   content: string;
   hero_image_url: string | null;
   demo_video_url: string | null;
@@ -40,6 +41,7 @@ const ToolTechReviewDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const reviewId = pathname?.split('/')[2]; // Extract review ID from URL
@@ -50,7 +52,6 @@ const ToolTechReviewDetail = () => {
         setLoading(true);
         setError(null);
 
-        // Fetch review data with author information
         const { data, error } = await supabase
           .from('tool_reviews')
           .select(`
@@ -58,8 +59,6 @@ const ToolTechReviewDetail = () => {
             title,
             tool_tech_name,
             overall_rating,
-            one_liner_pros,
-            one_liner_cons,
             content,
             hero_image_url,
             demo_video_url,
@@ -80,7 +79,6 @@ const ToolTechReviewDetail = () => {
 
         if (error) throw error;
 
-        // Fetch categories
         const { data: categoriesData, error: categoriesError } = await supabase
           .from('review_categories')
           .select('category_name')
@@ -90,11 +88,22 @@ const ToolTechReviewDetail = () => {
 
         const categories = categoriesData.map((cat: any) => cat.category_name);
 
-        // Format the data
         const formattedData: ReviewData = {
-          ...data,
-          author_name: data.user_profiles?.[0]?.display_name || 'Unknown Author',
-          author_username: data.user_profiles?.[0]?.username || 'unknown',
+          id: data.id,
+          title: data.title,
+          tool_tech_name: data.tool_tech_name,
+          overall_rating: data.overall_rating,
+          content: data.content,
+          hero_image_url: data.hero_image_url ?? null,
+          demo_video_url: data.demo_video_url ?? null,
+          font_preference: data.font_preference,
+          vibe_check_count: data.vibe_check_count,
+          comment_count: data.comment_count,
+          created_at: data.created_at,
+          updated_at: data.updated_at,
+          user_id: data.user_id,
+          author_name: data.user_profiles?.[0]?.display_name || '',
+          author_username: data.user_profiles?.[0]?.username || '',
           author_avatar_url: data.user_profiles?.[0]?.avatar_url || null,
           categories
         };
@@ -194,15 +203,12 @@ const ToolTechReviewDetail = () => {
     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
       {/* Back button */}
       <BackButton />
-      
       {/* Page header */}
       <Header title={reviewData.title} category={reviewData.tool_tech_name} />
-      
       {/* Rating display */}
       <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 mb-4 max-w-max inline-block ml-4">
         {renderStars(reviewData.overall_rating)}
       </div>
-      
       {/* Author information and metadata */}
       <AuthorInfo 
         author={reviewData.author_name}
@@ -215,49 +221,30 @@ const ToolTechReviewDetail = () => {
         onLike={handleLike}
         isLiked={isLiked}
         reviewId={reviewData.id}
+        authorId={reviewData.user_id}
+        contentType="tool_review"
+        onReportClick={() => setIsReportModalOpen(true)}
       />
-      
       {/* Review image */}
       {reviewData.hero_image_url && <ReviewImage imageUrl={reviewData.hero_image_url} />}
-      
       {/* Review content */}
-      <ReviewContent content={reviewData.content} />
-      
-      {/* One-liner Pros and Cons */}
-      {(reviewData.one_liner_pros || reviewData.one_liner_cons) && (
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3 ml-4">
-          {reviewData.one_liner_pros && (
-            <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-3 border border-primary/30 max-w-max inline-block">
-              <h3 className="font-semibold mb-1 text-primary text-sm flex items-center">
-                <span className="material-symbols-outlined text-base mr-2">thumb_up</span>
-                Pros
-              </h3>
-              <p className="text-[#161118] dark:text-[#f5f7f8] text-sm">{reviewData.one_liner_pros}</p>
-            </div>
-
-          )}
-          
-          {reviewData.one_liner_cons && (
-            <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-3 border border-primary/30 max-w-max inline-block">
-              <h3 className="font-semibold mb-1 text-primary text-sm flex items-center">
-                <span className="material-symbols-outlined text-base mr-2">thumb_down</span>
-                Cons
-              </h3>
-              <p className="text-[#161118] dark:text-[#f5f7f8] text-sm">{reviewData.one_liner_cons}</p>
-            </div>
-          )}
-        </div>
-      )}
-      
+      <ToolTechReviewContent content={reviewData.content} />
       {/* Tags */}
       <div className="pt-6">
         <Tags tags={reviewData.categories} />
       </div>
-      
       {/* Comments section */}
       <div className="mt-12">
         <CommentsSection reviewId={reviewData.id} />
       </div>
+      
+      {/* Report Modal */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        targetId={reviewData.id}
+        targetType="tool_review"
+      />
     </div>
   );
 };
