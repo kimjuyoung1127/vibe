@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import Parser from 'rss-parser';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Environment validation
 const envSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
   SUPABASE_SERVICE_ROLE_KEY: z.string(),
-  GOOGLE_GENAI_API_KEY: z.string(),
+  GOOGLE_GEMINI_API_KEY: z.string(),
 });
 
 // Initialize Supabase client
@@ -23,6 +24,12 @@ const initializeSupabase = () => {
       },
     }
   );
+};
+
+// Initialize Google Generative AI client
+const initializeGemini = () => {
+  const env = envSchema.parse(process.env);
+  return new GoogleGenerativeAI(env.GOOGLE_GEMINI_API_KEY);
 };
 
 // Function to parse RSS feed

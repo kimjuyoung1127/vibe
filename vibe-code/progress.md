@@ -423,17 +423,45 @@ This document tracks the progress of the Vibe Code website implementation, a com
 - [x] Updated gear/tool & tech review components to use centralized types
 - [x] Improved type safety and maintainability across the application
 
+### 30. Enhanced News Curation System for Developer Community
+- [x] Improved AI relevance checking with more specific developer-focused prompts
+- [x] Implemented keyword-based pre-filtering to quickly eliminate non-relevant content
+- [x] Added more specialized RSS sources focused on coding and development topics
+- [x] Created YouTube transcript processing endpoint for IT-related video content
+- [x] Created social media post processing endpoint for developer-focused content
+- [x] Enhanced content validation with multi-stage filtering (keyword + AI)
+- [x] Updated news processing pipeline to include new filtering mechanisms
+- [x] Added support for developer-focused content sources (Hacker News, GitHub trending, programming subreddits)
+
+### 31. Environment Configuration Fixes
+- [x] Standardized environment variable names across all news processing endpoints
+- [x] Fixed mismatched variable names (GEMINI_API_KEY vs GOOGLE_GENAI_API_KEY)
+- [x] Removed unnecessary environment variable requirements from endpoints that don't use AI
+
 ## Current Status
-The Vibe Hub application continues to evolve with enhanced type safety and maintainability. In addition to the previously completed functionality (main page, projects showcase, tool & tech reviews, community section, news, profile management), we have now implemented a comprehensive type centralization system.
+The Vibe Hub application continues to evolve with enhanced type safety and maintainability. In addition to the previously completed functionality (main page, projects showcase, tool & tech reviews, community section, news, profile management), we have now implemented:
 
-Type Centralization Benefits:
-- Improved maintainability and consistency
-- Reduced code duplication
-- Easier type updates across the application
-- Better type safety and development experience
-- Clear separation between component logic and type definitions
+1. A comprehensive type centralization system:
+   - Improved maintainability and consistency
+   - Reduced code duplication
+   - Easier type updates across the application
+   - Better type safety and development experience
+   - Clear separation between component logic and type definitions
 
-The application now has a more robust type system while maintaining all the original features and functionality.
+2. An enhanced news curation system focused on developer-relevant content:
+   - More targeted content filtering using specific developer topic keywords
+   - Multi-stage filtering approach (keyword pre-filter + AI validation)
+   - Specialized sources for coding, IT, and developer content
+   - YouTube transcript processing for tech-focused videos
+   - Social media post processing for developer-focused platforms
+   - Improved relevance detection to reduce non-coding related content
+
+3. Proper environment configuration:
+   - Standardized variable naming across all API endpoints
+   - Fixed API key access issues
+   - Ensured all endpoints properly access required environment variables
+
+The application now has a more robust type system, a significantly improved news section that better serves the development community, and properly configured environment variables.
 
 ## Current Status
 The main page, projects page, individual project card pages, project create page, tool & tech review pages, community (coding lounge) pages, and news pages of the Vibe Code website have been successfully implemented with a modular component structure and full database integration.

@@ -9,7 +9,7 @@ const envSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
   SUPABASE_SERVICE_ROLE_KEY: z.string(),
-  GOOGLE_GENAI_API_KEY: z.string(),
+  GOOGLE_GEMINI_API_KEY: z.string(),
 });
 
 // Initialize Supabase client
@@ -29,17 +29,33 @@ const initializeSupabase = () => {
 // Initialize Google Generative AI client
 const initializeGemini = () => {
   const env = envSchema.parse(process.env);
-  return new GoogleGenerativeAI(env.GOOGLE_GENAI_API_KEY);
+  return new GoogleGenerativeAI(env.GOOGLE_GEMINI_API_KEY);
 };
 
 // Function to check if content is relevant to developer community
 async function checkRelevanceWithAI(content: string, title: string): Promise<boolean> {
-  const env = envSchema.parse(process.env);
-  const genAI = new GoogleGenerativeAI(env.GOOGLE_GENAI_API_KEY);
+  const genAI = initializeGemini();
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   
   try {
-    const prompt = `You are an expert at identifying technology news relevant to developers and the developer community. Determine if the given article is relevant to software development, programming, emerging tech, AI, cybersecurity, cloud computing, or other topics of interest to developers. Respond with only "YES" if it is relevant or "NO" if it is not relevant.
+    const prompt = `You are an expert at identifying technology news relevant to developers and the developer community. Determine if the given article is specifically relevant to one or more of these topics:
+- Software development and programming languages
+- AI/ML and data science
+- Cybersecurity
+- Cloud computing and DevOps
+- Developer tools (IDEs, frameworks, libraries)
+- Tech industry news affecting developers
+- Coding best practices
+- Emerging technologies with coding applications
+- Hardware relevant to development
+- IT infrastructure and networking
+- Open source projects and communities
+- Developer productivity tools
+- Technical tutorials or educational content
+- Tech company product releases for developers
+- Tech conferences and events for developers
+
+Respond with only "YES" if it is relevant or "NO" if it is not relevant.
 
 Article Title: ${title}
 
@@ -53,6 +69,37 @@ Article Content: ${content}`;
     // If AI check fails, default to true to not block content
     return true;
   }
+}
+
+// Function for keyword-based pre-filtering
+function preFilterByKeywords(content: string, title: string): boolean {
+  const lowerContent = content.toLowerCase();
+  const lowerTitle = title.toLowerCase();
+  
+  // Keywords that indicate developer/IT relevance
+  const relevantKeywords = [
+    'javascript', 'python', 'typescript', 'react', 'node', 'devops', 'docker', 
+    'kubernetes', 'api', 'database', 'sql', 'nosql', 'git', 'github', 'gitlab',
+    'open source', 'program', 'code', 'coding', 'developer', 'engineer', 'programming',
+    'algorithm', 'framework', 'library', 'sdk', 'frontend', 'backend', 'fullstack',
+    'web development', 'mobile development', 'cybersecurity', 'security', 'hacker',
+    'vulnerability', 'patch', 'ai', 'ml', 'artificial intelligence', 'machine learning',
+    'data science', 'cloud', 'aws', 'azure', 'gcp', 'cloud computing', 'serverless',
+    'container', 'microservices', 'architecture', 'debug', 'testing', 'ci/cd',
+    'agile', 'scrum', 'tech stack', 'ide', 'editor', 'vim', 'emacs', 'vs code',
+    'compiler', 'runtime', 'framework', 'sdk', 'api', 'rest', 'graphql', 'websocket',
+    'blockchain', 'web3', 'cryptocurrency', 'ethereum', 'bitcoin', 'solidity',
+    'game engine', 'unity', 'unreal engine', 'gamedev', 'mobile app', 'ios', 'android',
+    'linux', 'unix', 'bash', 'terminal', 'shell', 'bash script', 'powershell',
+    'sysadmin', 'it', 'infrastructure', 'network', 'protocol', 'tcp/ip', 'http',
+    'oauth', 'jwt', 'authentication', 'authorization', 'oauth2', 'sso', 'saml',
+    'oauth 2.0', 'jwt token', 'session', 'cookie', 'csrf', 'xss', 'sql injection'
+  ];
+  
+  // Check if any relevant keyword appears in the title or content
+  return relevantKeywords.some(keyword => 
+    lowerTitle.includes(keyword) || lowerContent.includes(keyword)
+  );
 }
 
 // Function to check for legal compliance issues
@@ -221,8 +268,11 @@ Article Content: ${draftArticle.content}`;
           // Continue processing even if summary generation fails
         }
         
-        // Check relevance to developer community
-        const isRelevant = await checkRelevanceWithAI(draftArticle.content, draftArticle.title);
+        // Pre-filter using keyword matching to quickly eliminate non-relevant content
+        const passesPreFilter = preFilterByKeywords(draftArticle.content, draftArticle.title);
+        
+        // Only run AI validation if it passes the pre-filter
+        const isRelevant = passesPreFilter ? await checkRelevanceWithAI(draftArticle.content, draftArticle.title) : false;
         
         // Check for legal compliance
         const complianceCheck = checkLegalCompliance(draftArticle.content, draftArticle.title);

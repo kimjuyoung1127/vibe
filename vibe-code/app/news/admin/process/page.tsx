@@ -51,8 +51,9 @@ const ProcessNewsPage = () => {
         throw new Error(`Failed to fetch RSS sources: ${sourcesResult.error || 'Unknown error'}`);
       }
       
-      // Step 2: Process each source (we'll process the first few for demonstration)
-      const sourcesToProcess = sourcesResult.sources.slice(0, 3); // Process first 3 sources
+      // Step 2: Process each source, prioritizing developer-focused sources
+      // We'll process first 8 sources to include developer-focused ones
+      const sourcesToProcess = sourcesResult.sources.slice(0, 8); // Process first 8 sources
       
       for (let i = 0; i < sourcesToProcess.length; i++) {
         const source = sourcesToProcess[i];
