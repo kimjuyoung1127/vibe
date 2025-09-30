@@ -3,16 +3,7 @@
 "use client";
 
 import React from 'react';
-
-// Define the props interface
-interface LinksSectionProps {
-  githubUrl: string;
-  setGithubUrl: (url: string) => void;
-  liveDemoUrl: string;
-  setLiveDemoUrl: (url: string) => void;
-  deploymentPlatform: string;
-  setDeploymentPlatform: (platform: string) => void;
-}
+import { LinksSectionProps } from '@/app/types/project';
 
 const LinksSection = ({
   githubUrl,

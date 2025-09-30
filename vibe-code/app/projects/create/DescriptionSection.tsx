@@ -4,13 +4,7 @@
 
 import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-
-// Define the props interface
-interface DescriptionSectionProps {
-  description: string;
-  setDescription: (description: string) => void;
-  errors: Record<string, string>; // Added errors prop for validation
-}
+import { DescriptionSectionProps } from '@/app/types/project';
 
 const DescriptionSection = ({
   description,

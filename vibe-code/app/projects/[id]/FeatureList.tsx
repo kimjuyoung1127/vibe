@@ -4,14 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
-
-// Define the type for a project feature
-interface ProjectFeature {
-  id: string;
-  project_id: string;
-  feature_text: string;
-  order_index: number | null;
-}
+import { ProjectFeature } from '@/app/types/project';
 
 const FeatureList = ({ projectId }: { projectId: string }) => {
   const [features, setFeatures] = useState<ProjectFeature[]>([]);

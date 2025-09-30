@@ -8,21 +8,12 @@ import SearchAndFilter from './SearchAndFilter';
 import Pagination from './Pagination';
 import NewProjectButton from '../components/NewProjectButton';
 import { supabase } from '../lib/supabaseClient';
-
-// Define the type for a project item based on the database schema
-interface ProjectItem {
-  id: string; // UUID from database
-  title: string;
-  tagline: string; // Use 'tagline' from database
-  hero_image_url: string; // Use 'hero_image_url' from database
-  created_at: string; // ISO timestamp
-  // Add other fields as needed for the card, or fetch them in the detail page
-}
+import { ProjectItem, ProjectShowcaseItem } from '../types/project';
 
 // Sample data for the projects (mock data) - REMOVED to only show DB data
 
 const ProjectsShowcase = () => {
-  const [projectItems, setProjectItems] = useState<ProjectItem[]>([]);
+  const [projectItems, setProjectItems] = useState<ProjectShowcaseItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -132,7 +123,7 @@ const ProjectsShowcase = () => {
                 <ProjectCard 
                   title={project.title}
                   description={project.tagline} // Use tagline for description
-                  imageUrl={project.hero_image_url} // Use hero_image_url
+                  imageUrl={project.hero_image_url || ''} // Use hero_image_url, provide default if null
                 />
               </a>
             ))}

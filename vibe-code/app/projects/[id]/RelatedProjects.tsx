@@ -5,13 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
 import Link from 'next/link';
-
-interface RelatedProject {
-  id: string;
-  title: string;
-  tagline: string;
-  hero_image_url: string;
-}
+import { RelatedProject } from '@/app/types/project';
 
 const RelatedProjects = ({ authorId, currentProjectId }: { authorId: string; currentProjectId: string }) => {
   const [relatedProjects, setRelatedProjects] = useState<RelatedProject[]>([]);
@@ -84,7 +78,7 @@ const RelatedProjects = ({ authorId, currentProjectId }: { authorId: string; cur
           <Link key={project.id} href={`/projects/${project.id}`} className="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-40 hover:opacity-90 transition-opacity">
             <div
               className="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex flex-col"
-              style={{ backgroundImage: `url("${project.hero_image_url}")` }}
+              style={{ backgroundImage: `url("${project.hero_image_url || ''}")` }}
             ></div>
             <div>
               <p className="text-[#161118] text-base font-medium leading-normal">{project.title}</p>

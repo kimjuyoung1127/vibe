@@ -3,12 +3,7 @@
 "use client";
 
 import React from 'react';
-
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  imageUrl: string;
-}
+import { ProjectCardProps } from '../types/project';
 
 const ProjectCard = ({ title, description, imageUrl }: ProjectCardProps) => {
   return (

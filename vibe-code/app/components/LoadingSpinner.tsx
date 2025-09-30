@@ -1,10 +1,8 @@
 // app/components/LoadingSpinner.tsx
 import React from 'react';
+import { LoadingSpinnerProps } from '@/app/types/components';
 
-interface LoadingSpinnerProps {
-  size?: 'sm' | 'md' | 'lg';
-  message?: string;
-}
+import { LoadingSpinnerProps } from '@/app/types/components';
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
   size = 'md', 

@@ -4,16 +4,9 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
+import { GearMediaUploadProps } from '@/app/types/components';
 
-interface GearMediaUploadProps {
-  onMediaUpload: (urls: { heroImageUrl?: string; demoVideoUrl?: string }) => void;
-  currentMediaUrls?: { heroImageUrl?: string; demoVideoUrl?: string };
-  folderPath?: string;
-  maxFileSize?: number; // in bytes, default to 10MB
-  acceptedImageTypes?: string[]; // e.g., ['image/jpeg', 'image/png', 'image/gif']
-  bucketName?: string; // Supabase storage bucket name
-  label?: string;
-}
+import { GearMediaUploadProps } from '@/app/types/components';
 
 const GearMediaUpload: React.FC<GearMediaUploadProps> = ({
   onMediaUpload,

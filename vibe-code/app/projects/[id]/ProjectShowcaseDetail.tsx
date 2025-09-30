@@ -14,34 +14,7 @@ import CommentSection from '@/app/components/commentSection';
 import ContentRenderer from '@/app/components/ContentRenderer';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
-
-// Define the type for a project item based on the database schema
-interface ProjectItem {
-  id: string;
-  user_id: string; // UUID of the project creator
-  title: string;
-  tagline: string;
-  hero_image_url: string;
-  content: string; // This is the detailed description
-  github_url: string | null;
-  live_demo_url: string | null;
-  deployment_platform: string | null;
-  font_preference: string;
-  vibe_check_count: number;
-  comment_count: number;
-  is_public: boolean;
-  created_at: string; // ISO timestamp
-  updated_at: string; // ISO timestamp
-  // We will fetch related data (features, tech stack) separately
-}
-
-interface ProjectImage {
-  id: string;
-  project_id: string;
-  image_url: string;
-  alt_text: string | null;
-  created_at: string;
-}
+import { ProjectItem, ProjectImage } from '@/app/types/project';
 
 const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
   const [project, setProject] = useState<ProjectItem | null>(null);
@@ -298,7 +271,7 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
             // Fallback to the hero image if no project images are available
             <div
               className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white rounded-lg min-h-80"
-              style={{ backgroundImage: `url("${project.hero_image_url}")` }}
+              style={{ backgroundImage: `url("${project.hero_image_url || ''}")` }}
             ></div>
           )}
         </div>

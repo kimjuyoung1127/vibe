@@ -5,12 +5,9 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { ContentRendererProps } from '@/app/types/components';
 
-interface ContentRendererProps {
-  content: string;
-  maxWidthClass?: string;
-  containerClass?: string;
-}
+import { ContentRendererProps } from '@/app/types/components';
 
 const ContentRenderer: React.FC<ContentRendererProps> = ({
   content,

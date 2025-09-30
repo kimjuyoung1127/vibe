@@ -4,20 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
-
-// Define the type for project technologies
-// Note: Based on table.md, this data comes from a join table `project_technologies`
-interface ProjectTechnology {
-  project_id: string;
-  tech_name: string;
-}
-
-// Define the type for project tools
-// Note: Based on table.md, this data comes from a join table `project_tools`
-interface ProjectTool {
-  project_id: string;
-  tool_name: string;
-}
+import { ProjectTechnology, ProjectTool } from '@/app/types/project';
 
 const TechnologyStack = ({ projectId }: { projectId: string }) => {
   const [technologies, setTechnologies] = useState<ProjectTechnology[]>([]);

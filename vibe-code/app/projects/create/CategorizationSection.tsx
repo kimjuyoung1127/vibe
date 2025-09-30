@@ -10,18 +10,7 @@ import {
   getCommonCategoryTagsOptions,
   getCommonKeyFeaturesOptions
 } from './utils/suggestionUtils'; // Import suggestion utilities
-
-// Define the props interface
-interface CategorizationSectionProps {
-  features: string; // Comma-separated string for custom features
-  setFeatures: (features: string) => void;
-  techStack: string; // Comma-separated string
-  setTechStack: (techStack: string) => void;
-  devTools: string; // Comma-separated string
-  setDevTools: (devTools: string) => void;
-  categoryTags: string; // Comma-separated string
-  setCategoryTags: (categoryTags: string) => void;
-}
+import { CategorizationSectionProps } from '@/app/types/project';
 
 const CategorizationSection = ({
   features,

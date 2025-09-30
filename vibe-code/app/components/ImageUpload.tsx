@@ -4,15 +4,7 @@
 
 import React, { useState, useRef } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
-
-interface ImageUploadProps {
-  onUploadSuccess: (url: string) => void;
-  onUploadError: (error: string) => void;
-  currentImageUrl?: string;
-  bucketName?: string;
-  allowedFileTypes?: string;
-  maxFileSize?: number; // in MB
-}
+import { ImageUploadProps } from '@/app/types/components';
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
   onUploadSuccess,

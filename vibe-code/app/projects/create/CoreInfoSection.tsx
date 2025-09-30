@@ -6,17 +6,7 @@ import React, { useState } from 'react';
 import TaglineDropdown from '@/app/components/TaglineDropdown'; // Import the new TaglineDropdown component
 import ImageUpload from '@/app/components/ImageUpload'; // Import the new ImageUpload component
 import { supabase } from '@/app/lib/supabaseClient';
-
-// Define the props interface
-interface CoreInfoSectionProps {
-  title: string;
-  setTitle: (title: string) => void;
-  tagline: string; // This will now be managed by TaglineDropdown
-  setTagline: (tagline: string) => void; // This will now be managed by TaglineDropdown
-  heroImageUrl: string;
-  setHeroImageUrl: (url: string) => void;
-  errors: Record<string, string>; // Added errors prop for validation
-}
+import { CoreInfoSectionProps } from '@/app/types/project';
 
 const CoreInfoSection = ({
   title,
@@ -85,7 +75,7 @@ const CoreInfoSection = ({
           <ImageUpload
             onUploadSuccess={handleUploadSuccess}
             onUploadError={handleUploadError}
-            currentImageUrl={heroImageUrl}
+            currentImageUrl={heroImageUrl || undefined}
             bucketName="project-images"
           />
         </label>

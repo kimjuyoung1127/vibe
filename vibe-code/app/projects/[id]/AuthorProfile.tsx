@@ -5,19 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
-
-interface AuthorProfileData {
-  id: string;
-  user_id: string;
-  username: string;
-  display_name: string;
-  avatar_url: string;
-  bio: string;
-  github_url: string;
-  linkedin_url: string;
-  website_url: string;
-  created_at: string;
-}
+import { AuthorProfileData } from '@/app/types/project';
 
 const AuthorProfile = ({ userId }: { userId: string }) => {
   const [authorData, setAuthorData] = useState<AuthorProfileData | null>(null);

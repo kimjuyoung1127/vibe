@@ -4,15 +4,7 @@
 
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-
-// Define the props interface
-interface StatusSectionProps {
-  isVisible: boolean;
-  setIsVisible: (isVisible: boolean) => void;
-  isSubmitting: boolean; // Added prop to disable buttons during submission
-  onSaveDraft: () => Promise<void>; // Added prop for save draft functionality
-  saveDraftStatus: 'idle' | 'saving' | 'saved' | 'error'; // Added prop for save draft status
-}
+import { StatusSectionProps } from '@/app/types/project';
 
 const StatusSection = ({
   isVisible,

@@ -4,12 +4,7 @@
 
 import React from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}
+import { PaginationProps } from '../types/project';
 
 const Pagination: React.FC<PaginationProps> = ({ 
   currentPage, 

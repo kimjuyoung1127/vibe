@@ -15,7 +15,7 @@ const ProjectCreateForm = () => {
   // Form state
   const [title, setTitle] = useState('');
   const [tagline, setTagline] = useState(''); // Add tagline state
-  const [heroImageUrl, setHeroImageUrl] = useState('');
+  const [heroImageUrl, setHeroImageUrl] = useState<string | null>('');
   const [description, setDescription] = useState(''); // Maps to 'content' field in database
   const [features, setFeatures] = useState(''); // Features list state (multi-line text)
   const [techStack, setTechStack] = useState(''); // Tech stack state (comma-separated)
@@ -182,7 +182,7 @@ const ProjectCreateForm = () => {
         user_id: session.user.id,
         title: title.trim(),
         tagline: tagline.trim(),
-        hero_image_url: heroImageUrl.trim() || null,
+        hero_image_url: heroImageUrl?.trim() || null,
         content: description.trim() || null,
         github_url: githubUrl.trim() || null,
         live_demo_url: liveDemoUrl.trim() || null,
@@ -366,7 +366,7 @@ const ProjectCreateForm = () => {
         user_id: session.user.id,
         title: title.trim(),
         tagline: tagline.trim(),
-        hero_image_url: heroImageUrl.trim(),
+        hero_image_url: heroImageUrl?.trim() || null,
         content: description.trim(),
         github_url: githubUrl.trim() || null,
         live_demo_url: liveDemoUrl.trim() || null,

@@ -4,14 +4,7 @@
 // A reusable dropdown menu component with 3-dot icon
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-
-interface DropdownMenuProps {
-  children: React.ReactNode;
-  contentId?: string;  // ID of the content being acted upon
-  contentType?: 'project' | 'comment' | 'tool_review' | 'community_post'; // Type of content
-  targetId?: string; // ID of the content to report
-  className?: string;
-}
+import { DropdownMenuProps } from '@/app/types/components';
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ 
   children, 
