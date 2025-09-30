@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+dist/
+out/
+
+# Environment variables
+.env.local
+.env*.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Icon?
+.npmrc
+npm-debug.log*
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Temporary folders
+tmp/
+temp/
+
+# Next.js specific
+.next/cache/
+
+# Supabase
+.supabase/
+
+# Build artifacts
+build/
+.nyc_output/
+
+# System Files
+*.local
