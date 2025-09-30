@@ -2,13 +2,7 @@
 // This component handles the categorization section of the tool/tech review form
 import React from 'react';
 import { getCommonCategoryTagsOptions } from '@/app/projects/create/utils/suggestionUtils';
-
-interface CategorizationSectionProps {
-  formData: {
-    category: string;
-  };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-}
+import { CategorizationSectionProps } from '@/app/types/gear';
 
 const CategorizationSection: React.FC<CategorizationSectionProps> = ({ formData, handleChange }) => {
   // Get category options

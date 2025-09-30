@@ -14,27 +14,7 @@ import CommentSection from '@/app/components/commentSection';
 import DropdownMenu from '@/app/components/DropdownMenu';
 import ReportModal from '@/app/components/ReportModal';
 import { supabase } from '@/app/lib/supabaseClient';
-
-// interface ReviewData 정의 부분
-interface ReviewData {
-  id: string;
-  title: string;
-  tool_tech_name: string;
-  overall_rating: number;
-  content: string;
-  hero_image_url: string | null;
-  demo_video_url: string | null;
-  font_preference: string;
-  vibe_check_count: number;
-  comment_count: number;
-  created_at: string;
-  updated_at: string;
-  user_id: string;
-  author_name: string;
-  author_username: string;
-  author_avatar_url: string | null;
-  categories: string[];
-}
+import { ReviewData } from '@/app/types/gear';
 
 const ToolTechReviewDetail = () => {
   const [reviewData, setReviewData] = useState<ReviewData | null>(null);

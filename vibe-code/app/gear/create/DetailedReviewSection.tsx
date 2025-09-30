@@ -1,13 +1,7 @@
 // DetailedReviewSection.tsx
 // This component handles the detailed review section of the tool/tech review form
 import React from 'react';
-
-interface DetailedReviewSectionProps {
-  formData: {
-    content: string;
-  };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-}
+import { DetailedReviewSectionProps } from '@/app/types/gear';
 
 const DetailedReviewSection: React.FC<DetailedReviewSectionProps> = ({ formData, handleChange }) => {
   return (

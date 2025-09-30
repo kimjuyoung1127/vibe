@@ -3,24 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
-
-interface ActionButtonsProps {
-  loading: boolean;
-  formData: {
-    title: string;
-    toolTechName: string;
-    overallRating: number;
-    oneLinerPros: string;
-    oneLinerCons: string;
-    content: string;
-    heroImageUrl: string;
-    demoVideoUrl: string;
-    fontPreference: string;
-    category: string;
-  };
-  isEditing?: boolean;  // Whether we're editing an existing review
-  reviewId?: string;    // The ID of the review being edited (if applicable)
-}
+import { ActionButtonsProps } from '@/app/types/gear';
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({ loading, formData, isEditing, reviewId }) => {
   const router = useRouter();

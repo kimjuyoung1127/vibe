@@ -1,27 +1,7 @@
 // CoreInfoSection.tsx
 // This component handles the core information section of the tool/tech review form
 import React from 'react';
-
-interface CoreInfoSectionProps {
-  formData: {
-    title: string;
-    toolTechName: string;
-    overallRating: number;
-  };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-  setFormData: React.Dispatch<React.SetStateAction<{
-    title: string;
-    toolTechName: string;
-    overallRating: number;
-    oneLinerPros: string;
-    oneLinerCons: string;
-    content: string;
-    heroImageUrl: string;
-    demoVideoUrl: string;
-    fontPreference: string;
-    category: string;
-  }>>;
-}
+import { CoreInfoSectionProps } from '@/app/types/gear';
 
 const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({ formData, handleChange, setFormData }) => {
   return (

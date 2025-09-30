@@ -4,17 +4,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-
-interface ReviewCardProps {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  author: string;
-  date: string;
-  rating: number;
-  imageUrl: string;
-}
+import { ReviewCardProps } from '@/app/types/gear';
 
 const ToolTechReviewCard: React.FC<ReviewCardProps> = ({ 
   id, 

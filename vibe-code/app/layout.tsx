@@ -4,7 +4,7 @@ import './globals.css';
 import './custom.css';
 import Footer from './components/footer';
 import GoogleAnalyticsProvider from '../google/providers/GoogleAnalyticsProvider';
-import PerformanceObserver from './components/PerformanceObserver';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -141,7 +141,7 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
             <GoogleAnalyticsProvider />
-            <PerformanceObserver />
+           
           </main>
           <Footer />
         </div>

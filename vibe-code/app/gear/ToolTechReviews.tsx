@@ -5,19 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import ToolTechReviewCard from './ToolTechReviewCard';
 import { supabase } from '@/app/lib/supabaseClient';
-
-interface ToolReview {
-  id: string;
-  title: string;
-  tool_tech_name: string;
-  overall_rating: number;
-  content: string;
-  hero_image_url: string;
-  created_at: string;
-  user_profiles: {
-    display_name: string;
-  }[] | null; // user_profiles를 객체에서 객체 배열로 수정
-}
+import { ToolReview } from '@/app/types/gear';
 
 const ToolTechReviews = () => {
   const [reviews, setReviews] = useState<ToolReview[]>([]);

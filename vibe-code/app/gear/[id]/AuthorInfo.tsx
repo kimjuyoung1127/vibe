@@ -7,35 +7,7 @@ import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
 import VibeCheckButton from '@/app/components/VibeCheckButton';
 import DropdownMenu from '@/app/components/DropdownMenu';
-
-interface AuthorProfileData {
-  id: string;
-  user_id: string;
-  username: string;
-  display_name: string;
-  avatar_url: string;
-  bio: string;
-  github_url: string;
-  linkedin_url: string;
-  website_url: string;
-  created_at: string;
-}
-
-interface AuthorInfoProps {
-  author: string;
-  authorRole: string;
-  publishDate: string;
-  lastUpdated: string;
-  readTime: string;
-  authorImageUrl: string;
-  initialLikes: number;
-  onLike: () => void;
-  isLiked: boolean;
-  reviewId?: string;
-  authorId?: string; // New prop to identify the author in the database
-  contentType?: 'project' | 'comment' | 'tool_review' | 'community_post'; // Type of content for the dropdown menu
-  onReportClick?: () => void; // Callback when report is clicked
-}
+import { AuthorProfileData, AuthorInfoProps } from '@/app/types/gear';
 
 const AuthorInfo: React.FC<AuthorInfoProps> = ({ 
   author, 

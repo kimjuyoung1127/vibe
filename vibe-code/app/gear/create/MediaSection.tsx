@@ -2,25 +2,7 @@
 // This component handles the media section of the tool/tech review form
 import React from 'react';
 import GearMediaUpload from '@/app/components/GearMediaUpload';
-
-interface MediaSectionProps {
-  formData: {
-    heroImageUrl: string;
-    demoVideoUrl: string;
-  };
-  setFormData: React.Dispatch<React.SetStateAction<{
-    title: string;
-    toolTechName: string;
-    overallRating: number;
-    oneLinerPros: string;
-    oneLinerCons: string;
-    content: string;
-    heroImageUrl: string;
-    demoVideoUrl: string;
-    fontPreference: string;
-    category: string;
-  }>>;
-}
+import { MediaSectionProps } from '@/app/types/gear';
 
 const MediaSection: React.FC<MediaSectionProps> = ({ formData, setFormData }) => {
   const handleMediaUpload = (urls: { heroImageUrl?: string; demoVideoUrl?: string }) => {
