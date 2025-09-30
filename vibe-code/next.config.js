@@ -3,6 +3,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  experimental: {
+    // Enable React Server Components if needed
+    serverComponentsExternalPackages: [],
+  },
   images: {
     domains: [
       'placehold.co',
@@ -28,6 +32,46 @@ const nextConfig = {
       // },
     ],
   },
+  // Performance optimizations
+  webpack: (config, { dev, isServer }) => {
+    // Only enable in production builds
+    if (!dev && !isServer) {
+      // Enable compression
+      config.optimization.minimize = true;
+      config.optimization.minimizer = config.optimization.minimizer || [];
+    }
+
+    return config;
+  },
+  // Enable compression and caching
+  async headers() {
+    return [
+      {
+        // Apply these headers to all routes in your application
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
+  // Enable font optimization
+  optimizeFonts: true,
 }
 
 module.exports = nextConfig

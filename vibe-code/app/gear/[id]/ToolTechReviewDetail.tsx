@@ -10,7 +10,7 @@ import AuthorInfo from './AuthorInfo';
 import ReviewImage from './ReviewImage';
 import ToolTechReviewContent from './ToolTechReviewContent';
 import Tags from './Tags';
-import CommentsSection from './CommentsSection';
+import CommentSection from '@/app/components/commentSection';
 import DropdownMenu from '@/app/components/DropdownMenu';
 import ReportModal from '@/app/components/ReportModal';
 import { supabase } from '@/app/lib/supabaseClient';
@@ -235,7 +235,7 @@ const ToolTechReviewDetail = () => {
       </div>
       {/* Comments section */}
       <div className="mt-12">
-        <CommentsSection reviewId={reviewData.id} />
+        <CommentSection targetId={reviewData.id} postType="review" />
       </div>
       
       {/* Report Modal */}

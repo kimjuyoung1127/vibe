@@ -8,20 +8,7 @@ import { useRouter } from 'next/navigation';
 import PostItem from './PostItem';
 import EditPostModal from './EditPostModal';
 import ReportModal from '@/app/components/ReportModal';
-
-
-interface Post {
-  id: string;
-  user_id: string;
-  title: string;
-  content: string;
-  created_at: string;
-  comment_count: number;
-  vibe_check_count: number;
-  username: string;
-  avatar_url: string | null;
-  tags: string[];
-}
+import { Post } from '@/app/types/community';
 
 const CommunityPosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);

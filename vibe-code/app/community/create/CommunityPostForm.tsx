@@ -7,12 +7,7 @@ import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import CommunityPostContentSection from './CommunityPostContentSection';
-
-interface FormData {
-  title: string;
-  content: string;
-  tags: string[];
-}
+import { FormData } from '@/app/types/community';
 
 const CommunityPostForm = () => {
   const [formData, setFormData] = useState<FormData>({ title: '', content: '', tags: [] });

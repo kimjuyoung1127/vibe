@@ -5,25 +5,8 @@
 
 import React from 'react';
 import DropdownMenu from '@/app/components/DropdownMenu';
-
-interface PostItemProps {
-  id: string;
-  user_id: string;
-  title: string;
-  content: string;
-  created_at: string;
-  comment_count: number;
-  vibe_check_count: number;
-  username: string;
-  avatar_url: string | null;
-  tags: string[];
-  currentUser: string | null;
-  onEdit: (post: any) => void;
-  onDelete: (id: string) => void;
-  formatDate: (dateString: string) => string;
-  contentType?: 'project' | 'comment' | 'tool_review' | 'community_post';
-  onReportClick?: (targetId: string, targetType: string) => void;
-}
+import { PostItemProps } from '@/app/types/community';
+import { Post } from '@/app/types/community';
 
 const PostItem: React.FC<PostItemProps> = ({
   id,
@@ -70,6 +53,11 @@ const PostItem: React.FC<PostItemProps> = ({
                 user_id,
                 title,
                 content,
+                created_at,
+                comment_count,
+                vibe_check_count,
+                username,
+                avatar_url,
                 tags
               })}
               className="text-sm text-blue-500 hover:text-blue-700"

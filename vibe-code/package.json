@@ -11,6 +11,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@mediapipe/camera_utils": "0.3.1675466862",
+    "@next/third-parties": "^14.0.0",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "@supabase/supabase-js": "^2.57.4",

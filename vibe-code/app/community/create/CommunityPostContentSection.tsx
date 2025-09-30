@@ -4,17 +4,7 @@
 import React, { useEffect } from 'react';
 import MultiSelectButtonGroup from '../../components/MultiSelectButtonGroup';
 import { getCommonCommunityTagsOptions, getProjectCategoryTagsOptions, getKeyFeaturesTagsOptions } from './utils/communitySuggestionUtils';
-
-interface FormData {
-  title: string;
-  content: string;
-  tags: string[];
-}
-
-interface CommunityPostContentSectionProps {
-  formData: FormData;
-  updateFormData: (data: Partial<FormData>) => void;
-}
+import { FormData, CommunityPostContentSectionProps } from '@/app/types/community';
 
 const CommunityPostContentSection: React.FC<CommunityPostContentSectionProps> = ({ formData, updateFormData }) => {
   const maxContentLength = 500; // Limit content to 500 characters

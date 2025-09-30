@@ -128,7 +128,7 @@ const ProjectsShowcase = () => {
             {projectItems.map((project) => (
               // Use Next.js Link for client-side navigation or an anchor tag
               // Ensure the href points to the dynamic route with the project ID
-              <a key={project.id} href={`/projects/${project.id}`}>
+              <a key={project.id} href={`/projects/${project.id}`} className="break-words">
                 <ProjectCard 
                   title={project.title}
                   description={project.tagline} // Use tagline for description

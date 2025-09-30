@@ -2,19 +2,7 @@
 // This component represents the modal for editing a community post
 
 import React from 'react';
-
-interface EditPostModalProps {
-  isOpen: boolean;
-  postToEdit: any;
-  editTitle: string;
-  editContent: string;
-  editTags: string[];
-  setEditTitle: (title: string) => void;
-  setEditContent: (content: string) => void;
-  setEditTags: (tags: string[]) => void;
-  onClose: () => void;
-  onSave: () => void;
-}
+import { EditPostModalProps } from '@/app/types/community';
 
 const EditPostModal: React.FC<EditPostModalProps> = ({
   isOpen,

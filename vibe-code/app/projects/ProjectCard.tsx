@@ -12,7 +12,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ title, description, imageUrl }: ProjectCardProps) => {
   return (
-    <div className="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300">
+    <div className="bg-background-light/50 dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(13,166,242,0.1)] border border-primary/20 dark:border-primary/30 backdrop-blur-sm transform hover:-translate-y-2 transition-all duration-300 break-words">
       {/* Project image */}
       <div className="w-full h-48 flex items-center justify-center bg-white">
         {imageUrl ? (
@@ -30,8 +30,8 @@ const ProjectCard = ({ title, description, imageUrl }: ProjectCardProps) => {
       
       {/* Project information */}
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-1 text-primary">{title}</h3>
-        <p className="text-[#101c22]/70 dark:text-[#f5f7f8]/70">{description}</p>
+        <h3 className="text-xl font-bold mb-1 text-primary break-words">{title}</h3>
+        <p className="text-[#101c22]/70 dark:text-[#f5f7f8]/70 break-words">{description}</p>
       </div>
     </div>
   );
