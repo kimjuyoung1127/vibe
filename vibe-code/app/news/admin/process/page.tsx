@@ -51,9 +51,21 @@ const ProcessNewsPage = () => {
         throw new Error(`Failed to fetch RSS sources: ${sourcesResult.error || 'Unknown error'}`);
       }
       
-      // Step 2: Process each source, prioritizing developer-focused sources
-      // We'll process first 8 sources to include developer-focused ones
-      const sourcesToProcess = sourcesResult.sources.slice(0, 8); // Process first 8 sources
+      // Step 2: Process each source with a mix of general and developer-focused sources
+      // Prioritize developer-focused sources by putting them first
+      const developerSources = sourcesResult.sources.filter(source => 
+        ['hackernews', 'githubtrending', 'javascript', 'python', 'webdev', 'machinelearning', 'cybersecurity', 'redditprogramming'].includes(source.id)
+      );
+      
+      const otherSources = sourcesResult.sources.filter(source => 
+        !['hackernews', 'githubtrending', 'javascript', 'python', 'webdev', 'machinelearning', 'cybersecurity', 'redditprogramming'].includes(source.id)
+      );
+      
+      // Process first 4 developer sources + first 4 other sources
+      const sourcesToProcess = [
+        ...developerSources.slice(0, 4),
+        ...otherSources.slice(0, 4)
+      ].slice(0, 8); // Limit to 8 total to avoid overloading
       
       for (let i = 0; i < sourcesToProcess.length; i++) {
         const source = sourcesToProcess[i];

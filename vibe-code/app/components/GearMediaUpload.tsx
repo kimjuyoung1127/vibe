@@ -6,8 +6,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
 import { GearMediaUploadProps } from '@/app/types/components';
 
-import { GearMediaUploadProps } from '@/app/types/components';
-
 const GearMediaUpload: React.FC<GearMediaUploadProps> = ({
   onMediaUpload,
   currentMediaUrls,
