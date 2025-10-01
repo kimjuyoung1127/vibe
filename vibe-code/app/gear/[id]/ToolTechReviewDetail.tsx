@@ -254,13 +254,12 @@ const ToolTechReviewDetail = () => {
       
       {/* Review image */}
       {reviewData.hero_image_url && (
-        <div className="@container px-4">
-          <div className="@[480px]:py-3">
-            <div
-              className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white rounded-lg min-h-80"
-              style={{ backgroundImage: `url("${reviewData.hero_image_url}")` }}
-            ></div>
-          </div>
+        <div className="px-4 py-6">
+          <img
+            src={reviewData.hero_image_url}
+            alt={reviewData.tool_tech_name}
+            className="w-full h-96 object-cover rounded-xl shadow-lg"
+          />
         </div>
       )}
       

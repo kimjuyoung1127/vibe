@@ -44,14 +44,14 @@ export interface CoreInfoSectionProps {
     heroImageUrl: string;
     demoVideoUrl: string;
     fontPreference: string;
-    category: string;
+    categoryTags: string;
   }>>;
 }
 
 // Props for the CategorizationSection component
 export interface CategorizationSectionProps {
   formData: {
-    category: string;
+    categoryTags: string;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }
@@ -72,7 +72,7 @@ export interface DetailedReviewSectionProps {
     heroImageUrl: string;
     demoVideoUrl: string;
     fontPreference: string;
-    category: string;
+    categoryTags: string;
   }>>;
 }
 
@@ -92,7 +92,7 @@ export interface MediaSectionProps {
     heroImageUrl: string;
     demoVideoUrl: string;
     fontPreference: string;
-    category: string;
+    categoryTags: string;
   }>>;
 }
 
@@ -109,7 +109,7 @@ export interface ActionButtonsProps {
     heroImageUrl: string;
     demoVideoUrl: string;
     fontPreference: string;
-    category: string;
+    categoryTags: string;
   };
   isEditing?: boolean;
   reviewId?: string;

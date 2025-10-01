@@ -5,6 +5,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ReviewCardProps } from '@/app/types/gear';
+import DOMPurify from 'isomorphic-dompurify';
 
 const ToolTechReviewCard: React.FC<ReviewCardProps> = ({ 
   id, 
@@ -36,10 +37,17 @@ const ToolTechReviewCard: React.FC<ReviewCardProps> = ({
     <Link href={`/gear/${id}`} className="block">
       <div className="overflow-hidden rounded-xl border border-primary/20 bg-background-light shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         {/* Review image */}
-        <div 
-          className="w-full h-48 bg-cover bg-center" 
-          style={{ backgroundImage: `url("${imageUrl}")` }}
-        ></div>
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-48 object-cover"
+          />
+        ) : (
+          <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-t-xl flex items-center justify-center">
+            <span className="text-gray-500 dark:text-gray-400">No image</span>
+          </div>
+        )}
         
         {/* Review content */}
         <div className="p-6">
@@ -54,9 +62,10 @@ const ToolTechReviewCard: React.FC<ReviewCardProps> = ({
             {title}
           </h3>
           
-          <p className="text-sm text-black/60 dark:text-white/60 mb-4 line-clamp-3">
-            {description}
-          </p>
+          <div 
+            className="text-sm text-black/60 dark:text-white/60 mb-4 line-clamp-3"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
+          />
           
           <div className="flex justify-between items-center">
             <div className="flex items-center">
