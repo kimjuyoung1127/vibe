@@ -99,6 +99,37 @@ This document outlines the improvements made to the Vibe Hub application, focusi
 - Ensured all component interfaces match the form state structure
 - Corrected MediaSection component usage to pass only required properties
 
+## General UI/UX & Refactoring Improvements
+
+### 1. Mobile Search Bar Fix
+- **File(s) affected**: `topnav.tsx`, `SearchBar.tsx`
+- **Improvement**: Fixed a UI bug where the search bar would overflow its container in the mobile navigation menu. Also adjusted styling to prevent the virtual keyboard from obscuring the input field during typing.
+
+### 2. Dynamic "Time Ago" Feature
+- **File(s) affected**: `NewsArticleDetail.tsx`, `NewsArticles.tsx`
+- **Improvement**: Replaced the hardcoded "5 min read" placeholder with a dynamic "time ago" feature. The UI now correctly displays how long ago an article was published (e.g., "5 minutes ago", "2 hours ago", "3 days ago").
+
+### 3. Secure HTML Content Rendering
+- **File(s) affected**: `ToolTechReviewCard.tsx`
+- **Improvement**: Fixed a bug where raw HTML from the database was rendered as plain text. Implemented `isomorphic-dompurify` to sanitize and correctly render the HTML content, preventing potential XSS vulnerabilities while maintaining intended text styling.
+
+### 4. Live Demo Link Enhancement
+- **File(s) affected**: `ProjectCreateForm.tsx`, `ProjectShowcaseDetail.tsx`
+- **Improvement**: To increase visibility and user engagement, the "Live Demo" link is now a prominent, styled button.
+  - In the project detail page, it's located between the main image and the content.
+  - In the project creation form, its input field has been moved to a more central position to emphasize its importance.
+
+### 5. Component Refactoring
+
+#### Search & Filter Accordion
+- **File(s) affected**: `SearchAndFilter.tsx`, `components/Accordion.tsx` (new)
+- **Improvement**: Created a new, reusable `Accordion.tsx` component. Refactored the `SearchAndFilter` component to use this accordion, allowing the filter options to be collapsed by default for a cleaner UI.
+
+#### ToolTechReviewForm Refactoring
+- **File(s) affected**: `ToolTechReviewForm.tsx`
+- **Improvement**: Refactored the form to use the dedicated `MediaSection.tsx` component, improving code modularity. Also unified the form's state management into a single object, enhancing maintainability.
+- **Bug Fix**: Corrected a critical bug introduced during the refactoring where the "Save Draft" functionality was broken. The feature is now fully restored and functional.
+
 ## Next Steps
 - Testing across different browsers and devices
 - Performance optimization for image-heavy articles
