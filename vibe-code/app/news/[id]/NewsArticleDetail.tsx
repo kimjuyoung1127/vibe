@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
 import { NewsArticle } from '@/app/news/admin/types';
-import ContentRenderer from '@/app/components/ContentRenderer';
+import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
 import ExploreMoreSection from './ExploreMoreSection';
 import RelatedNewsSection from './RelatedNewsSection';
 
@@ -15,6 +15,38 @@ const NewsArticleDetail = () => {
   const [articleData, setArticleData] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const formatTimeAgo = (dateString: string) => {
+    const now = new Date();
+    const past = new Date(dateString);
+    const seconds = Math.floor((now.getTime() - past.getTime()) / 1000);
+
+    // 7일 이상 지났으면 전체 날짜 표시
+    if (seconds > 60 * 60 * 24 * 7) {
+      return past.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    }
+    
+    let interval = seconds / 86400; // days
+    if (interval > 1) {
+      const days = Math.floor(interval);
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    }
+    interval = seconds / 3600; // hours
+    if (interval > 1) {
+      const hours = Math.floor(interval);
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    }
+    interval = seconds / 60; // minutes
+    if (interval > 1) {
+      const minutes = Math.floor(interval);
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    }
+    return 'just now';
+  };
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -97,30 +129,22 @@ const NewsArticleDetail = () => {
         </div>
       </div>
       
+     
+      
       {/* Author information and metadata */}
       <div className="flex px-4 pb-6 @container">
         <div className="flex w-full flex-col gap-4 @[520px]:flex-row @[520px]:justify-between @[520px]:items-center">
           <div className="flex gap-4">
             <div
               className="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-16 w-16"
-              style={{ backgroundImage: `url("${articleData.hero_image_url || ''}")` }}
+              style={{ backgroundImage: 'url("https://placehold.co/64x64/4f46e5/white?text=VN")' }}
             ></div>
             <div className="flex flex-col justify-center">
               <p className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em]">
                 {articleData.source_name || 'Vibe News'}
               </p>
               <p className="text-[#7c608a] dark:text-[#c5b3d1] text-base font-normal leading-normal">
-                {articleData.published_at 
-                  ? new Date(articleData.published_at).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    }) 
-                  : new Date(articleData.created_at).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })} · 5 min read
+                {formatTimeAgo(articleData.published_at || articleData.created_at)}
               </p>
             </div>
           </div>
@@ -132,19 +156,24 @@ const NewsArticleDetail = () => {
           </div>
         </div>
       </div>
-      
-      {/* Article image */}
-      <div className="@container mb-6">
-        <div className="px-4">
-          <div
-            className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white dark:bg-[#0f0f1a] rounded-lg min-h-80"
-            style={{ backgroundImage: `url("${articleData.hero_image_url || ''}")` }}
-          ></div>
+
+       {/* Article image */}
+      {articleData.hero_image_url && (
+        <div className="px-4 py-6">
+          <img
+            src={articleData.hero_image_url}
+            alt={articleData.title}
+            className="w-full h-96 object-cover rounded-xl shadow-lg"
+          />
         </div>
-      </div>
+      )}
       
       {/* Article content */}
-      <ContentRenderer content={articleData.content} />
+      <VibeEditorRenderer 
+        content={articleData.content || ''} 
+        maxWidthClass="max-w-[65ch]" 
+        containerClass="max-w-[672px] md:max-w-[768px] lg:max-w-[896px] xl:max-w-[960px] mx-auto"
+      />
       
       {/* Explore More Section */}
       <ExploreMoreSection sourceUrl={articleData.source_url} />

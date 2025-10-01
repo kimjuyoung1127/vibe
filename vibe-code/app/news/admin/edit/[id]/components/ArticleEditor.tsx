@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
 import { toast } from 'react-hot-toast';
 import ImageUpload from '@/app/components/ImageUpload';
+import VibeTipTapEditor from '@/app/components/VibeTipTapEditor';
 
 interface ArticleEditorProps {
   article: NewsArticle | null;
@@ -70,17 +71,15 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
 
       {/* Content Field */}
       <div>
-        <label htmlFor="content" className="block text-sm font-medium text-[#161118] dark:text-[#f5f7f8] mb-2">
-          Content (Markdown)
+        <label className="block text-sm font-medium text-[#161118] dark:text-[#f5f7f8] mb-2">
+          Content
         </label>
-        <textarea
-          id="content"
-          value={article.content}
-          onChange={(e) => handleInputChange('content', e.target.value)}
-          rows={12}
-          className="w-full px-3 py-2 bg-background-light dark:bg-background-dark border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary"
-          placeholder="Enter article content in markdown format"
-        />
+        <VibeTipTapEditor
+          initialContent={article.content || ''}
+          initialFontPreference="Modern Sans-serif"
+          onContentChange={(content) => handleInputChange('content', content)}
+          onFontChange={() => { } } // Font change is not handled since NewsArticle doesn't include font_preference
+          content={''}        />
       </div>
 
       {/* Source Information */}

@@ -70,7 +70,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             onChange={handleInputChange}
             onFocus={() => query && suggestions.length > 0 && setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-            className="h-10 w-40 max-w-xs rounded-lg border border-primary/30 bg-primary/10 pl-10 pr-10 text-sm text-black ring-primary/20 transition-all focus:w-64 focus:ring-2 dark:bg-primary/20 dark:text-white dark:ring-primary/40"
+            className="h-10 w-full max-w-xs rounded-lg border border-primary/30 bg-primary/10 pl-10 pr-10 text-sm text-black ring-primary/20 transition-all focus:ring-2 dark:bg-primary/20 dark:text-white dark:ring-primary/40"
             placeholder={placeholder}
             aria-label={placeholder}
           />

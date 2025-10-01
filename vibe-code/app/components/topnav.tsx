@@ -149,7 +149,7 @@ const TopNav = () => {
                 <span className="material-symbols-outlined">account_circle</span>
                 <span>Profile</span>
               </a>
-              <div className="pt-2">
+              <div className="pt-2 px-3">
                 <SearchBar />
               </div>
             </nav>

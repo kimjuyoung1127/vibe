@@ -8,6 +8,37 @@ import { supabase } from '@/app/lib/supabaseClient';
 import NewsArticleCard from './NewsArticleCard';
 import { NewsArticle } from './admin/types';
 
+const formatTimeAgo = (dateString: string) => {
+  const now = new Date();
+  const past = new Date(dateString);
+  const seconds = Math.floor((now.getTime() - past.getTime()) / 1000);
+
+  if (seconds > 60 * 60 * 24 * 7) {
+    return past.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
+  
+  let interval = seconds / 86400;
+  if (interval > 1) {
+    const days = Math.floor(interval);
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    const hours = Math.floor(interval);
+    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    const minutes = Math.floor(interval);
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+  }
+  return 'just now';
+};
+
 const NewsArticles = () => {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
@@ -106,12 +137,12 @@ const NewsArticles = () => {
           <NewsArticleCard
             key={article.id}
             id={article.id}
-            category="Technology News" // Using a generic category since it's not in the DB schema
+            category="Technology News"
             title={article.title}
             excerpt={article.summary}
             author={article.source_name || "Vibe News"}
-            date={article.published_at ? new Date(article.published_at).toLocaleDateString() : new Date(article.created_at).toLocaleDateString()}
-            readTime="5 min read" // Placeholder, could be calculated from content length
+            date={formatTimeAgo(article.published_at || article.created_at)}
+            readTime=""
             imageUrl={article.hero_image_url || ''}
           />
         ))}
