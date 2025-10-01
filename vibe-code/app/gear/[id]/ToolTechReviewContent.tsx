@@ -3,7 +3,7 @@
 "use client";
 
 import React from 'react';
-import ContentRenderer from '@/app/components/ContentRenderer';
+import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
 
 interface ToolTechReviewContentProps {
   content: string;
@@ -11,7 +11,7 @@ interface ToolTechReviewContentProps {
 
 const ToolTechReviewContent: React.FC<ToolTechReviewContentProps> = ({ content }) => {
   return (
-    <ContentRenderer content={content} />
+    <VibeEditorRenderer content={content} />
   );
 };
 

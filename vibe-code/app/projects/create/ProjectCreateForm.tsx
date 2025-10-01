@@ -11,6 +11,8 @@ import StatusSection from './StatusSection';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+
+
 const ProjectCreateForm = () => {
   // Form state
   const [title, setTitle] = useState('');
@@ -459,6 +461,8 @@ const ProjectCreateForm = () => {
           description={description}
           setDescription={setDescription}
           errors={errors}
+          fontPreference={fontPreference}
+          setFontPreference={setFontPreference}
         />
         
         {/* Categorization and Specifications Section */}

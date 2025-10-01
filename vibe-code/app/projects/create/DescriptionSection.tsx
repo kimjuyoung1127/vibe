@@ -1,37 +1,33 @@
 // DescriptionSection.tsx
-// This component contains the detailed description section of the project create form
+// This component contains the detailed description section of the project create form with Vibe formatting options
 "use client";
 
 import React from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
+import VibeTipTapEditor from '@/app/components/VibeTipTapEditor';
 import { DescriptionSectionProps } from '@/app/types/project';
 
 const DescriptionSection = ({
   description,
   setDescription,
-  errors
+  errors,
+  fontPreference,
+  setFontPreference
 }: DescriptionSectionProps) => {
-
   return (
     <div>
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Detailed Project Description</h2>
       
-      {/* Full Description */}
-      <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-        <label className="flex flex-col min-w-40 flex-1">
-          <p className="text-[#161118] text-base font-medium leading-normal pb-2">Full Description (Markdown Supported)</p>
-          <TextareaAutosize
-            minRows={6}
-            placeholder="Describe your project in detail. Use markdown for formatting. Add pop color highlights, alert/info boxes, pixel art banners, colorful code blocks, and select a font for your post. Upload images/GIFs and add additional screenshots/GIFs with drag-and-drop."
-            className={`form-input flex w-full min-w-0 flex-3 size-none overflow-hidden rounded-lg text-[#161118] focus:outline-0 focus:ring-0 border-none bg-[#f3f0f5] focus:border-none placeholder:text-[#7c608a] p-4 text-base font-normal leading-normal ${
-              errors.description ? 'border-2 border-red-500' : ''
-            }`}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
-        </label>
-      </div>
+      {/* Vibe TipTap Editor */}
+      <VibeTipTapEditor 
+        initialContent={description}
+        onContentChange={setDescription}
+        maxWidthClass="max-w-[65ch]"
+        containerClass="max-w-[672px] md:max-w-[768px] lg:max-w-[896px] xl:max-w-[960px] mx-auto"
+        initialFontPreference={fontPreference}
+        onFontChange={setFontPreference} content={''}      />
+      
+      {/* Display errors if any */}
+      {errors.description && <p className="text-red-500 text-sm mt-1 ml-4">{errors.description}</p>}
     </div>
   );
 };

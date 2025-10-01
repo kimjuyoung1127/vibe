@@ -60,8 +60,20 @@ export interface CategorizationSectionProps {
 export interface DetailedReviewSectionProps {
   formData: {
     content: string;
+    fontPreference: string;
   };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  setFormData: React.Dispatch<React.SetStateAction<{
+    title: string;
+    toolTechName: string;
+    overallRating: number;
+    oneLinerPros: string;
+    oneLinerCons: string;
+    content: string;
+    heroImageUrl: string;
+    demoVideoUrl: string;
+    fontPreference: string;
+    category: string;
+  }>>;
 }
 
 // Props for the MediaSection component

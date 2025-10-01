@@ -34,3 +34,120 @@ body {
 .bg-background-dark {
   background-color: rgb(var(--background-dark));
 }
+
+/* Vibe Editor Formatting Styles */
+.vibe-highlight {
+  background-color: #ff6b6b; /* Vivid orange-red as per PRD accent colors */
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.vibe-highlight-purple {
+  background-color: #9c27b0; /* Deep purple as per PRD accent colors */
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.vibe-highlight-cyan {
+  background-color: #00bcd4; /* Cyan as per PRD accent colors */
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.vibe-highlight-orange {
+  background-color: #ff9800; /* Orange as per PRD accent colors */
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.vibe-highlight-green {
+  background-color: #4caf50; /* Green as per PRD accent colors */
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.vibe-highlight-pink {
+  background-color: #e91e63; /* Pink as per PRD accent colors */
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+/* Alert/Info boxes */
+.vibe-alert {
+  border-left: 4px solid #ff9800; /* Orange accent */
+  background-color: #fff3e0; /* Light orange background */
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.vibe-info {
+  border-left: 4px solid #2196f3; /* Blue accent */
+  background-color: #e3f2fd; /* Light blue background */
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Pixel art banners */
+.vibe-pixel-banner {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  font-weight: bold;
+  margin: 1rem 0;
+  border: 2px solid #fff;
+  font-size: 1.2rem;
+}
+
+/* Colorful code blocks */
+.vibe-code-block {
+  background-color: #1e1e1e; /* Dark background */
+  color: #d4d4d4; /* Light text */
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+.vibe-code-block .keyword {
+  color: #569cd6; /* Blue keywords */
+}
+
+.vibe-code-block .string {
+  color: #ce9178; /* Orange strings */
+}
+
+.vibe-code-block .function {
+  color: #dcdcaa; /* Light yellow functions */
+}
+
+.vibe-code-block .comment {
+  color: #6a9955; /* Green comments */
+}
+
+/* Retro Casual font */
+.retro-casual {
+  font-family: 'Press Start 2P', cursive, sans-serif;
+}
+
+/* Modern Sans-serif font */
+.modern-sans-serif {
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+}

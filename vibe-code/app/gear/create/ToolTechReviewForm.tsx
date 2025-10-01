@@ -203,7 +203,7 @@ const ToolTechReviewForm = () => {
         <CoreInfoSection formData={formData} handleChange={handleChange} setFormData={setFormData} />
         <CategorizationSection formData={formData} handleChange={handleChange} />
         
-        <DetailedReviewSection formData={formData} handleChange={handleChange} />
+        <DetailedReviewSection formData={formData} setFormData={setFormData} />
         <MediaSection formData={formData} setFormData={setFormData} />
         <ActionButtons 
           loading={loading} 

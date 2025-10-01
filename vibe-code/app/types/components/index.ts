@@ -7,6 +7,13 @@ export interface ContentRendererProps {
   containerClass?: string;
 }
 
+// Props for the DescriptionSection component
+export interface DescriptionSectionProps {
+  description: string;
+  setDescription: (description: string) => void;
+  errors: Record<string, string>;
+}
+
 // Props for the DropdownMenu component
 export interface DropdownMenuProps {
   children: React.ReactNode;

@@ -49,6 +49,8 @@ export interface DescriptionSectionProps {
   description: string;
   setDescription: (description: string) => void;
   errors: Record<string, string>;
+  fontPreference: string;
+  setFontPreference: (font: string) => void;
 }
 
 // Props for the CategorizationSection component

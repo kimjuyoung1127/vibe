@@ -11,10 +11,11 @@ import VibeCheckButton from '@/app/components/VibeCheckButton';
 import DropdownMenu from '@/app/components/DropdownMenu';
 import ReportModal from '@/app/components/ReportModal';
 import CommentSection from '@/app/components/commentSection';
-import ContentRenderer from '@/app/components/ContentRenderer';
+
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import { ProjectItem, ProjectImage } from '@/app/types/project';
+import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
 
 const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
   const [project, setProject] = useState<ProjectItem | null>(null);
@@ -277,8 +278,14 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
         </div>
       </div>
       
-      {/* Project content */}
-      <ContentRenderer content={project.content} />
+      {/* Project description */}
+      <div className="px-4 py-6">
+        <VibeEditorRenderer 
+          content={project.content || ''} 
+          maxWidthClass="max-w-[65ch]" 
+          containerClass="max-w-[672px] md:max-w-[768px] lg:max-w-[896px] xl:max-w-[960px] mx-auto"
+        />
+      </div>
       
       {/* Key features section */}
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">주요 기능</h2>
