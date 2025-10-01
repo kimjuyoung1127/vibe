@@ -26,7 +26,6 @@ interface VibeTipTapEditorProps extends ContentRendererProps {
 const CustomParagraph = Paragraph.extend({
   addAttributes() {
     return {
-      ...this.parent?.(),
       marginBottom: {
         default: '1rem',
         parseHTML: el => el.getAttribute('data-margin-bottom') || '1rem',
@@ -43,7 +42,6 @@ const CustomParagraph = Paragraph.extend({
 const FontSize = TextStyle.extend({
   addAttributes() {
     return {
-      ...this.parent?.(),
       fontSize: {
         default: null,
         parseHTML: (el: { style: { fontSize: any; }; getAttribute: (arg0: string) => any; }) => el.style.fontSize || el.getAttribute('data-font-size'),
