@@ -1,165 +1,204 @@
 
-> vibe-code@0.1.0 dev
-> next dev
 
-   ▲ Next.js 14.0.0
-   - Local:        http://localhost:3000
-   - Environments: .env.local
-
- ✓ Ready in 2.7s
- ○ Compiling /projects/create/page ...
- ⚠ ./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
-
-
-
-./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⚠ ./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
-
-
-
-./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ⚠ ./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/ToolTechReviewDetail.tsx:15:92)
+    at (ssr)/./app/gear/[id]/ToolTechReviewDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:517:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/page.tsx:11:79)
+    at (ssr)/./app/gear/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:528:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/ToolTechReviewDetail.tsx:15:92)
+    at (ssr)/./app/gear/[id]/ToolTechReviewDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:517:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/page.tsx:11:79)
+    at (ssr)/./app/gear/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:528:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
 
 
 
-./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
 
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ⚠ ./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
-
-
-
-./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ⚠ ./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/ToolTechReviewDetail.tsx:15:92)
+    at (ssr)/./app/gear/[id]/ToolTechReviewDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:517:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/page.tsx:11:79)
+    at (ssr)/./app/gear/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:528:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/ToolTechReviewDetail.tsx:15:92)
+    at (ssr)/./app/gear/[id]/ToolTechReviewDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:517:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/page.tsx:11:79)
+    at (ssr)/./app/gear/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:528:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
 
 
-
-./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ⚠ ./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
-
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\projects\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/projects/[id]/ProjectShowcaseDetail.tsx:20:93)
+    at (ssr)/./app/projects/[id]/ProjectShowcaseDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\projects\[id]\page.js:561:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/projects/[id]/page.tsx:11:80)
+    at (ssr)/./app/projects/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\projects\[id]\page.js:594:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
 
 
 
-./app/components/VibeTipTapEditor.tsx
-Attempted import error: '@tiptap/extension-text-style' does not contain a default export (imported as 'TextStyle').
 
-Import trace for requested module:
-./app/components/VibeTipTapEditor.tsx
-./app/projects/create/DescriptionSection.tsx
-./app/projects/create/ProjectCreateForm.tsx
-./app/projects/create/page.tsx
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
- ⨯ node_modules\@tiptap\react\dist\index.js (298:0) @ _EditorInstanceManager.getInitialEditor
- ⨯ Error: Tiptap Error: SSR has been detected, please set `immediatelyRender` explicitly to `false` to avoid hydration mismatches.
-    at VibeTipTapEditor (./app/components/VibeTipTapEditor.tsx:169:77)
-null
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\projects\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/projects/[id]/ProjectShowcaseDetail.tsx:20:93)
+    at (ssr)/./app/projects/[id]/ProjectShowcaseDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\projects\[id]\page.js:561:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/projects/[id]/page.tsx:11:80)
+    at (ssr)/./app/projects/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\projects\[id]\page.js:594:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+
+
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/ToolTechReviewDetail.tsx:15:92)
+    at (ssr)/./app/gear/[id]/ToolTechReviewDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:517:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/page.tsx:11:79)
+    at (ssr)/./app/gear/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:528:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/ToolTechReviewDetail.tsx:15:92)
+    at (ssr)/./app/gear/[id]/ToolTechReviewDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:517:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/page.tsx:11:79)
+    at (ssr)/./app/gear/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:528:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\gmdqn\vibe\vibe-code\.next\browser\default-stylesheet.css'
+    at Object.readFileSync (node:fs:442:20)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/components/VibeEditorRenderer.tsx:11:78)
+    at (ssr)/./app/components/VibeEditorRenderer.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:462:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/ToolTechReviewDetail.tsx:15:92)
+    at (ssr)/./app/gear/[id]/ToolTechReviewDetail.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:517:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at eval (./app/gear/[id]/page.tsx:11:79)
+    at (ssr)/./app/gear/[id]/page.tsx (C:\Users\gmdqn\vibe\vibe-code\.next\server\app\gear\[id]\page.js:528:1)
+    at __webpack_require__ (C:\Users\gmdqn\vibe\vibe-code\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)

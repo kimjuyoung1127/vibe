@@ -18,7 +18,7 @@ const VibeEditorRenderer: React.FC<ContentRendererProps> = ({
 
   return (
     <div className={`break-words px-4 pb-6 text-[#161118] dark:text-[#f5f7f8] ${containerClass} pt-6`}>
-      <style jsx>{`
+      <style>{`
         .break-words {
           word-break: break-word;
           overflow-wrap: break-word;

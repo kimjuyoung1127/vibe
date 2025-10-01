@@ -5,7 +5,7 @@ import { supabase } from '@/app/lib/supabaseClient';
 
 interface VibeCheckButtonProps {
   targetId: string;
-  targetType: 'project' | 'review' | 'community' | 'news' | 'comment' | 'gear';
+  targetType: 'project' | 'review' | 'community' | 'news' | 'comment' | 'gear' | 'tool_review';
   initialCount: number;
 }
 

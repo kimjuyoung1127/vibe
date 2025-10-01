@@ -12,7 +12,7 @@ import Link from '@tiptap/extension-link';
 import Paragraph from '@tiptap/extension-paragraph';
 import { Node } from '@tiptap/core';
 
-import VibeTipTapToolbar from '@/app/components/VibeTipTapToolbar';
+import VibeTipTapToolbar from './VibeTipTapToolbar';
 import { ContentRendererProps } from '@/app/types/components';
 
 interface VibeTipTapEditorProps extends ContentRendererProps {

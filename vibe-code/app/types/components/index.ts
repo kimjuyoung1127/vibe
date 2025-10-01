@@ -130,7 +130,7 @@ export interface UserProfileProps {
 // Props for the VibeCheckButton component
 export interface VibeCheckButtonProps {
   targetId: string;
-  targetType: 'project' | 'review' | 'community' | 'news' | 'comment' | 'gear';
+  targetType: 'project' | 'review' | 'community' | 'news' | 'comment' | 'gear' | 'tool_review';
   initialCount?: number;
 }
 
@@ -148,7 +148,7 @@ export interface CommentProps {
   createdAt: string;
   authorId: string;
   targetId: string;
-  postType: 'project' | 'review' | 'community' | 'news'; // Different types of posts
+  postType: 'project' | 'review' | 'community' | 'news' | 'tool_review'; // Different types of posts
   onReply?: (commentId: string) => void;
   currentUserId?: string;
 }
@@ -169,7 +169,7 @@ export interface CommentItem {
 // Props for the CommentSection component
 export interface CommentSectionProps {
   targetId: string;
-  postType: 'project' | 'review' | 'community' | 'news'; // Type of the target
+  postType: 'project' | 'review' | 'community' | 'news' | 'tool_review'; // Type of the target
 }
 
 // Interface for nav items

@@ -13,23 +13,7 @@ Backgrounds: Predominantly bright, clean, and vibrant tones (e.g., electric blue
 
 Accents/Points: Bold, high-saturation pop colors (e.g., vivid orange, deep purple, hot magenta, emerald green, sky blue) to emphasize key information and interactive elements. Minimize dull grays, favoring lighter, cool-toned neutrals where needed.
 
-Typography:
 
-Body Text: Soft, rounded sans-serif fonts.
-
-Headlines/Major Titles: Bold, blocky, and slightly condensed fonts that evoke 80s/90s arcade or synthwave aesthetics, ensuring high readability.
-
-Visual Elements & Effects:
-
-Bold Color Blocks/Shadows: UI elements (buttons, cards) should feature strong, contrasting color block designs with exaggerated, multi-layered drop shadows (e.g., one solid color shadow, one blurred shadow) for a distinct retro pop effect.
-
-Glassmorphism/Frosted Glass: Apply a light, subtle glassmorphism effect (semi-transparent background with blur) to main content containers and modals, blending modern and retro aesthetics.
-
-Background Patterns: Use subtle, yet distinct abstract geometric, isometric grid patterns, or pixelated textures in complementary, lighter pastel tones for backgrounds.
-
-Icons: Bold, geometric, and clear line icons or flat, brightly colored icons. Consider a slight "pixelated" edge for specific small decorative icons.
-
-Animations: Smooth, energetic, and slightly bouncy transitions for interactions and page changes, consistent with a modern retro feel.
 
 3. Development Guidelines & Architecture Principles
 Component-Based Architecture (CBA): All UI elements of the project will be built as reusable, independent components. This is crucial for maximizing maintainability and scalability.
