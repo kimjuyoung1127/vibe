@@ -1,5 +1,5 @@
-// ActionButtons.tsx
-// This component handles the action buttons section of the tool/tech review form
+"use client";
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';

@@ -1,5 +1,5 @@
-// page.tsx
-// This is the dynamic route page for individual tool/tech review details
+"use client";
+
 import React from 'react';
 import TopNavWrapper from '../../components/TopNavWrapper';
 import NavbarWrapper from '../../components/NavbarWrapper';

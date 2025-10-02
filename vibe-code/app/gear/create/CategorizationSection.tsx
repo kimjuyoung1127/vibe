@@ -1,5 +1,5 @@
-// CategorizationSection.tsx
-// This component handles the categorization section of the tool/tech review form
+"use client";
+
 import React from 'react';
 import { getCommonCategoryTagsOptions } from '@/app/projects/create/utils/suggestionUtils';
 import { CategorizationSectionProps } from '@/app/types/gear';

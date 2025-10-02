@@ -1,3 +1,5 @@
+"use client";
+
 // Tags.tsx
 // This component displays the tags for the review
 "use client";

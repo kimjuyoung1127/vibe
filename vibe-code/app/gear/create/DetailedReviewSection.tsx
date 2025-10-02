@@ -1,5 +1,5 @@
-// DetailedReviewSection.tsx
-// This component handles the detailed review section of the tool/tech review form
+"use client";
+
 import React, { useState } from 'react';
 import { DetailedReviewSectionProps } from '@/app/types/gear';
 import VibeTipTapEditor from '@/app/components/VibeTipTapEditor';

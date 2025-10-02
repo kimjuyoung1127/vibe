@@ -1,4 +1,5 @@
-// page.tsx
+"use client";
+
 // This is the main Tool & Tech Review page
 import React from 'react';
 import TopNavWrapper from '../components/TopNavWrapper';

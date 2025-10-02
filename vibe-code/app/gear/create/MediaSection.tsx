@@ -1,5 +1,5 @@
-// MediaSection.tsx
-// This component handles the media section of the tool/tech review form
+"use client";
+
 import React from 'react';
 import GearMediaUpload from '@/app/components/GearMediaUpload';
 import { MediaSectionProps } from '@/app/types/gear';

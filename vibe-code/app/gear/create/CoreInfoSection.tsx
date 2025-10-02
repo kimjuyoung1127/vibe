@@ -1,5 +1,5 @@
-// CoreInfoSection.tsx
-// This component handles the core information section of the tool/tech review form
+"use client";
+
 import React from 'react';
 import { CoreInfoSectionProps } from '@/app/types/gear';
 

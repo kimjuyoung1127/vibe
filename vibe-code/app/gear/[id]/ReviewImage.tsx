@@ -1,3 +1,5 @@
+"use client";
+
 // ReviewImage.tsx
 // This component displays the review image
 "use client";
