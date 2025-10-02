@@ -52,5 +52,9 @@ temp/
 build/
 .nyc_output/
 
+# Admin functionality mentioned in sw.md that's causing build errors
+app/news/admin/
+app/news/admin/process/
+
 # System Files
 *.local
