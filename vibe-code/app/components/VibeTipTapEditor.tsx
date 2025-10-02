@@ -29,7 +29,7 @@ const CustomParagraph = Paragraph.extend({
       marginBottom: {
         default: '1rem',
         parseHTML: (el: HTMLElement) => el.getAttribute('data-margin-bottom') || '1rem',
-        renderHTML: attrs => ({
+        renderHTML: (attrs: { marginBottom: string }) => ({
           'data-margin-bottom': attrs.marginBottom,
           style: `margin-bottom: ${attrs.marginBottom};`,
         }),
@@ -45,7 +45,7 @@ const FontSize = TextStyle.extend({
       fontSize: {
         default: null,
         parseHTML: (el: HTMLElement) => el.style.fontSize || el.getAttribute('data-font-size'),
-        renderHTML: (attrs: { fontSize: any; }) =>
+        renderHTML: (attrs: { fontSize: string | null }) =>
           attrs.fontSize
             ? {
                 style: `font-size: ${attrs.fontSize};`,
