@@ -6,7 +6,25 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
 import NewsArticleCard from './NewsArticleCard';
-import { NewsArticle } from './admin/types';
+
+// Define the NewsArticle interface locally since admin directory is excluded
+interface NewsArticle {
+  id: string;
+  title: string;
+  summary: string;
+  content: string;
+  source_name: string;
+  source_url: string;
+  crawled_at: string;
+  published_at: string | null;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+  admin_id: string | null;
+  hero_image_url: string | null;
+  vibe_check_count: number;
+  comment_count: number;
+}
 
 const formatTimeAgo = (dateString: string) => {
   const now = new Date();
