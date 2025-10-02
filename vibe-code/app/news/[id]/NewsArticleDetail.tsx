@@ -5,10 +5,28 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
-import { NewsArticle } from '@/app/news/admin/types';
 import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
 import ExploreMoreSection from './ExploreMoreSection';
 import RelatedNewsSection from './RelatedNewsSection';
+
+// Define the NewsArticle interface locally since admin directory is excluded
+interface NewsArticle {
+  id: string;
+  title: string;
+  summary: string;
+  content: string;
+  source_name: string;
+  source_url: string;
+  crawled_at: string;
+  published_at: string | null;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+  admin_id: string | null;
+  hero_image_url: string | null;
+  vibe_check_count: number;
+  comment_count: number;
+}
 
 const NewsArticleDetail = () => {
   const { id } = useParams();
