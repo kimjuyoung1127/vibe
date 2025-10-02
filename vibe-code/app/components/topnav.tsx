@@ -5,7 +5,6 @@ import Link from 'next/link';
 import SearchBar from './SearchBar';
 import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
 import { supabase } from '@/app/lib/supabaseClient';
 
 const TopNav = () => {
