@@ -51,6 +51,7 @@ export interface CoreInfoSectionProps {
 // Props for the CategorizationSection component
 export interface CategorizationSectionProps {
   formData: {
+    category: string | number | readonly string[] | undefined;
     categoryTags: string;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
