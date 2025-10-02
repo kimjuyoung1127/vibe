@@ -72,7 +72,7 @@ const ToolTechReviews = () => {
             id={review.id}
             title={review.title}
             category={review.tool_tech_name}
-            description={review.content.substring(0, 150) + (review.content.length > 150 ? '...' : '')}
+            description={review.content.replace(/<[^>]*>/g, '').substring(0, 150) + (review.content.length > 150 ? '...' : '')}
             author={review.user_profiles?.[0]?.display_name || 'Unknown Author'}
             date={review.created_at}
             rating={review.overall_rating}

@@ -1,7 +1,7 @@
-# Progress Update 2 - Vibe Hub Improvements
+# Progress Update 2 - Vibe Hub Improvements & Deployment Issues
 
 ## Overview
-This document outlines the improvements made to the Vibe Hub application, focusing on enhancing the readability and user experience of various content types using the Vibe editor components.
+This document outlines the improvements made to the Vibe Hub application, focusing on enhancing the readability and user experience of various content types using the Vibe editor components, and documenting the challenges faced during deployment after implementing TipTap editor.
 
 ## Completed Improvements
 
@@ -81,7 +81,7 @@ This document outlines the improvements made to the Vibe Hub application, focusi
 
 ### ProjectShowcaseDetail.tsx
 - Updated single image display to match NewsArticleDetail style
-- Used `h-96` for single images and `h-80` for multiple images in grid layout
+- Used `h-96` for single images and `h-96` for multiple images in grid layout
 - Maintained grid layout for multiple project images while ensuring single image consistency
 - Added proper fallback when no images are available
 
@@ -130,7 +130,55 @@ This document outlines the improvements made to the Vibe Hub application, focusi
 - **Improvement**: Refactored the form to use the dedicated `MediaSection.tsx` component, improving code modularity. Also unified the form's state management into a single object, enhancing maintainability.
 - **Bug Fix**: Corrected a critical bug introduced during the refactoring where the "Save Draft" functionality was broken. The feature is now fully restored and functional.
 
+## Deployment Issues and Challenges
+
+### Issue with TipTap Editor Implementation
+- **Problem**: After implementing the TipTap editor across multiple components, the build began failing during the static export phase
+- **Error location**: The build failure consistently occurs at location `220:1053183` in the compiled server code
+- **Affected route**: The `/gear` page consistently fails during export with "Error: Command "npm run build" exited with 1"
+- **Root cause**: TipTap editor components and their rendering require client-side APIs that are not available during static generation
+
+### Admin Functionality Issues
+- **Problem**: Admin functionality (news/admin, news/admin/process) was also causing build errors
+- **Solution implemented**: Admin directories added to .gitignore to exclude from Git tracking
+- **Side effect**: Several components were importing types from admin directory, causing TypeScript errors
+- **Fix**: Updated all import statements to define types locally instead of importing from admin directory
+
+### Server/Client Boundary Issues
+- **Problem**: Mixed server and client components causing conflicts during static generation
+- **Solution**: Implemented wrapper components using dynamic imports with `ssr: false`
+- **Affected pages**: All pages were updated to use TopNavWrapper and NavbarWrapper instead of direct imports
+- **Components updated**: NewsArticles, NewsArticleDetail, RelatedNewsSection, and many others
+
+## Development Rules to Follow When Reverting
+
+### 1. Client Components Best Practices
+- Always use `use client` directive when a component uses client-side APIs
+- Avoid using DOM APIs or browser-specific APIs in server components
+- Implement dynamic imports with `ssr: false` for components that can't run on the server
+
+### 2. TipTap Editor Implementation Guidelines
+- Use Next.js's `dynamic` import with `ssr: false` for TipTap components
+- Create wrapper components that are client-only when using rich text editors
+- Ensure content rendering components are client-side when dealing with complex HTML
+
+### 3. Server/Client Boundary Management
+- Never import client components directly into server components
+- Use separate client components for interactive functionality
+- Be careful with hooks (like `useEffect`, `useState`) which require client components
+
+### 4. Deployment Testing
+- Test builds frequently during development
+- Use `npm run build` to verify that changes won't break deployment
+- Check all routes after major changes to ensure they can be statically generated
+
+### 5. Type Safety
+- Define types locally when they're only used by a few components
+- Create shared types directory for commonly used interfaces
+- Avoid importing from directories that will be excluded from builds
+
 ## Next Steps
-- Testing across different browsers and devices
-- Performance optimization for image-heavy articles
-- Potential expansion of Vibe editor features to other content areas
+- Revert to a stable state before implementing TipTap
+- Implement TipTap with proper Next.js patterns (dynamic imports, client boundaries)
+- Test deployment after each change to prevent compound issues
+- Document lessons learned about client/server component boundaries

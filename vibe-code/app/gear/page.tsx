@@ -1,6 +1,7 @@
-"use client";
-
 // This is the main Tool & Tech Review page
+// Force dynamic rendering to prevent static generation issues
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import TopNavWrapper from '../components/TopNavWrapper';
 import NavbarWrapper from '../components/NavbarWrapper';
