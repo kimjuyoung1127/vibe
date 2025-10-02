@@ -3,10 +3,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import TopNav from '../../components/topnav';
-import Navbar from '../../components/navbar';
 import { supabase } from '@/app/lib/supabaseClient';
 import Link from 'next/link';
+import NavbarWrapper from '@/app/components/NavbarWrapper';
+import TopNavWrapper from '@/app/components/TopNavWrapper';
 
 interface DraftReview {
   id: string;
