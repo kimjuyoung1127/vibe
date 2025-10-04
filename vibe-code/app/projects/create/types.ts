@@ -16,7 +16,7 @@ export interface TagOption {
 /**
  * Project Tagline category type (for internal management and filtering)
  */
-export type ProjectTaglineCategory = 'innovation' | 'utility' | 'design' | 'community' | 'retroVibe' | 'efficiency' | 'simplicity' | 'fun' | 'challenge' | 'meme';
+export type ProjectTaglineCategory = 'innovation' | 'utility' | 'design' | 'community' | 'retroVibe' | 'efficiency' | 'simplicity' | 'fun' | 'challenge' | 'meme' | 'dx' | 'robustness';  
 
 /**
  * Extended interface for Project Tagline options
