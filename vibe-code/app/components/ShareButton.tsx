@@ -8,6 +8,7 @@ interface ShareButtonProps {
   url: string;
   title: string;
   description?: string;
+  imageUrl?: string; // Add imageUrl to props for social sharing
 }
 
 const ShareButton: React.FC<ShareButtonProps> = ({
