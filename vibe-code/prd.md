@@ -1,10 +1,10 @@
-## Product Requirements Document (PRD): Vibe Code (Modern Retro Style - Updated)
+## Product Requirements Document (PRD): Vibe Hub (Modern Retro Style - Updated)
 Document Version	15.0
 Date	2025-09-20
 Author	Gemini (Website Architect)
 
 1. Overview
-'Vibe Code' is a community website for developers who value the "vibe" and environment of coding. Users can share their project experiences in a 'Modern Retro Pop Art' style, discuss and critically review the latest technologies, and connect with peers. The platform aims to encourage active participation through a strong visual identity and personalized 'Vibe' expression, with a long-term goal of monetization through Google AdSense.
+'Vibe Hub a community website for developers who value the "vibe" and environment of coding. Users can share their project experiences in a 'Modern Retro Pop Art' style, discuss and critically review the latest technologies, and connect with peers. The platform aims to encourage active participation through a strong visual identity and personalized 'Vibe' expression, with a long-term goal of monetization through Google AdSense.
 
 2. UI/UX Concept: 'Modern Retro Pop Art'
 Color Palette (No Pink as primary):

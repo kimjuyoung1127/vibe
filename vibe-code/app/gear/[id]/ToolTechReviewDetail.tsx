@@ -9,6 +9,7 @@ import DropdownMenu from '@/app/components/DropdownMenu';
 import ReportModal from '@/app/components/ReportModal';
 import CommentSection from '@/app/components/commentSection';
 import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
+import AuthorProfile from '@/app/components/AuthorProfile';
 import { supabase } from '@/app/lib/supabaseClient';
 
 type ReviewData = {
@@ -298,19 +299,7 @@ const ToolTechReviewDetail = () => {
       {/* Author information section */}
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Author Information</h2>
       <div className="p-4">
-        <div className="flex items-center">
-          {reviewData.author_avatar_url && (
-            <img 
-              src={reviewData.author_avatar_url} 
-              alt={reviewData.author_name} 
-              className="w-12 h-12 rounded-full mr-4"
-            />
-          )}
-          <div>
-            <p className="font-semibold text-[#161118] dark:text-[#f5f7f8]">{reviewData.author_name}</p>
-            <p className="text-sm text-[#7c608a]">@{reviewData.author_username}</p>
-          </div>
-        </div>
+        <AuthorProfile userId={reviewData.user_id} showFullProfile={false} />
       </div>
       
       {/* Comments section */}

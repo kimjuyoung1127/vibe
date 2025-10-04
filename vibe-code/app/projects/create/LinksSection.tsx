@@ -8,10 +8,6 @@ import { LinksSectionProps } from '@/app/types/project';
 const LinksSection = ({
   githubUrl,
   setGithubUrl,
-  liveDemoUrl,
-  setLiveDemoUrl,
-  deploymentPlatform,
-  setDeploymentPlatform
 }: LinksSectionProps) => {
 
   return (
@@ -27,32 +23,6 @@ const LinksSection = ({
             className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#161118] focus:outline-0 focus:ring-0 border-none bg-[#f3f0f5] focus:border-none h-14 placeholder:text-[#7c608a] p-4 text-base font-normal leading-normal"
             value={githubUrl}
             onChange={(e) => setGithubUrl(e.target.value)}
-          />
-        </label>
-      </div>
-      
-      {/* Live Demo */}
-      <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-        <label className="flex flex-col min-w-40 flex-1">
-          <p className="text-[#161118] text-base font-medium leading-normal pb-2">Live Demo</p>
-          <input
-            placeholder="Enter live demo URL"
-            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#161118] focus:outline-0 focus:ring-0 border-none bg-[#f3f0f5] focus:border-none h-14 placeholder:text-[#7c608a] p-4 text-base font-normal leading-normal"
-            value={liveDemoUrl}
-            onChange={(e) => setLiveDemoUrl(e.target.value)}
-          />
-        </label>
-      </div>
-      
-      {/* Deployment Platform */}
-      <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-        <label className="flex flex-col min-w-40 flex-1">
-          <p className="text-[#161118] text-base font-medium leading-normal pb-2">Deployment Platform</p>
-          <input
-            placeholder="Enter deployment platform (e.g., Netlify, Vercel)"
-            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#161118] focus:outline-0 focus:ring-0 border-none bg-[#f3f0f5] focus:border-none h-14 placeholder:text-[#7c608a] p-4 text-base font-normal leading-normal"
-            value={deploymentPlatform}
-            onChange={(e) => setDeploymentPlatform(e.target.value)}
           />
         </label>
       </div>

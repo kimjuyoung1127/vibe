@@ -3,12 +3,23 @@
 "use client";
 
 import React, { useState } from 'react';
+import ShareButton from '@/app/components/ShareButton';
 
 interface ExploreMoreSectionProps {
   sourceUrl: string;
+  articleUrl: string;
+  articleTitle: string;
+  articleSummary: string;
+  articleImageUrl?: string;
 }
 
-const ExploreMoreSection: React.FC<ExploreMoreSectionProps> = ({ sourceUrl }) => {
+const ExploreMoreSection: React.FC<ExploreMoreSectionProps> = ({ 
+  sourceUrl, 
+  articleUrl, 
+  articleTitle, 
+  articleSummary,
+  articleImageUrl
+}) => {
   const [copiedSource, setCopiedSource] = useState(false);
   
   const handleCopySource = () => {
@@ -53,16 +64,13 @@ const ExploreMoreSection: React.FC<ExploreMoreSectionProps> = ({ sourceUrl }) =>
           </div>
           <div className="flex-1">
             <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm mb-2">Share</p>
-            <div className="flex gap-2">
-              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1877f2] text-white hover:bg-[#1877f2]/90">
-                <span className="material-symbols-outlined text-base">share</span>
-              </button>
-              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1da1f2] text-white hover:bg-[#1da1f2]/90">
-                <span className="material-symbols-outlined text-base">share</span>
-              </button>
-              <button className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0a66c2] text-white hover:bg-[#0a66c2]/90">
-                <span className="material-symbols-outlined text-base">share</span>
-              </button>
+            <div className="flex">
+              <ShareButton 
+                url={articleUrl} 
+                title={articleTitle} 
+                description={articleSummary} 
+                imageUrl={articleImageUrl} 
+              />
             </div>
           </div>
         </div>

@@ -86,6 +86,49 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" 
           rel="stylesheet" 
         />
+        {/* Kakao SDK */}
+        <script
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+          crossOrigin="anonymous"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Immediately initialize Kakao SDK when script is loaded
+              if (typeof window !== 'undefined') {
+                // Wait for Kakao SDK to be loaded
+                let attempts = 0;
+                const maxAttempts = 50; // 50 * 100ms = 5s total wait time
+                
+                const initializeKakao = () => {
+                  if (window.Kakao && !window.Kakao.isInitialized()) {
+                    const kakaoApiKey = "${process.env.NEXT_PUBLIC_KAKAO_API_KEY || ''}";
+                    if (kakaoApiKey && kakaoApiKey !== '') {
+                      try {
+                        window.Kakao.init(kakaoApiKey);
+                        console.log('Kakao SDK initialized successfully');
+                      } catch (error) {
+                        console.error('Failed to initialize Kakao SDK:', error);
+                      }
+                    } else {
+                      console.warn('Kakao API key is not set. Please set NEXT_PUBLIC_KAKAO_API_KEY in your .env file to enable Kakao sharing.');
+                    }
+                  } else if (window.Kakao && window.Kakao.isInitialized()) {
+                    console.log('Kakao SDK already initialized');
+                  } else if (attempts < maxAttempts) {
+                    attempts++;
+                    setTimeout(initializeKakao, 100);
+                  } else {
+                    console.error('Kakao SDK not available after maximum attempts');
+                  }
+                };
+                
+                // Start initialization check after a brief delay
+                setTimeout(initializeKakao, 100);
+              }
+            `,
+          }}
+        ></script>
         {/* Google Analytics */}
         <script
           async

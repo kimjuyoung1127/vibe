@@ -69,10 +69,6 @@ export interface CategorizationSectionProps {
 export interface LinksSectionProps {
   githubUrl: string;
   setGithubUrl: (url: string) => void;
-  liveDemoUrl: string;
-  setLiveDemoUrl: (url: string) => void;
-  deploymentPlatform: string;
-  setDeploymentPlatform: (platform: string) => void;
 }
 
 // Props for the StatusSection component

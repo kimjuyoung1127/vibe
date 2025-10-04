@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
 import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
+import ShareButton from '@/app/components/ShareButton';
 import ExploreMoreSection from './ExploreMoreSection';
 import RelatedNewsSection from './RelatedNewsSection';
 
@@ -167,10 +168,11 @@ const NewsArticleDetail = () => {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-1 px-3 py-1 text-[#7c608a] dark:text-[#c5b3d1] hover:text-[#161118] dark:hover:text-[#f5f7f8] rounded-full hover:bg-primary/10 dark:hover:bg-primary/20">
-              <span className="material-symbols-outlined">share</span>
-              <span>Share</span>
-            </button>
+            <ShareButton 
+              url={typeof window !== 'undefined' ? `${window.location.origin}/news/${id}` : `https://vibehub.com/news/${id}`} 
+              title={articleData.title} 
+              description={articleData.summary} 
+            />
           </div>
         </div>
       </div>
@@ -194,7 +196,13 @@ const NewsArticleDetail = () => {
       />
       
       {/* Explore More Section */}
-      <ExploreMoreSection sourceUrl={articleData.source_url} />
+      <ExploreMoreSection 
+        sourceUrl={articleData.source_url} 
+        articleUrl={typeof window !== 'undefined' ? `${window.location.origin}/news/${id}` : `https://vibehub.com/news/${id}`} 
+        articleTitle={articleData.title} 
+        articleSummary={articleData.summary} 
+        articleImageUrl={articleData.hero_image_url || ''} 
+      />
       
       {/* Related News Section */}
       <RelatedNewsSection />

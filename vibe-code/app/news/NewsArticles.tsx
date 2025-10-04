@@ -26,37 +26,6 @@ interface NewsArticle {
   comment_count: number;
 }
 
-const formatTimeAgo = (dateString: string) => {
-  const now = new Date();
-  const past = new Date(dateString);
-  const seconds = Math.floor((now.getTime() - past.getTime()) / 1000);
-
-  if (seconds > 60 * 60 * 24 * 7) {
-    return past.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  }
-  
-  let interval = seconds / 86400;
-  if (interval > 1) {
-    const days = Math.floor(interval);
-    return `${days} day${days > 1 ? 's' : ''} ago`;
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    const hours = Math.floor(interval);
-    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    const minutes = Math.floor(interval);
-    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-  }
-  return 'just now';
-};
-
 const NewsArticles = () => {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
@@ -159,7 +128,7 @@ const NewsArticles = () => {
             title={article.title}
             excerpt={article.summary}
             author={article.source_name || "Vibe News"}
-            date={formatTimeAgo(article.published_at || article.created_at)}
+            date={article.published_at || article.created_at}
             readTime=""
             imageUrl={article.hero_image_url || ''}
           />

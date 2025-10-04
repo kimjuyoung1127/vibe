@@ -1,301 +1,275 @@
 // app/projects/create/utils/suggestionUtils.ts
-// Utility functions to generate common suggestions for tech stack, tools, and categories
+// Utility functions to generate common suggestions for tech stack, tools, and categories.
+// Now with categories and popularity for a better UX in AdvancedSelect.
+
+import { Option } from "@/app/components/AdvancedSelect"; // Assuming AdvancedSelect is in components
 
 /**
- * Generates a list of common technology stack options.
- * These can be used as initial suggestions or defaults.
- * @returns An array of objects with `value` and `label` properties.
+ * Generates a list of common technology stack options with categories.
  */
-export const getCommonTechStackOptions = (): { value: string; label: string }[] => {
+export const getCommonTechStackOptions = (): Option[] => {
   return [
-    { value: 'react', label: 'React' },
-    { value: 'nextjs', label: 'Next.js' },
-    { value: 'vue', label: 'Vue.js' },
-    { value: 'angular', label: 'Angular' },
-    { value: 'svelte', label: 'Svelte' },
-    { value: 'nodejs', label: 'Node.js' },
-    { value: 'express', label: 'Express' },
-    { value: 'python', label: 'Python' },
-    { value: 'django', label: 'Django' },
-    { value: 'flask', label: 'Flask' },
-    { value: 'java', label: 'Java' },
-    { value: 'spring', label: 'Spring Boot' },
-    { value: 'go', label: 'Go' },
-    { value: 'rust', label: 'Rust' },
-    { value: 'typescript', label: 'TypeScript' },
-    { value: 'javascript', label: 'JavaScript' },
-    { value: 'postgresql', label: 'PostgreSQL' },
-    { value: 'mysql', label: 'MySQL' },
-    { value: 'mongodb', label: 'MongoDB' },
-    { value: 'redis', label: 'Redis' },
-    { value: 'docker', label: 'Docker' },
-    { value: 'kubernetes', label: 'Kubernetes' },
-    { value: 'aws', label: 'AWS' },
-    { value: 'firebase', label: 'Firebase' },
-    { value: 'supabase', label: 'Supabase' },
-    // Additional Vibe Coding Technologies
-    { value: 'ai-ml', label: 'AI/ML' },
-    { value: 'openai', label: 'OpenAI' },
-    { value: 'anthropic', label: 'Anthropic' },
-    { value: 'tensorflow', label: 'TensorFlow' },
-    { value: 'pytorch', label: 'PyTorch' },
-    { value: 'huggingface', label: 'Hugging Face' },
-    { value: 'langchain', label: 'LangChain' },
-    { value: 'vercel-ai', label: 'Vercel AI' },
-    { value: 'tailwindcss', label: 'Tailwind CSS' },
-    { value: 'shadcn-ui', label: 'shadcn/ui' },
-    { value: 'framer-motion', label: 'Framer Motion' },
-    { value: 'threejs', label: 'Three.js' },
-    { value: 'webgl', label: 'WebGL' },
-    { value: 'webassembly', label: 'WebAssembly' },
-    { value: 'graphql', label: 'GraphQL' },
-    { value: 'apollo', label: 'Apollo' },
-    { value: 'prisma', label: 'Prisma' },
-    { value: 'drizzle', label: 'Drizzle ORM' },
-    { value: 'trpc', label: 'tRPC' },
-    { value: 'react-query', label: 'React Query' },
-    { value: 'zustand', label: 'Zustand' },
-    { value: 'redux', label: 'Redux' },
-    { value: 'solidjs', label: 'SolidJS' },
-    { value: 'qwik', label: 'Qwik' },
-    { value: 'astro', label: 'Astro' },
-    { value: 'remix', label: 'Remix' },
-    { value: 'deno', label: 'Deno' },
-    { value: 'bun', label: 'Bun' },
-    { value: 'cloudflare', label: 'Cloudflare' },
-    { value: 'supabase', label: 'Supabase' },
-    { value: 'appwrite', label: 'Appwrite' },
-    { value: 'planetscale', label: 'PlanetScale' },
-    { value: 'neon', label: 'Neon' },
-    { value: 'railway', label: 'Railway' },
-    { value: 'upstash', label: 'Upstash' },
+    // --- Core & Frontend ---
+    { value: 'react', label: 'React', category: 'Core & Frontend', popular: true },
+    { value: 'nextjs', label: 'Next.js', category: 'Core & Frontend', popular: true },
+    { value: 'typescript', label: 'TypeScript', category: 'Core & Frontend', popular: true },
+    { value: 'javascript', label: 'JavaScript', category: 'Core & Frontend', popular: true },
+    { value: 'vue', label: 'Vue.js', category: 'Core & Frontend' },
+    { value: 'angular', label: 'Angular', category: 'Core & Frontend' },
+    { value: 'svelte', label: 'Svelte', category: 'Core & Frontend' },
+    { value: 'solidjs', label: 'SolidJS', category: 'Core & Frontend' },
+    { value: 'qwik', label: 'Qwik', category: 'Core & Frontend' },
+    { value: 'astro', label: 'Astro', category: 'Core & Frontend' },
+    { value: 'remix', label: 'Remix', category: 'Core & Frontend' },
+    { value: 'elm', label: 'Elm', category: 'Core & Frontend' },
+
+    // --- UI/UX & Styling ---
+    { value: 'tailwindcss', label: 'Tailwind CSS', category: 'UI/UX & Styling', popular: true },
+    { value: 'shadcn-ui', label: 'shadcn/ui', category: 'UI/UX & Styling', popular: true },
+    { value: 'framer-motion', label: 'Framer Motion', category: 'UI/UX & Styling' },
+    { value: 'threejs', label: 'Three.js', category: 'UI/UX & Styling' },
+    { value: 'webgl', label: 'WebGL', category: 'UI/UX & Styling' },
+
+    // --- Backend & API ---
+    { value: 'nodejs', label: 'Node.js', category: 'Backend & API', popular: true },
+    { value: 'python', label: 'Python', category: 'Backend & API', popular: true },
+    { value: 'express', label: 'Express', category: 'Backend & API' },
+    { value: 'deno', label: 'Deno', category: 'Backend & API' },
+    { value: 'bun', label: 'Bun', category: 'Backend & API' },
+    { value: 'django', label: 'Django', category: 'Backend & API' },
+    { value: 'flask', label: 'Flask', category: 'Backend & API' },
+    { value: 'java', label: 'Java', category: 'Backend & API' },
+    { value: 'spring', label: 'Spring Boot', category: 'Backend & API' },
+    { value: 'go', label: 'Go', category: 'Backend & API' },
+    { value: 'rust', label: 'Rust', category: 'Backend & API' },
+    { value: 'graphql', label: 'GraphQL', category: 'Backend & API' },
+    { value: 'apollo', label: 'Apollo', category: 'Backend & API' },
+    { value: 'trpc', label: 'tRPC', category: 'Backend & API' },
+
+    // --- Database & Storage ---
+    { value: 'postgresql', label: 'PostgreSQL', category: 'Database & Storage', popular: true },
+    { value: 'mongodb', label: 'MongoDB', category: 'Database & Storage', popular: true },
+    { value: 'mysql', label: 'MySQL', category: 'Database & Storage' },
+    { value: 'redis', label: 'Redis', category: 'Database & Storage' },
+    { value: 'prisma', label: 'Prisma', category: 'Database & Storage' },
+    { value: 'drizzle', label: 'Drizzle ORM', category: 'Database & Storage' },
+    { value: 'planetscale', label: 'PlanetScale', category: 'Database & Storage' },
+    { value: 'neon', label: 'Neon', category: 'Database & Storage' },
+    { value: 'upstash', label: 'Upstash', category: 'Database & Storage' },
+    { value: 'weaviate', label: 'Weaviate', category: 'Database & Storage' },
+    { value: 'milvus', label: 'Milvus', category: 'Database & Storage' },
+    { value: 'chromadb', label: 'ChromaDB', category: 'Database & Storage' },
+
+    // --- AI/ML ---
+    { value: 'openai', label: 'OpenAI', category: 'AI/ML', popular: true },
+    { value: 'huggingface', label: 'Hugging Face', category: 'AI/ML', popular: true },
+    { value: 'langchain', label: 'LangChain', category: 'AI/ML', popular: true },
+    { value: 'ai-ml', label: 'AI/ML', category: 'AI/ML' },
+    { value: 'anthropic', label: 'Anthropic', category: 'AI/ML' },
+    { value: 'tensorflow', label: 'TensorFlow', category: 'AI/ML' },
+    { value: 'pytorch', label: 'PyTorch', category: 'AI/ML' },
+    { value: 'vercel-ai', label: 'Vercel AI', category: 'AI/ML' },
+    { value: 'kubeflow', label: 'Kubeflow', category: 'AI/ML' },
+
+    // --- DX, Build & Testing ---
+    { value: 'vite', label: 'Vite', category: 'DX, Build & Testing', popular: true },
+    { value: 'jest', label: 'Jest', category: 'DX, Build & Testing', popular: true },
+    { value: 'esbuild', label: 'esbuild', category: 'DX, Build & Testing' },
+    { value: 'turbopack', label: 'Turbopack', category: 'DX, Build & Testing' },
+    { value: 'vitest', label: 'Vitest', category: 'DX, Build & Testing' },
+    { value: 'cypress', label: 'Cypress', category: 'DX, Build & Testing' },
+    { value: 'playwright', label: 'Playwright', category: 'DX, Build & Testing' },
+    { value: 'eslint', label: 'ESLint', category: 'DX, Build & Testing' },
+    { value: 'prettier', label: 'Prettier', category: 'DX, Build & Testing' },
+
+    // --- Deployment & Infrastructure ---
+    { value: 'docker', label: 'Docker', category: 'Deployment & Infrastructure', popular: true },
+    { value: 'aws', label: 'AWS', category: 'Deployment & Infrastructure', popular: true },
+    { value: 'firebase', label: 'Firebase', category: 'Deployment & Infrastructure', popular: true },
+    { value: 'supabase', label: 'Supabase', category: 'Deployment & Infrastructure', popular: true },
+    { value: 'kubernetes', label: 'Kubernetes', category: 'Deployment & Infrastructure' },
+    { value: 'appwrite', label: 'Appwrite', category: 'Deployment & Infrastructure' },
+    { value: 'cloudflare', label: 'Cloudflare', category: 'Deployment & Infrastructure' },
+    { value: 'railway', label: 'Railway', category: 'Deployment & Infrastructure' },
+    { value: 'webassembly', label: 'WebAssembly', category: 'Deployment & Infrastructure' },
   ];
 };
 
 /**
- * Generates a list of common development tools.
- * @returns An array of objects with `value` and `label` properties.
+ * Generates a list of common development tools with categories.
  */
-export const getCommonDevToolsOptions = (): { value: string; label: string }[] => {
+export const getCommonDevToolsOptions = (): Option[] => {
   return [
-    { value: 'vscode', label: 'Visual Studio Code' },
-    { value: 'intellij', label: 'IntelliJ IDEA' },
-    { value: 'webstorm', label: 'WebStorm' },
-    { value: 'vim', label: 'Vim' },
-    { value: 'neovim', label: 'Neovim' },
-    { value: 'git', label: 'Git' },
-    { value: 'github', label: 'GitHub' },
-    { value: 'gitlab', label: 'GitLab' },
-    { value: 'figma', label: 'Figma' },
-    { value: 'adobe-xd', label: 'Adobe XD' },
-    { value: 'postman', label: 'Postman' },
-    { value: 'insomnia', label: 'Insomnia' },
-    { value: 'notion', label: 'Notion' },
-    { value: 'slack', label: 'Slack' },
-    { value: 'discord', label: 'Discord' },
-    { value: 'zoom', label: 'Zoom' },
-    // Vibe Coding Tools
-    { value: 'cursor', label: 'Cursor AI' },
-    { value: 'github-copilot', label: 'GitHub Copilot' },
-    { value: 'tabnine', label: 'Tabnine' },
-    { value: 'codeium', label: 'Codeium' },
-    { value: 'replit', label: 'Replit' },
-    { value: 'glitch', label: 'Glitch' },
-    { value: 'codesandbox', label: 'CodeSandbox' },
-    { value: 'stackblitz', label: 'StackBlitz' },
-    { value: 'chatgpt', label: 'ChatGPT' },
-    { value: 'claude', label: 'Claude' },
-    { value: 'gemini', label: 'Gemini' },
-    { value: 'v0', label: 'v0 by Vercel' },
-    { value: 'stitch', label: 'Google Stitch' },
-    { value: 'midjourney', label: 'Midjourney' },
-    { value: 'dall-e', label: 'DALL-E' },
-    { value: 'leonardo-ai', label: 'Leonardo AI' },
-    { value: 'stable-diffusion', label: 'Stable Diffusion' },
-    { value: 'runwayml', label: 'RunwayML' },
-    { value: 'replicate', label: 'Replicate' },
-    { value: 'huggingface', label: 'Hugging Face' },
-    { value: 'langchain', label: 'LangChain' },
-    { value: 'pinecone', label: 'Pinecone' },
-    { value: 'supabase', label: 'Supabase' },
-    { value: 'firebase', label: 'Firebase' },
-    { value: 'railway', label: 'Railway' },
-    { value: 'vercel', label: 'Vercel' },
-    { value: 'netlify', label: 'Netlify' },
+    // --- AI Assistants & Code Generation ---
+    { value: 'github-copilot', label: 'GitHub Copilot', category: 'AI Assistants', popular: true },
+    { value: 'chatgpt', label: 'ChatGPT', category: 'AI Assistants', popular: true },
+    { value: 'gemini', label: 'Gemini', category: 'AI Assistants', popular: true },
+    { value: 'cursor', label: 'Cursor AI', category: 'AI Assistants' },
+    { value: 'tabnine', label: 'Tabnine', category: 'AI Assistants' },
+    { value: 'codeium', label: 'Codeium', category: 'AI Assistants' },
+    { value: 'claude', label: 'Claude', category: 'AI Assistants' },
+
+    // --- Code Editors & IDEs ---
+    { value: 'vscode', label: 'Visual Studio Code', category: 'Editors & IDEs', popular: true },
+    { value: 'intellij', label: 'IntelliJ IDEA', category: 'Editors & IDEs' },
+    { value: 'webstorm', label: 'WebStorm', category: 'Editors & IDEs' },
+    { value: 'vim', label: 'Vim', category: 'Editors & IDEs' },
+    { value: 'neovim', label: 'Neovim', category: 'Editors & IDEs' },
+    
+    // --- Prototyping & Design ---
+    { value: 'figma', label: 'Figma', category: 'Prototyping & Design', popular: true },
+    { value: 'storybook', label: 'Storybook', category: 'Prototyping & Design', popular: true },
+    { value: 'v0', label: 'v0 by Vercel', category: 'Prototyping & Design' },
+    { value: 'docusaurus', label: 'Docusaurus', category: 'Prototyping & Design' },
+    { value: 'adobe-xd', label: 'Adobe XD', category: 'Prototyping & Design' },
+
+    // --- Version Control & Collaboration ---
+    { value: 'git', label: 'Git', category: 'Version Control', popular: true },
+    { value: 'github', label: 'GitHub', category: 'Version Control', popular: true },
+    { value: 'gitlab', label: 'GitLab', category: 'Version Control' },
+    { value: 'notion', label: 'Notion', category: 'Collaboration' },
+    { value: 'slack', label: 'Slack', category: 'Collaboration' },
+    { value: 'discord', label: 'Discord', category: 'Collaboration' },
+
+    // --- Platforms & Services ---
+    { value: 'vercel', label: 'Vercel', category: 'Platforms & Services', popular: true },
+    { value: 'netlify', label: 'Netlify', category: 'Platforms & Services', popular: true },
+    { value: 'huggingface', label: 'Hugging Face', category: 'Platforms & Services' },
+    { value: 'pinecone', label: 'Pinecone', category: 'Platforms & Services' },
+    { value: 'supabase', label: 'Supabase', category: 'Platforms & Services' },
+    { value: 'firebase', label: 'Firebase', category: 'Platforms & Services' },
+    { value: 'railway', label: 'Railway', category: 'Platforms & Services' },
+
+    // --- Code Quality & Analysis ---
+    { value: 'sonarqube', label: 'SonarQube', category: 'Code Quality' },
+
+    // --- API & Network Tools ---
+    { value: 'postman', label: 'Postman', category: 'API Tools' },
+    { value: 'insomnia', label: 'Insomnia', category: 'API Tools' },
+
+    // --- Online IDEs & Sandboxes ---
+    { value: 'replit', label: 'Replit', category: 'Online IDEs' },
+    { value: 'codesandbox', label: 'CodeSandbox', category: 'Online IDEs' },
+    { value: 'stackblitz', label: 'StackBlitz', category: 'Online IDEs' },
+    { value: 'glitch', label: 'Glitch', category: 'Online IDEs' },
+
+    // --- Generative Media ---
+    { value: 'midjourney', label: 'Midjourney', category: 'Generative Media' },
+    { value: 'dall-e', label: 'DALL-E', category: 'Generative Media' },
+    { value: 'leonardo-ai', label: 'Leonardo AI', category: 'Generative Media' },
+    { value: 'stable-diffusion', label: 'Stable Diffusion', category: 'Generative Media' },
+    { value: 'runwayml', label: 'RunwayML', category: 'Generative Media' },
+    { value: 'replicate', label: 'Replicate', category: 'Generative Media' },
   ];
 };
 
 /**
- * Generates a list of common project category tags.
- * @returns An array of objects with `value` and `label` properties.
+ * Generates a list of common project category tags with categories.
  */
-export const getCommonCategoryTagsOptions = (): { value: string; label: string }[] => {
+export const getCommonCategoryTagsOptions = (): Option[] => {
   return [
-    { value: 'web-app', label: 'Web Application' },
-    { value: 'mobile-app', label: 'Mobile Application' },
-    { value: 'api', label: 'API' },
-    { value: 'library', label: 'Library' },
-    { value: 'framework', label: 'Framework' },
-    { value: 'tool', label: 'Tool' },
-    { value: 'ai-ml', label: 'AI/Machine Learning' },
-    { value: 'data-science', label: 'Data Science' },
-    { value: 'devops', label: 'DevOps' },
-    { value: 'game', label: 'Game' },
-    { value: 'open-source', label: 'Open Source' },
-    { value: 'tutorial', label: 'Tutorial' },
-    { value: 'boilerplate', label: 'Boilerplate' },
-    { value: 'template', label: 'Template' },
-    { value: 'design-system', label: 'Design System' },
-    { value: 'saas', label: 'SaaS' },
-    { value: 'ecommerce', label: 'E-commerce' },
-    { value: 'cms', label: 'CMS' },
-    { value: 'blog', label: 'Blog' },
-    // Vibe Coding Categories
-    { value: 'ai-assisted', label: 'AI-Assisted' },
-    { value: 'vibe-coding', label: 'Vibe Coding' },
-    { value: 'generative-ai', label: 'Generative AI' },
-    { value: 'low-code', label: 'Low-Code' },
-    { value: 'no-code', label: 'No-Code' },
-    { value: 'prompt-engineering', label: 'Prompt Engineering' },
-    { value: 'llm', label: 'Large Language Model' },
-    { value: 'copilot', label: 'AI Copilot' },
-    { value: 'automation', label: 'Automation' },
-    { value: 'productivity', label: 'Productivity' },
-    { value: 'developer-tool', label: 'Developer Tool' },
-    { value: 'ai-art', label: 'AI Art' },
-    { value: 'image-generation', label: 'Image Generation' },
-    { value: 'chatbot', label: 'Chatbot' },
-    { value: 'voice-assistant', label: 'Voice Assistant' },
-    { value: 'code-generator', label: 'Code Generator' },
-    { value: 'prototype', label: 'Prototype' },
-    { value: 'experimental', label: 'Experimental' },
-    { value: 'hackathon', label: 'Hackathon' },
-    { value: 'side-project', label: 'Side Project' },
-    { value: 'portfolio', label: 'Portfolio' },
-    { value: 'showcase', label: 'Showcase' },
+    { value: 'web-app', label: 'Web Application', category: 'Project Type', popular: true },
+    { value: 'mobile-app', label: 'Mobile Application', category: 'Project Type', popular: true },
+    { value: 'ai-ml', label: 'AI/Machine Learning', category: 'Project Type', popular: true },
+    { value: 'open-source', label: 'Open Source', category: 'Project Type', popular: true },
+    { value: 'developer-tool', label: 'Developer Tool', category: 'Project Type', popular: true },
+    { value: 'side-project', label: 'Side Project', category: 'Project Type' },
+    { value: 'api', label: 'API', category: 'Project Type' },
+    { value: 'library', label: 'Library', category: 'Project Type' },
+    { value: 'framework', label: 'Framework', category: 'Project Type' },
+    { value: 'tool', label: 'Tool', category: 'Project Type' },
+    { value: 'data-science', label: 'Data Science', category: 'Project Type' },
+    { value: 'devops', label: 'DevOps', category: 'Project Type' },
+    { value: 'game', label: 'Game', category: 'Project Type' },
+    { value: 'tutorial', label: 'Tutorial', category: 'Project Type' },
+    { value: 'boilerplate', label: 'Boilerplate', category: 'Project Type' },
+    { value: 'template', label: 'Template', category: 'Project Type' },
+    { value: 'design-system', label: 'Design System', category: 'Project Type' },
+    { value: 'saas', label: 'SaaS', category: 'Project Type' },
+    { value: 'ecommerce', label: 'E-commerce', category: 'Project Type' },
+    { value: 'cms', label: 'CMS', category: 'Project Type' },
+    { value: 'blog', label: 'Blog', category: 'Project Type' },
+    { value: 'portfolio', label: 'Portfolio', category: 'Project Type' },
+    { value: 'showcase', label: 'Showcase', category: 'Project Type' },
+    { value: 'hackathon', label: 'Hackathon', category: 'Project Type' },
+    { value: 'experimental', label: 'Experimental', category: 'Project Type' },
+    { value: 'prototype', label: 'Prototype', category: 'Project Type' },
+
+    { value: 'vibe-coding', label: 'Vibe Coding', category: 'Vibe Coding', popular: true },
+    { value: 'generative-ai', label: 'Generative AI', category: 'Vibe Coding', popular: true },
+    { value: 'ai-assisted', label: 'AI-Assisted', category: 'Vibe Coding' },
+    { value: 'low-code', label: 'Low-Code', category: 'Vibe Coding' },
+    { value: 'no-code', label: 'No-Code', category: 'Vibe Coding' },
+    { value: 'prompt-engineering', label: 'Prompt Engineering', category: 'Vibe Coding' },
+    { value: 'llm', label: 'Large Language Model', category: 'Vibe Coding' },
+    { value: 'copilot', label: 'AI Copilot', category: 'Vibe Coding' },
+    { value: 'automation', label: 'Automation', category: 'Vibe Coding' },
+    { value: 'productivity', label: 'Productivity', category: 'Vibe Coding' },
+    { value: 'ai-art', label: 'AI Art', category: 'Vibe Coding' },
+    { value: 'image-generation', label: 'Image Generation', category: 'Vibe Coding' },
+    { value: 'chatbot', label: 'Chatbot', category: 'Vibe Coding' },
+    { value: 'voice-assistant', label: 'Voice Assistant', category: 'Vibe Coding' },
+    { value: 'code-generator', label: 'Code Generator', category: 'Vibe Coding' },
   ];
 };
 
 /**
- * Generates a list of common key project features.
- * These are general features that many projects might have.
- * @returns An array of objects with `value` and `label` properties.
+ * Generates a list of common key project features with categories.
  */
-export const getCommonKeyFeaturesOptions = (): { value: string; label: string }[] => {
+export const getCommonKeyFeaturesOptions = (): Option[] => {
   return [
-    { value: 'user-authentication', label: 'User Authentication' },
-    { value: 'real-time-collaboration', label: 'Real-time Collaboration' },
-    { value: 'drag-and-drop-ui', label: 'Drag and Drop Interface' },
-    { value: 'api-integration', label: 'API Integration' },
-    { value: 'responsive-design', label: 'Responsive Design' },
-    { value: 'dark-mode', label: 'Dark Mode' },
-    { value: 'notifications', label: 'Notifications' },
-    { value: 'file-upload', label: 'File Upload' },
-    { value: 'search-functionality', label: 'Search Functionality' },
-    { value: 'analytics-dashboard', label: 'Analytics Dashboard' },
-    { value: 'customizable-themes', label: 'Customizable Themes' },
-    { value: 'multi-language-support', label: 'Multi-language Support' },
-    { value: 'offline-capability', label: 'Offline Capability' },
-    { value: 'data-export-import', label: 'Data Export/Import' },
-    { value: 'role-based-access', label: 'Role-based Access Control' },
-    { value: 'performance-monitoring', label: 'Performance Monitoring' },
-    { value: 'automated-backups', label: 'Automated Backups' },
-    { value: 'social-sharing', label: 'Social Sharing' },
-    { value: 'in-app-messaging', label: 'In-app Messaging' },
-    { value: 'personalization', label: 'Personalization' },
-    // Vibe Coding Features
-    { value: 'ai-assisted-coding', label: 'AI-Assisted Coding' },
-    { value: 'natural-language-prompts', label: 'Natural Language Prompts' },
-    { value: 'code-generation', label: 'Code Generation' },
-    { value: 'smart-autocomplete', label: 'Smart Autocomplete' },
-    { value: 'context-aware-suggestions', label: 'Context-Aware Suggestions' },
-    { value: 'error-correction', label: 'Error Correction' },
-    { value: 'code-explanation', label: 'Code Explanation' },
-    { value: 'refactoring-assistance', label: 'Refactoring Assistance' },
-    { value: 'documentation-generation', label: 'Documentation Generation' },
-    { value: 'testing-assistance', label: 'Testing Assistance' },
-    { value: 'debugging-help', label: 'Debugging Help' },
-    { value: 'performance-optimization', label: 'Performance Optimization' },
-    { value: 'security-analysis', label: 'Security Analysis' },
-    { value: 'code-review', label: 'AI Code Review' },
-    { value: 'version-control', label: 'Version Control Integration' },
-    { value: 'deployment-assistance', label: 'Deployment Assistance' },
-    { value: 'template-generation', label: 'Template Generation' },
-    { value: 'component-generation', label: 'Component Generation' },
-    { value: 'ui-generation', label: 'UI Generation' },
-    { value: 'image-generation', label: 'Image Generation' },
-    { value: 'voice-control', label: 'Voice Control' },
-    { value: 'gesture-control', label: 'Gesture Control' },
-    { value: 'collaborative-ai', label: 'Collaborative AI' },
-    { value: 'learning-assistant', label: 'Learning Assistant' },
-    { value: 'workflow-automation', label: 'Workflow Automation' },
-    { value: 'task-assistant', label: 'Task Assistant' },
-    { value: 'project-planning', label: 'Project Planning' },
-    { value: 'idea-generation', label: 'Idea Generation' },
-    { value: 'prototyping', label: 'Rapid Prototyping' },
-    { value: 'showcase-mode', label: 'Showcase Mode' },
-  ];
-};
+    // --- Core Features ---
+    { value: 'user-authentication', label: 'User Authentication', category: 'Core Features', popular: true },
+    { value: 'responsive-design', label: 'Responsive Design', category: 'Core Features', popular: true },
+    { value: 'dark-mode', label: 'Dark Mode', category: 'Core Features', popular: true },
+    { value: 'api-integration', label: 'API Integration', category: 'Core Features' },
+    { value: 'search-functionality', label: 'Search Functionality', category: 'Core Features' },
+    { value: 'notifications', label: 'Notifications', category: 'Core Features' },
+    { value: 'file-upload', label: 'File Upload', category: 'Core Features' },
+    { value: 'role-based-access', label: 'Role-based Access Control', category: 'Core Features' },
+    { value: 'analytics-dashboard', label: 'Analytics Dashboard', category: 'Core Features' },
+    { value: 'customizable-themes', label: 'Customizable Themes', category: 'Core Features' },
+    { value: 'multi-language-support', label: 'Multi-language Support', category: 'Core Features' },
+    { value: 'offline-capability', label: 'Offline Capability', category: 'Core Features' },
+    { value: 'data-export-import', label: 'Data Export/Import', category: 'Core Features' },
+    { value: 'performance-monitoring', label: 'Performance Monitoring', category: 'Core Features' },
+    { value: 'automated-backups', label: 'Automated Backups', category: 'Core Features' },
+    { value: 'social-sharing', label: 'Social Sharing', category: 'Core Features' },
+    { value: 'in-app-messaging', label: 'In-app Messaging', category: 'Core Features' },
+    { value: 'personalization', label: 'Personalization', category: 'Core Features' },
+    { value: 'drag-and-drop-ui', label: 'Drag and Drop Interface', category: 'Core Features' },
+    { value: 'real-time-collaboration', label: 'Real-time Collaboration', category: 'Core Features' },
 
-/**
- * Generates a list of common project taglines.
- * These are slogans that describe the project's vibe or purpose.
- * @returns An array of objects with `value` and `label` properties.
- */
-export const getCommonProjectTaglines = (): { value: string; label: string }[] => {
-  // This list is taken from sw.md
-  return [
-    // --- Innovation/Novelty ---
-    { value: 'cutting_edge_sol', label: 'Coding the future, cutting-edge solution.' },
-    { value: 'new_experience', label: 'A project that offers you a new experience.' },
-    { value: 'breaking_ground', label: 'An innovative idea that breaks existing frameworks.' },
-    { value: 'game_changer', label: 'My own rules that change the game.' },
-    { value: 'next_gen_vibe', label: 'The next generation of Vibe starts here.' },
-
-    // --- Utility/Practicality ---
-    { value: 'everyday_problem', label: 'Smart tools that solve everyday problems.' },
-    { value: 'essential_utility', label: 'Essential utility that transforms your workflow.' },
-    { value: 'boost_productivity', label: 'Solutions that take productivity to the next level.' },
-    { value: 'life_saver_dev', label: 'Developer time, now I save it.' },
-
-    // --- Design/Aesthetics ---
-    { value: 'visual_masterpiece', label: 'Beautiful UI/UX, visual masterpiece.' },
-    { value: 'eye_candy_code', label: 'Code that adds viewing pleasure, captivating to the eye.' },
-    { value: 'pixel_perfection', label: 'Perfect aesthetics, down to the pixel.' },
-    { value: 'clean_design_bold_code', label: 'Clean design, bold code.' },
-
-    // --- Community/Collaboration ---
-    { value: 'dev_together', label: 'Hub for connection and sharing for developers.' },
-    { value: 'collab_platform', label: 'A place for collaborative growth.' },
-    { value: 'open_source_spirit', label: 'The spirit of open source for everyone.' },
-
-    // --- Retro Vibe ---
-    { value: 'nostalgia_meets_future', label: 'Retro code running toward the future, dressed in nostalgia.' },
-    { value: 'pixel_perfect_modern', label: 'Modern projects implemented with pixel art sensibility.' },
-    { value: '8bit_glitch', label: '8-bit sensibility, but without bugs.' },
-    { value: 'vintage_tech_new_features', label: 'New features with vintage technology.' },
-
-    // --- Efficiency/Simplicity ---
-    { value: 'simple_powerful', label: 'Simple but powerful functionality.' },
-    { value: 'effortless_efficiency', label: 'Maximum efficiency with minimal effort.' },
-    { value: 'less_code_more_vibe', label: 'Less code, bigger vibe.' },
-
-    // --- Fun/Personality ---
-    { value: 'just_for_fun', label: 'Just started for fun, but I can\'t stop!' },
-    { value: 'my_own_vibe', label: 'My own vibe, my own way of coding.' },
-    { value: 'passion_project', label: 'My precious project driven by passion.' },
-    { value: 'coding_is_art', label: 'Coding is art to me.' },
-
-    // --- Challenge/Growth ---
-    { value: 'my_first_project', label: 'Nervous, my first attempt.' },
-    { value: 'level_up_code', label: 'Growth story of trial and error for skill-up.' },
-    { value: 'pushing_limits', label: 'The thrill of challenging limits!' },
-
-    // --- Meme/Wit ---
-    { value: 'it_works_on_my_machine', label: 'It works on my machine, right?' },
-    { value: 'stack_overflow_fueled', label: 'A project grown by Stack Overflow.' },
-    { value: 'rubber_duck_approved', label: 'Final approval from Mr. Rubber Duck.' },
-    { value: 'bug_free_maybe', label: 'No bugs... maybe?' },
-    { value: 'git_blame_proof', label: 'Code free from Git blame.' },
+    // --- AI-Powered Features ---
+    { value: 'ai-assisted-coding', label: 'AI-Assisted Coding', category: 'AI-Powered', popular: true },
+    { value: 'natural-language-prompts', label: 'Natural Language Prompts', category: 'AI-Powered', popular: true },
+    { value: 'code-generation', label: 'Code Generation', category: 'AI-Powered', popular: true },
+    { value: 'smart-autocomplete', label: 'Smart Autocomplete', category: 'AI-Powered' },
+    { value: 'context-aware-suggestions', label: 'Context-Aware Suggestions', category: 'AI-Powered' },
+    { value: 'error-correction', label: 'Error Correction', category: 'AI-Powered' },
+    { value: 'code-explanation', label: 'Code Explanation', category: 'AI-Powered' },
+    { value: 'refactoring-assistance', label: 'Refactoring Assistance', category: 'AI-Powered' },
+    { value: 'documentation-generation', label: 'Documentation Generation', category: 'AI-Powered' },
+    { value: 'testing-assistance', label: 'Testing Assistance', category: 'AI-Powered' },
+    { value: 'debugging-help', label: 'Debugging Help', category: 'AI-Powered' },
+    { value: 'performance-optimization', label: 'Performance Optimization', category: 'AI-Powered' },
+    { value: 'security-analysis', label: 'Security Analysis', category: 'AI-Powered' },
+    { value: 'code-review', label: 'AI Code Review', category: 'AI-Powered' },
+    { value: 'version-control', label: 'Version Control Integration', category: 'AI-Powered' },
+    { value: 'deployment-assistance', label: 'Deployment Assistance', category: 'AI-Powered' },
+    { value: 'template-generation', label: 'Template Generation', category: 'AI-Powered' },
+    { value: 'component-generation', label: 'Component Generation', category: 'AI-Powered' },
+    { value: 'ui-generation', label: 'UI Generation', category: 'AI-Powered' },
+    { value: 'image-generation', label: 'Image Generation', category: 'AI-Powered' },
+    { value: 'voice-control', label: 'Voice Control', category: 'AI-Powered' },
+    { value: 'gesture-control', label: 'Gesture Control', category: 'AI-Powered' },
+    { value: 'collaborative-ai', label: 'Collaborative AI', category: 'AI-Powered' },
+    { value: 'learning-assistant', label: 'Learning Assistant', category: 'AI-Powered' },
+    { value: 'workflow-automation', label: 'Workflow Automation', category: 'AI-Powered' },
+    { value: 'task-assistant', label: 'Task Assistant', category: 'AI-Powered' },
+    { value: 'project-planning', label: 'Project Planning', category: 'AI-Powered' },
+    { value: 'idea-generation', label: 'Idea Generation', category: 'AI-Powered' },
+    { value: 'prototyping', label: 'Rapid Prototyping', category: 'AI-Powered' },
+    { value: 'showcase-mode', label: 'Showcase Mode', category: 'AI-Powered' },
   ];
 };

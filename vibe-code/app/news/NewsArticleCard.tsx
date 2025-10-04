@@ -6,6 +6,7 @@ import React from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import TimeAgo from '@/app/components/TimeAgo';
 
 interface ArticleCardProps {
   id: string;
@@ -71,7 +72,7 @@ const NewsArticleCard: React.FC<ArticleCardProps> = ({
               {author}
             </div>
             <div className="text-xs text-black/50 dark:text-white/50">
-              {new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} · {readTime}
+              <TimeAgo dateString={date} /> · {readTime}
             </div>
           </div>
         </div>

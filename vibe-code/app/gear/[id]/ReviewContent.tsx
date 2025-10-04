@@ -1,4 +1,5 @@
-"use client";
+
+
 
 // ReviewContent.tsx
 // This component displays the main content of the review

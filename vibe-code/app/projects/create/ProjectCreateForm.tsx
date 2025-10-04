@@ -19,7 +19,6 @@ const ProjectCreateForm = () => {
   const [categoryTags, setCategoryTags] = useState('');
   const [githubUrl, setGithubUrl] = useState('');
   const [liveDemoUrl, setLiveDemoUrl] = useState('');
-  const [deploymentPlatform, setDeploymentPlatform] = useState('');
   const [isVisible, setIsVisible] = useState(true);
   const [fontPreference, setFontPreference] = useState('Modern Sans-serif');
 
@@ -74,7 +73,6 @@ const ProjectCreateForm = () => {
       setDescription(projectData.content || '');
       setGithubUrl(projectData.github_url || '');
       setLiveDemoUrl(projectData.live_demo_url || '');
-      setDeploymentPlatform(projectData.deployment_platform || '');
       setFontPreference(projectData.font_preference || 'Modern Sans-serif');
       setIsVisible(projectData.is_public || false);
 
@@ -162,7 +160,6 @@ const ProjectCreateForm = () => {
         content: description.trim() || null,
         github_url: githubUrl.trim() || null,
         live_demo_url: liveDemoUrl.trim() || null,
-        deployment_platform: deploymentPlatform.trim() || null,
         font_preference: fontPreference,
         is_public: false,
         updated_at: new Date().toISOString()
@@ -328,7 +325,6 @@ const ProjectCreateForm = () => {
         content: description.trim(),
         github_url: githubUrl.trim() || null,
         live_demo_url: liveDemoUrl.trim() || null,
-        deployment_platform: deploymentPlatform.trim() || null,
         font_preference: fontPreference,
         is_public: isVisible,
         updated_at: new Date().toISOString()
@@ -407,7 +403,7 @@ const ProjectCreateForm = () => {
         <div className="p-4 border-b border-primary/10">
           <h2 className="text-xl font-bold mb-3">Live Demo URL</h2>
           <p className="text-sm text-black/60 dark:text-white/60 mb-4">
-            프로젝트를 직접 체험해볼 수 있는 라이브 데모 링크를 입력하세요. 가장 눈에 띄는 곳에 표시됩니다.
+            프로젝트를 직접 체험해볼 수 있는 URL 링크를 입력하세요. 가장 눈에 띄는 곳에 표시됩니다.
           </p>
           <div className="relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary">link</span>
@@ -443,10 +439,7 @@ const ProjectCreateForm = () => {
         <LinksSection 
           githubUrl={githubUrl}
           setGithubUrl={setGithubUrl}
-          deploymentPlatform={deploymentPlatform}
-          setDeploymentPlatform={setDeploymentPlatform} liveDemoUrl={''} setLiveDemoUrl={function (url: string): void {
-            throw new Error('Function not implemented.');
-          } }        />
+        />
         
         <StatusSection 
           isVisible={isVisible}
