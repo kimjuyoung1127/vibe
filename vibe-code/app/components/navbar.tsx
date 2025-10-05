@@ -1,11 +1,17 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import UserProfile from './UserProfile';
 import { supabase } from '@/app/lib/supabaseClient';
-import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
+import useUserProfile from '@/app/hooks/useUserProfile';
 import { usePathname } from 'next/navigation';
+
+// 부모로부터 받을 props 타입을 정의합니다.
+interface NavbarProps {
+  isCollapsed: boolean;
+  toggleSidebar: () => void;
+}
 
 interface NavItem {
   icon: string;
@@ -13,18 +19,12 @@ interface NavItem {
   href: string;
 }
 
-const Navbar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const { userProfile, loading } = useUserProfile(); // Use the custom hook
-  const pathname = usePathname(); // Get current pathname
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+const Navbar = ({ isCollapsed, toggleSidebar }: NavbarProps) => {
+  const { userProfile, loading } = useUserProfile();
+  const pathname = usePathname();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    // The useUserProfile hook will automatically update the profile state
   };
 
   const navItems: NavItem[] = [
@@ -36,9 +36,8 @@ const Navbar = () => {
   ];
 
   return (
-    <aside className={`sticky top-[61px] hidden h-[calc(100vh-61px)] flex-col justify-between border-r border-primary/20 bg-background-light p-4 dark:bg-background-dark lg:flex transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
+    <aside className={`relative sticky top-[61px] hidden h-[calc(100vh-61px)] flex-col justify-between border-r border-primary/20 bg-background-light p-4 dark:bg-background-dark lg:flex transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
       <div className="flex flex-col gap-4">
-        {/* Pass the userProfile data to the UserProfile component */}
         <UserProfile isCollapsed={isCollapsed} userProfile={userProfile} onLogout={handleLogout} />
         <nav className="flex flex-col gap-1">
           {navItems.map((item, index) => {
@@ -60,6 +59,15 @@ const Navbar = () => {
           })}
         </nav>
       </div>
+
+      <button
+        onClick={toggleSidebar} // props로 받은 함수를 사용합니다.
+        className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 z-10 flex h-6 w-6 items-center justify-center rounded-full border border-primary/20 bg-background-light transition-all hover:bg-primary/5 dark:bg-background-dark dark:hover:bg-primary/10"
+      >
+        <span className="material-symbols-outlined text-base">
+          {isCollapsed ? 'chevron_right' : 'chevron_left'}
+        </span>
+      </button>
 
     </aside>
   );

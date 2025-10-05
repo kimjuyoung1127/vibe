@@ -4,7 +4,8 @@ import './globals.css';
 import './custom.css';
 import Footer from './components/footer';
 import GoogleAnalyticsProvider from '../google/providers/GoogleAnalyticsProvider';
-
+import NavbarWrapper from './components/NavbarWrapper';
+import TopNavWrapper from './components/TopNavWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -180,13 +181,16 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <div className="flex flex-col min-h-screen">
-          <main className="flex-grow">
-            {children}
-            <GoogleAnalyticsProvider />
-           
-          </main>
-          <Footer />
+        <TopNavWrapper />
+        <div className="flex min-h-screen">
+          <NavbarWrapper />
+          <div className="flex flex-1 flex-col pt-[61px]">
+            <main className="flex-grow">
+              {children}
+              <GoogleAnalyticsProvider />
+            </main>
+            <Footer />
+          </div>
         </div>
       </body>
     </html>

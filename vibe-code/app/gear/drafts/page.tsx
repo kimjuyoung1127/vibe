@@ -98,9 +98,9 @@ const DraftsPage = () => {
   if (loading) {
     return (
       <div className="group/design-root relative flex min-h-screen w-full flex-col overflow-x-hidden">
-        <TopNavWrapper />
+
         <div className="flex flex-1">
-          <NavbarWrapper />
+
           <main className="flex-1 overflow-y-auto">
             <div className="flex justify-center items-center h-64">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -113,9 +113,9 @@ const DraftsPage = () => {
 
   return (
     <div className="group/design-root relative flex min-h-screen w-full flex-col overflow-x-hidden">
-      <TopNavWrapper />
+
       <div className="flex flex-1">
-        <NavbarWrapper />
+
         <main className="flex-1 overflow-y-auto">
           <div className="layout-content-container flex flex-col max-w-[960px] flex-1 p-4">
             <div className="flex flex-wrap justify-between gap-3 mb-6">
