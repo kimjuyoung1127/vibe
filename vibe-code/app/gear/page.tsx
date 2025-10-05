@@ -3,31 +3,18 @@
 export const dynamic = 'force-dynamic';
 
 import React from 'react';
-import TopNavWrapper from '../components/TopNavWrapper';
 import ToolTechHeader from './ToolTechHeader';
 import ToolTechReviews from './ToolTechReviews';
 
 const ToolTechPage = () => {
   return (
-    <div className="group/design-root relative flex min-h-screen w-full flex-col overflow-x-hidden">
-      {/* Top navigation bar */}
-
+    <>
+      {/* Tool & Tech header */}
+      <ToolTechHeader />
       
-      {/* Main content area with sidebar and main content */}
-      <div className="flex flex-1">
-        {/* Left sidebar navigation */}
-
-        
-        {/* Main content area */}
-        <main className="flex-1 overflow-y-auto">
-          {/* Tool & Tech header */}
-          <ToolTechHeader />
-          
-          {/* Tool & Tech reviews */}
-          <ToolTechReviews />
-        </main>
-      </div>
-    </div>
+      {/* Tool & Tech reviews */}
+      <ToolTechReviews />
+    </>
   );
 };
 

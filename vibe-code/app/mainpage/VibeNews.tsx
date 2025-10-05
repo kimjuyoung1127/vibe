@@ -121,35 +121,48 @@ const VibeNews = () => {
       {/* Section title */}
       <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
       
-      {/* Horizontal scrollable container for news cards */}
-      <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {/* Map through news items to create cards */}
-        {newsItems.map((item, index) => (
-          <Link 
-            key={item.id} 
-            href={`/news/${item.id}`}
-            className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 transition-all hover:border-primary/40 hover:shadow-primary/20 dark:border-primary/30 dark:bg-background-dark dark:hover:border-primary/50"
-          >
-            {/* News image */}
-            <div 
-              className="aspect-video w-full rounded-lg bg-cover bg-center cursor-pointer" 
-              style={{ backgroundImage: `url("${item.hero_image_url}")` }}
-            ></div>
-            
-            {/* News information */}
-            <div>
-              <p className="text-sm font-bold text-primary">{item.category}</p>
-              <p className="my-1 text-lg font-bold text-black dark:text-white">{item.title}</p>
-              <p className="text-sm text-black/60 dark:text-white/60">{item.summary}</p>
-            </div>
-          </Link>
-        ))}
+      {/* Container for scrollable content with improved mobile experience */}
+      <div className="relative group">
+        {/* Left gradient overlay to indicate scrollability */}
+        <div className="absolute top-0 left-0 h-full w-12 z-10 bg-gradient-to-r from-background-light dark:from-background-dark to-transparent hidden sm:block"></div>
         
-        {newsItems.length === 0 && (
-          <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-            No news articles found.
-          </div>
-        )}
+        {/* Right gradient overlay to indicate scrollability */}
+        <div className="absolute top-0 right-0 h-full w-12 z-10 bg-gradient-to-l from-background-light dark:from-background-dark to-transparent hidden sm:block"></div>
+        
+        {/* Scrollable container with improved mobile experience */}
+        <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-mandatory">
+          {/* Map through news items to create cards */}
+          {newsItems.map((item, index) => (
+            <div 
+              key={item.id} 
+              className="flex-shrink-0 snap-start w-64 sm:w-72 flex flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark"
+            >
+              <Link 
+                href={`/news/${item.id}`}
+                className="block w-full"
+              >
+                {/* News image */}
+                <div 
+                  className="aspect-video w-full rounded-lg bg-cover bg-center cursor-pointer" 
+                  style={{ backgroundImage: `url("${item.hero_image_url}")` }}
+                ></div>
+                
+                {/* News information */}
+                <div className="pt-2">
+                  <p className="text-sm font-bold text-primary truncate">{item.category}</p>
+                  <p className="my-1 text-lg font-bold text-black dark:text-white truncate">{item.title}</p>
+                  <p className="text-sm text-black/60 dark:text-white/60 truncate">{item.summary}</p>
+                </div>
+              </Link>
+            </div>
+          ))}
+          
+          {newsItems.length === 0 && (
+            <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
+              No news articles found.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

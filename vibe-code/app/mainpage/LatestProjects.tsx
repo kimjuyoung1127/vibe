@@ -88,34 +88,47 @@ const LatestProjects = () => {
       {/* Section title */}
       <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
       
-      {/* Horizontal scrollable container for project cards */}
-      <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {/* Map through project items to create cards */}
-        {projectItems.map((item) => (
-          <Link 
-            key={item.id} 
-            href={`/projects/${item.id}`} 
-            className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 transition-all hover:border-primary/40 hover:shadow-primary/20 dark:border-primary/30 dark:bg-background-dark dark:hover:border-primary/50"
-          >
-            {/* Project image */}
-            <div 
-              className="aspect-video w-full rounded-lg bg-cover bg-center cursor-pointer" 
-              style={{ backgroundImage: `url("${item.hero_image_url}")` }}
-            ></div>
-            
-            {/* Project information */}
-            <div>
-              <p className="font-bold text-black dark:text-white">{item.title}</p>
-              <p className="text-sm text-black/60 dark:text-white/60">{item.tagline}</p>
-            </div>
-          </Link>
-        ))}
+      {/* Container for scrollable content with improved mobile experience */}
+      <div className="relative group">
+        {/* Left gradient overlay to indicate scrollability */}
+        <div className="absolute top-0 left-0 h-full w-12 z-10 bg-gradient-to-r from-background-light dark:from-background-dark to-transparent hidden sm:block"></div>
         
-        {projectItems.length === 0 && (
-          <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-            No projects found.
-          </div>
-        )}
+        {/* Right gradient overlay to indicate scrollability */}
+        <div className="absolute top-0 right-0 h-full w-12 z-10 bg-gradient-to-l from-background-light dark:from-background-dark to-transparent hidden sm:block"></div>
+        
+        {/* Scrollable container with improved mobile experience */}
+        <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-mandatory">
+          {/* Map through project items to create cards */}
+          {projectItems.map((item) => (
+            <div 
+              key={item.id} 
+              className="flex-shrink-0 snap-start w-64 sm:w-72 flex flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark"
+            >
+              <Link 
+                href={`/projects/${item.id}`} 
+                className="block w-full"
+              >
+                {/* Project image */}
+                <div 
+                  className="aspect-video w-full rounded-lg bg-cover bg-center cursor-pointer" 
+                  style={{ backgroundImage: `url("${item.hero_image_url}")` }}
+                ></div>
+                
+                {/* Project information */}
+                <div className="pt-2">
+                  <p className="font-bold text-black dark:text-white truncate">{item.title}</p>
+                  <p className="text-sm text-black/60 dark:text-white/60 truncate">{item.tagline}</p>
+                </div>
+              </Link>
+            </div>
+          ))}
+          
+          {projectItems.length === 0 && (
+            <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
+              No projects found.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

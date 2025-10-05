@@ -1,207 +1,54 @@
-# Progress Update 2 - Vibe Hub Improvements & Deployment Issues
+# Progress Update - October 5, 2025
 
-## Overview
-This document outlines the improvements made to the Vibe Hub application, focusing on enhancing the readability and user experience of various content types using the Vibe editor components, and documenting the challenges faced during deployment after implementing TipTap editor.
+## Issues Fixed
 
-## Completed Improvements
+### 1. Mobile Viewport Horizontal Scrolling Issue
+**Problem**: The main page was not properly constrained on mobile devices, causing horizontal scrolling and layout overflow.
 
-### 1. Tool & Tech Review Components
+**Solution**: 
+- Restructured the main layout in `app/layout.tsx` to use a relative positioning approach
+- Changed from a flex container with two children (Navbar + Content) to a structure where the navbar is positioned independently
+- Used `fixed` positioning for the desktop navbar and proper content offset with `lg:ml-72`
 
-#### ToolTechReviewForm.tsx
-- **Complete restructuring**: Redesigned the form to match the ProjectCreateForm design pattern
-- **Rich text editor integration**: Replaced basic textarea with VibeTipTapEditor for enhanced formatting options
-- **Improved sections**: Organized into clear sections (Core Information, Detailed Review, Categorization, Media & Links)
-- **Better validation**: Added form validation and error handling
-- **Draft functionality**: Implemented save draft feature similar to ProjectCreateForm
-- **Tagging system**: Changed from single category to multi-tag system (comma-separated)
+**Result**: The main page now properly respects mobile viewport dimensions without horizontal scrolling.
 
-#### ToolTechReviewDetail.tsx
-- **Route parameter fix**: Changed from prop-based to useParams hook for proper ID retrieval
-- **Vibe editor integration**: Replaced ContentRenderer with VibeEditorRenderer for consistent display
-- **UI consistency**: Updated layout to match ProjectShowcaseDetail structure
-- **Proper VibeCheckButton**: Fixed targetType to use "tool_review" instead of "gear"
+### 2. HeroSection Mobile Responsiveness
+**Problem**: The HeroSection component had fixed dimensions and sizing that didn't adapt well to mobile screens.
 
-#### VibeEditorRenderer.tsx
-- **Fixed SSR issue**: Removed `jsx` prop from style tag to resolve server-side rendering error
-- **Enhanced styling**: Improved styles for better readability and consistency
+**Solution**:
+- Adjusted minimum height from 500px to 400px for mobile (`min-h-[400px] sm:min-h-[500px]`)
+- Refined padding and spacing for different screen sizes
+- Improved text sizing with responsive classes (`text-3xl sm:text-4xl` for heading)
+- Removed flex-row layout on small screens to prevent horizontal button layout issues
 
-### 2. News Article Components
+**Result**: The HeroSection now displays appropriately sized elements on mobile devices.
 
-#### NewsArticleDetail.tsx
-- **Rich content display**: Replaced ContentRenderer with VibeEditorRenderer for consistent styling
-- **Improved image layout**: 
-  - Moved article image to appear prominently above content
-  - Changed from background image to proper `<img>` tag for better loading
-  - Added conditional rendering to only show image when available
-  - Increased image size to `h-96` for better visibility
-  - Applied `object-cover` for proper aspect ratio
-- **Author avatar update**: Changed from hero image to default placeholder with "VN" initials
-- **Proper image source**: Ensures images uploaded to `news_images` bucket are displayed
+### 3. Horizontal Scrolling Components Enhancement
+**Problem**: The main page components (LatestProjects, VibeNews, WeeklyVibeRanking) had horizontal scrolling but needed improvements for better mobile experience.
 
-#### ArticleEditor.tsx
-- **Rich text editor integration**: Replaced textarea with VibeTipTapEditor
-- **Consistent styling**: Aligned with other content creation forms
-- **Proper bucket configuration**: Maintained `news_images` bucket for image uploads
-- **Type compatibility**: Handled font_preference separately since it's not in NewsArticle type
+**Solution**:
+- Added gradient overlays to indicate scrollable content
+- Implemented snap scrolling (`snap-x snap-mandatory`) for better mobile interaction
+- Added smooth scrolling behavior (`scroll-smooth`)
+- Adjusted card widths for mobile (`w-64 sm:w-72`) 
+- Added text truncation to prevent overflow
+- Improved touch scrolling experience
 
-### 3. Type Definition Updates
+**Result**: Horizontal scrolling components now have a much better user experience on mobile devices.
 
-- **VibeCheckButtonProps**: Added "tool_review" to targetType union for proper TypeScript support
-- **Component consistency**: Ensured all related components use consistent types
+### 4. Desktop Navbar Visibility
+**Problem**: After fixing the mobile layout, the desktop navbar disappeared.
 
-## Technical Improvements
+**Solution**:
+- Corrected the navbar container classes to `hidden lg:flex`
+- Properly positioned the navbar with `fixed` positioning
+- Maintained content offset with `lg:ml-72` for desktop
 
-### Editor Component Integration
-- All content types (projects, tool reviews, news articles) now use consistent editor components
-- VibeTipTapEditor provides rich text formatting capabilities
-- VibeEditorRenderer ensures consistent content display across all content types
+**Result**: Desktop navbar is now visible and functional while maintaining mobile fixes.
 
-### Route Handling
-- Fixed useParams implementation in ToolTechReviewDetail to properly retrieve route parameters
-- Ensured all dynamic routes function correctly
+## Overall Impact
 
-### Styling and UI
-- Enhanced article image display in news section for better visual impact
-- Standardized component layouts across different content types
-- Improved accessibility and responsiveness
-
-## Impact
-- **Enhanced user experience**: Consistent editor components across all content types
-- **Better readability**: Improved styling and layout for content display
-- **Developer experience**: Unified editor components reduce code duplication
-- **Accessibility**: Proper alt tags and semantic HTML structure
-- **Performance**: Optimized image handling and conditional rendering
-
-## Image Display Consistency Improvements
-
-### ToolTechReviewDetail.tsx
-- Updated image display to match NewsArticleDetail style using `<img>` tags
-- Changed from background image to proper img element with `object-cover`
-- Set consistent height (`h-96`) and styling (rounded corners, shadow)
-
-### ProjectShowcaseDetail.tsx
-- Updated single image display to match NewsArticleDetail style
-- Used `h-96` for single images and `h-96` for multiple images in grid layout
-- Maintained grid layout for multiple project images while ensuring single image consistency
-- Added proper fallback when no images are available
-
-### ToolTechReviewCard.tsx
-- Changed from background image approach to `<img>` tag implementation
-- Added consistent styling with rounded corners and object-cover
-- Implemented fallback placeholder for when no image is available
-- Maintained card aspect ratio while improving image quality
-
-## TypeScript Error Resolution
-
-### ToolTechReviewForm.tsx
-- Fixed type mismatch error related to category field naming inconsistency
-- Updated types file to align with implementation (changed from 'category' to 'categoryTags' to match actual implementation)
-- Ensured all component interfaces match the form state structure
-- Corrected MediaSection component usage to pass only required properties
-
-## General UI/UX & Refactoring Improvements
-
-### 1. Mobile Search Bar Fix
-- **File(s) affected**: `topnav.tsx`, `SearchBar.tsx`
-- **Improvement**: Fixed a UI bug where the search bar would overflow its container in the mobile navigation menu. Also adjusted styling to prevent the virtual keyboard from obscuring the input field during typing.
-
-### 2. Dynamic "Time Ago" Feature
-- **File(s) affected**: `NewsArticleDetail.tsx`, `NewsArticles.tsx`
-- **Improvement**: Replaced the hardcoded "5 min read" placeholder with a dynamic "time ago" feature. The UI now correctly displays how long ago an article was published (e.g., "5 minutes ago", "2 hours ago", "3 days ago").
-
-### 3. Secure HTML Content Rendering
-- **File(s) affected**: `ToolTechReviewCard.tsx`
-- **Improvement**: Fixed a bug where raw HTML from the database was rendered as plain text. Implemented `isomorphic-dompurify` to sanitize and correctly render the HTML content, preventing potential XSS vulnerabilities while maintaining intended text styling.
-
-### 4. Live Demo Link Enhancement
-- **File(s) affected**: `ProjectCreateForm.tsx`, `ProjectShowcaseDetail.tsx`
-- **Improvement**: To increase visibility and user engagement, the "Live Demo" link is now a prominent, styled button.
-  - In the project detail page, it's located between the main image and the content.
-  - In the project creation form, its input field has been moved to a more central position to emphasize its importance.
-
-### 5. Component Refactoring
-
-#### Search & Filter Accordion
-- **File(s) affected**: `SearchAndFilter.tsx`, `components/Accordion.tsx` (new)
-- **Improvement**: Created a new, reusable `Accordion.tsx` component. Refactored the `SearchAndFilter` component to use this accordion, allowing the filter options to be collapsed by default for a cleaner UI.
-
-#### ToolTechReviewForm Refactoring
-- **File(s) affected**: `ToolTechReviewForm.tsx`
-- **Improvement**: Refactored the form to use the dedicated `MediaSection.tsx` component, improving code modularity. Also unified the form's state management into a single object, enhancing maintainability.
-- **Bug Fix**: Corrected a critical bug introduced during the refactoring where the "Save Draft" functionality was broken. The feature is now fully restored and functional.
-
-## Deployment Issues and Challenges
-
-### Issue with TipTap Editor Implementation
-- **Problem**: After implementing the TipTap editor across multiple components, the build began failing during the static export phase
-- **Error location**: The build failure consistently occurs at location `220:1053183` in the compiled server code
-- **Affected route**: The `/gear` page consistently fails during export with "Error: Command "npm run build" exited with 1"
-- **Root cause**: TipTap editor components and their rendering require client-side APIs that are not available during static generation
-
-### Admin Functionality Issues
-- **Problem**: Admin functionality (news/admin, news/admin/process) was also causing build errors
-- **Solution implemented**: Admin directories added to .gitignore to exclude from Git tracking
-- **Side effect**: Several components were importing types from admin directory, causing TypeScript errors
-- **Fix**: Updated all import statements to define types locally instead of importing from admin directory
-
-### Server/Client Boundary Issues
-- **Problem**: Mixed server and client components causing conflicts during static generation
-- **Solution**: Implemented wrapper components using dynamic imports with `ssr: false`
-- **Affected pages**: All pages were updated to use TopNavWrapper and NavbarWrapper instead of direct imports
-- **Components updated**: NewsArticles, NewsArticleDetail, RelatedNewsSection, and many others
-
-## Development Rules to Follow When Reverting
-
-### 1. Client Components Best Practices
-- Always use `use client` directive when a component uses client-side APIs
-- Avoid using DOM APIs or browser-specific APIs in server components
-- Implement dynamic imports with `ssr: false` for components that can't run on the server
-
-### 2. TipTap Editor Implementation Guidelines
-- Use Next.js's `dynamic` import with `ssr: false` for TipTap components
-- Create wrapper components that are client-only when using rich text editors
-- Ensure content rendering components are client-side when dealing with complex HTML
-
-### 3. Server/Client Boundary Management
-- Never import client components directly into server components
-- Use separate client components for interactive functionality
-- Be careful with hooks (like `useEffect`, `useState`) which require client components
-
-### 4. Deployment Testing
-- Test builds frequently during development
-- Use `npm run build` to verify that changes won't break deployment
-- Check all routes after major changes to ensure they can be statically generated
-
-### 5. Type Safety
-- Define types locally when they're only used by a few components
-- Create shared types directory for commonly used interfaces
-- Avoid importing from directories that will be excluded from builds
-
-## Next Steps
-- Revert to a stable state before implementing TipTap
-- Implement TipTap with proper Next.js patterns (dynamic imports, client boundaries)
-- Test deployment after each change to prevent compound issues
-- Document lessons learned about client/server component boundaries
-
-## Deployment Success and Final Solution
-
-The build issue has been successfully resolved! Here are the final changes that enabled successful deployment:
-
-### 1. HTML Sanitization in ToolTechReviews.tsx
-- **File**: `app/gear/ToolTechReviews.tsx` 
-- **Change**: Updated the preview snippet generation to remove HTML tags from content before truncating
-- **Code**: `review.content.replace(/<[^>]*>/g, '').substring(0, 150) + (review.content.length > 150 ? '...' : '')`
-- **Impact**: Prevents complex HTML from TipTap from causing SSR issues during build time
-
-### 2. Force Dynamic Rendering for Gear Page
-- **File**: `app/gear/page.tsx`
-- **Change**: Added `export const dynamic = 'force-dynamic';` directive
-- **Impact**: Forces the gear page to render dynamically at request time instead of during static generation, avoiding the build error at location `220:1053183`
-
-### Solution Summary
-These targeted fixes resolved the deployment issue without requiring a full revert of the TipTap implementation. The approach:
-1. Sanitizes HTML content in preview snippets to prevent SSR issues
-2. Forces dynamic rendering for the problematic gear page
-3. Maintains all improved functionality while ensuring build success
-
-The deployment is now working successfully, and the TipTap editor implementation remains in place with proper Next.js integration patterns.
+- Mobile users now experience a properly constrained viewport without horizontal scrolling
+- Desktop users continue to have access to the sidebar navigation
+- Main page components have improved mobile touch interactions
+- All changes maintain the retro pop art design aesthetic of Vibe Hub

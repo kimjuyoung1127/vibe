@@ -33,7 +33,7 @@ const TopNav = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:bg-background-dark/80 md:px-10 overflow-visible">
+      <header className="sticky top-0 z-20 flex items-center justify-between border-b border-primary/20 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:bg-background-dark/80 md:px-10 overflow-visible">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-3 text-primary">
             <img 

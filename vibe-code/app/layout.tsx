@@ -78,6 +78,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link 
           href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700" 
@@ -87,49 +89,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" 
           rel="stylesheet" 
         />
-        {/* Kakao SDK */}
-        <script
-          src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-          crossOrigin="anonymous"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Immediately initialize Kakao SDK when script is loaded
-              if (typeof window !== 'undefined') {
-                // Wait for Kakao SDK to be loaded
-                let attempts = 0;
-                const maxAttempts = 50; // 50 * 100ms = 5s total wait time
-                
-                const initializeKakao = () => {
-                  if (window.Kakao && !window.Kakao.isInitialized()) {
-                    const kakaoApiKey = "${process.env.NEXT_PUBLIC_KAKAO_API_KEY || ''}";
-                    if (kakaoApiKey && kakaoApiKey !== '') {
-                      try {
-                        window.Kakao.init(kakaoApiKey);
-                        console.log('Kakao SDK initialized successfully');
-                      } catch (error) {
-                        console.error('Failed to initialize Kakao SDK:', error);
-                      }
-                    } else {
-                      console.warn('Kakao API key is not set. Please set NEXT_PUBLIC_KAKAO_API_KEY in your .env file to enable Kakao sharing.');
-                    }
-                  } else if (window.Kakao && window.Kakao.isInitialized()) {
-                    console.log('Kakao SDK already initialized');
-                  } else if (attempts < maxAttempts) {
-                    attempts++;
-                    setTimeout(initializeKakao, 100);
-                  } else {
-                    console.error('Kakao SDK not available after maximum attempts');
-                  }
-                };
-                
-                // Start initialization check after a brief delay
-                setTimeout(initializeKakao, 100);
-              }
-            `,
-          }}
-        ></script>
+        
         {/* Google Analytics */}
         <script
           async
@@ -182,9 +142,13 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <TopNavWrapper />
-        <div className="flex min-h-screen">
-          <NavbarWrapper />
-          <div className="flex flex-1 flex-col pt-[61px]">
+        <div className="relative min-h-screen">
+          {/* Desktop sidebar - only shown on large screens and positioned correctly */}
+          <div className="fixed inset-y-0 left-0 z-40 w-72 hidden lg:flex">
+            <NavbarWrapper />
+          </div>
+          {/* Main content area */}
+          <div className="lg:ml-72 flex flex-col pt-[61px] min-h-screen">
             <main className="flex-grow">
               {children}
               <GoogleAnalyticsProvider />

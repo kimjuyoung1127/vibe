@@ -36,17 +36,17 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="p-4 @container md:p-6 lg:p-8 
-                    bg-gradient-to-br from-[#0a192f] via-[#0f2747] to-[#0a192f]">
-      <div className="relative flex min-h-[500px] flex-col items-start justify-end gap-8
-                      overflow-hidden rounded-xl p-8 shadow-2xl shadow-blue-500/20">
+    <div className="p-4 bg-gradient-to-br from-[#0a192f] via-[#0f2747] to-[#0a192f] overflow-hidden w-full max-w-full">
+      <div className="relative flex min-h-[400px] sm:min-h-[500px] flex-col items-start justify-end gap-6 sm:gap-8
+                      overflow-hidden rounded-xl p-6 sm:p-8 shadow-2xl shadow-blue-500/20 max-w-full w-full">
         
         {/* Three.js Canvas Background */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden w-full h-full">
           <Canvas
             camera={{ position: [0, 0, 10], fov: 75 }}
             dpr={[1, 2]}
             style={{ background: 'radial-gradient(circle at center, #0a192f, #000)' }}
+            className="w-full h-full"
           >
             <Suspense fallback={null}>
               <VibeFlowBackground
@@ -59,15 +59,15 @@ const HeroSection = () => {
         </div>
 
         {/* Overlay for text visibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-[1] w-full h-full" />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col gap-4 text-left">
+        <div className="relative z-10 flex flex-col gap-3 sm:gap-4 text-left max-w-full w-full">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl font-extrabold leading-tight text-sky-200 drop-shadow-[0_0_12px_#38bdf8] @[480px]:text-5xl"
+            className="text-3xl sm:text-4xl font-extrabold leading-tight text-sky-200 drop-shadow-[0_0_12px_#38bdf8] max-w-full truncate"
           >
             {heroContent.title}
           </motion.h1>
@@ -75,7 +75,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="max-w-2xl text-base text-blue-200 drop-shadow @[480px]:text-lg"
+            className="max-w-full text-sm sm:text-base text-blue-200 drop-shadow max-w-full truncate"
           >
             {heroContent.subtitle}
           </motion.h2>
@@ -86,7 +86,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative z-10 flex flex-col gap-4 @[480px]:flex-row"
+          className="relative z-10 flex flex-col gap-3 sm:gap-4 w-full max-w-xs sm:max-w-full"
         >
           <ActionButton onClick={() => handleNavigation('/projects/create')}>{heroContent.primaryButtonText}</ActionButton>
           <ActionButton onClick={() => handleNavigation('/projects')} primary={false}>{heroContent.secondaryButtonText}</ActionButton>
