@@ -76,10 +76,7 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({
         </label>
         <VibeTipTapEditor
           initialContent={article.content || ''}
-          initialFontPreference="Modern Sans-serif"
-          onContentChange={(content) => handleInputChange('content', content)}
-          onFontChange={() => { } } // Font change is not handled since NewsArticle doesn't include font_preference
-          content={''}        />
+          onContentChange={(content) => handleInputChange('content', content)} content={''}        />
       </div>
 
       {/* Source Information */}

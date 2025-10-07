@@ -13,7 +13,7 @@ const TopNav = () => {
   const pathname = usePathname(); // Get current pathname
 
   // Use a default avatar if the user profile is not loaded or doesn't have an avatar
-  const avatarUrl = userProfile?.avatar_url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmICaw4c5yHQp4leTP4ZcaNpvRBBudLVQZ8NpVTRxsS8ciopC1keUhBZLfSS2T62kY0Vh6aDfIo7QG_LgjXkfwU7eqIhEYJO--GumrXfMm2B5_P19r9FDzmHVDEjN12ssdkTBfTVaEfV0eQ1UyFP_FoR_gygkx-ZE7T--PI8xyHt7_0uCkb7wIr8TQXARi_iLOepqkTIgq-PDHQgBFfllMZm8PyI8v6XhNZCQSHYombXZoC5FxmeSUm2zp4VzK4Z4tGVKGdFHFQg';
+  const avatarUrl = userProfile?.avatar_url || '';
 
   // Function to handle profile navigation with authentication check
   const handleProfileNavigation = async (e: React.MouseEvent) => {
@@ -74,9 +74,9 @@ const TopNav = () => {
           <a 
             onClick={handleProfileNavigation}
             className="flex h-10 w-10 rounded-full bg-cover bg-center z-10 border border-primary/20 bg-primary/10 items-center justify-center overflow-hidden cursor-pointer"
-            style={{ backgroundImage: `url("${avatarUrl}")` }}
+            style={userProfile?.avatar_url ? { backgroundImage: `url("${avatarUrl}")` } : {}}
           >
-            {userProfile?.avatar_url ? null : <span className="material-symbols-outlined text-primary">account_circle</span>}
+            {!userProfile?.avatar_url && <span className="material-symbols-outlined text-primary">account_circle</span>}
             <span className="sr-only">Profile</span>
           </a>
           

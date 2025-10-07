@@ -3,25 +3,24 @@
 "use client";
 
 import React from 'react';
-import TopNavWrapper from '../../components/TopNavWrapper';
 import NavbarWrapper from '../../components/NavbarWrapper';
 import CommunityPostForm from './CommunityPostForm';
+import AuthGuard from '../../components/AuthGuard';
 
 const CreateCommunityPostPage = () => {
   return (
     <div className="group/design-root relative flex min-h-screen w-full flex-col overflow-x-hidden">
-      {/* Top navigation bar */}
-
-      
       {/* Main content area with sidebar and main content */}
       <div className="flex flex-1">
         {/* Left sidebar navigation */}
-        
+        <NavbarWrapper />
         
         {/* Main content area */}
         <main className="flex-1 overflow-y-auto">
-          {/* Community post form */}
-          <CommunityPostForm />
+          {/* Protect the form with authentication guard */}
+          <AuthGuard>
+            <CommunityPostForm />
+          </AuthGuard>
         </main>
       </div>
     </div>
