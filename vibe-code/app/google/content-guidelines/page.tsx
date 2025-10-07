@@ -103,7 +103,7 @@ const ContentGuidelinesPage = () => {
         
         <h2 className="text-xl font-semibold mt-6 mb-4">Contact Us</h2>
         <p className="mb-4">
-          If you have questions about these Content Guidelines, please contact us:
+          If you have any questions about these Content Guidelines, please contact us:
         </p>
         <ul className="list-disc pl-6">
           <li>By email: content@vibehub.com</li>

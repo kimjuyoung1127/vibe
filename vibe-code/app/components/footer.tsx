@@ -28,8 +28,14 @@ const Footer = () => {
           </div>
           
           <div className="flex flex-wrap justify-center gap-6 mb-4">
+            <Link 
+              href="/google/about" 
+              className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
+            >
+              About Us
+            </Link>
             <a 
-              href="/privacy-policy" 
+              href="/google/privacy-policy" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
@@ -37,7 +43,7 @@ const Footer = () => {
               Privacy Policy
             </a>
             <a 
-              href="/terms-of-service" 
+              href="/google/terms-of-service"  
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
@@ -45,7 +51,7 @@ const Footer = () => {
               Terms of Service
             </a>
             <a 
-              href="/cookie-policy" 
+              href="/google/cookie-policy"   
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
@@ -53,7 +59,7 @@ const Footer = () => {
               Cookie Policy
             </a>
             <a 
-              href="/content-guidelines" 
+              href="/google/content-guidelines" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"

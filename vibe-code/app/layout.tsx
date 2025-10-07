@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import './custom.css';
 import Footer from './components/footer';
-import GoogleAnalyticsProvider from '../google/providers/GoogleAnalyticsProvider';
 import NavbarWrapper from './components/NavbarWrapper';
 import TopNavWrapper from './components/TopNavWrapper';
 
@@ -27,13 +26,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.vibehub.dev',
+    url: 'https://vibehub.tech',
     title: 'Vibe Hub - A Developer Community for Creative Coding',
     description: 'A community website for developers who value the "vibe coding" and environment of coding, featuring modern retro pop art style.',
     siteName: 'Vibe Hub',
     images: [
       {
-        url: 'https://www.vibehub.dev/og-image.png', // Replace with actual image path
+        url: 'https://vibehub.tech/og-image.png', // Replace with actual image path
         width: 1200,
         height: 630,
         alt: 'Vibe Hub - Developer Community',
@@ -44,7 +43,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Vibe Hub - A Developer Community for Creative Coding',
     description: 'A community website for developers who value the "vibe coding" and environment of coding, featuring modern retro pop art style.',
-    images: ['https://www.vibehub.dev/twitter-image.png'], // Replace with actual image path
+    images: ['https://vibehub.tech/twitter-image.png'], // Replace with actual image path
   },
   robots: {
     index: true,
@@ -64,7 +63,7 @@ export const metadata: Metadata = {
       'msvalidate.01': 'bing-verification-token', // Replace with actual token
     },
   },
-  metadataBase: new URL('https://www.vibehub.dev'),
+  metadataBase: new URL('https://vibehub.tech'),
   alternates: {
     canonical: '/',
   },
@@ -89,6 +88,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" 
           rel="stylesheet" 
         />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5327530419834984"
+     crossOrigin="anonymous"></script>
         
         {/* Google Analytics */}
         <script
@@ -116,8 +117,8 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'Vibe Hub',
               legalName: 'Vibe Hub',
-              url: 'https://www.vibehub.dev',
-              logo: 'https://www.vibehub.dev/logo.png', // Replace with actual logo path
+              url: 'https://vibehub.tech',
+              logo: 'https://vibehub.tech/logo.png', // Replace with actual logo path
               description: 'A community website for developers who value the "vibe coding" and environment of coding',
               foundingDate: '2025',
               founder: {
@@ -151,7 +152,6 @@ export default function RootLayout({
           <div className="lg:ml-72 flex flex-col pt-[61px] min-h-screen">
             <main className="flex-grow">
               {children}
-              <GoogleAnalyticsProvider />
             </main>
             <Footer />
           </div>
