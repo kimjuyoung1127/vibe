@@ -89,8 +89,8 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
       {/* Page header */}
       <div className="flex flex-wrap justify-between gap-3 p-4">
         <div className="flex min-w-72 flex-col gap-3">
-          <p className="text-[#161118] tracking-light text-[32px] font-bold leading-tight">{project?.title}</p>
-          <p className="text-[#7c608a] text-sm font-normal leading-normal">
+          <p className="text-[#161118] tracking-light text-[32px] font-bold leading-tight break-words max-w-full">{project?.title}</p>
+          <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words max-w-full">
             {project?.tagline || ''}
           </p>
         </div>
@@ -215,36 +215,36 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
         />
       </div>
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">주요 기능</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">주요 기능</h2>
       <FeatureList projectId={project?.id || ''} />
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">기술 스택 &amp; 도구</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">기술 스택 &amp; 도구</h2>
       <TechnologyStack projectId={project?.id || ''} />
 
       <div className="p-4 grid grid-cols-[20%_1fr] gap-x-6">
         {project?.github_url && (
           <div className="col-span-2 grid grid-cols-subgrid border-t border-t-[#e2dbe6] py-5">
-            <p className="text-[#7c608a] text-sm font-normal leading-normal">GitHub 리포지토리</p>
-            <p className="text-[#161118] text-sm font-normal leading-normal">{project?.github_url || 'N/A'}</p>
+            <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words">GitHub 리포지토리</p>
+            <p className="text-[#161118] text-sm font-normal leading-relaxed break-words overflow-wrap-anywhere">{project?.github_url || 'N/A'}</p>
           </div>
         )}
         {project?.deployment_platform && (
           <div className="col-span-2 grid grid-cols-subgrid border-t border-t-[#e2dbe6] py-5">
-            <p className="text-[#7c608a] text-sm font-normal leading-normal">배포 정보</p>
-            <p className="text-[#161118] text-sm font-normal leading-normal">{project?.deployment_platform || 'N/A'}</p>
+            <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words">배포 정보</p>
+            <p className="text-[#161118] text-sm font-normal leading-relaxed break-words overflow-wrap-anywhere">{project?.deployment_platform || 'N/A'}</p>
           </div>
         )}
       </div>
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">작성자 정보</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">작성자 정보</h2>
       <div className="p-4">
         <AuthorProfile userId={project?.user_id || ''} />
       </div>
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">관련 프로젝트</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">관련 프로젝트</h2>
       <RelatedProjects authorId={project?.user_id || ''} currentProjectId={project?.id || ''} />
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">댓글</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">댓글</h2>
       <CommentSection targetId={project?.id || ''} postType="project" />
     </div>
   );

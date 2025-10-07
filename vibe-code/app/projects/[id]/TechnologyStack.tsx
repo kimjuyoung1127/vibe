@@ -75,10 +75,10 @@ const TechnologyStack = ({ projectId }: { projectId: string }) => {
   }
 
   return (
-    <div className="flex gap-3 p-3 flex-wrap pr-4">
+    <div className="flex gap-3 p-3 flex-wrap pr-4 break-words">
       {allTechAndTools.map((name, index) => (
-        <div key={index} className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f3f0f5] pl-4 pr-4">
-          <p className="text-[#161118] text-sm font-medium leading-normal">{name}</p>
+        <div key={index} className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f3f0f5] pl-4 pr-4 break-words max-w-full">
+          <p className="text-[#161118] text-sm font-medium leading-normal break-words overflow-wrap-anywhere">{name}</p>
         </div>
       ))}
     </div>

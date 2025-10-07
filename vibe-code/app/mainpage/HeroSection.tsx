@@ -25,8 +25,8 @@ const ActionButton = ({ children, onClick, primary = true }: { children: React.R
 
 const HeroSection = () => {
   const heroContent = {
-    title: "VibeHub: The Home of Vibe Coding",
-    subtitle: "Discover, promote, and master the revolutionary approach of AI-assisted development where intent drives code rather than syntax.",
+    title: "VibeHub: Playground for Vibe Coders",
+    subtitle: "Discover, promote, and master the revolutionary approach of AI-assisted development",
     primaryButtonText: "Share Your Vibe Project",
     secondaryButtonText: "Explore Vibe Coding",
   };

@@ -79,7 +79,7 @@ const AdvancedSelect: React.FC<AdvancedSelectProps> = ({
         {selectedValues.map((value) => (
           <span key={value} className="flex items-center gap-1 bg-indigo-100 text-indigo-800 text-sm font-medium px-2.5 py-1 rounded-full">
             {options.find(opt => opt.value === value)?.label || value}
-            <button onClick={() => handleSelect(value)} className="focus:outline-none">
+            <button type="button" onClick={() => handleSelect(value)} className="focus:outline-none">
               <XMarkIcon className="h-4 w-4 text-indigo-500 hover:text-indigo-800" />
             </button>
           </span>
@@ -102,7 +102,7 @@ const AdvancedSelect: React.FC<AdvancedSelectProps> = ({
           <Disclosure key={category} as="div" className="border-b" defaultOpen>
             {({ open }) => (
               <>
-                <Disclosure.Button className="flex w-full justify-between rounded-t-lg bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
+                <Disclosure.Button type="button" className="flex w-full justify-between rounded-t-lg bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
                   <span>{category}</span>
                   <ChevronUpIcon
                     className={`${
@@ -114,6 +114,7 @@ const AdvancedSelect: React.FC<AdvancedSelectProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                     {(showAll[category] ? items : items.slice(0, 6)).map((option) => (
                       <button
+                        type="button"
                         key={option.value}
                         onClick={() => handleSelect(option.value)}
                         className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -128,6 +129,7 @@ const AdvancedSelect: React.FC<AdvancedSelectProps> = ({
                   </div>
                   {items.length > 6 && (
                     <button
+                      type="button"
                       onClick={() => toggleShowAll(category)}
                       className="text-indigo-600 hover:text-indigo-900 text-sm font-medium mt-3"
                     >

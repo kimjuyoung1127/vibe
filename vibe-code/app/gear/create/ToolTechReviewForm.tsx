@@ -97,9 +97,18 @@ const ToolTechReviewForm = () => {
     try {
       await supabase.from('review_categories').delete().eq('review_id', reviewId);
 
-      const categoryList = formData.categoryTags.split(',').map(c => c.trim()).filter(c => c.length > 0);
-      if (categoryList.length > 0) {
-        const categoryData = categoryList.map(categoryName => ({ review_id: reviewId, category_name: categoryName }));
+      // Save both categories and tags as separate entries in the review_categories table
+      const categoryList = formData.category.split(',').map(c => c.trim()).filter(c => c.length > 0);
+      const tagList = formData.categoryTags.split(',').map(c => c.trim()).filter(c => c.length > 0);
+      
+      // Combine both categories and tags
+      const allCategoryEntries = [...categoryList, ...tagList];
+      
+      if (allCategoryEntries.length > 0) {
+        const categoryData = allCategoryEntries.map(categoryName => ({ 
+          review_id: reviewId, 
+          category_name: categoryName 
+        }));
         const { error: categoryInsertError } = await supabase.from('review_categories').insert(categoryData);
         if (categoryInsertError) console.error('Error inserting categories:', categoryInsertError);
       }
@@ -229,7 +238,7 @@ const ToolTechReviewForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
         {errors.general && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -355,7 +364,7 @@ const ToolTechReviewForm = () => {
             <button type="button" onClick={handleSaveDraft} className="px-6 py-3 bg-[#e2dbe6] dark:bg-[#2a2a3e] text-[#161118] dark:text-[#f5f7f8] rounded-lg font-medium hover:bg-[#d0c5d8] dark:hover:bg-[#3a3a4e] transition-colors">
               {saveDraftStatus === 'saving' ? 'Saving...' : saveDraftStatus === 'saved' ? 'Saved!' : 'Save Draft'}
             </button>
-            <button type="submit" disabled={isSubmitting} className="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/80 transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
+            <button type="button" onClick={handleSubmit} disabled={isSubmitting} className="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/80 transition-colors disabled:opacity-70 disabled:cursor-not-allowed">
               {isSubmitting ? 'Publishing...' : isEditingDraft ? 'Update Review' : 'Publish Review'}
             </button>
           </div>

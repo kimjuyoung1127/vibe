@@ -1,5 +1,5 @@
 // ProjectCard.tsx
-// This component displays a single project card
+// This component displays a single project card with improved text readability
 "use client";
 
 import React from 'react';
@@ -25,8 +25,8 @@ const ProjectCard = ({ title, description, imageUrl }: ProjectCardProps) => {
       
       {/* Project information */}
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-1 text-primary break-words">{title}</h3>
-        <p className="text-[#101c22]/70 dark:text-[#f5f7f8]/70 break-words">{description}</p>
+        <h3 className="text-xl font-bold mb-1 text-primary break-words overflow-hidden text-ellipsis max-h-10 line-clamp-2">{title}</h3>
+        <p className="text-[#101c22]/70 dark:text-[#f5f7f8]/70 break-words overflow-hidden text-ellipsis max-h-20 line-clamp-3 leading-relaxed">{description}</p>
       </div>
     </div>
   );

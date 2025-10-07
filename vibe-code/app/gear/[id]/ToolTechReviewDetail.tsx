@@ -190,8 +190,8 @@ const ToolTechReviewDetail = () => {
       {/* Page header */}
       <div className="flex flex-wrap justify-between gap-3 p-4">
         <div className="flex min-w-72 flex-col gap-3">
-          <p className="text-[#161118] tracking-light text-[32px] font-bold leading-tight">{reviewData.title}</p>
-          <p className="text-[#7c608a] text-sm font-normal leading-normal">
+          <p className="text-[#161118] tracking-light text-[32px] font-bold leading-tight break-words">{reviewData.title}</p>
+          <p className="text-[#7c608a] text-sm font-normal leading-normal break-words">
             {reviewData.tool_tech_name}
           </p>
         </div>
@@ -262,7 +262,7 @@ const ToolTechReviewDetail = () => {
       )}
       
       {/* Review content */}
-      <div className="px-4 py-6">
+      <div className="px-4 py-6"> 
         <VibeEditorRenderer 
           content={reviewData.content || ''} 
           maxWidthClass="max-w-[65ch]" 

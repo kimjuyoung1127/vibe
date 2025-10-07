@@ -17,9 +17,9 @@ const VibeEditorRenderer: React.FC<ContentRendererProps> = ({
   const sanitizedContent = DOMPurify.sanitize(content);
 
   return (
-    <div className={`break-words px-4 pb-6 text-[#161118] dark:text-[#f5f7f8] ${containerClass} pt-6`}>
+    <div className={`break-words px-4 pb-6 text-[#161118] dark:text-[#f5f7f8] ${containerClass} pt-6 leading-relaxed`}>
       <div 
-        className={`content-container ${maxWidthClass} mx-auto`}
+        className={`content-container ${maxWidthClass} mx-auto break-words`}
         dangerouslySetInnerHTML={{ __html: sanitizedContent }} 
       />
     </div>

@@ -73,14 +73,14 @@ const FeatureList = ({ projectId }: { projectId: string }) => {
   return (
     <div className="px-4">
       {features.map((feature) => (
-        <label key={feature.id} className="flex gap-x-3 py-3 flex-row">
+        <label key={feature.id} className="flex gap-x-3 py-3 flex-row break-words">
           <input
             type="checkbox"
             className="h-5 w-5 rounded border-[#e2dbe6] border-2 bg-transparent text-[#af25f4] checked:bg-[#af25f4] checked:border-[#af25f4] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#e2dbe6] focus:outline-none"
             checked={checkedItems[feature.id] || false}
             onChange={() => handleCheckboxChange(feature.id)}
           />
-          <p className="text-[#161118] text-base font-normal leading-normal">{feature.feature_text}</p>
+          <p className="text-[#161118] text-base font-normal leading-relaxed break-words max-w-[calc(100%-2rem)] overflow-wrap-anywhere">{feature.feature_text}</p>
         </label>
       ))}
     </div>

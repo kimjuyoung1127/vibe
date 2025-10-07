@@ -1,64 +1,64 @@
-// LatestProjects.tsx
-// This component displays the latest projects in a grid layout
+// LatestToolTechReviews.tsx
+// This component displays the latest tool & tech reviews in a grid layout
 "use client";
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
 
-// Define the type for a project item
-interface ProjectItem {
+// Define the type for a review item
+interface ReviewItem {
   id: string; // Changed from number to string as Supabase IDs are UUIDs
   title: string;
-  tagline: string; // Changed from description to tagline as per table schema
+  tool_tech_name: string; // Tool/tech name
   hero_image_url: string; // Changed from imageUrl to hero_image_url as per table schema
 }
 
-const LatestProjects = () => {
-  const [projectItems, setProjectItems] = useState<ProjectItem[]>([]);
+const LatestToolTechReviews = () => {
+  const [reviewItems, setReviewItems] = useState<ReviewItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchLatestProjects = async () => {
+    const fetchLatestReviews = async () => {
       try {
         const { data, error } = await supabase
-          .from('projects')
-          .select('id, title, tagline, hero_image_url')
-          .eq('is_public', true) // Only public projects
+          .from('tool_reviews')
+          .select('id, title, tool_tech_name, hero_image_url')
+          .eq('is_public', true) // Only public reviews
           .order('created_at', { ascending: false })
-          .limit(6); // Get the 6 most recent projects
+          .limit(6); // Get the 6 most recent reviews
 
         if (error) {
           throw new Error(error.message);
         }
 
         if (data) {
-          // Map the data to the ProjectItem interface
-          const projectData: ProjectItem[] = data.map(item => ({
+          // Map the data to the ReviewItem interface
+          const reviewData: ReviewItem[] = data.map(item => ({
             id: item.id,
             title: item.title,
-            tagline: item.tagline,
+            tool_tech_name: item.tool_tech_name,
             hero_image_url: item.hero_image_url
           }));
-          // Limit to first 6 projects
-          setProjectItems(projectData.slice(0, 6));
+          // Limit to first 6 reviews
+          setReviewItems(reviewData.slice(0, 6));
         }
       } catch (err: any) {
-        console.error('Error fetching latest projects:', err);
-        setError(err.message || 'An error occurred while fetching the latest projects');
+        console.error('Error fetching latest tool & tech reviews:', err);
+        setError(err.message || 'An error occurred while fetching the latest reviews');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLatestProjects();
+    fetchLatestReviews();
   }, []);
 
   if (loading) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe Coding Projects</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Tech Reviews</h2>
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[...Array(3)].map((_, index) => (
             <div key={index} className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
@@ -77,7 +77,7 @@ const LatestProjects = () => {
   if (error) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe Coding Projects</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Tech Reviews</h2>
         <div className="text-red-500 w-full text-center py-8">Error: {error}</div>
       </div>
     );
@@ -86,9 +86,9 @@ const LatestProjects = () => {
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe Coding Projects</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Tech Reviews</h2>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        Explore the latest projects showcasing the Vibe Coding methodology
+        Explore the latest tool & tech reviews from the community
       </p>
       
       {/* Container for scrollable content with improved mobile experience */}
@@ -101,34 +101,34 @@ const LatestProjects = () => {
         
         {/* Scrollable container with improved mobile experience */}
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-mandatory">
-          {/* Map through project items to create cards */}
-          {projectItems.map((item) => (
+          {/* Map through review items to create cards */}
+          {reviewItems.map((item) => (
             <div 
               key={item.id} 
               className="flex-shrink-0 snap-start w-64 sm:w-72 flex flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark"
             >
               <Link 
-                href={`/projects/${item.id}`} 
+                href={`/gear/${item.id}`} 
                 className="block w-full"
               >
-                {/* Project image */}
+                {/* Review image */}
                 <div 
                   className="aspect-video w-full rounded-lg bg-cover bg-center cursor-pointer" 
                   style={{ backgroundImage: `url("${item.hero_image_url}")` }}
                 ></div>
                 
-                {/* Project information */}
+                {/* Review information */}
                 <div className="pt-2">
                   <p className="font-bold text-black dark:text-white truncate">{item.title}</p>
-                  <p className="text-sm text-black/60 dark:text-white/60 truncate">{item.tagline}</p>
+                  <p className="text-sm text-black/60 dark:text-white/60 truncate">{item.tool_tech_name}</p>
                 </div>
               </Link>
             </div>
           ))}
           
-          {projectItems.length === 0 && (
+          {reviewItems.length === 0 && (
             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-              No Vibe Coding projects found.
+              No tech reviews found.
             </div>
           )}
         </div>
@@ -137,4 +137,4 @@ const LatestProjects = () => {
   );
 };
 
-export default LatestProjects;
+export default LatestToolTechReviews;
