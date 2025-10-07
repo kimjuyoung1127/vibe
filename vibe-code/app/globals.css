@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   :root {
     --primary: 13 166 242;
@@ -86,68 +92,118 @@ body {
 
 /* Alert/Info boxes */
 .vibe-alert {
-  border-left: 4px solid #ff9800; /* Orange accent */
-  background-color: #fff3e0; /* Light orange background */
+  border-left: 4px solid #FF6B6B; /* Bright retro pop red */
+  background-color: #FFE6E6; /* Light red background */
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 0 4px 4px 0;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.1);
 }
 
 .vibe-info {
-  border-left: 4px solid #2196f3; /* Blue accent */
-  background-color: #e3f2fd; /* Light blue background */
+  border-left: 4px solid #4ECDC4; /* Bright retro pop teal */
+  background-color: #E6FAF8; /* Light teal background */
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 0 4px 4px 0;
+  box-shadow: 0 2px 4px rgba(78, 205, 196, 0.1);
 }
 
 /* Pixel art banners */
 .vibe-pixel-banner {
-  background-color: #000;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
   color: #fff;
   text-align: center;
-  padding: 1rem;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 2px;
-  font-weight: bold;
+  padding: 1.2rem;
+  font-family: 'Press Start 2P', cursive;
+  letter-spacing: 1.5px;
+  font-weight: normal;
   margin: 1rem 0;
-  border: 2px solid #fff;
-  font-size: 1.2rem;
+  border: 3px solid #fff;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.vibe-pixel-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.vibe-pixel-banner:hover::before {
+  left: 100%;
 }
 
 /* Colorful code blocks */
 .vibe-code-block {
-  background-color: #1e1e1e; /* Dark background */
-  color: #d4d4d4; /* Light text */
-  padding: 1rem;
-  border-radius: 4px;
+  background: linear-gradient(145deg, #1a1a2e, #16213e); /* Retro dark blue gradient */
+  color: #e2e2e2;
+  padding: 1.2rem;
+  border-radius: 8px;
   overflow-x: auto;
   margin: 1rem 0;
-  font-family: 'Courier New', monospace;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .vibe-code-block .keyword {
-  color: #569cd6; /* Blue keywords */
+  color: #FF6B6B; /* Bright retro red for keywords */
 }
 
 .vibe-code-block .string {
-  color: #ce9178; /* Orange strings */
+  color: #FFE66D; /* Bright retro yellow for strings */
 }
 
 .vibe-code-block .function {
-  color: #dcdcaa; /* Light yellow functions */
+  color: #4ECDC4; /* Bright retro teal for functions */
 }
 
 .vibe-code-block .comment {
-  color: #6a9955; /* Green comments */
+  color: #96ceb4; /* Bright retro green for comments */
 }
 
-/* Retro Casual font */
-.retro-casual {
-  font-family: 'Press Start 2P', cursive, sans-serif;
+.vibe-code-block .number {
+  color: #FF9F1C; /* Bright retro orange for numbers */
 }
 
-/* Modern Sans-serif font */
-.modern-sans-serif {
-  font-family: 'Inter', 'Space Grotesk', sans-serif;
+.vibe-code-block .operator {
+  color: #6A0DAD; /* Retro purple for operators */
+}
+
+/* Font definitions for VibeHub Editor */
+/* Modern Sans-serif - Clean and professional */
+.font-modern-sans {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Retro Casual - Casual and friendly */
+.font-retro-casual {
+  font-family: 'Recursive', monospace;
+}
+
+/* Retro Display - Bold and playful like 80s/90s */
+.font-retro-display {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Pixel Font - 8-bit style */
+.font-pixel {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Handwritten - Casual and personal */
+.font-handwritten {
+  font-family: 'Caveat', cursive;
 }

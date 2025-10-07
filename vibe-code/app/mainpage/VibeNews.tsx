@@ -63,7 +63,7 @@ const VibeNews = () => {
 
             newsData.push({
               id: article.id,
-              category: categories && categories.length > 0 ? categories[0].category_name : 'News',
+              category: categories && categories.length > 0 ? categories[0].category_name : 'AI & Tech News',
               title: article.title,
               summary: article.summary,
               hero_image_url: article.hero_image_url,
@@ -88,7 +88,7 @@ const VibeNews = () => {
   if (loading) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Vibe Coding News</h2>
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[...Array(3)].map((_, index) => (
             <div 
@@ -110,7 +110,7 @@ const VibeNews = () => {
   if (error) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Vibe Coding News</h2>
         <div className="text-red-500 w-full text-center py-8">Error: {error}</div>
       </div>
     );
@@ -119,7 +119,10 @@ const VibeNews = () => {
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe News</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Vibe Coding News</h2>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        Latest insights and updates on AI-assisted development
+      </p>
       
       {/* Container for scrollable content with improved mobile experience */}
       <div className="relative group">
@@ -159,7 +162,7 @@ const VibeNews = () => {
           
           {newsItems.length === 0 && (
             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-              No news articles found.
+              No Vibe Coding news articles found.
             </div>
           )}
         </div>

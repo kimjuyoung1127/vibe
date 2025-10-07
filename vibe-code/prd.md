@@ -59,15 +59,13 @@ A hybrid editor used for all post creations.
 
 Markdown-centric: Users can directly paste or upload markdown content (e.g., from README.md).
 
-Per-Post Font Selection: Within the editor, users can select the font to be applied to that specific post from 'Retro Casual' and 'Modern Sans-serif' options (applied only within the post content).
+Basic Formatting: The editor includes standard formatting options like bold, italic, underline, and strikethrough.
 
 'Vibe' Emphasis Toolbar: Users can select text and click buttons to apply unique site styles consistent with the Modern Retro theme:
 
 Pop Color Highlight: (High-saturation colors matching the retro theme)
 
-Alert/Info Box: (Clean pop-art style UI)
-
-Pixel Art Banner: (8-bit/16-bit style)
+Link Functionality: Users can easily add and manage hyperlinks in their content.
 
 Colorful Code Block: (Light background, emphasized code colors)
 
@@ -91,21 +89,29 @@ Main Tech Stack: Key technologies used in project implementation (e.g., React, N
 
 Main Coding Tool: Primary IDE or tool used for project development (e.g., VS Code, IntelliJ IDEA, Vim).
 
-F-05: 'Weekly Vibe' Ranking
+F-05: Enhanced Gear Categorization
+
+Improved User Experience: The Tool & Tech Review creation process now includes enhanced categorization with suggestion-based inputs.
+
+Suggested Categories: Users can select from a curated list of gear categories (hardware, software, services) with search functionality.
+
+Suggested Tags: Users can select from a variety of tags organized by type (price range, usage, performance level, developer focus) to accurately describe their gear reviews.
+
+F-06: 'Weekly Vibe' Ranking
 
 The main page automatically displays Project Showcase posts with the most 'likes' from the past 7 days. Ranking items will be highlighted with bright accent colors and soft, pop-art style shadow effects.
 
-F-06: Vibe News (Latest AI & Tech Trends) Section
+F-07: Vibe News (Latest AI & Tech Trends) Section
 
 A dedicated section for the latest AI trends and technology information.
 
-Content for this section will be published via the Admin-only AI Content Pipeline (F-07).
+Content for this section will be published via the Admin-only AI Content Pipeline (F-08).
 
 Posts will be reviewed and published by the administrator, aiming for SEO optimization.
 
 Each article includes a "Source" link that users can copy, and related articles section.
 
-F-07: AI Content Automation Pipeline (For Admin - To be implemented directly by the operator)
+F-08: AI Content Automation Pipeline (For Admin - To be implemented directly by the operator)
 
 When the operator inputs a topic keyword in the admin page, it calls an LLM API to generate a draft Vibe News article.
 
@@ -113,9 +119,9 @@ The generated draft is reviewed and edited by the operator before being publishe
 
 Note: This feature will be implemented by the operator in the latter half of the project, utilizing technologies from their other projects, including Qwen CLI and Gemini CLI.
 
-F-08: Mobile Responsive Design
+F-09: Mobile Responsive Design
 
-All site features must be optimized for mobile, tablet, and desktop environments.
+All site features must be optimized for mobile, tablet, and desktop environments. Specifically, all pages must adhere to a strict no-horizontal-scroll policy on mobile viewports (375px and up). Content must reflow to fit the viewport width, and no single component should be able to cause page-level overflow. Specifically, all pages must adhere to a strict no-horizontal-scroll policy on mobile viewports (375px and up). Content must reflow to fit the viewport width, and no single component should be able to cause page-level overflow.
 
 F-09: Global Side Navigation (Reddit Style)
 

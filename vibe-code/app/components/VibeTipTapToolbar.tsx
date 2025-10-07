@@ -6,20 +6,13 @@ import { Editor } from '@tiptap/core';
 
 interface VibeTipTapToolbarProps {
   editor: Editor;
-  currentFont: string;
-  onFontChange: (font: string) => void;
-  onVibeFormatting: (format: string) => void;
 }
 
 const VibeTipTapToolbar: React.FC<VibeTipTapToolbarProps> = ({
-  editor,
-  currentFont,
-  onFontChange,
-  onVibeFormatting
+  editor
 }) => {
   const [isColorOpen, setIsColorOpen] = useState(false);
   const [isFontSizeOpen, setIsFontSizeOpen] = useState(false);
-  const [isVibeElementsOpen, setIsVibeElementsOpen] = useState(false);
 
   // Format handlers
   const handleBold = () => editor.chain().focus().toggleBold().run();
@@ -44,43 +37,11 @@ const VibeTipTapToolbar: React.FC<VibeTipTapToolbarProps> = ({
     setIsFontSizeOpen(false);
   };
 
-  // Vibe element handlers
-  const handleVibeAlert = () => {
-    onVibeFormatting('vibe-alert');
-    setIsVibeElementsOpen(false);
-  };
 
-  const handleVibeInfo = () => {
-    onVibeFormatting('vibe-info');
-    setIsVibeElementsOpen(false);
-  };
-
-  const handleVibePixelBanner = () => {
-    onVibeFormatting('vibe-pixel-banner');
-    setIsVibeElementsOpen(false);
-  };
-
-  const handleVibeCodeBlock = () => {
-    onVibeFormatting('vibe-code-block');
-    setIsVibeElementsOpen(false);
-  };
 
   return (
     <div className="flex flex-wrap items-center gap-1 p-2 bg-[#f3f0f5] dark:bg-[#1a1a2e] border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg mb-2">
-      {/* Font Selection */}
-      <div className="relative">
-        <select
-          value={currentFont}
-          onChange={(e) => onFontChange(e.target.value)}
-          className="px-3 py-1.5 rounded text-sm bg-white dark:bg-[#0f0f1a] border border-[#e2dbe6] dark:border-[#1a1a2e] text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-1 focus:ring-primary"
-        >
-          <option value="Modern Sans-serif">Modern Sans-serif</option>
-          <option value="Retro Casual">Retro Casual</option>
-        </select>
-      </div>
 
-      {/* Separator */}
-      <div className="w-px h-6 bg-[#e2dbe6] dark:bg-[#1a1a2e] mx-1"></div>
 
       {/* Formatting Buttons */}
       <button
@@ -275,63 +236,7 @@ const VibeTipTapToolbar: React.FC<VibeTipTapToolbarProps> = ({
         )}
       </div>
 
-      {/* Separator */}
-      <div className="w-px h-6 bg-[#e2dbe6] dark:bg-[#1a1a2e] mx-1"></div>
 
-      {/* Vibe-specific formatting */}
-      <div className="relative">
-        <button
-          onClick={() => setIsVibeElementsOpen(!isVibeElementsOpen)}
-          className="p-2 rounded hover:bg-[#e2dbe6] dark:hover:bg-[#2a2a3e] text-[#161118] dark:text-[#f5f7f8]"
-          title="Vibe Elements"
-          type="button"
-        >
-          <span className="material-symbols-outlined">extension</span>
-        </button>
-        
-        {isVibeElementsOpen && (
-          <div className="absolute z-10 mt-1 w-40 bg-white dark:bg-[#0f0f1a] shadow-lg rounded-md border border-[#e2dbe6] dark:border-[#1a1a2e] p-2">
-            <div className="flex flex-col gap-1">
-              <button
-                onClick={handleVibeAlert}
-                className="px-2 py-1 text-left hover:bg-[#e2dbe6] dark:hover:bg-[#2a2a3e] rounded flex items-center"
-                title="Alert Box"
-                type="button"
-              >
-                <span className="material-symbols-outlined mr-1 text-sm">warning</span>
-                Alert Box
-              </button>
-              <button
-                onClick={handleVibeInfo}
-                className="px-2 py-1 text-left hover:bg-[#e2dbe6] dark:hover:bg-[#2a2a3e] rounded flex items-center"
-                title="Info Box"
-                type="button"
-              >
-                <span className="material-symbols-outlined mr-1 text-sm">info</span>
-                Info Box
-              </button>
-              <button
-                onClick={handleVibePixelBanner}
-                className="px-2 py-1 text-left hover:bg-[#e2dbe6] dark:hover:bg-[#2a2a3e] rounded flex items-center"
-                title="Pixel Art Banner"
-                type="button"
-              >
-                <span className="material-symbols-outlined mr-1 text-sm">theaters</span>
-                Pixel Banner
-              </button>
-              <button
-                onClick={handleVibeCodeBlock}
-                className="px-2 py-1 text-left hover:bg-[#e2dbe6] dark:hover:bg-[#2a2a3e] rounded flex items-center"
-                title="Colorful Code Block"
-                type="button"
-              >
-                <span className="material-symbols-outlined mr-1 text-sm">code</span>
-                Code Block
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
 
       {/* Link button */}
       <button
@@ -343,7 +248,26 @@ const VibeTipTapToolbar: React.FC<VibeTipTapToolbarProps> = ({
             editor.chain().focus().extendMarkRange('link').unsetLink().run();
             return;
           }
-          editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+          // Check if text is selected, if not, use the URL as link text
+          const { from, to } = editor.state.selection;
+          const selectedText = editor.state.doc.textBetween(from, to);
+          
+          if (!selectedText) {
+            // If no text is selected, insert the URL as both text and link
+            editor
+              .chain()
+              .focus()
+              .insertContent(`<a href="${url}">${url}</a>`)
+              .run();
+          } else {
+            // If text is selected, make it a link
+            editor
+              .chain()
+              .focus()
+              .extendMarkRange('link')
+              .setLink({ href: url })
+              .run();
+          }
         }}
         className={`p-2 rounded hover:bg-[#e2dbe6] dark:hover:bg-[#2a2a3e] text-[#161118] dark:text-[#f5f7f8] ${
           editor.isActive('link') ? 'bg-[#e2dbe6] dark:bg-[#2a2a3e]' : ''

@@ -144,7 +144,7 @@ export default function RootLayout({
         <TopNavWrapper />
         <div className="relative min-h-screen">
           {/* Desktop sidebar - only shown on large screens and positioned correctly */}
-          <div className="fixed inset-y-0 left-0 z-40 w-72 hidden lg:flex">
+          <div className="fixed inset-y-0 left-0 z-10 w-72 hidden lg:flex">
             <NavbarWrapper />
           </div>
           {/* Main content area */}

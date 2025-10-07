@@ -59,7 +59,7 @@ const WeeklyVibeRanking = () => {
   if (loading) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Weekly Vibe Ranking</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Top Vibe Coding Projects</h2>
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
             <div className="aspect-video w-full rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
@@ -90,7 +90,7 @@ const WeeklyVibeRanking = () => {
   if (error) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Weekly Vibe Ranking</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Top Vibe Coding Projects</h2>
         <div className="text-red-500">Error: {error}</div>
       </div>
     );
@@ -99,7 +99,10 @@ const WeeklyVibeRanking = () => {
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Weekly Vibe Ranking</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Top Vibe Coding Projects</h2>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        This week's most popular Vibe Coding projects
+      </p>
       
       {/* Container for scrollable content with improved mobile experience */}
       <div className="relative group">
@@ -138,7 +141,7 @@ const WeeklyVibeRanking = () => {
           
           {rankingItems.length === 0 && (
             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-              No projects found for this week's ranking.
+              No Vibe Coding projects found for this week's ranking.
             </div>
           )}
         </div>

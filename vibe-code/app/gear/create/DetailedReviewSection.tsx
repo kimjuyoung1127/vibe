@@ -5,20 +5,10 @@ import { DetailedReviewSectionProps } from '@/app/types/gear';
 import VibeTipTapEditor from '@/app/components/VibeTipTapEditor';
 
 const DetailedReviewSection: React.FC<DetailedReviewSectionProps> = ({ formData, setFormData }) => {
-  const [fontPreference, setFontPreference] = useState('Modern Sans-serif');
-
   const handleContentChange = (content: string) => {
     setFormData(prev => ({
       ...prev,
       content
-    }));
-  };
-
-  const handleFontChange = (font: string) => {
-    setFontPreference(font);
-    setFormData(prev => ({
-      ...prev,
-      fontPreference: font
     }));
   };
 
@@ -38,8 +28,7 @@ const DetailedReviewSection: React.FC<DetailedReviewSectionProps> = ({ formData,
             onContentChange={handleContentChange}
             maxWidthClass="max-w-[65ch]"
             containerClass="max-w-[672px] md:max-w-[768px] lg:max-w-[896px] xl:max-w-[960px] mx-auto"
-            initialFontPreference={formData.fontPreference || 'Modern Sans-serif'}
-            onFontChange={handleFontChange} content={''}          />
+            content={''}          />
         </div>
       </div>
     </div>

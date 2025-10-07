@@ -43,7 +43,7 @@ export interface CoreInfoSectionProps {
     content: string;
     heroImageUrl: string;
     demoVideoUrl: string;
-    fontPreference: string;
+    category: string;
     categoryTags: string;
   }>>;
 }
@@ -51,17 +51,20 @@ export interface CoreInfoSectionProps {
 // Props for the CategorizationSection component
 export interface CategorizationSectionProps {
   formData: {
-    category: string | number | readonly string[] | undefined;
+    category: string;
     categoryTags: string;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  setFormData: React.Dispatch<React.SetStateAction<{
+    category: string;
+    categoryTags: string;
+  }>>;
 }
 
 // Props for the DetailedReviewSection component
 export interface DetailedReviewSectionProps {
   formData: {
     content: string;
-    fontPreference: string;
   };
   setFormData: React.Dispatch<React.SetStateAction<{
     title: string;
@@ -72,7 +75,7 @@ export interface DetailedReviewSectionProps {
     content: string;
     heroImageUrl: string;
     demoVideoUrl: string;
-    fontPreference: string;
+    category: string;
     categoryTags: string;
   }>>;
 }
@@ -92,7 +95,7 @@ export interface MediaSectionProps {
     content: string;
     heroImageUrl: string;
     demoVideoUrl: string;
-    fontPreference: string;
+    category: string;
     categoryTags: string;
   }>>;
 }
@@ -109,7 +112,7 @@ export interface ActionButtonsProps {
     content: string;
     heroImageUrl: string;
     demoVideoUrl: string;
-    fontPreference: string;
+    category: string;
     categoryTags: string;
   };
   isEditing?: boolean;
@@ -125,7 +128,6 @@ export interface ReviewData {
   content: string;
   hero_image_url: string | null;
   demo_video_url: string | null;
-  font_preference: string;
   vibe_check_count: number;
   comment_count: number;
   created_at: string;

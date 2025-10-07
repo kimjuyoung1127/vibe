@@ -1,38 +1,63 @@
 "use client";
 
-import React from 'react';
-import { getCommonCategoryTagsOptions } from '@/app/projects/create/utils/suggestionUtils';
+import React, { useMemo } from 'react';
+import AdvancedSelect from '@/app/components/AdvancedSelect';
+import { 
+  getCommonGearCategoryOptions,
+  getCommonGearTagsOptions 
+} from './utils/suggestionUtils';
 import { CategorizationSectionProps } from '@/app/types/gear';
 
-const CategorizationSection: React.FC<CategorizationSectionProps> = ({ formData, handleChange }) => {
-  // Get category options
-  const categoryOptions = getCommonCategoryTagsOptions();
-  
+const CategorizationSection: React.FC<CategorizationSectionProps> = ({ 
+  formData, 
+  handleChange,
+  setFormData 
+}) => {
+  // Memoize options to prevent re-computation on every render
+  const gearCategoryOptions = useMemo(getCommonGearCategoryOptions, []);
+  const gearTagsOptions = useMemo(getCommonGearTagsOptions, []);
+
+  // Convert string props to string arrays for the AdvancedSelect component
+  const toArray = (str: string, delimiter: string | RegExp = /[, \\n]/) =>
+    str ? str.split(delimiter).map((s) => s.trim()).filter(Boolean) : [];
+
+  // Generic handler to join arrays into strings with custom delimiters
+  const handleCategoryChange = (selected: string[]) => {
+    setFormData(prev => ({
+      ...prev,
+      category: selected.join(', ')
+    }));
+  };
+
+  const handleTagsChange = (selected: string[]) => {
+    setFormData(prev => ({
+      ...prev,
+      categoryTags: selected.join(', ')
+    }));
+  };
+
   return (
     <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6">
       <h2 className="text-[#161118] dark:text-[#f5f7f8] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-4">
         Categorization
       </h2>
       
-      <div className="space-y-4">
-        <div>
-          <label className="block text-[#161118] dark:text-[#f5f7f8] text-sm font-medium mb-1">
-            Category
-          </label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="w-full bg-white dark:bg-[#0f0f1a] border border-[#e2dbe6] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <option value="">Select a category</option>
-            {categoryOptions.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className="space-y-6">
+        <AdvancedSelect
+          title="Gear Category"
+          options={gearCategoryOptions}
+          selectedValues={toArray(formData.category)}
+          onChange={handleCategoryChange}
+          placeholder="Search or select a category (e.g., Laptop, IDE, AI Tool)"
+        />
+        
+        <AdvancedSelect
+          title="Tags"
+          options={gearTagsOptions}
+          selectedValues={toArray(formData.categoryTags)}
+          onChange={handleTagsChange}
+          placeholder="Search or add tags (e.g., Budget, Portable, High Performance)"
+        />
       </div>
     </div>
   );

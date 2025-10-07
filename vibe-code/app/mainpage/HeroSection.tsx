@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 import VibeFlowBackground from '@/app/components/VibeFlowBackground';
 
 const ActionButton = ({ children, onClick, primary = true }: { children: React.ReactNode, onClick?: () => void, primary?: boolean }) => {
-  const primaryClasses = `bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-blue-500/30`;
-  const secondaryClasses = `bg-black/30 text-sky-300 border border-sky-500/50 hover:bg-sky-500/10`;
+  const primaryClasses = `bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30`;
+  const secondaryClasses = `bg-black/30 text-cyan-300 border border-cyan-500/50 hover:bg-cyan-500/10`;
 
   return (
     <motion.button
@@ -25,10 +25,10 @@ const ActionButton = ({ children, onClick, primary = true }: { children: React.R
 
 const HeroSection = () => {
   const heroContent = {
-    title: "VibeHub: Your Developer Playground",
-    subtitle: "From side projects and gear reviews to coding tips. Share your developer journey and get inspired.",
-    primaryButtonText: "Showcase Your Project",
-    secondaryButtonText: "Explore Projects",
+    title: "VibeHub: The Home of Vibe Coding",
+    subtitle: "Discover, promote, and master the revolutionary approach of AI-assisted development where intent drives code rather than syntax.",
+    primaryButtonText: "Share Your Vibe Project",
+    secondaryButtonText: "Explore Vibe Coding",
   };
 
   const handleNavigation = (path: string) => {
@@ -38,7 +38,7 @@ const HeroSection = () => {
   return (
     <div className="p-4 bg-gradient-to-br from-[#0a192f] via-[#0f2747] to-[#0a192f] overflow-hidden w-full max-w-full">
       <div className="relative flex min-h-[400px] sm:min-h-[500px] flex-col items-start justify-end gap-6 sm:gap-8
-                      overflow-hidden rounded-xl p-6 sm:p-8 shadow-2xl shadow-blue-500/20 max-w-full w-full">
+                      overflow-hidden rounded-xl p-6 sm:p-8 shadow-2xl shadow-cyan-500/20 max-w-full w-full">
         
         {/* Three.js Canvas Background */}
         <div className="absolute inset-0 z-0 overflow-hidden w-full h-full">
@@ -50,7 +50,7 @@ const HeroSection = () => {
           >
             <Suspense fallback={null}>
               <VibeFlowBackground
-                lineColor="#38bdf8"
+                lineColor="#06b6d4"
                 nodeColor="#0ea5e9"
                 trailColor="#3b82f6"
               />
@@ -67,7 +67,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-3xl sm:text-4xl font-extrabold leading-tight text-sky-200 drop-shadow-[0_0_12px_#38bdf8] max-w-full truncate"
+            className="text-3xl sm:text-4xl font-extrabold leading-tight text-cyan-200 drop-shadow-[0_0_12px_#06b6d4] max-w-full break-words"
           >
             {heroContent.title}
           </motion.h1>
@@ -75,7 +75,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="max-w-full text-sm sm:text-base text-blue-200 drop-shadow max-w-full truncate"
+            className="max-w-full text-sm sm:text-base text-blue-200 drop-shadow max-w-full break-words"
           >
             {heroContent.subtitle}
           </motion.h2>

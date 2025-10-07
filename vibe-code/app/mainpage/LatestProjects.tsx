@@ -58,7 +58,7 @@ const LatestProjects = () => {
   if (loading) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe Coding Projects</h2>
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[...Array(3)].map((_, index) => (
             <div key={index} className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
@@ -77,7 +77,7 @@ const LatestProjects = () => {
   if (error) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe Coding Projects</h2>
         <div className="text-red-500 w-full text-center py-8">Error: {error}</div>
       </div>
     );
@@ -86,7 +86,10 @@ const LatestProjects = () => {
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Projects</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Vibe Coding Projects</h2>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        Explore the latest projects showcasing the Vibe Coding methodology
+      </p>
       
       {/* Container for scrollable content with improved mobile experience */}
       <div className="relative group">
@@ -125,7 +128,7 @@ const LatestProjects = () => {
           
           {projectItems.length === 0 && (
             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-              No projects found.
+              No Vibe Coding projects found.
             </div>
           )}
         </div>

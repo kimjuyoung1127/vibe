@@ -20,7 +20,6 @@ type ReviewData = {
   content: string;
   hero_image_url: string | null;
   demo_video_url: string | null;
-  font_preference: string;
   vibe_check_count: number;
   comment_count: number;
   created_at: string;
@@ -57,7 +56,6 @@ const ToolTechReviewDetail = () => {
             overall_rating,
             content,
             hero_image_url,
-            font_preference,
             vibe_check_count,
             comment_count,
             created_at,
@@ -89,7 +87,6 @@ const ToolTechReviewDetail = () => {
           content: data.content,
           hero_image_url: data.hero_image_url ?? null,
           demo_video_url: null, // Not currently stored in the database
-          font_preference: data.font_preference,
           vibe_check_count: data.vibe_check_count,
           comment_count: data.comment_count,
           created_at: data.created_at,

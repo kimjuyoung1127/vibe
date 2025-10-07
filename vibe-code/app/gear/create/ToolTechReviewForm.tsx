@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
 import VibeTipTapEditor from '@/app/components/VibeTipTapEditor';
 import MediaSection from './MediaSection';
+import CategorizationSection from './CategorizationSection';
 
 const ToolTechReviewForm = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const ToolTechReviewForm = () => {
     content: '',
     heroImageUrl: '',
     demoVideoUrl: '',
-    fontPreference: 'Modern Sans-serif',
+    category: '',
     categoryTags: '',
   });
 
@@ -58,7 +59,7 @@ const ToolTechReviewForm = () => {
           content: data.content || '',
           heroImageUrl: data.hero_image_url || '',
           demoVideoUrl: data.demo_video_url || '',
-          fontPreference: data.font_preference || 'Modern Sans-serif',
+          category: '', // Fetched separately
           categoryTags: '' // Fetched separately
         });
         
@@ -136,7 +137,6 @@ const ToolTechReviewForm = () => {
         content: formData.content.trim() || null,
         hero_image_url: formData.heroImageUrl?.trim() || null,
         demo_video_url: formData.demoVideoUrl?.trim() || null,
-        font_preference: formData.fontPreference,
         is_public: false,
         updated_at: new Date().toISOString()
       };
@@ -202,7 +202,6 @@ const ToolTechReviewForm = () => {
         content: formData.content.trim(),
         hero_image_url: formData.heroImageUrl?.trim() || null,
         demo_video_url: formData.demoVideoUrl?.trim() || null,
-        font_preference: formData.fontPreference,
         is_public: true // Publishing the review
       };
 
@@ -289,23 +288,66 @@ const ToolTechReviewForm = () => {
               heroImageUrl: formData.heroImageUrl, 
               demoVideoUrl: formData.demoVideoUrl 
             }} 
-            setFormData={setFormData} 
+            setFormData={(update) => {
+              setFormData(prev => {
+                // Get the updates from the media section
+                const updates = typeof update === 'function' ? update({
+                  heroImageUrl: prev.heroImageUrl,
+                  demoVideoUrl: prev.demoVideoUrl,
+                  title: '',
+                  toolTechName: '',
+                  overallRating: 0,
+                  oneLinerPros: '',
+                  oneLinerCons: '',
+                  content: '',
+                  category: '',
+                  categoryTags: ''
+                }) : update;
+                
+                // Apply only the updates relevant to media
+                return {
+                  ...prev,
+                  heroImageUrl: updates.heroImageUrl ?? prev.heroImageUrl,
+                  demoVideoUrl: updates.demoVideoUrl ?? prev.demoVideoUrl
+                };
+              });
+            }} 
           />
         </div>
 
         <div className="p-4 border-t border-[#e2dbe6] dark:border-[#2a2a3e]">
           <h2 className="text-[#161118] dark:text-[#f5f7f8] text-xl font-semibold mb-4">Detailed Review</h2>
           <p className="text-[#7c608a] text-sm mb-4">Write your detailed review of the tool or technology.</p>
-          <VibeTipTapEditor initialContent={formData.content || ''} initialFontPreference={formData.fontPreference} onContentChange={(newContent) => setFormData(prev => ({ ...prev, content: newContent }))} onFontChange={(newFont) => setFormData(prev => ({ ...prev, fontPreference: newFont }))} content={formData.content} />
+          <VibeTipTapEditor initialContent={formData.content || ''}  onContentChange={(newContent) => setFormData(prev => ({ ...prev, content: newContent }))} content={formData.content} />
         </div>
 
         <div className="p-4 border-t border-[#e2dbe6] dark:border-[#2a2a3e]">
-          <h2 className="text-[#161118] dark:text-[#f5f7f8] text-xl font-semibold mb-4">Categorization & Tags</h2>
-          <div className="mb-6">
-            <label htmlFor="categoryTags" className="block text-[#7c608a] text-sm font-medium mb-2">Category Tags</label>
-            <input id="category" name="category" type="text" value={formData.categoryTags} onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))} placeholder="e.g., Development, Design, Productivity (comma separated)" className="w-full px-4 py-3 rounded-lg border border-[#e2dbe6] dark:border-[#2a2a3e] bg-white dark:bg-[#0f0f1a] text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
-            <p className="mt-1 text-[#7c608a] text-sm">Separate tags with commas</p>
-          </div>
+          <CategorizationSection 
+            formData={{ 
+              category: formData.category, 
+              categoryTags: formData.categoryTags 
+            }} 
+            handleChange={(e) => setFormData(prev => ({ 
+              ...prev, 
+              [e.target.name]: e.target.value 
+            }))} 
+            setFormData={(update) => {
+              setFormData(prev => {
+                // Get the updates from the categorization section
+                const updates = typeof update === 'function' ? update({
+                  category: prev.category,
+                  categoryTags: prev.categoryTags
+                }) : update;
+                
+                // Apply only the updates relevant to categorization
+                return {
+                  ...prev,
+                  category: updates.category ?? prev.category,
+                  categoryTags: updates.categoryTags ?? prev.categoryTags
+                };
+              });
+            }} 
+          />
         </div>
 
         <div className="p-4 border-t border-[#e2dbe6] dark:border-[#2a2a3e]">

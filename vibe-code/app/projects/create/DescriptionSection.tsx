@@ -23,8 +23,7 @@ const DescriptionSection = ({
         onContentChange={setDescription}
         maxWidthClass="max-w-[65ch]"
         containerClass="max-w-[672px] md:max-w-[768px] lg:max-w-[896px] xl:max-w-[960px] mx-auto"
-        initialFontPreference={fontPreference}
-        onFontChange={setFontPreference} content={''}      />
+        content={''}      />
       
       {/* Display errors if any */}
       {errors.description && <p className="text-red-500 text-sm mt-1 ml-4">{errors.description}</p>}

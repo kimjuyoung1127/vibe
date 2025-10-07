@@ -34,7 +34,6 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ loading, formData, isEdit
         content: formData.content,
         hero_image_url: formData.heroImageUrl,
         demo_video_url: formData.demoVideoUrl,
-        font_preference: formData.fontPreference
       };
 
       let result;

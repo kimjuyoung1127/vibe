@@ -34,8 +34,8 @@ const TopNav = () => {
   return (
     <>
       <header className="sticky top-0 z-20 flex items-center justify-between border-b border-primary/20 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:bg-background-dark/80 md:px-10 overflow-visible">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-3 text-primary">
+        <div className="flex items-center gap-8 z-30">
+          <Link href="/" className="flex items-center gap-3 text-primary cursor-pointer">
             <img 
               src="/images/200.svg" 
               alt="Vibe Hub Logo"
@@ -45,7 +45,7 @@ const TopNav = () => {
             />
             <h2 className="text-lg font-bold tracking-tighter text-black dark:text-white">Vibe Hub</h2>
           </Link>
-          <nav className="hidden items-center gap-6 text-sm font-medium lg:flex">
+          <nav className="hidden items-center gap-1 text-sm font-medium lg:flex z-30">
             {['/', '/projects', '/gear', '/community', '/news'].map((path) => {
               const label = path === '/' ? 'Home' : 
                           path === '/projects' ? 'Projects' : 
@@ -57,7 +57,7 @@ const TopNav = () => {
                   key={path} 
                   className={`${isActive 
                     ? 'text-primary font-bold' 
-                    : 'text-black/60'} transition-colors hover:text-black dark:text-white/60 dark:hover:text-white`}
+                    : 'text-black/60'} transition-colors hover:text-black dark:text-white/60 dark:hover:text-white cursor-pointer px-4 py-2 rounded-lg hover:bg-primary/10`}
                   href={path}
                 >
                   {label}
@@ -67,7 +67,7 @@ const TopNav = () => {
           </nav>
         </div>
         <div className="flex items-center justify-end gap-4">
-          <div className="hidden sm:block">
+          <div className="hidden sm:block z-10">
             <SearchBar />
           </div>
         
@@ -95,7 +95,7 @@ const TopNav = () => {
         <div className="lg:hidden fixed inset-0 z-30 bg-black/50" onClick={() => setIsMobileMenuOpen(false)}>
           <div className="absolute left-0 top-0 h-full w-64 bg-background-light dark:bg-background-dark p-4" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-6">
-              <Link href="/" className="flex items-center gap-3 text-primary">
+              <Link href="/" className="flex items-center gap-3 text-primary cursor-pointer z-30">
                 <img 
                   src="/images/200.svg" 
                   alt="Vibe Hub Logo"

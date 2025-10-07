@@ -1,54 +1,27 @@
-# Progress Update - October 5, 2025
 
-## Issues Fixed
 
-### 1. Mobile Viewport Horizontal Scrolling Issue
-**Problem**: The main page was not properly constrained on mobile devices, causing horizontal scrolling and layout overflow.
+## 2025년 10월 5일: 메인 페이지 모바일 반응형 레이아웃 버그 수정
 
-**Solution**: 
-- Restructured the main layout in `app/layout.tsx` to use a relative positioning approach
-- Changed from a flex container with two children (Navbar + Content) to a structure where the navbar is positioned independently
-- Used `fixed` positioning for the desktop navbar and proper content offset with `lg:ml-72`
+**주요 작업:** 메인 페이지(`app/page.tsx`)에서만 발생하던 모바일 화면 가로 스크롤 현상 해결
 
-**Result**: The main page now properly respects mobile viewport dimensions without horizontal scrolling.
+**진행 상황:** 완료
 
-### 2. HeroSection Mobile Responsiveness
-**Problem**: The HeroSection component had fixed dimensions and sizing that didn't adapt well to mobile screens.
+### 디버깅 과정 요약
 
-**Solution**:
-- Adjusted minimum height from 500px to 400px for mobile (`min-h-[400px] sm:min-h-[500px]`)
-- Refined padding and spacing for different screen sizes
-- Improved text sizing with responsive classes (`text-3xl sm:text-4xl` for heading)
-- Removed flex-row layout on small screens to prevent horizontal button layout issues
+1.  **문제 현상:** 모바일 기기에서 메인 페이지를 볼 때, 화면이 고정되지 않고 가로로 스크롤되는 문제가 발생함.
+2.  **초기 진단 (잘못된 접근):**
+    *   `Navbar`의 `localStorage` 상태 유지 문제로 추측 -> `localStorage` 적용 후에도 문제 지속.
+    *   `layout.tsx`의 구조 문제로 추측 -> `Navbar`와 `TopNav`를 중앙 레이아웃으로 통합했으나 문제 지속.
+    *   `topnav.tsx`의 `whitespace-nowrap` 속성 문제로 추측 -> 제거 후에도 문제 지속.
+3.  **문제 범위 축소:** 사용자 피드백을 통해 문제가 다른 페이지가 아닌 **메인 페이지**에만 국한됨을 확인.
+4.  **원인 분석:** 메인 페이지를 구성하는 4개의 하위 컴포넌트(`HeroSection`, `WeeklyVibeRanking` 등)를 분석.
+    *   `HeroSection` 내부의 특정 요소(Canvas, 텍스트 박스 등)가 명시적인 너비 제한이 없어 모바일 화면보다 크게 렌더링되는 것을 근본 원인으로 추정.
+5.  **최종 해결 (사용자 직접 수정):**
+    *   사용자께서 `HeroSection.tsx` 내부의 여러 요소에 `w-full`, `max-w-full`, `overflow-hidden` 등의 너비 제한 클래스를 명시적으로 추가하여, 어떤 요소도 부모 컨테이너의 너비를 초과할 수 없도록 수정함.
+    *   이 수정으로 인해 페이지의 너비가 모바일 뷰포트에 맞게 고정되면서 가로 스크롤 문제가 최종적으로 해결됨.
 
-**Result**: The HeroSection now displays appropriately sized elements on mobile devices.
+### 이번 작업을 통해 배운 점
 
-### 3. Horizontal Scrolling Components Enhancement
-**Problem**: The main page components (LatestProjects, VibeNews, WeeklyVibeRanking) had horizontal scrolling but needed improvements for better mobile experience.
-
-**Solution**:
-- Added gradient overlays to indicate scrollable content
-- Implemented snap scrolling (`snap-x snap-mandatory`) for better mobile interaction
-- Added smooth scrolling behavior (`scroll-smooth`)
-- Adjusted card widths for mobile (`w-64 sm:w-72`) 
-- Added text truncation to prevent overflow
-- Improved touch scrolling experience
-
-**Result**: Horizontal scrolling components now have a much better user experience on mobile devices.
-
-### 4. Desktop Navbar Visibility
-**Problem**: After fixing the mobile layout, the desktop navbar disappeared.
-
-**Solution**:
-- Corrected the navbar container classes to `hidden lg:flex`
-- Properly positioned the navbar with `fixed` positioning
-- Maintained content offset with `lg:ml-72` for desktop
-
-**Result**: Desktop navbar is now visible and functional while maintaining mobile fixes.
-
-## Overall Impact
-
-- Mobile users now experience a properly constrained viewport without horizontal scrolling
-- Desktop users continue to have access to the sidebar navigation
-- Main page components have improved mobile touch interactions
-- All changes maintain the retro pop art design aesthetic of Vibe Hub
+- **가장 기본적인 전제조건 확인의 중요성:** `viewport` 메타 태그와 같이 반응형 웹의 가장 기본적인 설정을 먼저 확인하는 것이 중요하다. 이번에는 이 태그가 누락되어 있었고, 이로 인해 오랜 시간 동안 문제의 진짜 원인을 파악하지 못했다.
+- **사용자 피드백의 신뢰:** 사용자가 특정 컴포넌트(`HeroSection`)를 문제의 원인으로 지목했을 때, 그 직감을 더 신뢰하고 깊게 분석해야 했다. 시스템의 논리만 따르다가 사용자의 실제 경험을 놓칠 수 있다.
+- **숨겨진 너비 문제:** 눈에 보이는 CSS 속성 외에도, 스크립트로 제어되는 동적 요소(예: Three.js Canvas)가 부모의 너비 제한을 무시하고 레이아웃을 깨뜨릴 수 있다. 의심스러운 모든 컨테이너에 `overflow-hidden`이나 `max-w-full`을 명시적으로 추가하는 것이 복잡한 버그를 예방하는 효과적인 방법일 수 있다.
