@@ -42,7 +42,7 @@ const GitHubLoginButton: React.FC<GitHubLoginButtonProps> = ({
     <button
       onClick={handleGitHubLogin}
       disabled={loading}
-      className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
+      className="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-base font-medium text-gray-700 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
     >
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path
@@ -51,7 +51,7 @@ const GitHubLoginButton: React.FC<GitHubLoginButtonProps> = ({
           clipRule="evenodd"
         />
       </svg>
-      <span className="ml-2">GitHub</span>
+      <span className="ml-3">Sign in with GitHub</span>
     </button>
   );
 };

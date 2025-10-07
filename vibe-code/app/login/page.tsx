@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import AuthForm from './components/AuthForm';
 import OAuthSection from './components/OAuthSection';
 
 const LoginPage = () => {
@@ -24,21 +23,16 @@ const LoginPage = () => {
           </div>
         )}
 
-        <AuthForm 
-          onError={setError}
-          onLoadingChange={() => {}} // We can implement this if needed
-        />
-
         <OAuthSection 
           onError={setError}
           onLoadingChange={() => {}} // We can implement this if needed
         />
-
+        
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Don't have an account?{' '}
-            <a href="#" className="font-medium text-primary hover:text-primary/80">
-              Sign up
+            Didn't receive confirmation email?{' '}
+            <a href="/resend-confirmation" className="font-medium text-primary hover:text-primary/80">
+              Resend confirmation
             </a>
           </p>
         </div>
