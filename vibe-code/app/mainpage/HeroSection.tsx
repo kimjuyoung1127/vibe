@@ -7,7 +7,7 @@ import { useTranslations } from '@/app/hooks/useTranslations';
 import * as THREE from 'three';
 
 // ActionButton Component
-const ActionButton = ({ children, onClick, primary = true }: { children: React.ReactNode, onClick?: () => void, primary?: boolean }) => {
+const ActionButton = ({ children, onClick, primary = true, className = '' }: { children: React.ReactNode, onClick?: () => void, primary?: boolean, className?: string }) => {
   const primaryClasses = `bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg shadow-cyan-500/30`;
   const secondaryClasses = `bg-white/10 backdrop-blur-sm text-cyan-200 border border-cyan-500/50 hover:bg-cyan-500/20`;
 
@@ -18,7 +18,7 @@ const ActionButton = ({ children, onClick, primary = true }: { children: React.R
       onClick={onClick}
       className={`relative z-10 flex h-12 items-center justify-center whitespace-nowrap rounded-lg 
                  px-8 text-base font-bold transition-all duration-300
-                 ${primary ? primaryClasses : secondaryClasses}`}
+                 ${primary ? primaryClasses : secondaryClasses} ${className}`}
     >
       <span className="truncate">{children}</span>
     </motion.button>
@@ -99,32 +99,53 @@ const HeroSection = () => {
       </Canvas>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-        <div className="bg-black/20 backdrop-blur-md p-8 rounded-2xl max-w-4xl w-full shadow-2xl shadow-cyan-500/10 border border-white/10">
+        <div className="bg-black/20 backdrop-blur-md p-6 sm:p-8 rounded-2xl max-w-4xl w-full shadow-2xl shadow-cyan-500/10 border border-white/10">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-white drop-shadow-[0_0_20px_rgba(0,255,255,0.5)] max-w-3xl mx-auto"
           >
-            {heroContent.title}
+            <div className="text-center whitespace-pre-line">
+              {heroContent.title.includes(':') 
+                ? heroContent.title.split(':').map((part, index) => (
+                    <React.Fragment key={index}>
+                      {index > 0 ? <><br className="hidden sm:block" />{part.trim()}</> : part + ':'}
+                    </React.Fragment>
+                  ))
+                : heroContent.title}
+            </div>
           </motion.h1>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-blue-200/80"
+            className="mt-4 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-blue-200/80 leading-relaxed"
           >
-            {heroContent.subtitle}
+            <div className="text-center">
+              {heroContent.subtitle.includes('. ') 
+                ? heroContent.subtitle.split(/\. /).map((sentence, index, array) => (
+                    <React.Fragment key={index}>
+                      {index > 0 && <br className="hidden sm:block" />}
+                      {sentence.trim()}{index < array.length ? '.' : ''}
+                    </React.Fragment>
+                  ))
+                : heroContent.subtitle}
+            </div>
           </motion.h2>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto"
           >
-            <ActionButton onClick={() => handleNavigation('/projects')}>{heroContent.primaryButtonText}</ActionButton>
-            <ActionButton onClick={() => handleNavigation('/google/about')} primary={false}>{heroContent.secondaryButtonText}</ActionButton>
+            <ActionButton onClick={() => handleNavigation('/projects')} className="w-full sm:w-auto">
+              {heroContent.primaryButtonText}
+            </ActionButton>
+            <ActionButton onClick={() => handleNavigation('/google/about')} primary={false} className="w-full sm:w-auto">
+              {heroContent.secondaryButtonText}
+            </ActionButton>
           </motion.div>
         </div>
       </div>

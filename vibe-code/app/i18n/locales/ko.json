@@ -240,8 +240,8 @@
   },
   "mainpage": {
     "hero": {
-      "title": "Vibe Hub: 창의적인 코딩을 위한 커뮤니티",
-      "subtitle": "바이브코딩을 통한 혁신적인 프로젝트, 최신 정보를 발견하고 공유하세요. 다른 개발자들과 소통해보세요.",
+      "title": "Vibe Hub: 바이브코딩을 위한 커뮤니티",
+      "subtitle": "바이브코딩을 통한 혁신적인 프로젝트를 공유하세요. ",
       "primaryButtonText": "프로젝트 탐색",
       "secondaryButtonText": "자세히 알아보기"
     },
@@ -418,17 +418,7 @@
       "bug_free_maybe": "버그 없음... 아마도?",
       "git_blame_proof": "깃 블레임 없는 코드."
     },
-    "categorization": {
-      "title": "분류 및 사양",
-      "keyFeatures": "주요 기능",
-      "techStack": "기술 스택",
-      "devTools": "개발 도구",
-      "categoryTags": "카테고리 태그",
-      "featuresPlaceholder": "기능 검색 또는 직접 추가 (예: 실시간 협업)",
-      "techStackPlaceholder": "기술 스택 검색 또는 직접 추가 (예: React, Python)",
-      "devToolsPlaceholder": "도구 검색 또는 직접 추가 (예: VS Code, Docker)",
-      "categoryTagsPlaceholder": "카테고리 검색 또는 직접 추가 (예: 웹 앱, AI/ML)"
-    },
+    
     "categories": {
       "innovation": "혁신/새로움",
       "utility": "유틸리티/실용성",
