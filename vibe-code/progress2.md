@@ -1,53 +1,294 @@
-## 2025년 10월 7일: 카테고리 선택 시 게시되는 문제 수정
+## October 7, 2025: Fixing Post Issue When Selecting Categories
 
-**주요 작업:** AdvancedSelect 컴포넌트 내의 버튼 타입 오류로 인한 게시 문제 해결
+**Main Work:** Fixed post issue caused by button type error in AdvancedSelect component
 
-**진행 상황:** 완료
+**Status:** Completed
 
-### 디버깅 과정 요약
+### Debugging Process Summary
 
-1.  **문제 현상:** 기어/리뷰 작성 페이지에서 카테고리를 선택하면 폼이 자동으로 게시(Submit)되는 문제가 발생함.
-2.  **초기 진단:**
-    *   카테고리 선택 시 폼 상태가 완료 상태로 인식되어 자동 제출되는 것으로 추정
-    *   AdvancedSelect 컴포넌트에서 폼 제출을 트리거하는 요소가 있는지 조사
-3.  **문제 범위 축소:** 
-    *   문제는 ToolTechReviewForm.tsx에 있는 CategorizationSection에서 사용하는 AdvancedSelect 컴포넌트에 있음
-4.  **원인 분석:** 
-    *   AdvancedSelect.tsx 컴포넌트 내부의 여러 버튼들(button 요소)이 명시적인 `type` 속성을 가지고 있지 않아, 기본값인 `type=\"submit\"`으로 동작하고 있었음
-    *   이로 인해 카테고리 선택, 삭제, 펼치기/접기 등 모든 버튼 클릭 시 폼이 제출됨
+1.  **Issue:** When selecting a category on the gear/review creation page, the form was automatically submitted.
+2.  **Initial Diagnosis:**
+    *   When selecting a category, the form state was recognized as completed, causing automatic submission.
+    *   Investigated elements in the AdvancedSelect component that could trigger form submission.
+3.  **Issue Narrowing:** 
+    *   The issue was in the AdvancedSelect component used in CategorizationSection of ToolTechReviewForm.tsx.
+4.  **Root Cause Analysis:** 
+    *   Multiple buttons inside the AdvancedSelect.tsx component didn't have explicit `type` attributes, defaulting to `type="submit"`.
+    *   This caused form submission upon any button click (select, delete, expand/collapse).
 
-5.  **최종 해결:**
-    *   AdvancedSelect.tsx 내부의 모든 button 요소에 `type=\"button\"` 속성 명시적으로 추가
-    *   선택/삭제/접기/펼치기 기능은 폼 제출 없이 상태만 변경
-    *   게시 기능은 Submit 버튼 클릭 시에만 동작하도록 수정
+5.  **Final Solution:**
+    *   Added `type="button"` attribute explicitly to all button elements inside AdvancedSelect.tsx.
+    *   Select/delete/collapse/expand functions now only change state without form submission.
+    *   Posting function now works only when the Submit button is clicked.
 
-### 이번 작업을 통해 배운 점
+### What I Learned from This Work
 
-- **폼 내부 요소의 기본 동작 중요성:** 폼 내부에 있는 button 요소는 특별한 타입 지정 없이도 기본적으로 `type=\"submit\"`으로 동작함
-- **사용자 중심 디자인 필요성:** 사용자가 기대하는 기능(카테고리 선택)과 실제 기능(폼 제출)이 동일 동작으로 연결되지 않도록 분리 필요
-- **재사용 가능한 컴포넌트의 주의:** 폼 외부에서 사용될 수 있는 컴포넌트는 내부 요소의 타입을 명확히 지정하여 예기치 못한 동작 방지
+- **Importance of Default Element Behavior in Forms:** Button elements inside forms default to `type="submit"` without explicit type designation.
+- **Necessity of User-Centric Design:** Functions users expect (category selection) and actual functions (form submission) should be separated to avoid unintended linking.
+- **Caution with Reusable Components:** Components that might be used outside forms should have their internal element types clearly specified to prevent unexpected behavior.
 
 
-## 2025년 10월 7일: 프로필 페이지 및 프로젝트 카드 개선
+## October 7, 2025: Profile Page and Project Card Improvements
 
-**주요 작업:** 프로필 페이지 너비 조정 및 프로젝트 카드 텍스트 표시 개선
+**Main Work:** Adjusting profile page width and improving project card text display
 
-**진행 상황:** 완료
+**Status:** Completed
 
-### 변경 내용 요약
+### Summary of Changes
 
-1.  **프로필 페이지 너비 조정:**
-    *   기존: max-width 960px로 제한된 너비 사용
-    *   변경: 전체 너비 사용으로 변경하여 화면을 더 잘 채우도록 개선
-    *   상단에 12px, 하단에 16px의 여백 추가로 시각적 균형 유지
+1.  **Profile Page Width Adjustment:**
+    *   Previous: Used width limited to max-width 960px.
+    *   Change: Changed to full width to better fill the screen.
+    *   Added 12px margin at the top and 16px at the bottom to maintain visual balance.
     
-2.  **프로젝트 카드 텍스트 표시 개선:**
-    *   기존: 제목은 2줄, 설명은 3줄로 제한
-    *   변경: 제목은 3줄, 설명은 4줄까지 표시 가능하도록 확장
-    *   고정 높이 제거로 더 자연스러운 텍스트 표시
+2.  **Project Card Text Display Improvement:**
+    *   Previous: Title limited to 2 lines, description to 3 lines.
+    *   Change: Expanded to allow 3 lines for title and 4 lines for description.
+    *   Removed fixed height for more natural text display.
 
-### 이번 업데이트의 목적
+### Purpose of This Update
 
-- 사용자 프로필 페이지의 공간 활용도 향상
-- 프로젝트 카드에서 제목과 설명이 더 많이 표시되어 정보 전달력 향상
-- 사용자 경험의 일관성과 직관성 향상
+- Improve space utilization of user profile pages.
+- Enhance information delivery by displaying more title and description text in project cards.
+- Improve consistency and intuitiveness of user experience.
+
+
+## October 7, 2025: Preparing for Google AdSense Approval
+
+**Main Work:** Strengthening site structure and content to meet Google AdSense requirements
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Added AdSense Script:**
+    *   Added Google AdSense script to the `<head>` section of `app/layout.tsx` to prepare for ad display.
+
+2.  **Created `ads.txt` File:**
+    *   Created `public/ads.txt` file to allow Google to verify the site's ad inventory.
+
+3.  **Created and Relocated Essential Policy Pages:**
+    *   Created essential pages for AdSense approval: `About Us`, `Privacy Policy`, `Terms of Service`, `Cookie Policy`, `Content Guidelines`.
+    *   Moved pages from the `google` directory to the `app` directory following Next.js routing rules to fix 404 errors.
+
+4.  **Updated Sitemap and Robots Files:**
+    *   Updated domain addresses in `robots.ts` and `sitemap.ts` to `https://vibehub.tech` to allow search engines to properly crawl and index the site.
+
+5.  **Fixed Footer Links:**
+    *   Updated `footer.tsx` file to ensure all policy page links point to the correct paths.
+
+### Updated Directory Structure
+
+```
+app/
+├── google/
+│   ├── about/
+│   │   └── page.tsx
+│   ├── content-guidelines/
+│   │   └── page.tsx
+│   ├── cookie-policy/
+│   │   └── page.tsx
+│   ├── privacy-policy/
+│   │   └── page.tsx
+│   └── terms-of-service/
+│       └── page.tsx
+├── ... (previous directory structure)
+```
+
+### What I Learned from This Work
+
+- **Next.js Routing:** Next.js App Router operates based on the `app` directory, so pages were crawled and indexed properly.
+
+5.  **Fixed Footer Links:**
+    *   Updated `footer.tsx` file to ensure all policy page links point to the correct paths.
+
+### Updated Directory Structure
+
+```
+app/
+├── google/
+│   ├── about/
+│   │   └── page.tsx
+│   ├── content-guidelines/
+│   │   └── page.tsx
+│   ├── cookie-policy/
+│   │   └── page.tsx
+│   ├── privacy-policy/
+│   │   └── page.tsx
+│   └── terms-of-service/
+│       └── page.tsx
+├── ... (previous directory structure)
+```
+
+### What I Learned from This Work
+
+- **Next.js Routing:** Next.js App Router operates based on the `app` directory, so page files must be located within the `app` directory to function properly. This was confirmed once again.
+- **AdSense Requirements:** Learned that AdSense approval requires not just technical setup (AdSense code, `ads.txt`) but also policy pages (`About Us`, `Privacy Policy`, etc.) and sufficient quality content to increase site credibility.
+- **User Experience:** Realized how important it is to provide users with consistent and predictable navigation experience, as demonstrated in the 404 error resolution process.
+
+
+## October 7, 2025: Implementing Multilingual Support
+
+**Main Work:** Implementing internationalization (i18n) system and adding multilingual support across the entire site
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Internationalization (i18n) System Construction:**
+    *   Created infrastructure for multilingual support in the `app/i18n` directory.
+    *   Configured JSON translation files supporting English (en) and Korean (ko).
+    *   Managed language state globally through `LanguageContext`.
+    *   Made translation functionality easily accessible in components via `useTranslations` hook.
+
+2.  **Main Page Multilingual Support:**
+    *   `HeroSection.tsx`: Multilingual support for hero section title, subtitle, and button text.
+    *   `WeeklyVibeRanking.tsx`: Multilingual support for weekly ranking section title and description.
+    *   `LatestProjects.tsx`: Multilingual support for latest projects section title and description.
+    *   `VibeNews.tsx`: Multilingual support for news section title and description.
+
+3.  **Gear Section Multilingual Support:**
+    *   `ToolTechHeader.tsx`: Multilingual support for tool/tech review header section.
+    *   `ToolTechReviews.tsx`: Multilingual support for tool/tech review list section.
+    *   `ToolTechReviewCard.tsx`: Multilingual support for individual tool/tech review cards.
+    *   `[id]/ToolTechReviewDetail.tsx`: Multilingual support for tool/tech review detail page.
+    *   `[id]/AuthorInfo.tsx`: Multilingual support for author information section.
+
+4.  **Gear Creation Page Multilingual Support:**
+    *   `ToolTechReviewForm.tsx`: Full multilingual support for tool/tech review creation form.
+    *   `MediaSection.tsx`: Multilingual support for media section.
+    *   `CategorizationSection.tsx`: Multilingual support for category and tag section.
+    *   `ActionButtons.tsx`: Multilingual support for action buttons.
+    *   `CoreInfoSection.tsx`: Multilingual support for core information section.
+    *   `DetailedReviewSection.tsx`: Multilingual support for detailed review section.
+
+5.  **Added Translation Keys:**
+    *   Added over 100 new translation keys to the English translation file (`en.json`).
+    *   Added over 100 new translation keys to the Korean translation file (`ko.json`).
+    *   Included translations for all user interface elements.
+
+### Implemented Features
+
+- **Global Language Switching:** Automatic site language change according to user settings.
+- **Translation Key System:** Key-based translation system for improved maintainability.
+- **Default Language Setting:** Set Korean as the default language.
+- **Local Storage Storage:** Store user language settings in local storage for persistence.
+
+### What I Learned from This Work
+
+- **Importance of Internationalization:** Understood how crucial multilingual support is when considering global users.
+- **Structured Approach:** Improved maintainability by systematically organizing translation keys.
+- **Enhanced User Experience:** Multilingual support allows more users to understand and use the site.
+- **Next.js and i18n:** Learned methods and best practices for implementing internationalization in a Next.js environment.
+
+## October 8, 2025: Enhanced Multilingual Support for Project Section
+
+**Main Work:** Completing multilingual support for project section and adding Korean translations
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Project Showcase Page Multilingual Support:**
+    *   `ProjectsShowcase.tsx`: Added translation keys to all text.
+    *   `SearchAndFilter.tsx`: Added translation keys to search and filter sections.
+    *   Completed multilingual support for page header and description text.
+
+2.  **Project Detail Page Multilingual Support:**
+    *   `[id]/ProjectShowcaseDetail.tsx`: Added translation keys to all text in detail page.
+    *   `FeatureList.tsx`: Translation support for feature list related text.
+    *   `TechnologyStack.tsx`: Translation support for technology stack related text.
+    *   `AuthorProfile.tsx`: Translation support for author profile related text.
+    *   `RelatedProjects.tsx`: Multilingual support for related projects section.
+
+3.  **Project Creation Page Multilingual Support:**
+    *   `ProjectCreateForm.tsx`: Added translation keys to entire form structure.
+    *   `CoreInfoSection.tsx`: Multilingual support for core information section.
+    *   `DescriptionSection.tsx`: Multilingual support for description section.
+    *   `CategorizationSection.tsx`: Multilingual support for classification section.
+    *   `LinksSection.tsx`: Multilingual support for links section.
+    *   `StatusSection.tsx`: Multilingual support for status section.
+
+4.  **Project Management and Draft Page Multilingual Support:**
+    *   `DraftsPage.tsx`: Added translation keys to draft management page.
+    *   Applied translations to all UI elements including tabs, buttons, and messages.
+
+5.  **Translation File Updates:**
+    *   Added project-related translation keys to `ko.json` file.
+    *   Provided Korean translations for all new text.
+
+### Implemented Features
+
+- **Complete Project Section Multilingual Support:** Multilingual support completed for entire project browsing, creation, and management process.
+- **Completed Korean Translation:** Optimized translations provided for Korean users.
+- **Consistent User Experience:** Consistent UI display according to language settings throughout the project section.
+
+### What I Learned from This Work
+
+- **Importance of Consistency:** Improved maintainability by consistently organizing translation keys throughout the entire app.
+- **User-Centric Design:** Reconfirmed the importance of UX design considering various language users.
+- **Modularization Benefits:** Component-based translation systems are beneficial for full project expansion.
+
+## October 8, 2025: Community Section Multilingual Support and Translation Improvements
+
+**Main Work:** Implementing community section multilingual support and improving Korean translations to be more natural
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Community Section Multilingual Support:**
+    *   `CommunityHeader.tsx`: Multilingual support for 'Coding Lounge' header section.
+    *   `CommunityPosts.tsx`: Multilingual support for post lists and 'end of lounge' message.
+    *   `PostItem.tsx`: Multilingual support for post item buttons (edit, delete, report).
+    *   `EditPostModal.tsx`: Multilingual support for post editing modal.
+    *   Added new translation keys to both `en.json` and `ko.json` files.
+
+2.  **Improved Naturalness of Korean Translations:**
+    *   Adjusted entire translation text in `ko.json` file to be more natural.
+    *   Changed 'coding tool' related terms to be more natural.
+    *   Standardized 'Vibe Check' instead of 'Vibe 체크'.
+    *   Standardized expressions as 'IT News'.
+    *   Changed to natural Korean expressions appropriate to the context.
+
+3.  **Consistent Translation Application:**
+    *   Consistent terminology usage between sections (main, gear, project, community).
+    *   Maintained consistent translations for common UI elements (buttons, labels, etc.).
+
+### Implemented Features
+
+- **Complete Community Section Multilingual Support:** Multilingual support completed for all functions including post lists, creation, editing, deletion.
+- **Improved Korean Translations:** User-friendly, natural Korean translations provided.
+- **Consistent Multilingual Experience:** Consistent UI display according to language settings throughout the entire site.
+
+### What I Learned from This Work
+
+- **Importance of Multilingual UX:** Need to consider cultural and linguistic appropriateness beyond simple translation.
+- **Necessity of Continuous Improvement:** Translation quality directly impacts user experience, so continuous improvement is necessary.
+- **Importance of Localization:** Importance of providing natural experience to local users beyond simple translation.
+
+## October 8, 2025: Adding Profile Statistics Title Translation
+
+**Main Work:** Adding translation support for the profile statistics section title
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Added New Translation Key:**
+    *   Added `"title": "Profile Statistics"` to the stats section in `en.json` file.
+    *   Added `"title": "프로필 통계"` to the stats section in `ko.json` file.
+
+2.  **Updated UserProfile Component:**
+    *   The translation key `profile.stats.title` is now properly used in `UserProfile.tsx` component.
+    *   This title appears above the statistics section showing user's projects, tool & tech reviews, comments, and vibe checks.
+
+### Implemented Features
+
+- **Profile Statistics Section Title:** The section title "Profile Statistics" (English) or "프로필 통계" (Korean) now appears in the user profile page.
+- **Consistent Translations:** Maintains consistency with other translation keys across the site.
+
+### What I Learned from This Work
+
+- **Importance of Complete Translation Coverage:** Ensured all UI elements, including section headers, are properly translated.
+- **Detail in User Experience:** Properly translated section headers improve the overall user experience for multilingual users.

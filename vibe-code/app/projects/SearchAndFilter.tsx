@@ -9,8 +9,11 @@ import {
   getCommonTechStackOptions
 } from '@/app/projects/create/utils/suggestionUtils';
 import Accordion from '@/app/components/Accordion';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const SearchAndFilter = () => {
+  const { t } = useTranslations();
+  
   // State for filter values
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('newest');
@@ -25,21 +28,21 @@ const SearchAndFilter = () => {
 
   // Sorting options
   const sortOptions = [
-    { value: 'newest', label: 'Sort by: Newest' },
-    { value: 'popular', label: 'Sort by: Most Vibe Checks' },
-    { value: 'trending', label: 'Sort by: Trending' },
-    { value: 'recommended', label: 'Sort by: Recommended' }
+    { value: 'newest', label: t('projects.sort.newest', 'Sort by: Newest') },
+    { value: 'popular', label: t('projects.sort.popular', 'Sort by: Most Vibe Checks') },
+    { value: 'trending', label: t('projects.sort.trending', 'Sort by: Trending') },
+    { value: 'recommended', label: t('projects.sort.recommended', 'Sort by: Recommended') }
   ];
 
   return (
-    <Accordion title="Search & Filter Options">
+    <Accordion title={t('projects.searchFilter.title', 'Search & Filter Options')}>
       <div className="flex flex-wrap items-center justify-center gap-4">
         {/* Search input */}
         <div className="relative flex-grow max-w-xs">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary">search</span>
           <input 
             className="w-full bg-transparent border-b-2 border-primary/40 focus:border-primary py-2 pl-10 pr-3 focus:outline-none transition-colors" 
-            placeholder="Search projects..." 
+            placeholder={t('projects.searchPlaceholder', 'Search projects...')} 
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -67,7 +70,7 @@ const SearchAndFilter = () => {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="all">Category: All</option>
+            <option value="all">{t('projects.category.all', 'Category: All')}</option>
             {categoryOptions.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -82,7 +85,7 @@ const SearchAndFilter = () => {
             value={selectedTool}
             onChange={(e) => setSelectedTool(e.target.value)}
           >
-            <option value="all">Tools: All</option>
+            <option value="all">{t('projects.tools.all', 'Tools: All')}</option>
             {toolOptions.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -97,7 +100,7 @@ const SearchAndFilter = () => {
             value={selectedTech}
             onChange={(e) => setSelectedTech(e.target.value)}
           >
-            <option value="all">Tech Stack: All</option>
+            <option value="all">{t('projects.techStack.all', 'Tech Stack: All')}</option>
             {techOptions.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}

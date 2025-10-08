@@ -3,6 +3,7 @@
 
 import React from 'react';
 import { EditPostModalProps } from '@/app/types/community';
+import { useTranslations } from '../hooks/useTranslations';
 
 const EditPostModal: React.FC<EditPostModalProps> = ({
   isOpen,
@@ -16,41 +17,45 @@ const EditPostModal: React.FC<EditPostModalProps> = ({
   onClose,
   onSave
 }) => {
+  const { t } = useTranslations();
+  
   if (!isOpen || !postToEdit) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-md p-6">
-        <h3 className="text-lg font-bold mb-4">Edit Post</h3>
+        <h3 className="text-lg font-bold mb-4">{t('community.editPost')}</h3>
         
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Title</label>
+          <label className="block text-sm font-medium mb-1">{t('common.title')}</label>
           <input
             type="text"
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
             className="w-full px-3 py-2 border rounded-lg"
+            placeholder={t('community.enterTitle')}
           />
         </div>
         
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Content</label>
+          <label className="block text-sm font-medium mb-1">{t('common.content')}</label>
           <textarea
             value={editContent}
             onChange={(e) => setEditContent(e.target.value)}
             rows={4}
             className="w-full px-3 py-2 border rounded-lg"
+            placeholder={t('community.enterContent')}
           />
         </div>
         
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Tags (comma-separated)</label>
+          <label className="block text-sm font-medium mb-1">{t('common.tags')}</label>
           <input
             type="text"
             value={editTags.join(', ')}
             onChange={(e) => setEditTags(e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag !== ''))}
             className="w-full px-3 py-2 border rounded-lg"
-            placeholder="Enter tags separated by commas"
+            placeholder={t('community.enterTags')}
           />
         </div>
         
@@ -59,13 +64,13 @@ const EditPostModal: React.FC<EditPostModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 border border-gray-300 rounded-lg"
           >
-            Cancel
+            {t('common.cancel')}
           </button>
           <button
             onClick={onSave}
             className="px-4 py-2 bg-primary text-white rounded-lg"
           >
-            Update
+            {t('community.update')}
           </button>
         </div>
       </div>

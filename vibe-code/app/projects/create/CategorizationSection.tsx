@@ -12,6 +12,7 @@ import {
   getCommonKeyFeaturesOptions,
 } from "./utils/suggestionUtils";
 import { CategorizationSectionProps } from "@/app/types/project";
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const CategorizationSection = ({
   features,
@@ -23,6 +24,7 @@ const CategorizationSection = ({
   categoryTags,
   setCategoryTags,
 }: CategorizationSectionProps) => {
+  const { t } = useTranslations();
   // Memoize options to prevent re-computation on every render
   const keyFeaturesOptions = useMemo(getCommonKeyFeaturesOptions, []);
   const techStackOptions = useMemo(getCommonTechStackOptions, []);
@@ -42,7 +44,7 @@ const CategorizationSection = ({
   return (
     <div className="flex flex-col gap-8">
       <h2 className="px-4 pt-5 pb-0 text-[22px] font-bold leading-tight tracking-[-0.015em] text-[#161118]">
-        Categorization & Specifications
+        {t('projects.categorization.title', 'Categorization & Specifications')}
       </h2>
 
       <div className="flex flex-col gap-6 px-4">

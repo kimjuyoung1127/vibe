@@ -4,19 +4,22 @@
 
 import React from 'react';
 import NewPostButton from '../components/NewPostButton';
+import { useTranslations } from '../hooks/useTranslations';
 
 const CommunityHeader = () => {
+  const { t } = useTranslations();
+  
   return (
     <div className="px-4 py-6 md:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl md:text-3xl font-bold tracking-tighter text-primary">
-            Coding Lounge
+            {t('community.codingLounge')}
           </h1>
           <NewPostButton />
         </div>
         <p className="text-base text-[#101c22]/70 dark:text-[#f5f7f8]/70">
-          The community hub for Vibe Coders. Share your thoughts and connect with fellow developers.
+          {t('community.loungeDescription')}
         </p>
       </div>
     </div>

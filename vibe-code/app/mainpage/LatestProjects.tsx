@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 // Define the type for a review item
 interface ReviewItem {
@@ -15,6 +16,7 @@ interface ReviewItem {
 }
 
 const LatestToolTechReviews = () => {
+  const { t } = useTranslations();
   const [reviewItems, setReviewItems] = useState<ReviewItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +60,7 @@ const LatestToolTechReviews = () => {
   if (loading) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Tech Reviews</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.projects.title', 'Latest Tech Reviews')}</h2>
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[...Array(3)].map((_, index) => (
             <div key={index} className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
@@ -77,7 +79,7 @@ const LatestToolTechReviews = () => {
   if (error) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Tech Reviews</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.projects.title', 'Latest Tech Reviews')}</h2>
         <div className="text-red-500 w-full text-center py-8">Error: {error}</div>
       </div>
     );
@@ -86,9 +88,9 @@ const LatestToolTechReviews = () => {
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Latest Tech Reviews</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.projects.title', 'Latest Tech Reviews')}</h2>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        Explore the latest tool & tech reviews from the community
+        {t('mainpage.projects.description', 'Honest reviews of the latest tools and technologies from our community')}
       </p>
       
       {/* Container for scrollable content with improved mobile experience */}
@@ -128,7 +130,7 @@ const LatestToolTechReviews = () => {
           
           {reviewItems.length === 0 && (
             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-              No tech reviews found.
+              {t('common.noTechReviewsFound', 'No tech reviews found.')}
             </div>
           )}
         </div>

@@ -9,6 +9,7 @@ import useUserProfile, { UserProfileData } from '@/app/hooks/useUserProfile';
 import BasicInfoEditor from './BasicInfoEditor';
 import SocialLinksEditor from './SocialLinksEditor';
 import AccountSettingsEditor from './AccountSettingsEditor';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const ProfileEditForm = () => {
   const { userProfile, loading } = useUserProfile();
@@ -16,6 +17,7 @@ const ProfileEditForm = () => {
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const { t } = useTranslations();
 
   // Initialize form data when user profile is loaded
   useEffect(() => {
@@ -67,7 +69,7 @@ const ProfileEditForm = () => {
       }, 3000);
     } catch (error: any) {
       console.error('Error saving profile:', error);
-      setSaveError(error.message || 'Failed to save profile changes. Please try again.');
+      setSaveError(error.message || t('profile.saveError', 'Failed to save profile changes. Please try again.'));
       // Clear error message after 5 seconds
       setTimeout(() => setSaveError(null), 5000);
     } finally {
@@ -79,7 +81,7 @@ const ProfileEditForm = () => {
   const handleDeleteAccount = async () => {
     // Show confirmation dialog
     const confirmed = window.confirm(
-      'Are you sure you want to delete your account? This action cannot be undone. All your data will be permanently deleted.'
+      t('profile.deleteConfirmation', 'Are you sure you want to delete your account? This action cannot be undone. All your data will be permanently deleted.')
     );
     
     if (!confirmed) return;
@@ -117,7 +119,7 @@ const ProfileEditForm = () => {
       window.location.href = '/';
     } catch (error: any) {
       console.error('Error deleting account:', error);
-      setSaveError(error.message || 'Failed to delete account. Please try again.');
+      setSaveError(error.message || t('profile.deleteAccountError', 'Failed to delete account. Please try again.'));
       // Clear error message after 5 seconds
       setTimeout(() => setSaveError(null), 5000);
     } finally {
@@ -145,7 +147,7 @@ const ProfileEditForm = () => {
             className="flex items-center gap-2 text-primary hover:underline"
           >
             <span className="material-symbols-outlined">arrow_back</span>
-            <span>Back to Profile</span>
+            <span>{t('common.backToProfile', 'Back to Profile')}</span>
           </Link>
         </div>
         
@@ -153,10 +155,10 @@ const ProfileEditForm = () => {
         <div className="flex flex-wrap justify-between gap-3 px-4 py-4 border-b border-primary/10 dark:border-primary/20">
           <div className="flex min-w-72 flex-col gap-3">
             <p className="text-[#161118] dark:text-[#f5f7f8] tracking-light text-[32px] font-bold leading-tight">
-              Edit My Profile
+              {t('profile.editProfile', 'Edit My Profile')}
             </p>
             <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm font-normal leading-normal">
-              Update your profile information and preferences
+              {t('profile.updateInfo', 'Update your profile information and preferences')}
             </p>
           </div>
         </div>
@@ -165,8 +167,8 @@ const ProfileEditForm = () => {
         {saveSuccess && (
           <div className="px-4 py-2">
             <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-              <strong className="font-bold">Success! </strong>
-              <span className="block sm:inline">Profile updated successfully.</span>
+              <strong className="font-bold">{t('common.success', 'Success! ')} </strong>
+              <span className="block sm:inline">{t('profile.updateSuccess', 'Profile updated successfully.')}</span>
             </div>
           </div>
         )}
@@ -174,7 +176,7 @@ const ProfileEditForm = () => {
         {saveError && (
           <div className="px-4 py-2">
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-              <strong className="font-bold">Error! </strong>
+              <strong className="font-bold">{t('common.error', 'Error! ')} </strong>
               <span className="block sm:inline">{saveError}</span>
             </div>
           </div>
@@ -196,14 +198,14 @@ const ProfileEditForm = () => {
             disabled={saving}
             className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
           >
-            {saving ? 'Saving...' : saveSuccess ? 'Saved' : 'Save Changes'}
+            {saving ? t('common.saving', 'Saving...') : saveSuccess ? t('common.saved', 'Saved') : t('common.save', 'Save')}
           </button>
           
           <Link
             href="/profile"
             className="px-6 py-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] text-[#161118] dark:text-[#f5f7f8] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
-            Cancel
+            {t('common.cancel', 'Cancel')}
           </Link>
           
           <button
@@ -212,7 +214,7 @@ const ProfileEditForm = () => {
             disabled={saving}
             className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 ml-auto disabled:opacity-50"
           >
-            {saving ? 'Deleting...' : 'Delete Account'}
+            {saving ? t('common.saving', 'Saving...') : t('profile.deleteAccount', 'Delete Account')}
           </button>
         </div>
       </div>

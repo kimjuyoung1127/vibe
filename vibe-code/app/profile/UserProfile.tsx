@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useTranslations } from '../hooks/useTranslations';
 
 interface UserProfileData {
   id: string;
@@ -29,6 +30,8 @@ const UserProfile = () => {
     commentsCount: 0,
     vibeChecksCount: 0
   });
+
+  const { t } = useTranslations();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -151,7 +154,7 @@ const UserProfile = () => {
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
         <div className="px-4 py-6">
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Error! </strong>
+            <strong className="font-bold">{t('common.error')} </strong>
             <span className="block sm:inline">{error}</span>
           </div>
         </div>
@@ -164,8 +167,8 @@ const UserProfile = () => {
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
         <div className="px-4 py-6">
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Error! </strong>
-            <span className="block sm:inline">User profile not found.</span>
+            <strong className="font-bold">{t('common.error')} </strong>
+            <span className="block sm:inline">{t('profile.notFound')}</span>
           </div>
         </div>
       </div>
@@ -174,7 +177,7 @@ const UserProfile = () => {
 
   // Format join date
   const joinDate = new Date(userData.created_at);
-  const formattedJoinDate = `Joined ${joinDate.toLocaleString('default', { month: 'long' })} ${joinDate.getFullYear()}`;
+  const formattedJoinDate = `${t('profile.joined')} ${joinDate.toLocaleString('default', { month: 'long' })} ${joinDate.getFullYear()}`;
 
   return (
     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
@@ -183,7 +186,7 @@ const UserProfile = () => {
         <div className="flex flex-wrap justify-between gap-3">
           <div className="flex min-w-72 flex-col gap-3">
             <p className="text-[#161118] dark:text-[#f5f7f8] tracking-light text-[32px] font-bold leading-tight">
-              User Profile
+              {t('profile.userProfile')}
             </p>
           </div>
         </div>
@@ -227,7 +230,7 @@ const UserProfile = () => {
                   href="/profile/edit" 
                   className="w-full py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-center font-medium"
                 >
-                  Edit Profile
+                  {t('profile.editProfile')}
                 </Link>
               </div>
             </div>
@@ -238,28 +241,28 @@ const UserProfile = () => {
             {/* Stats */}
             <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6 mb-6">
               <h3 className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em] mb-4">
-                Stats
+                {t('profile.stats.title')}
               </h3>
               
               <div className="grid grid-cols-4 gap-4">
                   <Link href="/projects/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
                     <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.projectsCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Projects</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.projects')}</p>
                   </Link>
                   
                   <Link href="/gear/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
                     <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.toolTechCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Tool & Tech</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.toolTech')}</p>
                   </Link>
                   
                   <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
                     <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.commentsCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Comments</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.comments')}</p>
                   </div>
                   
                   <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
                     <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.vibeChecksCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">Vibe Checks</p>
+                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.vibeChecks')}</p>
                   </div>
                 </div>
             </div>
@@ -267,7 +270,7 @@ const UserProfile = () => {
             {/* Social links */}
             <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6">
               <h3 className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em] mb-4">
-                Links
+                {t('profile.links.title')}
               </h3>
               
               <div className="space-y-3">
@@ -279,7 +282,7 @@ const UserProfile = () => {
                     className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
                   >
                     <span className="material-symbols-outlined text-primary">code</span>
-                    <span className="text-[#161118] dark:text-[#f5f7f8]">GitHub</span>
+                    <span className="text-[#161118] dark:text-[#f5f7f8]">{t('profile.links.github')}</span>
                   </a>
                 )}
                 
@@ -291,7 +294,7 @@ const UserProfile = () => {
                     className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
                   >
                     <span className="material-symbols-outlined text-primary">work</span>
-                    <span className="text-[#161118] dark:text-[#f5f7f8]">LinkedIn</span>
+                    <span className="text-[#161118] dark:text-[#f5f7f8]">{t('profile.links.linkedin')}</span>
                   </a>
                 )}
                 
@@ -303,14 +306,14 @@ const UserProfile = () => {
                     className="flex items-center gap-3 p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
                   >
                     <span className="material-symbols-outlined text-primary">link</span>
-                    <span className="text-[#161118] dark:text-[#f5f7f8]">Personal Website</span>
+                    <span className="text-[#161118] dark:text-[#f5f7f8]">{t('profile.links.personalWebsite')}</span>
                   </a>
                 )}
                 
                 {/* Show message if no links are available */}
                 {!userData.github_url && !userData.linkedin_url && !userData.website_url && (
                   <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm text-center py-4">
-                    No social links added yet. Add some in your profile settings!
+                    {t('profile.links.noLinksAdded')}
                   </p>
                 )}
               </div>

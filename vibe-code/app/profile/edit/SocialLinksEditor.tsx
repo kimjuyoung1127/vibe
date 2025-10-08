@@ -3,6 +3,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 interface SocialLink {
   id: number;
@@ -17,10 +18,11 @@ interface SocialLinksEditorProps {
 }
 
 const SocialLinksEditor = ({ formData, setFormData }: SocialLinksEditorProps) => {
+  const { t } = useTranslations();
   const [links, setLinks] = useState<SocialLink[]>([
-    { id: 1, name: 'GitHub', url: '', icon: 'code' },
-    { id: 2, name: 'LinkedIn', url: '', icon: 'work' },
-    { id: 3, name: 'Personal Website', url: '', icon: 'link' }
+    { id: 1, name: t('profile.links.github', 'GitHub'), url: '', icon: 'code' },
+    { id: 2, name: t('profile.links.linkedin', 'LinkedIn'), url: '', icon: 'work' },
+    { id: 3, name: t('profile.links.personalWebsite', 'Personal Website'), url: '', icon: 'link' }
   ]);
 
   // Initialize links when form data changes
@@ -82,7 +84,7 @@ const SocialLinksEditor = ({ formData, setFormData }: SocialLinksEditorProps) =>
     <div className="p-4 border-b border-primary/10 dark:border-primary/20">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-[#161118] dark:text-[#f5f7f8] text-[22px] font-bold leading-tight tracking-[-0.015em]">
-          Social & External Links
+          {t('profile.socialLinks', 'Social & External Links')}
         </h2>
         <button
           type="button"
@@ -90,7 +92,7 @@ const SocialLinksEditor = ({ formData, setFormData }: SocialLinksEditorProps) =>
           className="flex items-center gap-1 text-primary hover:text-primary/80"
         >
           <span className="material-symbols-outlined">add</span>
-          <span>Add Link</span>
+          <span>{t('profile.addLink', 'Add Link')}</span>
         </button>
       </div>
       
@@ -100,7 +102,7 @@ const SocialLinksEditor = ({ formData, setFormData }: SocialLinksEditorProps) =>
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label htmlFor={`link-name-${link.id}`} className="block text-sm font-medium text-[#161118] dark:text-[#f5f7f8] mb-1">
-                  Platform Name
+                  {t('profile.linkName', 'Platform Name')}
                 </label>
                 <input
                   type="text"
@@ -108,7 +110,7 @@ const SocialLinksEditor = ({ formData, setFormData }: SocialLinksEditorProps) =>
                   value={link.name}
                   onChange={(e) => updateLink(link.id, 'name', e.target.value)}
                   className="w-full px-3 py-2 bg-background-light dark:bg-background-dark border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="e.g., Twitter, Dribbble"
+                  placeholder={t('profile.linkNamePlaceholder', 'e.g., Twitter, Dribbble')}
                 />
               </div>
               
@@ -122,7 +124,7 @@ const SocialLinksEditor = ({ formData, setFormData }: SocialLinksEditorProps) =>
                   value={link.url}
                   onChange={(e) => updateLink(link.id, 'url', e.target.value)}
                   className="w-full px-3 py-2 bg-background-light dark:bg-background-dark border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="https://example.com"
+                  placeholder={t('profile.urlPlaceholder', 'https://example.com')}
                 />
               </div>
             </div>

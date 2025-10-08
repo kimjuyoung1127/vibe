@@ -6,6 +6,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ReviewCardProps } from '@/app/types/gear';
 import DOMPurify from 'isomorphic-dompurify';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const ToolTechReviewCard: React.FC<ReviewCardProps> = ({ 
   id, 
@@ -17,6 +18,8 @@ const ToolTechReviewCard: React.FC<ReviewCardProps> = ({
   rating,
   imageUrl
 }) => {
+  const { t } = useTranslations();
+  
   // Render star ratings
   const renderStars = (rating: number) => {
     return (
@@ -45,7 +48,7 @@ const ToolTechReviewCard: React.FC<ReviewCardProps> = ({
           />
         ) : (
           <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-t-xl flex items-center justify-center">
-            <span className="text-gray-500 dark:text-gray-400">No image</span>
+            <span className="text-gray-500 dark:text-gray-400">{t('common.noImage', 'No image')}</span>
           </div>
         )}
         
@@ -75,7 +78,7 @@ const ToolTechReviewCard: React.FC<ReviewCardProps> = ({
               </span>
             </div>
             <span className="text-xs text-black/50 dark:text-white/50">
-              {new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+              {new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
             </span>
           </div>
         </div>

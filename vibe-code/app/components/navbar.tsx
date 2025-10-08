@@ -6,6 +6,7 @@ import UserProfile from './UserProfile';
 import { supabase } from '@/app/lib/supabaseClient';
 import useUserProfile from '@/app/hooks/useUserProfile';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 // 부모로부터 받을 props 타입을 정의합니다.
 interface NavbarProps {
@@ -22,17 +23,18 @@ interface NavItem {
 const Navbar = ({ isCollapsed, toggleSidebar }: NavbarProps) => {
   const { userProfile, loading } = useUserProfile();
   const pathname = usePathname();
+  const { t } = useTranslations();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
   };
 
   const navItems: NavItem[] = [
-    { icon: 'home', label: 'Home', href: '/' },
-    { icon: 'deployed_code', label: 'Projects', href: '/projects' },
-    { icon: 'settings', label: 'Tool & tech', href: '/gear' },
-    { icon: 'group', label: 'Community', href: '/community' },
-    { icon: 'article', label: 'News', href: '/news' },
+    { icon: 'home', label: t('common.home'), href: '/' },
+    { icon: 'deployed_code', label: t('common.projects'), href: '/projects' },
+    { icon: 'settings', label: t('common.gear'), href: '/gear' },
+    { icon: 'group', label: t('common.community'), href: '/community' },
+    { icon: 'article', label: t('common.news'), href: '/news' },
   ];
 
   return (

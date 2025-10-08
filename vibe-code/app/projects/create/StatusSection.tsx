@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { StatusSectionProps } from '@/app/types/project';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const StatusSection = ({
   isVisible,
@@ -13,6 +14,7 @@ const StatusSection = ({
   onSaveDraft,
   saveDraftStatus
 }: StatusSectionProps) => {
+  const { t } = useTranslations();
   const searchParams = useSearchParams();
   const isEditingDraft = searchParams.get('draftId') ? true : false;
 
@@ -29,12 +31,12 @@ const StatusSection = ({
   return (
     <div>
       <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
-        {isEditingDraft ? 'Edit Draft' : 'Status & Actions'}
+        {isEditingDraft ? t('projects.status.editDraft', 'Edit Draft') : t('projects.status.title', 'Status & Actions')}
       </h2>
       
       {/* Visibility Toggle */}
       <div className="flex items-center gap-4 bg-white px-4 min-h-14 justify-between">
-        <p className="text-[#161118] text-base font-normal leading-normal flex-1 truncate">Visibility Settings</p>
+        <p className="text-[#161118] text-base font-normal leading-normal flex-1 truncate">{t('projects.status.visibility', 'Visibility Settings')}</p>
         <div className="shrink-0">
           <label
             className={`relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none p-0.5 ${
@@ -66,10 +68,10 @@ const StatusSection = ({
             onClick={handleSaveDraft}
           >
             <span className="truncate">
-              {saveDraftStatus === 'saving' ? 'Saving...' : 
-               saveDraftStatus === 'saved' ? 'Saved' : 
-               saveDraftStatus === 'error' ? 'Save Failed' : 
-               isEditingDraft ? 'Update Draft' : 'Save Draft'}
+              {saveDraftStatus === 'saving' ? t('projects.status.saving', 'Saving...') : 
+               saveDraftStatus === 'saved' ? t('projects.status.saved', 'Saved') : 
+               saveDraftStatus === 'error' ? t('projects.status.saveFailed', 'Save Failed') : 
+               isEditingDraft ? t('projects.status.updateDraft', 'Update Draft') : t('projects.status.saveDraft', 'Save Draft')}
             </span>
           </button>
           <button
@@ -78,8 +80,8 @@ const StatusSection = ({
             disabled={isSubmitting} // Disable during submission
           >
             <span className="truncate">
-              {isSubmitting ? 'Publishing...' : 
-               isEditingDraft ? 'Publish Draft' : 'Publish Project'}
+              {isSubmitting ? t('projects.status.publishing', 'Publishing...') : 
+               isEditingDraft ? t('projects.status.publishDraft', 'Publish Draft') : t('projects.status.publishProject', 'Publish Project')}
             </span>
           </button>
         </div>

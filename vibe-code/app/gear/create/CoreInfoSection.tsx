@@ -2,18 +2,21 @@
 
 import React from 'react';
 import { CoreInfoSectionProps } from '@/app/types/gear';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({ formData, handleChange, setFormData }) => {
+  const { t } = useTranslations();
+  
   return (
     <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6">
       <h2 className="text-[#161118] dark:text-[#f5f7f8] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-4">
-        Core Information
+        {t('common.coreInformation', 'Core Information')}
       </h2>
       
       <div className="space-y-4">
         <div>
           <label className="block text-[#161118] dark:text-[#f5f7f8] text-sm font-medium mb-1">
-            Review Title *
+            {t('common.reviewTitle', 'Review Title')} *
           </label>
           <input
             type="text"
@@ -22,13 +25,13 @@ const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({ formData, handleChang
             onChange={handleChange}
             required
             className="w-full bg-white dark:bg-[#0f0f1a] border border-[#e2dbe6] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="e.g., RetroWave Syntax Theme for VS Code"
+            placeholder={t('common.reviewTitlePlaceholder', 'e.g., RetroWave Syntax Theme for VS Code')}
           />
         </div>
         
         <div>
           <label className="block text-[#161118] dark:text-[#f5f7f8] text-sm font-medium mb-1">
-            Tool/Technology Name *
+            {t('common.toolTechnologyName', 'Tool/Technology Name')} *
           </label>
           <input
             type="text"
@@ -37,13 +40,13 @@ const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({ formData, handleChang
             onChange={handleChange}
             required
             className="w-full bg-white dark:bg-[#0f0f1a] border border-[#e2dbe6] rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="e.g., VS Code, React, Docker"
+            placeholder={t('common.toolTechNamePlaceholder', 'e.g., VS Code, React, Docker')}
           />
         </div>
         
         <div>
           <label className="block text-[#161118] dark:text-[#f5f7f8] text-sm font-medium mb-1">
-            Overall Rating *
+            {t('common.overallRating', 'Overall Rating')} *
           </label>
           <div className="flex items-center">
             {[1, 2, 3, 4, 5].map((star) => (

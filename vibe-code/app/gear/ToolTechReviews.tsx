@@ -6,8 +6,10 @@ import React, { useState, useEffect } from 'react';
 import ToolTechReviewCard from './ToolTechReviewCard';
 import { supabase } from '@/app/lib/supabaseClient';
 import { ToolReview } from '@/app/types/gear';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const ToolTechReviews = () => {
+  const { t } = useTranslations();
   const [reviews, setReviews] = useState<ToolReview[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +37,7 @@ const ToolTechReviews = () => {
         setReviews(data || []);
       } catch (error: any) {
         console.error('Error fetching tool reviews:', error);
-        setError(error.message || 'Failed to load reviews');
+        setError(error.message || t('common.failedToLoadReviews', 'Failed to load reviews'));
       } finally {
         setLoading(false);
       }
@@ -56,8 +58,19 @@ const ToolTechReviews = () => {
     return (
       <div className="px-4 pb-8 md:px-6 lg:px-8">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <strong className="font-bold">Error! </strong>
+          <strong className="font-bold">{t('common.error', 'Error!')} </strong>
           <span className="block sm:inline">{error}</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (reviews.length === 0) {
+    return (
+      <div className="px-4 pb-8 md:px-6 lg:px-8">
+        <div className="text-center py-12">
+          <h3 className="text-xl font-semibold text-gray-700 mb-2">{t('common.noTechReviewsFound', 'No tech reviews found')}</h3>
+          <p className="text-gray-500">{t('common.beTheFirstToReview', 'Be the first to review a tool or technology')}</p>
         </div>
       </div>
     );
@@ -73,7 +86,7 @@ const ToolTechReviews = () => {
             title={review.title}
             category={review.tool_tech_name}
             description={review.content.replace(/<[^>]*>/g, '').substring(0, 150) + (review.content.length > 150 ? '...' : '')}
-            author={review.user_profiles?.[0]?.display_name || 'Unknown Author'}
+            author={review.user_profiles?.[0]?.display_name || t('common.unknownAuthor', 'Unknown Author')}
             date={review.created_at}
             rating={review.overall_rating}
             imageUrl={review.hero_image_url || 'https://placehold.co/600x400?text=No+Image'}

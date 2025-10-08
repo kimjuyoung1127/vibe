@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '../../hooks/useTranslations';
 
 interface GoogleLoginButtonProps {
   onLoadingChange?: (loading: boolean) => void;
@@ -15,6 +16,7 @@ const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { t } = useTranslations();
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -62,7 +64,7 @@ const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
           fill="#EA4335"
         />
       </svg>
-      <span className="ml-3">Sign in with Google</span>
+      <span className="ml-3">{t('login.signWithGoogle')}</span>
     </button>
   );
 };

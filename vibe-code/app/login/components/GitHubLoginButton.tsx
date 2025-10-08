@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '../../hooks/useTranslations';
 
 interface GitHubLoginButtonProps {
   onLoadingChange?: (loading: boolean) => void;
@@ -15,6 +16,7 @@ const GitHubLoginButton: React.FC<GitHubLoginButtonProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { t } = useTranslations();
 
   const handleGitHubLogin = async () => {
     setLoading(true);
@@ -51,7 +53,7 @@ const GitHubLoginButton: React.FC<GitHubLoginButtonProps> = ({
           clipRule="evenodd"
         />
       </svg>
-      <span className="ml-3">Sign in with GitHub</span>
+      <span className="ml-3">{t('login.signWithGitHub')}</span>
     </button>
   );
 };

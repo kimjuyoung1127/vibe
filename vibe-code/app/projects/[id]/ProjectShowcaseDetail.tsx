@@ -17,8 +17,10 @@ import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import { ProjectItem, ProjectImage } from '@/app/types/project';
 import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
+  const { t } = useTranslations();
   const [project, setProject] = useState<ProjectItem | null>(null);
   const [projectImages, setProjectImages] = useState<ProjectImage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,7 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
     }
 
     if (!projectId) {
-      setError('프로젝트 ID가 없습니다.');
+      setError(t('projects.projectIdMissing', '프로젝트 ID가 없습니다.'));
       setLoading(false);
       return;
     }
@@ -57,7 +59,7 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
       if (error) throw error;
 
       if (!data) {
-        setError('프로젝트를 찾을 수 없습니다.');
+        setError(t('projects.projectNotFound', '프로젝트를 찾을 수 없습니다.'));
         return;
       }
 
@@ -67,9 +69,9 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
     } catch (error: any) {
       console.error('Error fetching project details:', error);
       if (error.code === 'PGRST116') {
-        setError('프로젝트를 찾을 수 없습니다.');
+        setError(t('projects.projectNotFound', '프로젝트를 찾을 수 없습니다.'));
       } else {
-        setError('프로젝트 정보를 불러오는 중 오류가 발생했습니다.');
+        setError(t('projects.loadError', '프로젝트 정보를 불러오는 중 오류가 발생했습니다.'));
       }
     } finally {
       setLoading(false);
@@ -108,7 +110,7 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
                 onClick={(e) => { e.preventDefault(); setIsShareModalOpen(true); }}
               >
                 <span className="material-symbols-outlined mr-3">share</span>
-                Share
+                {t('common.share', 'Share')}
               </button>
               <button
                 className="flex items-center w-full text-left px-4 py-2 text-sm text-[#161118] dark:text-[#f5f7f8] hover:bg-primary/10 dark:hover:bg-primary/20"
@@ -188,7 +190,7 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
           />
         ) : (
           <div className="w-full h-96 bg-gray-200 dark:bg-gray-700 rounded-xl shadow-lg flex items-center justify-center">
-            <span className="text-gray-500 dark:text-gray-400">No image available</span>
+            <span className="text-gray-500 dark:text-gray-400">{t('common.noImage', 'No image available')}</span>
           </div>
         )}
       </div>
@@ -202,7 +204,7 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
             className="inline-flex items-center gap-3 px-8 py-3 text-lg font-bold text-white bg-primary rounded-full shadow-lg hover:bg-primary/80 transition-transform transform hover:scale-105"
           >
             <span className="material-symbols-outlined">open_in_new</span>
-            <span>Project Link</span>
+            <span>{t('projects.projectLink', 'Project Link')}</span>
           </a>
         </div>
       )}
@@ -215,36 +217,36 @@ const ProjectShowcaseDetail = ({ projectId }: { projectId: string }) => {
         />
       </div>
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">주요 기능</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">{t('projects.keyFeatures', '주요 기능')}</h2>
       <FeatureList projectId={project?.id || ''} />
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">기술 스택 &amp; 도구</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">{t('projects.techStackAndTools', '기술 스택 & 도구')}</h2>
       <TechnologyStack projectId={project?.id || ''} />
 
       <div className="p-4 grid grid-cols-[20%_1fr] gap-x-6">
         {project?.github_url && (
           <div className="col-span-2 grid grid-cols-subgrid border-t border-t-[#e2dbe6] py-5">
-            <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words">GitHub 리포지토리</p>
+            <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words">{t('projects.githubRepository', 'GitHub 리포지토리')}</p>
             <p className="text-[#161118] text-sm font-normal leading-relaxed break-words overflow-wrap-anywhere">{project?.github_url || 'N/A'}</p>
           </div>
         )}
         {project?.deployment_platform && (
           <div className="col-span-2 grid grid-cols-subgrid border-t border-t-[#e2dbe6] py-5">
-            <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words">배포 정보</p>
+            <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words">{t('projects.deploymentInfo', '배포 정보')}</p>
             <p className="text-[#161118] text-sm font-normal leading-relaxed break-words overflow-wrap-anywhere">{project?.deployment_platform || 'N/A'}</p>
           </div>
         )}
       </div>
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">작성자 정보</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">{t('projects.authorInfo', '작성자 정보')}</h2>
       <div className="p-4">
         <AuthorProfile userId={project?.user_id || ''} />
       </div>
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">관련 프로젝트</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">{t('projects.relatedProjects', '관련 프로젝트')}</h2>
       <RelatedProjects authorId={project?.user_id || ''} currentProjectId={project?.id || ''} />
       
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">댓글</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 break-words">{t('common.comments', '댓글')}</h2>
       <CommentSection targetId={project?.id || ''} postType="project" />
     </div>
   );

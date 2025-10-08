@@ -3,8 +3,11 @@
 import React from 'react';
 import GearMediaUpload from '@/app/components/GearMediaUpload';
 import { MediaSectionProps } from '@/app/types/gear';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const MediaSection: React.FC<MediaSectionProps> = ({ formData, setFormData }) => {
+  const { t } = useTranslations();
+  
   const handleMediaUpload = (urls: { heroImageUrl?: string; demoVideoUrl?: string }) => {
     setFormData(prev => ({
       ...prev,
@@ -16,7 +19,7 @@ const MediaSection: React.FC<MediaSectionProps> = ({ formData, setFormData }) =>
   return (
     <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6">
       <h2 className="text-[#161118] dark:text-[#f5f7f8] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-4">
-        Media
+        {t('common.media', 'Media')}
       </h2>
       
       <GearMediaUpload 

@@ -7,6 +7,7 @@ import TaglineDropdown from '@/app/components/TaglineDropdown'; // Import the ne
 import ImageUpload from '@/app/components/ImageUpload'; // Import the new ImageUpload component
 import { supabase } from '@/app/lib/supabaseClient';
 import { CoreInfoSectionProps } from '@/app/types/project';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const CoreInfoSection = ({
   title,
@@ -17,6 +18,7 @@ const CoreInfoSection = ({
   setHeroImageUrl,
   errors
 }: CoreInfoSectionProps) => {
+  const { t } = useTranslations();
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [uploadError, setUploadError] = useState('');
 
@@ -39,7 +41,7 @@ const CoreInfoSection = ({
 
   return (
     <div>
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Core Project Information</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">{t('projects.coreInfo.title', 'Core Project Information')}</h2>
       
       {/* Project Title */}
       <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
@@ -62,8 +64,8 @@ const CoreInfoSection = ({
         <TaglineDropdown
           selectedTagline={tagline}
           onSelect={setTagline}
-          placeholder="Select or enter a one-line summary (Tagline)"
-          title="One-line Summary (Tagline) *"
+          placeholder={t('projects.coreInfo.taglinePlaceholder', 'Select or enter a one-line summary (Tagline)')}
+          title={t('projects.coreInfo.taglineTitle', 'One-line Summary (Tagline) *')}
           error={errors.tagline}
         />
       </div>
@@ -71,7 +73,7 @@ const CoreInfoSection = ({
       {/* Hero Image Upload */}
       <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
         <label className="flex flex-col min-w-40 flex-1">
-          <p className="text-[#161118] text-base font-medium leading-normal pb-2">Project Thumbnail</p>
+          <p className="text-[#161118] text-base font-medium leading-normal pb-2">{t('projects.coreInfo.thumbnail', 'Project Thumbnail')}</p>
           <ImageUpload
             onUploadSuccess={handleUploadSuccess}
             onUploadError={handleUploadError}
@@ -85,8 +87,8 @@ const CoreInfoSection = ({
       {uploadSuccess && (
         <div className="px-4 py-2">
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Success! </strong>
-            <span className="block sm:inline">Image uploaded successfully.</span>
+            <strong className="font-bold">{t('common.success', 'Success!')} </strong>
+            <span className="block sm:inline">{t('projects.coreInfo.uploadSuccess', 'Image uploaded successfully.')}</span>
           </div>
         </div>
       )}
@@ -94,7 +96,7 @@ const CoreInfoSection = ({
       {uploadError && (
         <div className="px-4 py-2">
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Error! </strong>
+            <strong className="font-bold">{t('common.error', 'Error!')} </strong>
             <span className="block sm:inline">{uploadError}</span>
           </div>
         </div>

@@ -5,6 +5,7 @@
 import React from 'react';
 import VibeTipTapEditor from '@/app/components/VibeTipTapEditor';
 import { DescriptionSectionProps } from '@/app/types/project';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const DescriptionSection = ({
   description,
@@ -13,9 +14,11 @@ const DescriptionSection = ({
   fontPreference,
   setFontPreference
 }: DescriptionSectionProps) => {
+  const { t } = useTranslations();
+  
   return (
     <div>
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Detailed Project Description</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">{t('projects.description.title', 'Detailed Project Description')}</h2>
       
       {/* Vibe TipTap Editor */}
       <VibeTipTapEditor 

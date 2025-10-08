@@ -9,10 +9,12 @@ import Pagination from './Pagination';
 import NewProjectButton from '../components/NewProjectButton';
 import { supabase } from '../lib/supabaseClient';
 import { ProjectItem, ProjectShowcaseItem } from '../types/project';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 // Sample data for the projects (mock data) - REMOVED to only show DB data
 
 const ProjectsShowcase = () => {
+  const { t } = useTranslations();
   const [projectItems, setProjectItems] = useState<ProjectShowcaseItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,9 +50,9 @@ const ProjectsShowcase = () => {
     return (
       <main className="container mx-auto p-8">
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2 break-words">Project Showcase</h2>
+          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2 break-words">{t('common.projectShowcase', 'Project Showcase')}</h2>
           <p className="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto break-words leading-relaxed">
-            Explore the projects created by the Vibe Coders
+            {t('projects.showcase.description', 'Explore the projects created by the Vibe Coders')}
           </p>
         </div>
         
@@ -65,14 +67,14 @@ const ProjectsShowcase = () => {
     return (
       <main className="container mx-auto p-8">
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2 break-words">Project Showcase</h2>
+          <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2 break-words">{t('common.projectShowcase', 'Project Showcase')}</h2>
           <p className="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto break-words leading-relaxed">
-            Explore the projects created by the Vibe Coders
+            {t('projects.showcase.description', 'Explore the projects created by the Vibe Coders')}
           </p>
         </div>
         
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 break-words" role="alert">
-          <strong className="font-bold">Error! </strong>
+          <strong className="font-bold">{t('common.error', 'Error!')} </strong>
           <span className="block sm:inline break-words">{error}</span>
         </div>
         
@@ -85,9 +87,9 @@ const ProjectsShowcase = () => {
     <main className="container mx-auto p-8">
       {/* Page header with title and description */}
       <div className="mb-12 text-center">
-        <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2 break-words">Project Showcase</h2>
+        <h2 className="text-5xl font-bold tracking-tighter text-primary mb-2 break-words">{t('common.projectShowcase', 'Project Showcase')}</h2>
         <p className="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto break-words leading-relaxed">
-          Explore the projects created by the Vibe Coders
+          {t('projects.showcase.description', 'Explore the projects created by the Vibe Coders')}
         </p>
       </div>
       
@@ -100,8 +102,8 @@ const ProjectsShowcase = () => {
       {projectItems.length === 0 ? (
         <div className="text-center py-12">
           <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-4" />
-          <h3 className="text-2xl font-semibold text-gray-700 mb-2 break-words">No Projects Found</h3>
-          <p className="text-gray-500 mb-4 break-words">Share your first project with the community!</p>
+          <h3 className="text-2xl font-semibold text-gray-700 mb-2 break-words">{t('projects.noProjectsFound', 'No Projects Found')}</h3>
+          <p className="text-gray-500 mb-4 break-words">{t('projects.shareYourProject', 'Share your first project with the community!')}</p>
           <div className="flex justify-center">
             <NewProjectButton isCollapsed={false} />
           </div>

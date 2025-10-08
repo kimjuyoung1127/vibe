@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 interface ProjectItem {
   id: string;
@@ -16,6 +17,7 @@ interface ProjectItem {
 }
 
 const DraftsPage = () => {
+  const { t } = useTranslations();
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -63,8 +65,8 @@ const DraftsPage = () => {
   };
 
   const handleDeleteProject = async (projectId: string, isPublic: boolean) => {
-    const projectType = isPublic ? 'project' : 'draft';
-    const confirmed = window.confirm(`Are you sure you want to delete this ${projectType}? This action cannot be undone.`);
+    const projectType = isPublic ? t('projects.drafts.projectType', 'project') : t('projects.drafts.draftType', 'draft');
+    const confirmed = window.confirm(t('projects.drafts.deleteConfirmation', `Are you sure you want to delete this ${projectType}? This action cannot be undone.`));
     if (!confirmed) return;
 
     try {
@@ -80,12 +82,12 @@ const DraftsPage = () => {
       setProjects(projects.filter(project => project.id !== projectId));
     } catch (error: any) {
       console.error('Error deleting project:', error);
-      alert(error.message || `Failed to delete ${projectType}. Please try again.`);
+      alert(error.message || t('projects.drafts.deleteError', `Failed to delete ${projectType}. Please try again.`));
     }
   };
 
   const handleUnpublishProject = async (projectId: string) => {
-    const confirmed = window.confirm('Are you sure you want to unpublish this project? It will be converted to a draft.');
+    const confirmed = window.confirm(t('projects.drafts.unpublishConfirmation', 'Are you sure you want to unpublish this project? It will be converted to a draft.'));
     if (!confirmed) return;
 
     try {
@@ -105,12 +107,12 @@ const DraftsPage = () => {
       ));
     } catch (error: any) {
       console.error('Error unpublishing project:', error);
-      alert(error.message || 'Failed to unpublish project. Please try again.');
+      alert(error.message || t('projects.drafts.unpublishError', 'Failed to unpublish project. Please try again.'));
     }
   };
 
   const handlePublishProject = async (projectId: string) => {
-    const confirmed = window.confirm('Are you sure you want to publish this draft? It will become publicly visible.');
+    const confirmed = window.confirm(t('projects.drafts.publishConfirmation', 'Are you sure you want to publish this draft? It will become publicly visible.'));
     if (!confirmed) return;
 
     try {
@@ -130,7 +132,7 @@ const DraftsPage = () => {
       ));
     } catch (error: any) {
       console.error('Error publishing project:', error);
-      alert(error.message || 'Failed to publish project. Please try again.');
+      alert(error.message || t('projects.drafts.publishError', 'Failed to publish project. Please try again.'));
     }
   };
 
@@ -162,9 +164,9 @@ const DraftsPage = () => {
       {/* Page header */}
       <div className="flex flex-wrap justify-between gap-3 p-4">
         <div className="flex min-w-72 flex-col gap-3">
-          <p className="text-[#161118] tracking-light text-[32px] font-bold leading-tight">Your Projects</p>
+          <p className="text-[#161118] tracking-light text-[32px] font-bold leading-tight">{t('projects.drafts.title', 'Your Projects')}</p>
           <p className="text-[#7c608a] text-sm font-normal leading-normal">
-            Manage all your projects and drafts
+            {t('projects.drafts.description', 'Manage all your projects and drafts')}
           </p>
         </div>
       </div>
@@ -176,19 +178,19 @@ const DraftsPage = () => {
             className={`py-2 px-4 font-medium text-sm ${activeTab === 'all' ? 'border-b-2 border-primary text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
             onClick={() => setActiveTab('all')}
           >
-            All Projects
+            {t('projects.drafts.allProjects', 'All Projects')}
           </button>
           <button
             className={`py-2 px-4 font-medium text-sm ${activeTab === 'drafts' ? 'border-b-2 border-primary text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
             onClick={() => setActiveTab('drafts')}
           >
-            Drafts
+            {t('projects.drafts.drafts', 'Drafts')}
           </button>
           <button
             className={`py-2 px-4 font-medium text-sm ${activeTab === 'published' ? 'border-b-2 border-primary text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
             onClick={() => setActiveTab('published')}
           >
-            Published
+            {t('projects.drafts.published', 'Published')}
           </button>
         </div>
       </div>
@@ -199,19 +201,19 @@ const DraftsPage = () => {
           <div className="text-center py-12">
             <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-gray-700 mb-2">
-              {activeTab === 'all' ? 'No projects found' : 
-               activeTab === 'drafts' ? 'No drafts found' : 'No published projects found'}
+              {activeTab === 'all' ? t('projects.drafts.noProjects', 'No projects found') : 
+               activeTab === 'drafts' ? t('projects.drafts.noDrafts', 'No drafts found') : t('projects.drafts.noPublished', 'No published projects found')}
             </h3>
             <p className="text-gray-500 mb-4">
-              {activeTab === 'all' ? 'Create your first project to get started.' : 
-               activeTab === 'drafts' ? 'Save a draft while creating a project to see it here.' : 
-               'Publish a project to see it here.'}
+              {activeTab === 'all' ? t('projects.drafts.createFirstProject', 'Create your first project to get started.') : 
+               activeTab === 'drafts' ? t('projects.drafts.saveDraftMessage', 'Save a draft while creating a project to see it here.') : 
+               t('projects.drafts.publishProjectMessage', 'Publish a project to see it here.')}
             </p>
             <Link 
               href="/projects/create" 
               className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
             >
-              Create New Project
+              {t('projects.drafts.createNewProject', 'Create New Project')}
             </Link>
           </div>
         ) : (
@@ -224,7 +226,7 @@ const DraftsPage = () => {
                   </h3>
                   {!project.is_public && (
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100">
-                      Draft
+                      {t('projects.drafts.statusDraft', 'Draft')}
                     </span>
                   )}
                 </div>
@@ -240,7 +242,7 @@ const DraftsPage = () => {
                       href={`/projects/create?draftId=${project.id}`}
                       className="px-3 py-1 bg-primary text-white text-sm rounded-lg hover:bg-primary/90 transition-colors"
                     >
-                      {project.is_public ? 'Edit' : 'Edit'}
+                      {t('projects.drafts.edit', 'Edit')}
                     </Link>
                     {project.is_public ? (
                       <>
@@ -248,13 +250,13 @@ const DraftsPage = () => {
                           href={`/projects/${project.id}`}
                           className="px-3 py-1 bg-gray-200 text-gray-800 text-sm rounded-lg hover:bg-gray-300 transition-colors dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                         >
-                          View
+                          {t('projects.drafts.view', 'View')}
                         </Link>
                         <button
                           onClick={() => handleUnpublishProject(project.id)}
                           className="px-3 py-1 bg-yellow-500 text-white text-sm rounded-lg hover:bg-yellow-600 transition-colors"
                         >
-                          Unpublish
+                          {t('projects.drafts.unpublish', 'Unpublish')}
                         </button>
                       </>
                     ) : (
@@ -263,13 +265,13 @@ const DraftsPage = () => {
                           onClick={() => handlePublishProject(project.id)}
                           className="px-3 py-1 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition-colors"
                         >
-                          Publish
+                          {t('projects.drafts.publish', 'Publish')}
                         </button>
                         <button
                           onClick={() => handleDeleteProject(project.id, project.is_public)}
                           className="px-3 py-1 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition-colors"
                         >
-                          Delete
+                          {t('projects.drafts.delete', 'Delete')}
                         </button>
                       </>
                     )}

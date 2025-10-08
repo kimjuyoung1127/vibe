@@ -11,6 +11,7 @@ import CommentSection from '@/app/components/commentSection';
 import VibeEditorRenderer from '@/app/components/VibeEditorRenderer';
 import AuthorProfile from '@/app/components/AuthorProfile';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 type ReviewData = {
   id: string;
@@ -32,6 +33,7 @@ type ReviewData = {
 };
 
 const ToolTechReviewDetail = () => {
+  const { t } = useTranslations();
   const [reviewData, setReviewData] = useState<ReviewData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -101,7 +103,7 @@ const ToolTechReviewDetail = () => {
         setReviewData(formattedData);
       } catch (err: any) {
         console.error('Error fetching review data:', err);
-        setError(err.message || 'Failed to load review data.');
+        setError(err.message || t('common.failedToLoadReviewData', 'Failed to load review data.'));
       } finally {
         setLoading(false);
       }
@@ -110,7 +112,7 @@ const ToolTechReviewDetail = () => {
     if (reviewId) {
       fetchReviewData();
     }
-  }, [reviewId]);
+  }, [reviewId, t]);
 
   if (loading) {
     return (
@@ -126,14 +128,14 @@ const ToolTechReviewDetail = () => {
     return (
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1 p-8">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <strong className="font-bold">Error! </strong>
+          <strong className="font-bold">{t('common.error', 'Error!')} </strong>
           <span className="block sm:inline">{error}</span>
         </div>
         <button
           onClick={() => router.back()}
           className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary/80"
         >
-          Go Back
+          {t('common.goBack', 'Go Back')}
         </button>
       </div>
     );
@@ -144,14 +146,14 @@ const ToolTechReviewDetail = () => {
     return (
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1 p-8">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <strong className="font-bold">Error! </strong>
-          <span className="block sm:inline">Review data not found.</span>
+          <strong className="font-bold">{t('common.error', 'Error!')} </strong>
+          <span className="block sm:inline">{t('common.reviewDataNotFound', 'Review data not found.')}</span>
         </div>
         <button
           onClick={() => router.back()}
           className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary/80"
         >
-          Go Back
+          {t('common.goBack', 'Go Back')}
         </button>
       </div>
     );
@@ -160,7 +162,7 @@ const ToolTechReviewDetail = () => {
   // Format dates for display
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('ko-KR', options);
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
   
   const postedDate = formatDate(reviewData.created_at);
@@ -211,7 +213,7 @@ const ToolTechReviewDetail = () => {
                   setIsReportModalOpen(true);
                 }}
               >
-                Report
+                {t('common.report', 'Report')}
               </button>
             </DropdownMenu>
           </div>
@@ -235,7 +237,7 @@ const ToolTechReviewDetail = () => {
                   setIsReportModalOpen(true);
                 }}
               >
-                Report
+                {t('common.report', 'Report')}
               </button>
             </DropdownMenu>
           </div>
@@ -272,12 +274,12 @@ const ToolTechReviewDetail = () => {
       
       {/* Star rating section */}
       <div className="px-4 py-3 bg-[#f8f5fa] dark:bg-[#2a2a3e] rounded-lg mx-4 mb-4 max-w-max">
-        <h2 className="text-[#161118] dark:text-[#f5f7f8] text-lg font-semibold mb-2">Overall Rating</h2>
+        <h2 className="text-[#161118] dark:text-[#f5f7f8] text-lg font-semibold mb-2">{t('common.overallRating', 'Overall Rating')}</h2>
         {renderStars(reviewData.overall_rating)}
       </div>
       
       {/* Category tags section */}
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Categories & Tags</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">{t('common.categoriesAndTags', 'Categories & Tags')}</h2>
       <div className="px-4 flex flex-wrap gap-2">
         {reviewData.categories.length > 0 ? (
           reviewData.categories.map((tag, index) => (
@@ -289,18 +291,18 @@ const ToolTechReviewDetail = () => {
             </span>
           ))
         ) : (
-          <p className="text-[#7c608a] text-sm">No categories specified</p>
+          <p className="text-[#7c608a] text-sm">{t('common.noCategoriesSpecified', 'No categories specified')}</p>
         )}
       </div>
       
       {/* Author information section */}
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Author Information</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">{t('common.authorInformation', 'Author Information')}</h2>
       <div className="p-4">
         <AuthorProfile userId={reviewData.user_id} showFullProfile={false} />
       </div>
       
       {/* Comments section */}
-      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Comments</h2>
+      <h2 className="text-[#161118] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">{t('common.comments', 'Comments')}</h2>
       <CommentSection targetId={reviewData.id} postType="review" />
     </div>
   );

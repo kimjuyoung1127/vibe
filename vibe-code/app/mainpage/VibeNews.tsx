@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 // Define the type for a news item
 interface NewsItem {
@@ -17,6 +18,7 @@ interface NewsItem {
 }
 
 const VibeNews = () => {
+  const { t } = useTranslations();
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +90,7 @@ const VibeNews = () => {
   if (loading) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Vibe Coding News</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.news.title', 'Latest AI & Tech News')}</h2>
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[...Array(3)].map((_, index) => (
             <div 
@@ -110,7 +112,7 @@ const VibeNews = () => {
   if (error) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Vibe Coding News</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.news.title', 'Latest AI & Tech News')}</h2>
         <div className="text-red-500 w-full text-center py-8">Error: {error}</div>
       </div>
     );
@@ -119,9 +121,9 @@ const VibeNews = () => {
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Vibe Coding News</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.news.title', 'Latest AI & Tech News')}</h2>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        Latest insights and updates on AI-assisted development
+        {t('mainpage.news.description', 'Curated news and insights about artificial intelligence and tech developments')}
       </p>
       
       {/* Container for scrollable content with improved mobile experience */}
@@ -162,7 +164,7 @@ const VibeNews = () => {
           
           {newsItems.length === 0 && (
             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-              No Vibe Coding news articles found.
+              {t('common.noNewsArticlesFound', 'No Vibe Coding news articles found.')}
             </div>
           )}
         </div>

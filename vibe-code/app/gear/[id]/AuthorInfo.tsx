@@ -8,6 +8,7 @@ import { supabase } from '@/app/lib/supabaseClient';
 import VibeCheckButton from '@/app/components/VibeCheckButton';
 import DropdownMenu from '@/app/components/DropdownMenu';
 import { AuthorProfileData, AuthorInfoProps } from '@/app/types/gear';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const AuthorInfo: React.FC<AuthorInfoProps> = ({ 
   author, 
@@ -24,6 +25,7 @@ const AuthorInfo: React.FC<AuthorInfoProps> = ({
   contentType,
   onReportClick
 }) => {
+  const { t } = useTranslations();
   const [likes, setLikes] = useState(initialLikes);
   const [authorProfile, setAuthorProfile] = useState<AuthorProfileData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,14 +54,14 @@ const AuthorInfo: React.FC<AuthorInfoProps> = ({
         setAuthorProfile(profileData);
       } catch (error: any) {
         console.error('Error fetching author profile:', error);
-        setError(error.message || 'Failed to load author profile data.');
+        setError(error.message || t('common.failedToLoadAuthorProfile', 'Failed to load author profile data.'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchAuthorProfile();
-  }, [authorId]);
+  }, [authorId, t]);
 
   const handleLikeClick = () => {
     onLike();
@@ -110,7 +112,7 @@ const AuthorInfo: React.FC<AuthorInfoProps> = ({
               {authorRole} · {publishDate} · {readTime}
             </p>
             <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm font-normal leading-normal">
-              Last updated {lastUpdated}
+              {t('common.lastUpdated', 'Last updated')} {lastUpdated}
             </p>
             {authorProfile?.bio && (
               <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm font-normal leading-normal mt-1 line-clamp-2 max-w-md">
@@ -135,14 +137,14 @@ const AuthorInfo: React.FC<AuthorInfoProps> = ({
                     onReportClick();
                   }}
                 >
-                  Report
+                  {t('common.report', 'Report')}
                 </button>
               </DropdownMenu>
             </div>
           )}
           <button className="flex items-center gap-1 px-3 py-1 text-[#7c608a] dark:text-[#c5b3d1] hover:text-[#161118] dark:hover:text-[#f5f7f8] rounded-full hover:bg-primary/10 dark:hover:bg-primary/20">
             <span className="material-symbols-outlined">share</span>
-            <span>Share</span>
+            <span>{t('common.share', 'Share')}</span>
           </button>
         </div>
       </div>

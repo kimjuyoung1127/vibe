@@ -9,6 +9,7 @@ import PostItem from './PostItem';
 import EditPostModal from './EditPostModal';
 import ReportModal from '@/app/components/ReportModal';
 import { Post } from '@/app/types/community';
+import { useTranslations } from '../hooks/useTranslations';
 
 const CommunityPosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -25,6 +26,8 @@ const CommunityPosts = () => {
   const [reportTarget, setReportTarget] = useState<{ id: string; type: string } | null>(null);
   const router = useRouter();
   const POSTS_PER_PAGE = 10;
+  
+  const { t } = useTranslations();
 
   // Get current user
   useEffect(() => {
@@ -149,16 +152,16 @@ const CommunityPosts = () => {
     const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
     
     if (diffInHours < 1) {
-      return 'Just now';
+      return t('common.justNow', 'Just now');
     } else if (diffInHours < 24) {
-      return `${diffInHours}h ago`;
+      return `${diffInHours}${t('common.hoursAgo', 'h')} ${t('common.ago', 'ago')}`;
     } else {
-      return `${Math.floor(diffInHours / 24)}d ago`;
+      return `${Math.floor(diffInHours / 24)}${t('common.daysAgo', 'd')} ${t('common.ago', 'ago')}`;
     }
   };
 
   const handleDelete = async (postId: string) => {
-    if (!confirm('Are you sure you want to delete this post?')) {
+    if (!confirm(t('community.areYouSureDelete', 'Are you sure you want to delete this post?'))) {
       return;
     }
 
@@ -300,7 +303,7 @@ const CommunityPosts = () => {
       
       {!hasMore && (
         <div className="text-center py-8 text-[#7c608a] dark:text-[#c5b3d1]">
-          You've reached the end of the lounge
+          {t('community.youveReachedTheEnd')}
         </div>
       )}
     </div>

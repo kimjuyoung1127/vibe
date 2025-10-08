@@ -6,11 +6,13 @@ import SearchBar from './SearchBar';
 import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
 import { usePathname } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const TopNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { userProfile, loading } = useUserProfile(); // Use the custom hook
   const pathname = usePathname(); // Get current pathname
+  const { t } = useTranslations(); // Use the translation hook
 
   // Use a default avatar if the user profile is not loaded or doesn't have an avatar
   const avatarUrl = userProfile?.avatar_url || '';
@@ -47,10 +49,13 @@ const TopNav = () => {
           </Link>
           <nav className="hidden items-center gap-1 text-sm font-medium lg:flex z-30">
             {['/', '/projects', '/gear', '/community', '/news'].map((path) => {
-              const label = path === '/' ? 'Home' : 
-                          path === '/projects' ? 'Projects' : 
-                          path === '/gear' ? 'Tool & Tech' : 
-                          path === '/community' ? 'Community' : 'News';
+              let label = '';
+              if(path === '/') label = t('common.home');
+              else if(path === '/projects') label = t('common.projects');
+              else if(path === '/gear') label = t('common.gear');
+              else if(path === '/community') label = t('common.community');
+              else if(path === '/news') label = t('common.news');
+              
               const isActive = pathname === path;
               return (
                 <Link 
@@ -111,11 +116,13 @@ const TopNav = () => {
             </div>
             <nav className="flex flex-col gap-2">
               {['/', '/projects', '/gear', '/community', '/news'].map((path) => {
-                const label = path === '/' ? 'Home' : 
-                            path === '/projects' ? 'Projects' : 
-                            path === '/gear' ? 'Tool & Tech' : 
-                            path === '/community' ? 'Community' : 
-                            path === '/news' ? 'News' : 'Profile';
+                let label = '';
+                if(path === '/') label = t('common.home');
+                else if(path === '/projects') label = t('common.projects');
+                else if(path === '/gear') label = t('common.gear');
+                else if(path === '/community') label = t('common.community');
+                else if(path === '/news') label = t('common.news');
+                
                 const icon = path === '/' ? 'home' : 
                            path === '/projects' ? 'deployed_code' : 
                            path === '/gear' ? 'settings' : 
@@ -146,7 +153,7 @@ const TopNav = () => {
                 } transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10 cursor-pointer`}
               >
                 <span className="material-symbols-outlined">account_circle</span>
-                <span>Profile</span>
+                <span>{t('common.profile')}</span>
               </a>
               <div className="pt-2 px-3">
                 <SearchBar />

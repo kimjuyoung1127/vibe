@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 // Define the type for a ranking item
 interface RankingItem {
@@ -15,6 +16,7 @@ interface RankingItem {
 }
 
 const WeeklyVibeRanking = () => {
+  const { t } = useTranslations();
   const [rankingItems, setRankingItems] = useState<RankingItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -59,7 +61,7 @@ const WeeklyVibeRanking = () => {
   if (loading) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Top Vibe Coding Projects</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.weeklyRanking.title', 'Popular Projects This Week')}</h2>
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex w-72 flex-shrink-0 flex-col gap-3 rounded-xl border border-primary/20 bg-background-light p-3 shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark">
             <div className="aspect-video w-full rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
@@ -90,7 +92,7 @@ const WeeklyVibeRanking = () => {
   if (error) {
     return (
       <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
-        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Top Vibe Coding Projects</h2>
+        <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.weeklyRanking.title', 'Popular Projects This Week')}</h2>
         <div className="text-red-500">Error: {error}</div>
       </div>
     );
@@ -99,9 +101,9 @@ const WeeklyVibeRanking = () => {
   return (
     <div className="px-4 pb-6 pt-4 md:px-6 lg:px-8">
       {/* Section title */}
-      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">Top Vibe Coding Projects</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black dark:text-white">{t('mainpage.weeklyRanking.title', 'Popular Projects This Week')}</h2>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-        This week's most popular Vibe Coding projects
+        {t('mainpage.weeklyRanking.description', 'This week\'s most engaging projects in the Vibe Hub community')}
       </p>
       
       {/* Container for scrollable content with improved mobile experience */}
@@ -132,7 +134,7 @@ const WeeklyVibeRanking = () => {
                 
                 {/* Project information */}
                 <div className="pt-2">
-                  <p className="font-bold text-black dark:text-white truncate">#{index + 1} {item.title}</p>
+                  <p className="font-bold text-black dark:text-white truncate"> {item.title}</p>
                   <p className="text-sm text-black/60 dark:text-white/60 truncate">{item.tagline}</p>
                 </div>
               </Link>
@@ -141,7 +143,7 @@ const WeeklyVibeRanking = () => {
           
           {rankingItems.length === 0 && (
             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-8">
-              No Vibe Coding projects found for this week's ranking.
+              {t('mainpage.weeklyRanking.description', 'No Vibe Coding projects found for this week\'s ranking.')}
             </div>
           )}
         </div>

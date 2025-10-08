@@ -7,6 +7,7 @@ import React from 'react';
 import DropdownMenu from '@/app/components/DropdownMenu';
 import { PostItemProps } from '@/app/types/community';
 import { Post } from '@/app/types/community';
+import { useTranslations } from '../hooks/useTranslations';
 
 const PostItem: React.FC<PostItemProps> = ({
   id,
@@ -26,6 +27,8 @@ const PostItem: React.FC<PostItemProps> = ({
   contentType,
   onReportClick
 }) => {
+  const { t } = useTranslations();
+  
   return (
     <div 
       className="overflow-hidden rounded-xl border border-primary/20 bg-background-light shadow-lg shadow-primary/10 dark:border-primary/30 dark:bg-background-dark"
@@ -62,13 +65,13 @@ const PostItem: React.FC<PostItemProps> = ({
               })}
               className="text-sm text-blue-500 hover:text-blue-700"
             >
-              Edit
+              {t('common.edit')}
             </button>
             <button 
               onClick={() => onDelete(id)}
               className="text-sm text-red-500 hover:text-red-700"
             >
-              Delete
+              {t('common.delete')}
             </button>
           </div>
         )}
@@ -122,7 +125,7 @@ const PostItem: React.FC<PostItemProps> = ({
                       onReportClick && onReportClick(id, contentType);
                     }}
                   >
-                    Report
+                    {t('common.report')}
                   </button>
                 </DropdownMenu>
               </div>

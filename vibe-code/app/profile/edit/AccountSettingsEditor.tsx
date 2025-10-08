@@ -4,6 +4,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabaseClient';
+import { useLanguage } from '@/app/contexts/LanguageContext';
+import { Locale } from '@/app/i18n/i18n-types';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 interface AccountSettingsEditorProps {
   formData: any;
@@ -18,8 +21,9 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
     vibeChecks: true,
     newsletter: false
   });
-  const [language, setLanguage] = useState('en');
-
+  const { locale, switchLanguage } = useLanguage();
+  const { t } = useTranslations();
+  
   // Fetch user data when component mounts
   useEffect(() => {
     const fetchUserData = async () => {
@@ -74,12 +78,8 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
   };
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLanguage = e.target.value;
-    setLanguage(newLanguage);
-    // In a future implementation with i18n, we would:
-    // 1. Update the user's language preference in the database
-    // 2. Change the app's language dynamically
-    // setFormData({ ...formData, language: newLanguage });
+    const newLanguage = e.target.value as Locale;
+    switchLanguage(newLanguage);
   };
 
   const handleChangeEmail = () => {
@@ -90,14 +90,14 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
   return (
     <div className="p-4">
       <h2 className="text-[#161118] dark:text-[#f5f7f8] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-4">
-        Account Settings
+        {t('profile.accountSettingsTitle', 'Account Settings')}
       </h2>
       
       <div className="space-y-6">
         {/* Email */}
         <div>
           <label className="block text-sm font-medium text-[#161118] dark:text-[#f5f7f8] mb-2">
-            Email Address
+            {t('profile.emailLabel', 'Email Address')}
           </label>
           <div className="flex gap-3">
             <input
@@ -111,7 +111,7 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
               onClick={handleChangeEmail}
               className="px-4 py-2 bg-[#f5f7f8] dark:bg-[#0f0f1a] text-[#161118] dark:text-[#f5f7f8] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
             >
-              Change Email
+              {t('profile.changeEmailButton', 'Change Email')}
             </button>
           </div>
         </div>
@@ -119,7 +119,7 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
         {/* Connected accounts */}
         <div>
           <label className="block text-sm font-medium text-[#161118] dark:text-[#f5f7f8] mb-2">
-            Connected Social Accounts
+            {t('profile.connectedAccountsLabel', 'Connected Social Accounts')}
           </label>
           <div className="space-y-3">
             {connectedAccounts.length > 0 ? (
@@ -129,11 +129,11 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
                     <span className="material-symbols-outlined text-primary">{account.icon}</span>
                     <span className="text-[#161118] dark:text-[#f5f7f8]">{account.name}</span>
                   </div>
-                  <span className="text-green-500 text-sm font-medium">Connected</span>
+                  <span className="text-green-500 text-sm font-medium">{t('profile.connectedStatus', 'Connected')}</span>
                 </div>
               ))
             ) : (
-              <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">No connected accounts found</p>
+              <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.noConnectedAccountsFound', 'No connected accounts found')}</p>
             )}
           </div>
         </div>
@@ -141,11 +141,11 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
         {/* Notification preferences - Simplified for now */}
         <div>
           <label className="block text-sm font-medium text-[#161118] dark:text-[#f5f7f8] mb-2">
-            Notification Preferences
+            {t('profile.notificationsLabel', 'Notification Preferences')}
           </label>
           <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4">
             <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">
-              Notification settings will be implemented when backend notification services are available.
+              {t('profile.notificationsInfo', 'Notification settings will be implemented when backend notification services are available.')}
             </p>
           </div>
         </div>
@@ -153,22 +153,19 @@ const AccountSettingsEditor = ({ formData, setFormData }: AccountSettingsEditorP
         {/* Language preference */}
         <div>
           <label htmlFor="language" className="block text-sm font-medium text-[#161118] dark:text-[#f5f7f8] mb-2">
-            Language Preference
+            {t('profile.languageLabel', 'Language Preference')}
           </label>
           <select
             id="language"
-            value={language}
+            value={locale}
             onChange={handleLanguageChange}
             className="w-full px-3 py-2 bg-background-light dark:bg-background-dark border border-[#e2dbe6] dark:border-[#1a1a2e] rounded-lg text-[#161118] dark:text-[#f5f7f8] focus:outline-none focus:ring-2 focus:ring-primary"
           >
-            <option value="en">English</option>
-            <option value="ko">한국어</option>
-            <option value="ja">日本語</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
+            <option value="en">{t('profile.english', 'English')}</option>
+            <option value="ko">{t('profile.korean', '한국어')}</option>
           </select>
           <p className="text-[#7c608a] dark:text-[#c5b3d1] text-xs mt-1">
-            Multi-language support will be implemented in a future update.
+            {t('profile.languageInfo', 'Changes will be applied immediately across the site.')}
           </p>
         </div>
       </div>

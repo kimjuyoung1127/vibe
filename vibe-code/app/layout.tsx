@@ -5,6 +5,7 @@ import './custom.css';
 import Footer from './components/footer';
 import NavbarWrapper from './components/NavbarWrapper';
 import TopNavWrapper from './components/TopNavWrapper';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -142,20 +143,22 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <TopNavWrapper />
-        <div className="relative min-h-screen">
-          {/* Desktop sidebar - only shown on large screens and positioned correctly */}
-          <div className="fixed inset-y-0 left-0 z-10 w-72 hidden lg:flex">
-            <NavbarWrapper />
+        <LanguageProvider>
+          <TopNavWrapper />
+          <div className="relative min-h-screen">
+            {/* Desktop sidebar - only shown on large screens and positioned correctly */}
+            <div className="fixed inset-y-0 left-0 z-10 w-72 hidden lg:flex">
+              <NavbarWrapper />
+            </div>
+            {/* Main content area */}
+            <div className="lg:ml-72 flex flex-col pt-[61px] min-h-screen">
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+            </div>
           </div>
-          {/* Main content area */}
-          <div className="lg:ml-72 flex flex-col pt-[61px] min-h-screen">
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </div>
+        </LanguageProvider>
       </body>
     </html>
   );

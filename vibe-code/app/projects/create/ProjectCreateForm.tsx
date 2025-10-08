@@ -6,8 +6,10 @@ import LinksSection from './LinksSection';
 import StatusSection from './StatusSection';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const ProjectCreateForm = () => {
+  const { t } = useTranslations();
   // Form state
   const [title, setTitle] = useState('');
   const [tagline, setTagline] = useState('');
@@ -372,7 +374,7 @@ const ProjectCreateForm = () => {
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
         {errors.general && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 break-words" role="alert">
-            <strong className="font-bold break-words">Error! </strong>
+            <strong className="font-bold break-words">{t('common.error', 'Error!')} </strong>
             <span className="block sm:inline break-words">{errors.general}</span>
           </div>
         )}
@@ -380,12 +382,12 @@ const ProjectCreateForm = () => {
         <div className="flex flex-wrap justify-between gap-3 p-4 break-words">
           <div className="flex min-w-72 flex-col gap-3 break-words">
             <p className="text-[#161118] tracking-light text-[32px] font-bold leading-tight break-words max-w-full">
-              {isEditingDraft ? 'Edit Project' : 'Create Project'}
+              {isEditingDraft ? t('projects.editProject', 'Edit Project') : t('projects.createProject', 'Create Project')}
             </p>
             <p className="text-[#7c608a] text-sm font-normal leading-relaxed break-words max-w-full">
               {isEditingDraft 
-                ? 'Continue working on your draft' 
-                : 'Share your project on Vibe Hub. Fill in the details below to get started'}
+                ? t('projects.continueDraft', 'Continue working on your draft') 
+                : t('projects.createProjectDescription', 'Share your project on Vibe Hub. Fill in the details below to get started')}
             </p>
           </div>
         </div>
@@ -401,9 +403,9 @@ const ProjectCreateForm = () => {
         />
 
         <div className="p-4 border-b border-primary/10 break-words">
-          <h2 className="text-xl font-bold mb-3 break-words">Live Demo URL</h2>
+          <h2 className="text-xl font-bold mb-3 break-words">{t('projects.liveDemo.title', 'Live Demo URL')}</h2>
           <p className="text-sm text-black/60 dark:text-white/60 mb-4 break-words leading-relaxed">
-            프로젝트를 직접 체험해볼 수 있는 URL 링크를 입력하세요. 가장 눈에 띄는 곳에 표시됩니다.
+            {t('projects.liveDemo.description', '프로젝트를 직접 체험해볼 수 있는 URL 링크를 입력하세요. 가장 눈에 띄는 곳에 표시됩니다.')}
           </p>
           <div className="relative break-words">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary">link</span>
