@@ -53,7 +53,7 @@ const CookiePolicyPage = () => {
           However if you are still looking for more information then you can contact us through one of our preferred contact methods:
         </p>
         <ul className="list-disc pl-6">
-          <li>By email: privacy@vibehub.com</li>
+          <li>By email: gmdqn2tp@gmail.com</li>
         </ul>
       </section>
     </div>

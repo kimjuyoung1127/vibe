@@ -77,7 +77,7 @@ const TermsOfServicePage = () => {
           If you have any questions about these Terms, please contact us:
         </p>
         <ul className="list-disc pl-6">
-          <li>By email: legal@vibehub.com</li>
+          <li>By email: gmdqn2tp@gmail.com</li>
         </ul>
       </section>
     </div>

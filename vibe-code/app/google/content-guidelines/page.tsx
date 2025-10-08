@@ -106,7 +106,7 @@ const ContentGuidelinesPage = () => {
           If you have any questions about these Content Guidelines, please contact us:
         </p>
         <ul className="list-disc pl-6">
-          <li>By email: content@vibehub.com</li>
+          <li>By email: gmdqn2tp@gmail.com</li>
         </ul>
       </section>
     </div>
