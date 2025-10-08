@@ -49,35 +49,35 @@ const CategorizationSection = ({
 
       <div className="flex flex-col gap-6 px-4">
         <AdvancedSelect
-          title="Key Features"
+          title={t('projects.categorization.keyFeatures', 'Key Features')}
           options={keyFeaturesOptions}
           selectedValues={toArray(features, /\n/)}
           onChange={handleChange(setFeatures, "\n")}
-          placeholder="Search features or add your own (e.g., Real-time Collaboration)"
+          placeholder={t('projects.categorization.featuresPlaceholder', 'Search features or add your own (e.g., Real-time Collaboration)')}
         />
 
         <AdvancedSelect
-          title="Tech Stack"
+          title={t('projects.categorization.techStack', 'Tech Stack')}
           options={techStackOptions}
           selectedValues={toArray(techStack)}
           onChange={handleChange(setTechStack, ", ")}
-          placeholder="Search tech stack or add your own (e.g., React, Python)"
+          placeholder={t('projects.categorization.techStackPlaceholder', 'Search tech stack or add your own (e.g., React, Python)')}
         />
 
         <AdvancedSelect
-          title="Development Tools"
+          title={t('projects.categorization.devTools', 'Development Tools')}
           options={devToolsOptions}
           selectedValues={toArray(devTools)}
           onChange={handleChange(setDevTools, ", ")}
-          placeholder="Search tools or add your own (e.g., VS Code, Docker)"
+          placeholder={t('projects.categorization.devToolsPlaceholder', 'Search tools or add your own (e.g., VS Code, Docker)')}
         />
 
         <AdvancedSelect
-          title="Category Tags"
+          title={t('projects.categorization.categoryTags', 'Category Tags')}
           options={categoryTagsOptions}
           selectedValues={toArray(categoryTags)}
           onChange={handleChange(setCategoryTags, ", ")}
-          placeholder="Search categories or add your own (e.g., Web App, AI/ML)"
+          placeholder={t('projects.categorization.categoryTagsPlaceholder', 'Search categories or add your own (e.g., Web App, AI/ML)')}
         />
       </div>
     </div>

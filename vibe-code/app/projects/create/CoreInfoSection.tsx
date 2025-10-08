@@ -46,9 +46,9 @@ const CoreInfoSection = ({
       {/* Project Title */}
       <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
         <label className="flex flex-col min-w-40 flex-1">
-          <p className="text-[#161118] text-base font-medium leading-normal pb-2">Project Title *</p>
+          <p className="text-[#161118] text-base font-medium leading-normal pb-2">{t('projects.coreInfo.projectTitle', 'Project Title *')}</p>
           <input
-            placeholder="Enter project title"
+            placeholder={t('projects.coreInfo.titlePlaceholder', 'Enter project title')}
             className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#161118] focus:outline-0 focus:ring-0 border-none bg-[#f3f0f5] focus:border-none h-14 placeholder:text-[#7c608a] p-4 text-base font-normal leading-normal ${
               errors.title ? 'border-2 border-red-500' : ''
             }`}
