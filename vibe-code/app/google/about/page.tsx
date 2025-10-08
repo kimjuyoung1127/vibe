@@ -7,6 +7,7 @@ import { useTranslations } from '../../hooks/useTranslations';
 import * as THREE from 'three';
 import Link from 'next/link';
 import { supabase } from '../../lib/supabaseClient';
+import AdComponent from '../../components/AdComponent';
 
 // ActionButton Component (from HeroSection)
 const ActionButton = ({ children, onClick, primary = true }: { children: React.ReactNode, onClick?: () => void, primary?: boolean }) => {
@@ -130,7 +131,7 @@ const AboutUsPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-[0_0_20px_rgba(0,255,255,0.5)]"
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_20px_rgba(0,255,255,0.5)] text-center leading-tight"
             >
               {heroContent.title}
             </motion.h1>
@@ -138,7 +139,7 @@ const AboutUsPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-blue-200/80"
+              className="mt-4 text-base sm:text-lg md:text-xl text-blue-200/80 text-center leading-relaxed px-4"
             >
               {heroContent.subtitle}
             </motion.h2>
@@ -161,86 +162,103 @@ const AboutUsPage = () => {
       <div className="max-w-6xl mx-auto px-4 py-16 mt-20 bg-gray-900">
         {/* Mission Section */}
         <motion.section 
-          className="my-16 text-center bg-white p-10 rounded-2xl"
+          className="my-16 text-center bg-white p-6 sm:p-8 md:p-10 rounded-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-gray-900">{t('Vibe Hub')}</h2>
-          <p className="text-lg max-w-4xl mx-auto text-gray-700">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gray-900">{t('Vibe Hub')}</h2>
+          <p className="text-base sm:text-lg md:text-xl max-w-4xl mx-auto text-gray-700 px-4 leading-relaxed">
             {t('policy.aboutUs.missionText', 'Our mission is to create a vibrant community where developers can share their experiences, exchange knowledge, and connect with others who share their passion for coding.')}
           </p>
         </motion.section>
 
         {/* What We Offer Section */}
         <motion.section 
-          className="my-20 bg-white p-10 rounded-2xl"
+          className="my-20 bg-white p-6 sm:p-8 md:p-10 rounded-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">{t('policy.aboutUs.whatWeOffer')}</h2>
-          <div className="grid md:grid-cols-3 gap-10">
-            <div className="text-center p-6 bg-gray-50 rounded-xl shadow-lg">
-              <div className="text-5xl text-cyan-600 mx-auto mb-4">💻</div>
-              <h3 className="text-2xl font-semibold mb-2 text-gray-900">{t('policy.aboutUs.projectShowcases')}</h3>
-              <p className="text-gray-700">{t('policy.aboutUs.projectShowcasesText', 'Share your projects and discover what others are building.')}</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 md:mb-12 text-gray-900">{t('policy.aboutUs.whatWeOffer')}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+            <div className="text-center p-4 sm:p-5 md:p-6 bg-gray-50 rounded-xl shadow-lg">
+              <div className="text-4xl sm:text-5xl text-cyan-600 mx-auto mb-3 sm:mb-4">💻</div>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-gray-900">{t('policy.aboutUs.projectShowcases')}</h3>
+              <p className="text-sm sm:text-base md:text-lg text-gray-700">{t('policy.aboutUs.projectShowcasesText', 'Share your projects and discover what others are building.')}</p>
             </div>
-            <div className="text-center p-6 bg-gray-50 rounded-xl shadow-lg">
-              <div className="text-5xl text-purple-600 mx-auto mb-4">👥</div>
-              <h3 className="text-2xl font-semibold mb-2 text-gray-900">{t('policy.aboutUs.communityLounge')}</h3>
-              <p className="text-gray-700">{t('policy.aboutUs.communityLoungeText', 'Connect with fellow developers in our community lounge.')}</p>
+            <div className="text-center p-4 sm:p-5 md:p-6 bg-gray-50 rounded-xl shadow-lg">
+              <div className="text-4xl sm:text-5xl text-purple-600 mx-auto mb-3 sm:mb-4">👥</div>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-gray-900">{t('policy.aboutUs.communityLounge')}</h3>
+              <p className="text-sm sm:text-base md:text-lg text-gray-700">{t('policy.aboutUs.communityLoungeText', 'Connect with fellow developers in our community lounge.')}</p>
             </div>
-            <div className="text-center p-6 bg-gray-50 rounded-xl shadow-lg">
-              <div className="text-5xl text-green-600 mx-auto mb-4">🛠️</div>
-              <h3 className="text-2xl font-semibold mb-2 text-gray-900">{t('policy.aboutUs.gearReviews')}</h3>
-              <p className="text-gray-700">{t('policy.aboutUs.gearReviewsText', 'Review and discover the tools and technologies that power development.')}</p>
+            <div className="text-center p-4 sm:p-5 md:p-6 bg-gray-50 rounded-xl shadow-lg">
+              <div className="text-4xl sm:text-5xl text-green-600 mx-auto mb-3 sm:mb-4">🛠️</div>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-gray-900">{t('policy.aboutUs.gearReviews')}</h3>
+              <p className="text-sm sm:text-base md:text-lg text-gray-700">{t('policy.aboutUs.gearReviewsText', 'Review and discover the tools and technologies that power development.')}</p>
             </div>
           </div>
         </motion.section>
 
         {/* Our Team Section */}
         <motion.section 
-          className="my-20 bg-white p-12 rounded-2xl"
+          className="my-20 bg-white p-6 sm:p-8 md:p-12 rounded-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
         >
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">{t('policy.aboutUs.ourTeam')}</h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 md:mb-12 text-gray-900">{t('policy.aboutUs.ourTeam')}</h2>
+          <div className="flex flex-col items-center gap-6 sm:gap-8">
             <img 
               src="/images/200.svg" 
               alt="Team" 
-              className="w-32 h-32 rounded-full shadow-md border-2 border-cyan-500"
-              width={128}
-              height={128}
+              className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full shadow-md border-2 border-cyan-500"
+              width={112}
+              height={112}
             />
-            <div className="max-w-2xl text-center md:text-left">
-              <p className="text-lg text-gray-700 mb-4">
+            <div className="max-w-2xl px-4">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-3 sm:mb-4 leading-relaxed">
                 {t('policy.aboutUs.ourTeamText', 'We are passionate developers and designers who believe in the power of community. Our team works tirelessly to create a space where developers can thrive and share their experiences.')}
               </p>
-              <p className="font-semibold text-cyan-700">Jason, Founder & Lead Developer</p>
+              <p className="font-semibold text-base sm:text-lg text-cyan-700">Jason, Founder & Lead Developer</p>
             </div>
           </div>
         </motion.section>
 
         {/* Contact Us Section */}
         <motion.section 
-          className="text-center my-16 bg-white p-10 rounded-2xl"
+          className="text-center my-16 bg-white p-6 sm:p-8 md:p-10 rounded-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-cyan-700">{t('policy.aboutUs.contactUs')}</h2>
-          <p className="text-lg max-w-3xl mx-auto text-gray-700 mb-8">
-            {t('policy.aboutUs.contactUsText', 'Have questions or feedback? We\'d love to hear from you!')}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-cyan-700">{t('policy.aboutUs.contactUs')}</h2>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-700 mb-6 sm:mb-8 px-4 leading-relaxed">
+            {t('policy.aboutUs.contactUsText') === 'policy.aboutUs.contactUsText' 
+              ? 'Have questions or feedback? We\'d love to hear from you!' 
+              : t('policy.aboutUs.contactUsText')}
           </p>
           <Link href="/community" className="inline-block">
             <ActionButton primary={false}>
-              {t('policy.aboutUs.contactUsButton', 'Contact Us')}
+              {t('policy.aboutUs.contactUsButton') === 'policy.aboutUs.contactUsButton' 
+                ? (t('policy.aboutUs.contactUs') === 'policy.aboutUs.contactUs' 
+                  ? 'Contact Us' 
+                  : t('policy.aboutUs.contactUs'))
+                : t('policy.aboutUs.contactUsButton')}
             </ActionButton>
           </Link>
         </motion.section>
+        
+        {/* Ad Component */}
+        <div className="max-w-6xl mx-auto px-4 py-8">
+          <div className="bg-gray-100 p-4 rounded-xl text-center">
+            <AdComponent 
+              adSlot="7287287287"  // This is a placeholder slot ID
+              adFormat="auto"
+              className="mx-auto"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
