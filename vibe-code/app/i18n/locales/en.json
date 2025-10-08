@@ -114,7 +114,8 @@
     "justNow": "Just now",
     "hoursAgo": "h",
     "daysAgo": "d",
-    "ago": "ago"
+    "ago": "ago",
+    "common.techReviews.description": "Discover and share reviews of the latest tools and technologies. From IDEs to frameworks, find out what works best for your coding project"
   },
   "community": {
     "codingLounge": "Coding Lounge",
@@ -126,7 +127,26 @@
     "enterTitle": "Enter title",
     "enterContent": "Enter content",
     "enterTags": "Enter tags separated by commas",
-    "areYouSureDelete": "Are you sure you want to delete this post?"
+    "areYouSureDelete": "Are you sure you want to delete this post?",
+    "create": {
+      "title": "Create Community Post",
+      "description": "Share your thoughts with the Vibe Code community",
+      "backToLounge": "Back to Coding Lounge",
+      "publishPost": "Publish Post",
+      "publishing": "Publishing...",
+      "postTitle": "Post Title",
+      "titlePlaceholder": "Enter a title for your post",
+      "postContent": "Post Content",
+      "contentPlaceholder": "Share your thoughts with the community...",
+      "tags": "Tags",
+      "selectTags": "Select relevant tags for your post",
+      "addTagsPlaceholder": "Search or add new tags (press Enter or comma to add)",
+      "allTagsSelected": "All available tags have been selected",
+      "titleAndContentRequired": "Title and content are required.",
+      "userNotAuthenticated": "User not authenticated",
+      "failedToCreatePost": "Failed to create community post",
+      "characters": "{count}/{max} characters"
+    }
   },
   "profile": {
     "userProfile": "User Profile",

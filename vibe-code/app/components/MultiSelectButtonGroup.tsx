@@ -38,7 +38,7 @@ const MultiSelectButtonGroup: React.FC<MultiSelectButtonGroupProps> = ({
   selectedValues,
   onChange,
   title,
-  placeholder = "옵션을 선택하세요",
+  placeholder = "Select options",
 }) => {
   /**
    * Handles the click event on a button.

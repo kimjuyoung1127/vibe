@@ -114,7 +114,8 @@
     "justNow": "지금",
     "hoursAgo": "시간 전",
     "daysAgo": "일 전",
-    "ago": "전"
+    "ago": "전",
+    "common.techReviews.description": "바이브코딩 개발자들이 사용하는 도구나 기술에 대한 리뷰를 공유하세요. "
   },
   "community": {
     "codingLounge": "코딩 라운지",
@@ -126,7 +127,26 @@
     "enterTitle": "제목 입력",
     "enterContent": "내용 입력",
     "enterTags": "쉼표로 구분된 태그 입력",
-    "areYouSureDelete": "이 게시물을 삭제하시겠습니까?"
+    "areYouSureDelete": "이 게시물을 삭제하시겠습니까?",
+    "create": {
+      "title": "커뮤니티 게시물 생성",
+      "description": "Vibe Code 커뮤니티와 생각을 공유하세요",
+      "backToLounge": "코딩 라운지로 돌아가기",
+      "publishPost": "게시물 발행",
+      "publishing": "발행 중...",
+      "postTitle": "게시물 제목",
+      "titlePlaceholder": "게시물 제목을 입력하세요",
+      "postContent": "게시물 내용",
+      "contentPlaceholder": "커뮤니티와 생각을 공유하세요...",
+      "tags": "태그",
+      "selectTags": "게시물과 관련된 태그를 선택하세요",
+      "addTagsPlaceholder": "태그를 검색하거나 추가하세요 (Enter 또는 쉼표를 눌러 추가)",
+      "allTagsSelected": "사용 가능한 모든 태그가 선택되었습니다",
+      "titleAndContentRequired": "제목과 내용은 필수입니다.",
+      "userNotAuthenticated": "사용자 인증이 필요합니다",
+      "failedToCreatePost": "커뮤니티 게시물 생성에 실패했습니다",
+      "characters": "{count}/{max} 자"
+    }
   },
   "profile": {
     "userProfile": "사용자 프로필",
@@ -241,7 +261,7 @@
   "mainpage": {
     "hero": {
       "title": "Vibe Hub: 바이브코딩을 위한 커뮤니티",
-      "subtitle": "바이브코딩을 통한 혁신적인 프로젝트를 공유 ",
+      "subtitle": "바이브코딩을 통한 혁신적인 프로젝트를 공유하세요",
       "primaryButtonText": "프로젝트 탐색",
       "secondaryButtonText": "자세히 알아보기"
     },

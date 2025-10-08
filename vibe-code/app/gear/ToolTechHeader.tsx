@@ -16,7 +16,7 @@ const ToolTechHeader = () => {
           {t('common.techReviews', 'Tech Reviews')}
         </h1>
         <p className="text-xl text-[#101c22]/70 dark:text-[#f5f7f8]/70 max-w-3xl mx-auto mb-6">
-          {t('common.techReviews.description', 'Discover and share reviews of the latest tools and technologies. From IDEs to frameworks, find out what works best for your coding project.')}
+          {t('common.techReviews.description', 'Discover and share reviews of the latest tools and technologies.')}
         </p>
         <NewReviewButton />
       </div>

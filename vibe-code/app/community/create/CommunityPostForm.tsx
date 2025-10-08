@@ -8,8 +8,10 @@ import { supabase } from '@/app/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
 import CommunityPostContentSection from './CommunityPostContentSection';
 import { FormData } from '@/app/types/community';
+import { useTranslations } from '@/app/hooks/useTranslations';
 
 const CommunityPostForm = () => {
+  const { t } = useTranslations();
   const [formData, setFormData] = useState<FormData>({ title: '', content: '', tags: [] });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +27,7 @@ const CommunityPostForm = () => {
     e.preventDefault();
     
     if (!formData.title.trim() || !formData.content.trim()) {
-      setError('Title and content are required.');
+      setError(t('community.create.titleAndContentRequired', 'Title and content are required.'));
       return;
     }
     
@@ -36,7 +38,7 @@ const CommunityPostForm = () => {
       // Get current user
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        throw new Error('User not authenticated');
+        throw new Error(t('community.create.userNotAuthenticated', 'User not authenticated'));
       }
 
       // Insert the community post
@@ -75,7 +77,7 @@ const CommunityPostForm = () => {
       router.refresh(); // Refresh to show the new post
     } catch (err) {
       console.error('Error creating community post:', err);
-      setError(err instanceof Error ? err.message : 'Failed to create community post');
+      setError(err instanceof Error ? err.message : t('community.create.failedToCreatePost', 'Failed to create community post'));
     } finally {
       setIsSubmitting(false);
     }
@@ -91,7 +93,7 @@ const CommunityPostForm = () => {
             className="flex items-center gap-2 text-primary hover:underline"
           >
             <span className="material-symbols-outlined">arrow_back</span>
-            <span>Back to Coding Lounge</span>
+            <span>{t('community.create.backToLounge', 'Back to Coding Lounge')}</span>
           </Link>
         </div>
         
@@ -99,10 +101,10 @@ const CommunityPostForm = () => {
         <div className="flex flex-wrap justify-between gap-3 px-4 py-4 border-b border-primary/10 dark:border-primary/20">
           <div className="flex min-w-72 flex-col gap-3">
             <p className="text-[#161118] dark:text-[#f5f7f8] tracking-light text-xl font-bold leading-tight">
-              Create Community Post
+              {t('community.create.title', 'Create Community Post')}
             </p>
             <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm font-normal leading-normal">
-              Share your thoughts with the Vibe Code community
+              {t('community.create.description', 'Share your thoughts with the Vibe Code community')}
             </p>
           </div>
         </div>
@@ -121,7 +123,7 @@ const CommunityPostForm = () => {
                 : 'bg-primary text-white hover:bg-primary/90'
             }`}
           >
-            {isSubmitting ? 'Publishing...' : 'Publish Post'}
+            {isSubmitting ? t('community.create.publishing', 'Publishing...') : t('community.create.publishPost', 'Publish Post')}
           </button>
         </div>
         
