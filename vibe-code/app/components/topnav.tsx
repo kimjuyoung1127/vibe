@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import SearchBar from './SearchBar';
 import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
 import { useTranslations } from '@/app/hooks/useTranslations';
 
@@ -12,6 +12,7 @@ const TopNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { userProfile, loading } = useUserProfile(); // Use the custom hook
   const pathname = usePathname(); // Get current pathname
+  const router = useRouter(); // Initialize useRouter
   const { t } = useTranslations(); // Use the translation hook
 
   // Use a default avatar if the user profile is not loaded or doesn't have an avatar
@@ -26,11 +27,28 @@ const TopNav = () => {
     
     if (session) {
       // User is authenticated, navigate to profile
-      window.location.href = '/profile';
+      router.push('/profile');
     } else {
       // User is not authenticated, navigate to login
-      window.location.href = '/login';
+      router.push('/login');
     }
+    setIsMobileMenuOpen(false); // Close mobile menu after navigation attempt
+  };
+
+  const handleLogout = async () => {
+    console.log('Attempting to log out from TopNav...');
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Logout error from TopNav:', error.message);
+      } else {
+        console.log('Successfully logged out from TopNav.');
+        router.push('/'); // Redirect to home page after logout
+      }
+    } catch (e) {
+      console.error('An unexpected error occurred during TopNav logout:', e);
+    }
+    setIsMobileMenuOpen(false); // Close mobile menu after logout attempt
   };
 
   return (
@@ -155,6 +173,15 @@ const TopNav = () => {
                 <span className="material-symbols-outlined">account_circle</span>
                 <span>{t('common.profile')}</span>
               </a>
+              {userProfile && ( // Only show logout if user is logged in
+                <button
+                  onClick={handleLogout}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-black/80 transition-colors hover:bg-primary/5 dark:text-white/80 dark:hover:bg-primary/10 cursor-pointer`}
+                >
+                  <span className="material-symbols-outlined">logout</span>
+                  <span>{t('common.logout')}</span> {/* Assuming 'common.logout' translation exists */}
+                </button>
+              )}
               <div className="pt-2 px-3">
                 <SearchBar />
               </div>

@@ -26,7 +26,19 @@ const Navbar = ({ isCollapsed, toggleSidebar }: NavbarProps) => {
   const { t } = useTranslations();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    console.log('Attempting to log out...');
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Logout error:', error.message);
+      } else {
+        console.log('Successfully logged out.');
+        // Optionally, redirect the user after successful logout
+        // router.push('/login'); // You would need to import useRouter for this
+      }
+    } catch (e) {
+      console.error('An unexpected error occurred during logout:', e);
+    }
   };
 
   const navItems: NavItem[] = [
