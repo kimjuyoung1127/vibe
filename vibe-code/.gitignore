@@ -54,3 +54,7 @@ build/
 
 # System Files
 *.local
+
+# development files
+progress2.md
+newprd.md

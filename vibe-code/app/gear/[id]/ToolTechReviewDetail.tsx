@@ -2,7 +2,7 @@
 // This component displays the detailed view of a tool/tech review
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import VibeCheckButton from '@/app/components/VibeCheckButton';
 import DropdownMenu from '@/app/components/DropdownMenu';
@@ -32,6 +32,9 @@ type ReviewData = {
   categories: string[];
 };
 
+// Cache for review data to avoid re-fetching
+const reviewDataCache = new Map<string, ReviewData>();
+
 const ToolTechReviewDetail = () => {
   const { t } = useTranslations();
   const [reviewData, setReviewData] = useState<ReviewData | null>(null);
@@ -41,78 +44,188 @@ const ToolTechReviewDetail = () => {
   const router = useRouter();
   const params = useParams();
   const reviewId = params.id as string;
+  
+  // Track if request is in progress to prevent duplicate requests
+  const requestInProgress = useRef(false);
+  // Track retry attempts
+  const retryCount = useRef(0);
+  // Track timeout ID for debouncing
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const fetchReviewData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  // Format dates for display with memoization
+  const formatDate = useCallback((dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }, []);
 
-        // Fetch review details from Supabase
-        const { data, error } = await supabase
-          .from('tool_reviews')
-          .select(`
-            id,
-            title,
-            tool_tech_name,
-            overall_rating,
-            content,
-            hero_image_url,
-            vibe_check_count,
-            comment_count,
-            created_at,
-            updated_at,
-            user_id,
-            user_profiles (
-              display_name,
-              username,
-              avatar_url
-            )
-          `)
-          .eq('id', reviewId)
-          .single();
-
-        if (error) throw error;
-
-        const { data: categoriesData, error: categoriesError } = await supabase
-          .from('review_categories')
-          .select('category_name')
-          .eq('review_id', reviewId);
-
-        if (categoriesError) throw categoriesError;
-
-        const formattedData: ReviewData = {
-          id: data.id,
-          title: data.title,
-          tool_tech_name: data.tool_tech_name,
-          overall_rating: data.overall_rating,
-          content: data.content,
-          hero_image_url: data.hero_image_url ?? null,
-          demo_video_url: null, // Not currently stored in the database
-          vibe_check_count: data.vibe_check_count,
-          comment_count: data.comment_count,
-          created_at: data.created_at,
-          updated_at: data.updated_at,
-          user_id: data.user_id,
-          author_name: data.user_profiles?.[0]?.display_name || '',
-          author_username: data.user_profiles?.[0]?.username || '',
-          author_avatar_url: data.user_profiles?.[0]?.avatar_url || null,
-          categories: categoriesData.map((cat: any) => cat.category_name)
-        };
-
-        setReviewData(formattedData);
-      } catch (err: any) {
-        console.error('Error fetching review data:', err);
-        setError(err.message || t('common.failedToLoadReviewData', 'Failed to load review data.'));
-      } finally {
-        setLoading(false);
-      }
+  const { postedDate, updatedDate } = useMemo(() => {
+    if (!reviewData) return { postedDate: '', updatedDate: '' };
+    
+    return {
+      postedDate: formatDate(reviewData.created_at),
+      updatedDate: formatDate(reviewData.updated_at)
     };
+  }, [reviewData, formatDate]);
 
-    if (reviewId) {
-      fetchReviewData();
+  // Render star ratings with memoization
+  const renderStars = useCallback((rating: number) => {
+    return (
+      <div className="flex items-center px-2 py-1">
+        {[...Array(5)].map((_, i) => (
+          <span 
+            key={i} 
+            className={`material-symbols-outlined text-base ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+          >
+            star
+          </span>
+        ))}
+        <span className="ml-2 text-[#161118] dark:text-[#f5f7f8] text-sm font-bold">
+          {rating.toFixed(1)}
+        </span>
+      </div>
+    );
+  }, []);
+
+  // Memoized fetch function to prevent unnecessary re-renders
+  const fetchReviewDataWithRetry = useCallback(async (maxRetries = 3) => {
+    // Prevent multiple simultaneous requests
+    if (requestInProgress.current) {
+      return;
+    }
+
+    // Check cache first
+    if (reviewDataCache.has(reviewId)) {
+      setReviewData(reviewDataCache.get(reviewId)!);
+      setLoading(false);
+      return;
+    }
+
+    requestInProgress.current = true;
+    
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Fetch review details from Supabase
+      const { data, error } = await supabase
+        .from('tool_reviews')
+        .select(`
+          id,
+          title,
+          tool_tech_name,
+          overall_rating,
+          content,
+          hero_image_url,
+          vibe_check_count,
+          comment_count,
+          created_at,
+          updated_at,
+          user_id,
+          user_profiles (
+            display_name,
+            username,
+            avatar_url
+          )
+        `)
+        .eq('id', reviewId)
+        .single();
+
+      if (error) throw error;
+
+      const { data: categoriesData, error: categoriesError } = await supabase
+        .from('review_categories')
+        .select('category_name')
+        .eq('review_id', reviewId);
+
+      if (categoriesError) throw categoriesError;
+
+      const formattedData: ReviewData = {
+        id: data.id,
+        title: data.title,
+        tool_tech_name: data.tool_tech_name,
+        overall_rating: data.overall_rating,
+        content: data.content,
+        hero_image_url: data.hero_image_url ?? null,
+        demo_video_url: null, // Not currently stored in the database
+        vibe_check_count: data.vibe_check_count,
+        comment_count: data.comment_count,
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+        user_id: data.user_id,
+        author_name: data.user_profiles?.[0]?.display_name || '',
+        author_username: data.user_profiles?.[0]?.username || '',
+        author_avatar_url: data.user_profiles?.[0]?.avatar_url || null,
+        categories: categoriesData.map((cat: any) => cat.category_name)
+      };
+
+      // Cache the data
+      reviewDataCache.set(reviewId, formattedData);
+      
+      setReviewData(formattedData);
+      retryCount.current = 0; // Reset retry count on success
+    } catch (err: any) {
+      console.error('Error fetching review data:', err);
+      
+      if (err.code === 'PGRST116' || err.message.includes('Not found')) {
+        setError(t('gear.reviewNotFound', 'Review not found.'));
+        retryCount.current = 0; // No point retrying if not found
+      } else if (err.message.includes('Failed to fetch')) {
+        // Check if we should retry
+        if (retryCount.current < maxRetries) {
+          retryCount.current++;
+          console.log(`Retrying fetch (attempt ${retryCount.current}/${maxRetries})...`);
+          
+          // Exponential backoff: wait 1s, 2s, 4s, etc.
+          const delay = Math.pow(2, retryCount.current) * 1000;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          
+          // Retry the request
+          await fetchReviewDataWithRetry(maxRetries);
+        } else {
+          setError(t('gear.networkError', 'Network error occurred. Please check your connection.'));
+          retryCount.current = 0; // Reset for next attempt if user reloads
+        }
+      } else {
+        setError(err.message || t('gear.loadError', 'Failed to load review data.'));
+        retryCount.current = 0; // Reset for other errors
+      }
+    } finally {
+      setLoading(false);
+      requestInProgress.current = false;
     }
   }, [reviewId, t]);
+
+  useEffect(() => {
+    // Clear any existing debounce timeout
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    if (!reviewId) {
+      setError(t('gear.reviewIdMissing', 'Review ID is missing.'));
+      setLoading(false);
+      return;
+    }
+
+    // Check if we already have data in cache
+    if (reviewDataCache.has(reviewId)) {
+      setReviewData(reviewDataCache.get(reviewId)!);
+      setLoading(false);
+      return;
+    }
+
+    // Debounce the request to prevent rapid requests
+    debounceTimeout.current = setTimeout(() => {
+      fetchReviewDataWithRetry();
+    }, 300); // 300ms debounce
+
+    // Cleanup function
+    return () => {
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+    };
+  }, [reviewId, fetchReviewDataWithRetry]);
 
   if (loading) {
     return (
@@ -129,7 +242,13 @@ const ToolTechReviewDetail = () => {
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1 p-8">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
           <strong className="font-bold">{t('common.error', 'Error!')} </strong>
-          <span className="block sm:inline">{error}</span>
+          <span className="block sm:inline">
+            {error === 'common.failedToLoadReviewData' 
+              ? t('common.failedToLoadReviewData', 'Failed to load review data.') 
+              : error.startsWith('gear.')
+                ? t(error, error.replace('gear.', '').replace(/([A-Z])/g, ' $1').toLowerCase())
+                : error}
+          </span>
         </div>
         <button
           onClick={() => router.back()}
@@ -158,34 +277,6 @@ const ToolTechReviewDetail = () => {
       </div>
     );
   }
-
-  // Format dates for display
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-  
-  const postedDate = formatDate(reviewData.created_at);
-  const updatedDate = formatDate(reviewData.updated_at);
-
-  // Render star ratings
-  const renderStars = (rating: number) => {
-    return (
-      <div className="flex items-center px-2 py-1">
-        {[...Array(5)].map((_, i) => (
-          <span 
-            key={i} 
-            className={`material-symbols-outlined text-base ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-          >
-            star
-          </span>
-        ))}
-        <span className="ml-2 text-[#161118] dark:text-[#f5f7f8] text-sm font-bold">
-          {rating.toFixed(1)}
-        </span>
-      </div>
-    );
-  };
 
   return (
     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
