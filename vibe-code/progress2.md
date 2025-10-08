@@ -293,6 +293,49 @@ app/
 - **Importance of Complete Translation Coverage:** Ensured all UI elements, including section headers, are properly translated.
 - **Detail in User Experience:** Properly translated section headers improve the overall user experience for multilingual users.
 
+## October 8, 2025: Improving Text Readability in HeroSection
+
+**Main Work:** Enhancing text readability in HeroSection with proper line breaks and centering for both Korean and English
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Implemented Smart Line Breaks:**
+    *   Modified `app/mainpage/HeroSection.tsx` to add proper line breaks for long titles and subtitles.
+    *   Added logic to break the main title "Vibe Hub: The Developer Community for Creative Coding" after the colon (:) to improve readability.
+    *   Added logic to break the subtitle "Discover and share innovative projects, reviews, and insights in modern AI-assisted development. Connect with fellow developers and explore the 'vibe' of coding." between the two sentences.
+    *   Line breaks occur on desktop but are hidden on mobile for better mobile experience.
+
+2.  **Enhanced Multilingual Readability:**
+    *   Implemented responsive text handling that works well for both English and Korean text.
+    *   Improved readability for long text phrases in both languages.
+    *   Ensured line breaks occur at appropriate places to maintain meaning in both languages.
+
+3.  **Fixed Centering Issues:**
+    *   Corrected the positioning of HeroSection elements to be properly centered within the overall layout.
+    *   Removed manual offset adjustments and reverted to proper centering using `mx-auto` classes.
+    *   Ensured elements are centered within the available content area, accounting for the sidebar layout.
+
+4.  **Mobile Responsiveness Improvements:**
+    *   Adjusted font sizes for better mobile readability: `text-3xl sm:text-4xl md:text-5xl` for titles.
+    *   Added appropriate spacing and padding that works well on mobile devices.
+    *   Implemented conditional line breaks that only appear on larger screens using `hidden sm:block`.
+
+### Implemented Features
+
+- **Smart Text Splitting:** Text content is now intelligently split based on content structure (after colons, between sentences) rather than just character count.
+- **Proper Centering:** All HeroSection elements are properly centered within the context of the overall layout structure.
+- **Enhanced Mobile Experience:** Line breaks and text display optimized for different screen sizes.
+- **Multilingual Support:** Text readability improvements work consistently for both English and Korean content.
+
+### What I Learned from This Work
+
+- **Text Readability in UI Design:** Proper line breaks and text arrangement significantly improve user experience and content comprehension.
+- **Responsive Typography:** Text elements should be designed to adapt to different screen sizes while maintaining readability.
+- **Layout Context Awareness:** When centering elements, it's important to consider the overall layout and how sidebars or other structural elements affect the available space.
+- **Multilingual UI Considerations:** Different languages may require different approaches to text handling due to varying sentence structures and character lengths.
+
 ## October 8, 2025: Implementing AdComponent for Google AdSense
 
 **Main Work:** Creating and implementing AdComponent to display Google AdSense ads throughout the site

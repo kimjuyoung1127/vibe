@@ -123,11 +123,11 @@ const HeroSection = () => {
             className="mt-4 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-blue-200/80 leading-relaxed"
           >
             <div className="text-center">
-              {heroContent.subtitle.includes('. ') 
-                ? heroContent.subtitle.split(/\. /).map((sentence, index, array) => (
+              {heroContent.subtitle.length > 50
+                ? heroContent.subtitle.match(/.{1,50}(\s|$)/g)?.map((line, index) => (
                     <React.Fragment key={index}>
                       {index > 0 && <br className="hidden sm:block" />}
-                      {sentence.trim()}{index < array.length ? '.' : ''}
+                      {line.trim()}
                     </React.Fragment>
                   ))
                 : heroContent.subtitle}
