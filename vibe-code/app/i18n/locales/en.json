@@ -198,6 +198,9 @@
       "personalWebsite": "Personal Website",
       "noLinksAdded": "No social links added yet. Add some in your profile settings!"
     },
+    "recentProjects": "Recent Projects",
+    "recentReviews": "Recent Reviews",
+    "noBio": "No bio",
     "notFound": "User profile not found."
   },
   "login": {

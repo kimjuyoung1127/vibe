@@ -1,3 +1,6 @@
+// app/profile/page.tsx
+// This page displays the current user's profile
+
 import UserProfile from './UserProfile';
 
 const ProfilePage = () => {

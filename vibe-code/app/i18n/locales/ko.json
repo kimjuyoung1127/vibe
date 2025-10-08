@@ -198,6 +198,9 @@
       "personalWebsite": "개인 웹사이트",
       "noLinksAdded": "아직 소셜 링크가 추가되지 않았습니다. 프로필 설정에서 추가해 보세요!"
     },
+    "recentProjects": "최근 프로젝트",
+    "recentReviews": "최근 리뷰",
+    "noBio": "자기 소개가 없습니다",
     "notFound": "사용자 프로필을 찾을 수 없습니다."
   },
   "login": {

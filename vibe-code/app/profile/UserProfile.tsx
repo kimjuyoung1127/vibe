@@ -20,7 +20,26 @@ interface UserProfileData {
   created_at: string;
 }
 
-const UserProfile = () => {
+interface UserProfileProps {
+  userId?: string; // Optional userId for viewing other users' profiles
+}
+
+// Define types for user's projects and reviews
+interface UserProject {
+  id: string;
+  title: string;
+  tagline: string;
+  created_at: string;
+}
+
+interface UserReview {
+  id: string;
+  title: string;
+  tool_tech_name: string;
+  created_at: string;
+}
+
+const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [userData, setUserData] = useState<UserProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +49,8 @@ const UserProfile = () => {
     commentsCount: 0,
     vibeChecksCount: 0
   });
+  const [recentProjects, setRecentProjects] = useState<UserProject[]>([]);
+  const [recentReviews, setRecentReviews] = useState<UserReview[]>([]);
 
   const { t } = useTranslations();
 
@@ -39,26 +60,36 @@ const UserProfile = () => {
         setLoading(true);
         setError(null);
 
-        // Get the current session
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session?.user) {
-          throw new Error('No user session found');
+        let targetUserId = userId;
+
+        // If no userId is provided, get the current user's ID from the session
+        if (!targetUserId) {
+          const { data: { session } } = await supabase.auth.getSession();
+          
+          if (!session?.user) {
+            throw new Error('No user session found');
+          }
+          
+          targetUserId = session.user.id;
         }
 
         // Fetch user profile using the correct foreign key 'user_id'
         const { data: profileData, error: profileError } = await supabase
           .from('user_profiles')
           .select('id, user_id, username, display_name, avatar_url, bio, github_url, linkedin_url, website_url, created_at')
-          .eq('user_id', session.user.id)
+          .eq('user_id', targetUserId)
           .single();
 
         if (profileError) throw profileError;
 
         setUserData(profileData);
 
-        // Fetch user stats
-        await fetchUserStats(session.user.id);
+        // Fetch user stats and recent activity
+        await Promise.all([
+          fetchUserStats(targetUserId),
+          fetchRecentProjects(targetUserId),
+          fetchRecentReviews(targetUserId)
+        ]);
       } catch (error: any) {
         console.error('Error fetching user profile:', error);
         setError(error.message || 'Failed to load profile data. Please try again.');
@@ -123,21 +154,52 @@ const UserProfile = () => {
           commentsCount: commentsCount || 0,
           vibeChecksCount: vibeChecksCount
         });
-
-        setStats({
-          projectsCount: projectsCount || 0,
-          toolTechCount: toolTechCount || 0,
-          commentsCount: commentsCount || 0,
-          vibeChecksCount: vibeChecksCount || 0
-        });
       } catch (error: any) {
         console.error('Error fetching user stats:', error);
         // We don't set error here as we still want to show the profile even if stats fail
       }
     };
 
+    const fetchRecentProjects = async (userId: string) => {
+      try {
+        // Fetch 3 most recent projects
+        const { data: projects, error: projectsError } = await supabase
+          .from('projects')
+          .select('id, title, tagline, created_at')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false })
+          .limit(3);
+
+        if (projectsError) throw projectsError;
+
+        setRecentProjects(projects || []);
+      } catch (error: any) {
+        console.error('Error fetching user projects:', error);
+        // We don't set error here as we still want to show the profile
+      }
+    };
+
+    const fetchRecentReviews = async (userId: string) => {
+      try {
+        // Fetch 3 most recent tool & tech reviews
+        const { data: reviews, error: reviewsError } = await supabase
+          .from('tool_reviews')
+          .select('id, title, tool_tech_name, created_at')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false })
+          .limit(3);
+
+        if (reviewsError) throw reviewsError;
+
+        setRecentReviews(reviews || []);
+      } catch (error: any) {
+        console.error('Error fetching user reviews:', error);
+        // We don't set error here as we still want to show the profile
+      }
+    };
+
     fetchUserProfile();
-  }, []);
+  }, [userId]);
 
   if (loading) {
     return (
@@ -180,14 +242,19 @@ const UserProfile = () => {
   const formattedJoinDate = `${t('profile.joined')} ${joinDate.toLocaleString('default', { month: 'long' })} ${joinDate.getFullYear()}`;
 
   return (
-    <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+    <div className="layout-content-container flex flex-col max-w-[960px] flex-1 bg-white">
       {/* Profile header */}
       <div className="px-4 py-6">
         <div className="flex flex-wrap justify-between gap-3">
           <div className="flex min-w-72 flex-col gap-3">
             <p className="text-[#161118] dark:text-[#f5f7f8] tracking-light text-[32px] font-bold leading-tight">
-              {t('profile.userProfile')}
+              {userId ? userData?.display_name : t('profile.userProfile')}
             </p>
+            {userId && (
+              <p className="text-[#7c608a] text-sm font-normal leading-normal">
+                @{userData?.username}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -197,7 +264,7 @@ const UserProfile = () => {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left column - Avatar and basic info */}
           <div className="md:w-1/3">
-            <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6">
+            <div className="bg-white dark:bg-background-dark rounded-xl border border-primary/20 p-6">
               <div className="flex flex-col items-center">
                 {/* Avatar */}
                 <div 
@@ -217,7 +284,7 @@ const UserProfile = () => {
                 
                 {/* Bio */}
                 <p className="text-[#161118] dark:text-[#f5f7f8] text-center text-sm font-normal leading-normal mb-6">
-                  {userData.bio}
+                  {userData.bio || t('profile.noBio')}
                 </p>
                 
                 {/* Join date */}
@@ -225,50 +292,120 @@ const UserProfile = () => {
                   {formattedJoinDate}
                 </p>
                 
-                {/* Edit profile button */}
-                <Link 
-                  href="/profile/edit" 
-                  className="w-full py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-center font-medium"
-                >
-                  {t('profile.editProfile')}
-                </Link>
+                {/* Edit profile button - only show when viewing own profile */}
+                {!userId && (
+                  <Link 
+                    href="/profile/edit" 
+                    className="w-full py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-center font-medium"
+                  >
+                    {t('profile.editProfile')}
+                  </Link>
+                )}
               </div>
             </div>
           </div>
           
           {/* Right column - Stats and links */}
           <div className="md:w-2/3">
-            {/* Stats */}
-            <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6 mb-6">
-              <h3 className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em] mb-4">
-                {t('profile.stats.title')}
-              </h3>
-              
-              <div className="grid grid-cols-4 gap-4">
-                  <Link href="/projects/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
-                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.projectsCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.projects')}</p>
-                  </Link>
-                  
-                  <Link href="/gear/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
-                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.toolTechCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.toolTech')}</p>
-                  </Link>
-                  
-                  <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
-                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.commentsCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.comments')}</p>
+            {/* Stats - only show for current user's profile */}
+            {!userId && (
+              <div className="bg-white dark:bg-background-dark rounded-xl border border-primary/20 p-6 mb-6">
+                <h3 className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em] mb-4">
+                  {t('profile.stats.title')}
+                </h3>
+                
+                <div className="grid grid-cols-4 gap-4">
+                    <Link href="/projects/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+                      <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.projectsCount}</p>
+                      <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.projects')}</p>
+                    </Link>
+                    
+                    <Link href="/gear/drafts" className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+                      <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.toolTechCount}</p>
+                      <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.toolTech')}</p>
+                    </Link>
+                    
+                    <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
+                      <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.commentsCount}</p>
+                      <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.comments')}</p>
+                    </div>
+                    
+                    <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
+                      <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.vibeChecksCount}</p>
+                      <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.vibeChecks')}</p>
+                    </div>
                   </div>
-                  
-                  <div className="bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg p-4 text-center">
-                    <p className="text-[#161118] dark:text-[#f5f7f8] text-[24px] font-bold">{stats.vibeChecksCount}</p>
-                    <p className="text-[#7c608a] dark:text-[#c5b3d1] text-sm">{t('profile.stats.vibeChecks')}</p>
-                  </div>
+              </div>
+            )}
+            
+            {/* Recent Projects */}
+            {recentProjects.length > 0 && (
+              <div className="bg-white dark:bg-background-dark rounded-xl border border-primary/20 p-6 mb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em]">
+                    {t('profile.recentProjects')}
+                  </h3>
+                  <Link 
+                    href={`/projects?userId=${userData?.user_id}`} 
+                    className="text-primary text-sm hover:underline"
+                  >
+                    {t('common.viewAll')}
+                  </Link>
                 </div>
-            </div>
+                
+                <div className="space-y-3">
+                  {recentProjects.map((project) => (
+                    <Link 
+                      key={project.id} 
+                      href={`/projects/${project.id}`}
+                      className="block p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+                    >
+                      <h4 className="font-semibold text-[#161118] dark:text-[#f5f7f8]">{project.title}</h4>
+                      <p className="text-sm text-[#7c608a] dark:text-[#c5b3d1] truncate">{project.tagline}</p>
+                      <p className="text-xs text-[#7c608a] dark:text-[#c5b3d1] mt-1">
+                        {new Date(project.created_at).toLocaleDateString()}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Recent Tool & Tech Reviews */}
+            {recentReviews.length > 0 && (
+              <div className="bg-white dark:bg-background-dark rounded-xl border border-primary/20 p-6 mb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em]">
+                    {t('profile.recentReviews')}
+                  </h3>
+                  <Link 
+                    href={`/gear?userId=${userData?.user_id}`} 
+                    className="text-primary text-sm hover:underline"
+                  >
+                    {t('common.viewAll')}
+                  </Link>
+                </div>
+                
+                <div className="space-y-3">
+                  {recentReviews.map((review) => (
+                    <Link 
+                      key={review.id} 
+                      href={`/gear/${review.id}`}
+                      className="block p-3 bg-[#f5f7f8] dark:bg-[#0f0f1a] rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+                    >
+                      <h4 className="font-semibold text-[#161118] dark:text-[#f5f7f8]">{review.title}</h4>
+                      <p className="text-sm text-[#7c608a] dark:text-[#c5b3d1] truncate">{review.tool_tech_name}</p>
+                      <p className="text-xs text-[#7c608a] dark:text-[#c5b3d1] mt-1">
+                        {new Date(review.created_at).toLocaleDateString()}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
             
             {/* Social links */}
-            <div className="bg-background-light dark:bg-background-dark rounded-xl border border-primary/20 p-6">
+            <div className="bg-white dark:bg-background-dark rounded-xl border border-primary/20 p-6">
               <h3 className="text-[#161118] dark:text-[#f5f7f8] text-[18px] font-bold leading-tight tracking-[-0.015em] mb-4">
                 {t('profile.links.title')}
               </h3>

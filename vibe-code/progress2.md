@@ -419,3 +419,43 @@ app/
 - **AdSense Implementation:** Learned to properly implement Google AdSense in a React/Next.js application with client-side loading.
 - **Component Design:** Components for external services like AdSense require careful consideration of when scripts are available.
 - **Responsive Design:** Ad components should be designed to be responsive and fit well with the site's design.
+
+## October 8, 2025: Fixing Flickering Issue on ToolTechReviewDetail Page
+
+**Main Work:** Resolving flickering and network errors on the ToolTechReviewDetail page (gear/[id])
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Identified Root Cause:**
+    *   The infinite re-rendering loop was caused by including the translation function `t` in the useEffect dependency array.
+    *   Network errors were causing repeated request attempts leading to `net::ERR_INSUFFICIENT_RESOURCES`.
+
+2.  **Fixed React Hooks Order:**
+    *   Moved all hooks (`useCallback`, `useMemo`) to the top of the component to comply with React's Rules of Hooks.
+    *   Resolved "Rendered more hooks than during the previous render" error.
+
+3.  **Implemented Performance Optimizations:**
+    *   Added data caching to prevent unnecessary re-fetching of review data.
+    *   Implemented debouncing mechanism (300ms) to prevent rapid requests.
+    *   Added retry logic with exponential backoff for failed network requests.
+    *   Applied memoization using useCallback and useMemo for expensive computations.
+
+4.  **Enhanced Error Handling:**
+    *   Improved error handling to distinguish between different error types (not found vs. network errors).
+    *   Added proper translation handling for error messages.
+
+### Implemented Features
+
+- **Reduced Flickering:** Multiple layers of optimization significantly reduced UI flickering on the detail page.
+- **Network Resilience:** Retry logic and debouncing prevent network flooding and improve error recovery.
+- **Performance Improvements:** Caching and memoization optimize rendering and prevent unnecessary operations.
+- **Better Error UX:** Clearer error messages and handling for different failure scenarios.
+
+### What I Learned from This Work
+
+- **React Hooks Best Practices:** Importance of keeping hooks at the top level to maintain consistent rendering order.
+- **Performance Optimization:** Strategic use of caching, memoization, and debouncing can significantly improve user experience.
+- **Error Handling:** Proper error categorization and handling lead to more robust applications and better user experience.
+- **Network Requests:** Managing the frequency and retries of network requests is crucial for performance and server health.
