@@ -30,14 +30,7 @@ const LoginPage = () => {
           onLoadingChange={() => {}} // We can implement this if needed
         />
         
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            {t('login.noConfirmationEmail')}{' '}
-            <a href="/resend-confirmation" className="font-medium text-primary hover:text-primary/80">
-              {t('login.resendConfirmation')}
-            </a>
-          </p>
-        </div>
+
       </div>
     </div>
   );
