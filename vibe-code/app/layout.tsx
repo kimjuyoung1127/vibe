@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google-site-verification-token', // Replace with actual token
+    google: 'eOWAHNLhguVxaMJKKu8eumeT6HFeTKfLV_BMY4O3bG0', // Replace with actual token
     yahoo: 'yahoo-site-verification-token',   // Replace with actual token
     other: {
       'msvalidate.01': 'bing-verification-token', // Replace with actual token
@@ -80,6 +80,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google-site-verification" content="eOWAHNLhguVxaMJKKu8eumeT6HFeTKfLV_BMY4O3bG0" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link 
           href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700" 

@@ -459,3 +459,45 @@ app/
 - **Performance Optimization:** Strategic use of caching, memoization, and debouncing can significantly improve user experience.
 - **Error Handling:** Proper error categorization and handling lead to more robust applications and better user experience.
 - **Network Requests:** Managing the frequency and retries of network requests is crucial for performance and server health.
+
+## October 9, 2025: Fixed Loading Spinner and Multilingual Issues
+
+**Main Work:** Fixed persistent loading spinner in search, HTML display in RelatedNewsCard, incorrect tag selection in CategorizationSection, and added multilingual support to more components
+
+**Status:** Completed
+
+### Summary of Changes
+
+1.  **Fixed Loading Spinner Issue:**
+    *   Updated `app/hooks/useUserProfile.ts` to properly manage loading state during auth state changes by adding setLoading(true) before fetching and ensuring setLoading(false) in finally block.
+    *   Added proper loading indicator to `app/search/page.tsx` that displays when search is in progress.
+    *   Removed loading spinner from `app/components/SearchBar.tsx` to prevent persistent spinner issue after search completion.
+
+2.  **Fixed HTML Display Issue:**
+    *   Fixed issue in `app/news/[id]/RelatedNewsCard.tsx` where HTML code was being displayed as raw text instead of rendered HTML.
+    *   Updated to strip HTML tags from excerpt to display only plain text content.
+
+3.  **Fixed Tag Selection Issue:**
+    *   Fixed issue in `app/gear/create/CategorizationSection.tsx` where selecting 'professional' was resulting in 'profession' and 'al' being selected separately.
+    *   Corrected complex regex delimiter pattern from `/[, \\\\\\\\n]/` to `/[, \n]/` to properly handle string splitting.
+
+4.  **Enhanced Multilingual Support:**
+    *   Created `app/components/LanguagePreference.tsx` for consistent language selection across the site.
+    *   Integrated LanguagePreference component in `app/components/topnav.tsx` for easy access to language switching.
+    *   Added multilingual support to `app/projects/ProjectCard.tsx` for UI elements.
+    *   Added comprehensive multilingual support to `app/projects/[id]/ProjectShowcaseDetail.tsx` including section titles, buttons, and error messages.
+
+### Implemented Features
+
+- **Proper Loading States:** Loading indicators now properly show and hide during search operations and user profile loading.
+- **Clean Display:** HTML tags no longer appear in news excerpts, only plain text is displayed.
+- **Correct Tag Selection:** Tags are now properly selected without unwanted splits.
+- **Enhanced Multilingual Support:** More UI elements now support multiple languages for better user experience.
+
+### What I Learned from This Work
+
+- **State Management:** Proper loading state management is crucial for good UI/UX and requires attention to both initial and changing states.
+- **Component Isolation:** Sometimes removing a feature from one component (search spinner) and implementing it elsewhere (search page) can resolve complex issues.
+- **Security Considerations:** Proper handling of HTML content is important for both display and security reasons.
+- **Input Validation:** Regular expressions for string manipulation need to be carefully crafted to avoid unexpected behavior.
+- **Internationalization:** Comprehensive multilingual support requires attention to all UI elements and user-facing text.
