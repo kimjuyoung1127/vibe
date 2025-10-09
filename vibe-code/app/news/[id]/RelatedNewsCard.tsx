@@ -40,10 +40,6 @@ const RelatedNewsCard: React.FC<RelatedNewsCardProps> = ({
           <h3 className="text-base font-bold text-black dark:text-white mb-2 line-clamp-2">
             {title}
           </h3>
-          
-          <p className="text-xs text-black/60 dark:text-white/60 line-clamp-3">
-            {excerpt}
-          </p>
         </div>
       </div>
     </Link>

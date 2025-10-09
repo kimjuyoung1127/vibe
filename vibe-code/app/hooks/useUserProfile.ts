@@ -53,6 +53,8 @@ const useUserProfile = () => {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
+        // Set loading to true when fetching user profile after auth state change
+        setLoading(true);
         // Fetch user profile using the correct foreign key 'user_id'
         supabase
           .from('user_profiles')
@@ -66,9 +68,13 @@ const useUserProfile = () => {
               console.error('Error fetching user profile on auth change:', error);
               setUserProfile(null);
             }
+          })
+          .finally(() => {
+            setLoading(false);
           });
       } else {
         setUserProfile(null);
+        setLoading(false);
       }
     });
 

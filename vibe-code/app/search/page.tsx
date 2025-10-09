@@ -9,6 +9,7 @@ import HeroSection from '../mainpage/HeroSection';
 import WeeklyVibeRanking from '../mainpage/WeeklyVibeRanking';
 import LatestProjects from '../mainpage/LatestProjects';
 import VibeNews from '../mainpage/VibeNews';
+import LoadingSpinner from '@/app/components/LoadingSpinner';
 
 interface ProjectItem {
   id: string;
@@ -43,7 +44,7 @@ const SearchPage = () => {
     projects: ProjectItem[];
     toolReviews: ToolReviewItem[];
   }>({ projects: [], toolReviews: [] });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'all' | 'projects' | 'reviews' | 'users'>('all');
 
@@ -112,7 +113,11 @@ const SearchPage = () => {
             </div>
           )}
 
-          {searchResults.projects.length === 0 && searchResults.toolReviews.length === 0 ? (
+          {loading ? (
+            <div className="flex justify-center items-center py-12">
+              <LoadingSpinner />
+            </div>
+          ) : searchResults.projects.length === 0 && searchResults.toolReviews.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-[#161118] dark:text-[#f5f7f8] text-lg">No results found for "{query}"</p>
               <p className="text-[#7c608a] dark:text-[#c5b3d1] mt-2">Try different keywords or check for typos</p>

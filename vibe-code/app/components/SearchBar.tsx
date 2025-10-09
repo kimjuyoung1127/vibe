@@ -20,7 +20,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [query, setQuery] = useState<string>('');
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -52,7 +51,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      setIsLoading(true);
       // Navigate to search results page
       router.push(`/search?q=${encodeURIComponent(query.trim())}`);
     }
@@ -84,11 +82,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               <span className="material-symbols-outlined">close</span>
             </button>
           )}
-          {isLoading && (
-            <span className="absolute right-3 text-primary animate-spin">
-              <span className="material-symbols-outlined">sync</span>
-            </span>
-          )}
+
         </div>
       </form>
       

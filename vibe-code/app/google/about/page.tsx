@@ -250,15 +250,7 @@ const AboutUsPage = () => {
         </motion.section>
         
         {/* Ad Component */}
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <div className="bg-gray-100 p-4 rounded-xl text-center">
-            <AdComponent 
-              adSlot="7287287287"  // This is a placeholder slot ID
-              adFormat="auto"
-              className="mx-auto"
-            />
-          </div>
-        </div>
+        
       </div>
     </div>
   );
