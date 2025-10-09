@@ -56,22 +56,30 @@ const useUserProfile = () => {
         // Set loading to true when fetching user profile after auth state change
         setLoading(true);
         // Fetch user profile using the correct foreign key 'user_id'
-        supabase
-          .from('user_profiles')
-          .select('id, user_id, username, display_name, avatar_url, bio, github_url, linkedin_url, website_url')
-          .eq('user_id', session.user.id)
-          .single()
-          .then(({ data, error }) => {
+        // Create a separate function to handle the profile fetch with proper loading state management
+        const fetchProfile = async () => {
+          try {
+            const { data, error } = await supabase
+              .from('user_profiles')
+              .select('id, user_id, username, display_name, avatar_url, bio, github_url, linkedin_url, website_url')
+              .eq('user_id', session.user.id)
+              .single();
+            
             if (!error && data) {
               setUserProfile(data);
             } else {
               console.error('Error fetching user profile on auth change:', error);
               setUserProfile(null);
             }
-          })
-          .finally(() => {
+          } catch (error) {
+            console.error('Error in profile fetch:', error);
+            setUserProfile(null);
+          } finally {
             setLoading(false);
-          });
+          }
+        };
+        
+        fetchProfile();
       } else {
         setUserProfile(null);
         setLoading(false);
