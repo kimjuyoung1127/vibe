@@ -14,14 +14,14 @@ const CategorizationSection: React.FC<CategorizationSectionProps> = ({
   handleChange,
   setFormData 
 }) => {
-  const { t } = useTranslations();
+  const { t } = useTranslations(); 
   
   // Memoize options to prevent re-computation on every render
   const gearCategoryOptions = useMemo(getCommonGearCategoryOptions, []);
   const gearTagsOptions = useMemo(getCommonGearTagsOptions, []);
 
   // Convert string props to string arrays for the AdvancedSelect component
-  const toArray = (str: string, delimiter: string | RegExp = /[, \\\\n]/) =>
+  const toArray = (str: string, delimiter: string | RegExp = /[, \n]/) =>
     str ? str.split(delimiter).map((s) => s.trim()).filter(Boolean) : [];
 
   // Generic handler to join arrays into strings with custom delimiters
