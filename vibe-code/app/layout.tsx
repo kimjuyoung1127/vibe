@@ -81,6 +81,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-site-verification" content="eOWAHNLhguVxaMJKKu8eumeT6HFeTKfLV_BMY4O3bG0" />
+        <meta name="naver-site-verification" content="38bc24667dc28e0cb859cadfbff0362d3755582b" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link 
           href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700" 
