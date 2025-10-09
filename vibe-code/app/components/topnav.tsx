@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import SearchBar from './SearchBar';
+import LanguagePreference from './LanguagePreference';
 import useUserProfile from '@/app/hooks/useUserProfile'; // Import the custom hook
 import { usePathname, useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabaseClient';
@@ -90,6 +91,7 @@ const TopNav = () => {
           </nav>
         </div>
         <div className="flex items-center justify-end gap-4">
+          <LanguagePreference className="hidden md:block" />
           <div className="hidden sm:block z-10">
             <SearchBar />
           </div>
@@ -182,6 +184,9 @@ const TopNav = () => {
                   <span>{t('common.logout')}</span> {/* Assuming 'common.logout' translation exists */}
                 </button>
               )}
+              <div className="pt-2 px-3">
+                <LanguagePreference />
+              </div>
               <div className="pt-2 px-3">
                 <SearchBar />
               </div>
