@@ -10,18 +10,20 @@ import { Option } from "@/app/components/AdvancedSelect"; // Assuming AdvancedSe
 export const getCommonTechStackOptions = (): Option[] => {
   return [
     // --- Core & Frontend ---
-    { value: 'react', label: 'React', category: 'Core & Frontend', popular: true },
-    { value: 'nextjs', label: 'Next.js', category: 'Core & Frontend', popular: true },
-    { value: 'typescript', label: 'TypeScript', category: 'Core & Frontend', popular: true },
-    { value: 'javascript', label: 'JavaScript', category: 'Core & Frontend', popular: true },
-    { value: 'vue', label: 'Vue.js', category: 'Core & Frontend' },
-    { value: 'angular', label: 'Angular', category: 'Core & Frontend' },
-    { value: 'svelte', label: 'Svelte', category: 'Core & Frontend' },
-    { value: 'solidjs', label: 'SolidJS', category: 'Core & Frontend' },
-    { value: 'qwik', label: 'Qwik', category: 'Core & Frontend' },
-    { value: 'astro', label: 'Astro', category: 'Core & Frontend' },
-    { value: 'remix', label: 'Remix', category: 'Core & Frontend' },
-    { value: 'elm', label: 'Elm', category: 'Core & Frontend' },
+    { value: 'react', label: 'React', category: 'Frontend', popular: true },
+    { value: 'nextjs', label: 'Next.js', category: 'Frontend', popular: true },
+    { value: 'typescript', label: 'TypeScript', category: 'Frontend', popular: true },
+    { value: 'javascript', label: 'JavaScript', category: 'Frontend', popular: true },
+    { value: 'vue', label: 'Vue.js', category: 'Frontend' },
+    { value: 'angular', label: 'Angular', category: 'Frontend' },
+    { value: 'svelte', label: 'Svelte', category: 'Frontend' },
+    { value: 'solidjs', label: 'SolidJS', category: 'Frontend' },
+    { value: 'qwik', label: 'Qwik', category: 'Frontend' },
+    { value: 'astro', label: 'Astro', category: 'Frontend' },
+    { value: 'remix', label: 'Remix', category: 'Frontend' },
+    { value: 'elm', label: 'Elm', category: 'Frontend' },
+    { value: 'figma', label: 'Figma', category: 'Frontend', popular: true },
+    { value: 'slack', label: 'Slack', category: 'Frontend', popular: true },
 
     // --- UI/UX & Styling ---
     { value: 'tailwindcss', label: 'Tailwind CSS', category: 'UI/UX & Styling', popular: true },
@@ -30,21 +32,21 @@ export const getCommonTechStackOptions = (): Option[] => {
     { value: 'threejs', label: 'Three.js', category: 'UI/UX & Styling' },
     { value: 'webgl', label: 'WebGL', category: 'UI/UX & Styling' },
 
-    // --- Backend & API ---
-    { value: 'nodejs', label: 'Node.js', category: 'Backend & API', popular: true },
-    { value: 'python', label: 'Python', category: 'Backend & API', popular: true },
-    { value: 'express', label: 'Express', category: 'Backend & API' },
-    { value: 'deno', label: 'Deno', category: 'Backend & API' },
-    { value: 'bun', label: 'Bun', category: 'Backend & API' },
-    { value: 'django', label: 'Django', category: 'Backend & API' },
-    { value: 'flask', label: 'Flask', category: 'Backend & API' },
-    { value: 'java', label: 'Java', category: 'Backend & API' },
-    { value: 'spring', label: 'Spring Boot', category: 'Backend & API' },
-    { value: 'go', label: 'Go', category: 'Backend & API' },
-    { value: 'rust', label: 'Rust', category: 'Backend & API' },
-    { value: 'graphql', label: 'GraphQL', category: 'Backend & API' },
-    { value: 'apollo', label: 'Apollo', category: 'Backend & API' },
-    { value: 'trpc', label: 'tRPC', category: 'Backend & API' },
+    // --- Backend ---
+    { value: 'nodejs', label: 'Node.js', category: 'Backend', popular: true },
+    { value: 'python', label: 'Python', category: 'Backend', popular: true },
+    { value: 'express', label: 'Express', category: 'Backend' },
+    { value: 'deno', label: 'Deno', category: 'Backend' },
+    { value: 'bun', label: 'Bun', category: 'Backend' },
+    { value: 'django', label: 'Django', category: 'Backend' },
+    { value: 'flask', label: 'Flask', category: 'Backend' },
+    { value: 'java', label: 'Java', category: 'Backend' },
+    { value: 'spring', label: 'Spring Boot', category: 'Backend' },
+    { value: 'go', label: 'Go', category: 'Backend' },
+    { value: 'rust', label: 'Rust', category: 'Backend' },
+    { value: 'graphql', label: 'GraphQL', category: 'Backend' },
+    { value: 'apollo', label: 'Apollo', category: 'Backend' },
+    { value: 'trpc', label: 'tRPC', category: 'Backend' },
 
     // --- Database & Storage ---
     { value: 'postgresql', label: 'PostgreSQL', category: 'Database & Storage', popular: true },
@@ -117,7 +119,6 @@ export const getCommonDevToolsOptions = (): Option[] => {
     { value: 'neovim', label: 'Neovim', category: 'Editors & IDEs' },
     
     // --- Prototyping & Design ---
-    { value: 'figma', label: 'Figma', category: 'Prototyping & Design', popular: true },
     { value: 'storybook', label: 'Storybook', category: 'Prototyping & Design', popular: true },
     { value: 'v0', label: 'v0 by Vercel', category: 'Prototyping & Design' },
     { value: 'docusaurus', label: 'Docusaurus', category: 'Prototyping & Design' },
@@ -128,7 +129,6 @@ export const getCommonDevToolsOptions = (): Option[] => {
     { value: 'github', label: 'GitHub', category: 'Version Control', popular: true },
     { value: 'gitlab', label: 'GitLab', category: 'Version Control' },
     { value: 'notion', label: 'Notion', category: 'Collaboration' },
-    { value: 'slack', label: 'Slack', category: 'Collaboration' },
     { value: 'discord', label: 'Discord', category: 'Collaboration' },
 
     // --- Platforms & Services ---
