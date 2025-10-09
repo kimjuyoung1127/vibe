@@ -82,6 +82,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-site-verification" content="eOWAHNLhguVxaMJKKu8eumeT6HFeTKfLV_BMY4O3bG0" />
         <meta name="naver-site-verification" content="38bc24667dc28e0cb859cadfbff0362d3755582b" />
+        <link rel="alternate" type="application/rss+xml" title="Vibe Hub - All Content Feed" href="https://vibehub.tech/feed/all.xml" />
+        <link rel="alternate" type="application/rss+xml" title="Vibe Hub - News Feed" href="https://vibehub.tech/feed/news.xml" />
+        <link rel="alternate" type="application/rss+xml" title="Vibe Hub - Gear & Tech Reviews" href="https://vibehub.tech/feed/gear.xml" />
+        <link rel="alternate" type="application/rss+xml" title="Vibe Hub - Project Showcases" href="https://vibehub.tech/feed/projects.xml" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link 
           href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700" 

@@ -37,6 +37,7 @@
     "react-textarea-autosize": "^8.5.9",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
+    "rss": "^1.2.2",
     "rss-parser": "^3.13.0",
     "three": "^0.180.0",
     "zod": "^3.25.76"
